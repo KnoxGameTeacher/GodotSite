@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godot Game Design Class</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Site Header -->
+        <div class="site-header">
+            <h1>🎮 Godot Game Design Class</h1>
+            <p class="site-tagline">Learn game development with the free and open-source Godot Engine</p>
+        </div>
+
+        <!-- Course Overview -->
+        <div class="course-overview">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-units">0</div>
+                    <div class="stat-label">Units</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-sections">0</div>
+                    <div class="stat-label">Sections</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-steps">0</div>
+                    <div class="stat-label">Tasks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="overall-progress">0%</div>
+                    <div class="stat-label">Overall Progress</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Units Grid -->
+        <div class="units-grid" id="units-grid">
+            <!-- Units will be dynamically loaded here -->
+        </div>
+
+        <!-- Overall Progress Bar -->
+        <div class="overall-progress-section">
+            <h2>Course Progress</h2>
+            <div class="overall-progress-bar">
+                <div class="overall-progress-fill" id="overall-progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-details">
+                <span id="completed-steps">0</span> of <span id="total-steps-count">0</span> tasks completed
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="site-footer">
+            <p>Godot Game Design Class - Learn at your own pace</p>
+            <div class="footer-links">
+                <a href="https://godotengine.org" target="_blank">Official Godot Site</a>
+                <a href="https://docs.godotengine.org" target="_blank">Documentation</a>
+                <a href="https://godotengine.org/community" target="_blank">Community</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

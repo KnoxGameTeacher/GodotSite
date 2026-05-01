@@ -1,0 +1,1530 @@
+/* Retro Dark Mode Theme - Godot Game Design Class */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --retro-bg: #0a0c0f;
+    --retro-surface: #0f1117;
+    --retro-terminal: #1a1d24;
+    --retro-green: #4afc78;
+    --retro-green-dim: #2a9d4e;
+    --retro-amber: #ffb347;
+    --retro-red: #ff5f5f;
+    --retro-blue: #5f9fff;
+    --retro-purple: #b87dff;
+    --retro-cyan: #5fcfff;
+    --retro-white: #c0c5ce;
+    --retro-gray: #65737e;
+    --retro-border: #2a2e3a;
+    --glow: 0 0 10px rgba(74, 252, 120, 0.3);
+    --scanline: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 0, 0, 0.5) 50%
+    );
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    background: var(--retro-bg);
+    color: var(--retro-white);
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Scanline effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* CRT flicker animation */
+@keyframes flicker {
+    0% { opacity: 0.98; }
+    5% { opacity: 1; }
+    10% { opacity: 0.96; }
+    15% { opacity: 1; }
+    20% { opacity: 0.98; }
+    100% { opacity: 1; }
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    animation: flicker 6s infinite;
+    z-index: 998;
+}
+
+/* Container */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header / Title */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--retro-green);
+    text-shadow: 0 0 15px var(--retro-green);
+    border-left: 4px solid var(--retro-green);
+    padding-left: 20px;
+    margin-bottom: 30px;
+    letter-spacing: -1px;
+    animation: glitch 3s infinite;
+}
+
+@keyframes glitch {
+    0%, 100% { transform: skew(0deg, 0deg); opacity: 1; }
+    95% { transform: skew(0deg, 0deg); opacity: 1; }
+    96% { transform: skew(2deg, -1deg); opacity: 0.9; text-shadow: -2px 0 var(--retro-red); }
+    97% { transform: skew(-2deg, 1deg); opacity: 0.95; text-shadow: 2px 0 var(--retro-blue); }
+    98% { transform: skew(0deg, 0deg); opacity: 1; }
+}
+
+/* Unit list styling */
+#unit-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+#unit-list li {
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#unit-list li::before {
+    content: ">";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--retro-green);
+    font-weight: bold;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#unit-list li:hover {
+    border-color: var(--retro-green);
+    transform: translateX(5px);
+    box-shadow: var(--glow);
+}
+
+#unit-list li:hover::before {
+    opacity: 1;
+}
+
+#unit-list li a {
+    display: block;
+    padding: 20px 20px 20px 45px;
+    text-decoration: none;
+    color: var(--retro-white);
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+#unit-list li a:hover {
+    color: var(--retro-green);
+}
+
+/* Steps container */
+.steps {
+    background: var(--retro-terminal);
+    border: 2px solid var(--retro-border);
+    border-radius: 12px;
+    padding: 30px;
+    margin: 30px 0;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.steps::before {
+    content: "TERMINAL_INPUT";
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--retro-bg);
+    padding: 0 10px;
+    font-size: 0.75rem;
+    color: var(--retro-cyan);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.steps ol {
+    list-style: none;
+    counter-reset: step-counter;
+}
+
+.steps li {
+    counter-increment: step-counter;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(26, 29, 36, 0.5);
+    border-left: 3px solid var(--retro-gray);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.steps li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 0 10px var(--retro-green);
+}
+
+.steps li:hover {
+    border-left-color: var(--retro-green);
+    transform: translateX(5px);
+    background: rgba(74, 252, 120, 0.05);
+}
+
+/* Checkbox styling - FIXED VERSION */
+.steps li label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 25px;
+    font-size: 1rem;
+    color: var(--retro-white);
+    transition: all 0.3s ease;
+}
+
+/* Style the actual checkbox - don't hide it! */
+.step-check {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--retro-green);
+    margin: 0;
+}
+
+/* Optional: Style checkbox for retro look */
+.step-check {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--retro-bg);
+    border: 2px solid var(--retro-gray);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.step-check:checked {
+    background: var(--retro-green);
+    border-color: var(--retro-green);
+    position: relative;
+}
+
+.step-check:checked::after {
+    content: "✓";
+    position: absolute;
+    color: var(--retro-bg);
+    font-size: 14px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.step-check:hover {
+    border-color: var(--retro-green);
+    box-shadow: 0 0 5px var(--retro-green);
+}
+
+/* Label styling for checked items */
+.step-check:checked + span,
+input[type="checkbox"]:checked + span {
+    text-decoration: line-through;
+    color: var(--retro-gray);
+    opacity: 0.7;
+}
+
+/* Make sure the label structure works */
+.steps li label span {
+    flex: 1;
+}
+
+/* Back link styling */
+a {
+    color: var(--retro-cyan);
+    text-decoration: none;
+    border-bottom: 2px dotted var(--retro-cyan);
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 5px 0;
+}
+
+a:hover {
+    color: var(--retro-green);
+    border-bottom-color: var(--retro-green);
+    text-shadow: 0 0 5px var(--retro-green);
+    transform: translateX(-5px);
+}
+
+/* Progress indicator */
+.progress-bar {
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 4px;
+    padding: 3px;
+    margin: 20px 0;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--retro-green), var(--retro-green-dim));
+    height: 20px;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--retro-cyan);
+    font-family: monospace;
+}
+
+/* Status messages */
+.status-message {
+    background: var(--retro-terminal);
+    border-left: 4px solid var(--retro-green);
+    padding: 12px 20px;
+    margin: 20px 0;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--retro-green);
+}
+
+.status-message::before {
+    content: "❯ ";
+    color: var(--retro-green);
+    font-weight: bold;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--retro-gray);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--retro-green);
+}
+
+/* Selection styling */
+::selection {
+    background: var(--retro-green);
+    color: var(--retro-bg);
+}
+
+::-moz-selection {
+    background: var(--retro-green);
+    color: var(--retro-bg);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        padding-left: 15px;
+    }
+    
+    .steps {
+        padding: 20px;
+    }
+    
+    .steps li {
+        padding: 12px;
+    }
+    
+    .steps li label {
+        font-size: 0.9rem;
+    }
+    
+    #unit-list li a {
+        padding: 15px 15px 15px 40px;
+        font-size: 1rem;
+    }
+}
+
+/* Terminal cursor blink animation */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1.2em;
+    background: var(--retro-green);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+}
+
+/* Additional retro touches */
+h1, h2, h3 {
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+code, pre {
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9em;
+    color: var(--retro-cyan);
+}
+
+button, .button {
+    background: var(--retro-terminal);
+    border: 2px solid var(--retro-gray);
+    color: var(--retro-white);
+    padding: 10px 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    border-color: var(--retro-green);
+    color: var(--retro-green);
+    box-shadow: var(--glow);
+    transform: translateY(-2px);
+}
+
+input, textarea {
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border);
+    color: var(--retro-white);
+    padding: 10px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--retro-green);
+    box-shadow: var(--glow);
+}
+
+.terminal-header {
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px 8px 0 0;
+    padding: 12px 20px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: none;
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot.red { background: #ff5f5f; }
+.dot.yellow { background: #ffb347; }
+.dot.green { background: #4afc78; }
+
+.terminal-title {
+    color: var(--retro-cyan);
+    font-size: 0.85rem;
+    font-family: monospace;
+}
+
+/* YouTube Section */
+.youtube-section {
+    margin-bottom: 40px;
+    background: var(--retro-terminal);
+    border: 2px solid var(--retro-border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.section-header {
+    background: rgba(74, 252, 120, 0.1);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--retro-border);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--retro-cyan);
+}
+
+.section-icon {
+    font-size: 1.5rem;
+}
+
+.section-divider {
+    color: var(--retro-gray);
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+}
+
+.youtube-placeholder {
+    padding: 60px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--retro-bg) 0%, var(--retro-terminal) 100%);
+}
+
+.youtube-embed {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.youtube-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.placeholder-content {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.placeholder-meta {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--retro-gray);
+}
+
+/* Unit Header */
+.unit-header {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px;
+}
+
+.unit-meta {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.unit-badge {
+    background: rgba(74, 252, 120, 0.1);
+    border: 1px solid var(--retro-green);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--retro-green);
+}
+
+.unit-description {
+    font-size: 1.1rem;
+    color: var(--retro-white);
+    line-height: 1.6;
+}
+
+/* Step Cards */
+.step-card {
+    background: var(--retro-surface);
+    border: 1px solid var(--retro-border);
+    border-radius: 12px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.step-card:hover {
+    border-color: var(--retro-green);
+    box-shadow: 0 4px 20px rgba(74, 252, 120, 0.1);
+}
+
+.step-header {
+    background: rgba(26, 29, 36, 0.8);
+    padding: 20px;
+    border-bottom: 1px solid var(--retro-border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 0 10px var(--retro-green);
+}
+
+.step-title {
+    flex: 1;
+}
+
+.step-title label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.step-title .step-check {
+    width: 20px;
+    height: 20px;
+}
+
+.step-content {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    padding: 25px;
+}
+
+@media (max-width: 768px) {
+    .step-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.step-instructions {
+    flex: 1;
+}
+
+.step-media {
+    width: 300px;
+}
+
+@media (max-width: 768px) {
+    .step-media {
+        width: 100%;
+    }
+}
+
+.instruction-section {
+    margin-bottom: 25px;
+}
+
+.instruction-section h4 {
+    color: var(--retro-cyan);
+    margin-bottom: 12px;
+    font-size: 1rem;
+    border-left: 3px solid var(--retro-cyan);
+    padding-left: 10px;
+}
+
+.instruction-section ul {
+    margin-left: 20px;
+    list-style-type: none;
+}
+
+.instruction-section li {
+    margin: 10px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.instruction-section li::before {
+    content: "•";
+    color: var(--retro-green);
+    position: absolute;
+    left: 0;
+}
+
+/* Tip and Warning Boxes */
+.tip-box, .warning-box {
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid;
+}
+
+.tip-box {
+    background: rgba(74, 252, 120, 0.05);
+    border-left-color: var(--retro-green);
+    color: var(--retro-green);
+}
+
+.warning-box {
+    background: rgba(255, 95, 95, 0.05);
+    border-left-color: var(--retro-red);
+    color: var(--retro-red);
+}
+
+/* Image Placeholder */
+.image-placeholder {
+    background: var(--retro-terminal);
+    border: 2px dashed var(--retro-border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.image-placeholder .placeholder-icon {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.image-placeholder .placeholder-text {
+    font-size: 0.85rem;
+    color: var(--retro-gray);
+}
+
+.image-placeholder img {
+    max-width: 100%;
+    border-radius: 4px;
+}
+
+/* Unit Navigation */
+.unit-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px;
+}
+
+.nav-button {
+    background: var(--retro-bg);
+    border: 2px solid var(--retro-green);
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--retro-green);
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    transform: translateX(-5px);
+}
+
+.unit-completion-status {
+    font-size: 0.9rem;
+    color: var(--retro-cyan);
+}
+
+/* Keyboard key styling */
+kbd {
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-gray);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 0 var(--retro-gray);
+    margin: 0 2px;
+}
+
+/* Code blocks */
+code {
+    background: var(--retro-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9em;
+    color: var(--retro-cyan);
+}
+
+/* Step Cards - Fixed positioning */
+.step-card {
+    background: var(--retro-surface);
+    border: 1px solid var(--retro-border);
+    border-radius: 12px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step-card:hover {
+    border-color: var(--retro-green);
+    box-shadow: 0 4px 20px rgba(74, 252, 120, 0.1);
+}
+
+.step-header {
+    background: rgba(26, 29, 36, 0.8);
+    padding: 20px;
+    border-bottom: 1px solid var(--retro-border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 0 10px var(--retro-green);
+    flex-shrink: 0; /* Prevents the circle from shrinking */
+}
+
+.step-title {
+    flex: 1;
+}
+
+.step-title label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.step-title .step-check {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* Remove the old list styling that was causing issues */
+.steps ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.steps li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: static;
+}
+
+/* Remove the previous pseudo-element that was causing overlap */
+.steps li::before {
+    display: none;
+}
+
+/* Fix instruction section lists */
+.instruction-section ul {
+    margin: 10px 0 10px 25px;
+    padding: 0;
+    list-style-type: none;
+}
+
+.instruction-section li {
+    margin: 8px 0;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+}
+
+.instruction-section li::before {
+    content: "•";
+    color: var(--retro-green);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* Ensure step content is properly spaced */
+.step-content {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 25px;
+    padding: 25px;
+}
+
+@media (max-width: 768px) {
+    .step-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .step-media {
+        width: 100%;
+    }
+}
+
+/* Fix any remaining list overlap issues */
+.step-instructions ul,
+.step-instructions ol {
+    margin-left: 0;
+    padding-left: 25px;
+}
+
+.step-instructions li {
+    margin-bottom: 8px;
+}
+
+/* Ensure text doesn't wrap under the bullet */
+.instruction-section li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Numbered lists in instructions */
+.step-instructions ol {
+    margin: 10px 0 10px 25px;
+    padding: 0;
+    list-style-type: decimal;
+}
+
+.step-instructions ol li {
+    margin: 8px 0;
+    padding-left: 5px;
+}
+
+.step-instructions ol li::before {
+    display: none; /* Remove custom bullet for numbered lists */
+}
+
+/* Multi-page unit navigation */
+.section-header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.breadcrumb {
+    font-size: 0.85rem;
+    color: var(--retro-gray);
+}
+
+.breadcrumb a {
+    color: var(--retro-cyan);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: var(--retro-green);
+}
+
+.section-nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.section-nav-current {
+    font-size: 0.9rem;
+    color: var(--retro-green);
+}
+
+.next-button {
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.next-button:hover {
+    transform: translateX(5px);
+    box-shadow: var(--glow);
+}
+
+/* Unit overview grid */
+.unit-overview {
+    margin: 40px 0;
+}
+
+.unit-overview h2 {
+    color: var(--retro-cyan);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.section-card {
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 12px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.section-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--retro-green);
+    box-shadow: 0 5px 20px rgba(74, 252, 120, 0.1);
+}
+
+.section-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--retro-green);
+    opacity: 0.5;
+    font-family: monospace;
+}
+
+.section-info {
+    flex: 1;
+}
+
+.section-info h3 {
+    color: var(--retro-white);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.section-info p {
+    color: var(--retro-gray);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.section-progress {
+    font-size: 0.8rem;
+    color: var(--retro-cyan);
+    margin-top: 10px;
+}
+
+.section-button {
+    background: transparent;
+    border: 2px solid var(--retro-green);
+    color: var(--retro-green);
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.section-button:hover {
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    transform: translateX(5px);
+}
+
+/* Page navigation */
+.page-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.page-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.page-button {
+    padding: 8px 15px;
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border);
+    color: var(--retro-white);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.page-button:hover {
+    border-color: var(--retro-green);
+    color: var(--retro-green);
+}
+
+.current-page {
+    padding: 8px 15px;
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.nav-button.primary {
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    border-color: var(--retro-green);
+}
+
+.nav-button.primary:hover {
+    background: var(--retro-green-dim);
+    transform: translateX(5px);
+}
+
+/* Unit progress bar */
+.unit-progress-bar {
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border);
+    border-radius: 4px;
+    padding: 2px;
+    width: 200px;
+    margin-bottom: 5px;
+}
+
+.unit-progress-fill {
+    background: linear-gradient(90deg, var(--retro-green), var(--retro-green-dim));
+    height: 20px;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+}
+
+.unit-completion-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+@media (max-width: 768px) {
+    .unit-completion-status {
+        width: 100%;
+        align-items: flex-start;
+    }
+    
+    .unit-progress-bar {
+        width: 100%;
+    }
+    
+    .page-navigation {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .page-buttons {
+        justify-content: center;
+    }
+}
+
+/* Site Header */
+.site-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 20px;
+    background: var(--retro-terminal);
+    border: 2px solid var(--retro-border);
+    border-radius: 12px;
+}
+
+.site-header h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    border-left: none;
+    text-align: center;
+}
+
+.site-tagline {
+    font-size: 1.2rem;
+    color: var(--retro-cyan);
+    font-family: monospace;
+}
+
+/* Course Overview Stats */
+.course-overview {
+    margin-bottom: 40px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--retro-green);
+    transform: translateY(-3px);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--retro-green);
+    font-family: monospace;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--retro-gray);
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Units Grid */
+.units-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin: 40px 0;
+}
+
+.unit-card {
+    background: var(--retro-terminal);
+    border: 2px solid var(--retro-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.unit-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--retro-green);
+    box-shadow: var(--glow);
+}
+
+.unit-card-header {
+    background: linear-gradient(135deg, rgba(74, 252, 120, 0.1), transparent);
+    padding: 25px;
+    border-bottom: 1px solid var(--retro-border);
+}
+
+.unit-number {
+    font-size: 0.8rem;
+    color: var(--retro-green);
+    font-family: monospace;
+    letter-spacing: 2px;
+}
+
+.unit-card-header h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: var(--retro-white);
+}
+
+.unit-description {
+    color: var(--retro-gray);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.unit-card-body {
+    padding: 20px;
+}
+
+.unit-progress-info {
+    margin-bottom: 15px;
+}
+
+.unit-progress-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    color: var(--retro-cyan);
+}
+
+.unit-progress-bar {
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border);
+    border-radius: 4px;
+    padding: 2px;
+    margin: 10px 0;
+}
+
+.unit-progress-fill {
+    background: linear-gradient(90deg, var(--retro-green), var(--retro-green-dim));
+    height: 16px;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+}
+
+.unit-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    font-size: 0.75rem;
+    color: var(--retro-gray);
+}
+
+.unit-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.unit-card-footer {
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid var(--retro-border);
+}
+
+.start-unit-button {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.start-unit-button:hover {
+    background: var(--retro-green-dim);
+    transform: translateX(5px);
+}
+
+/* Overall Progress Section */
+.overall-progress-section {
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 12px;
+    padding: 25px;
+    margin: 40px 0;
+}
+
+.overall-progress-section h2 {
+    margin-bottom: 15px;
+    color: var(--retro-cyan);
+    font-size: 1.3rem;
+}
+
+.overall-progress-bar {
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px;
+    padding: 3px;
+    margin: 15px 0;
+}
+
+.overall-progress-fill {
+    background: linear-gradient(90deg, var(--retro-green), var(--retro-green-dim));
+    height: 30px;
+    border-radius: 6px;
+    transition: width 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.overall-progress-fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+.progress-details {
+    text-align: center;
+    color: var(--retro-cyan);
+    font-family: monospace;
+    margin-top: 10px;
+}
+
+/* Site Footer */
+.site-footer {
+    margin-top: 50px;
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 1px solid var(--retro-border);
+    color: var(--retro-gray);
+    font-size: 0.85rem;
+}
+
+.footer-links {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: var(--retro-gray);
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--retro-green);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .units-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .site-header h1 {
+        font-size: 2rem;
+    }
+}
