@@ -1,60 +1,19 @@
-// script.js - Complete working version for main page and unit pages
+// script.js - Complete working version with proper unit page updates
 
-// Course structure definition
-const courseStructure = {
-    1: { 
-        name: "Intro to Godot",
-        description: "Learn the fundamentals of Godot Engine and create your first project.",
-        difficulty: "Beginner",
-        estimatedTime: "2 hours",
-        sections: 4,
-        pages: {
-            1: { name: "Getting Started", steps: 3 },
-            2: { name: "Creating Your First Project", steps: 4 },
-            3: { name: "Exploring the Godot Interface", steps: 4 },
-            4: { name: "Your First Game Scene", steps: 4 }
-        }
-    },
-    2: { 
-        name: "Scenes & Nodes",
-        description: "Understand the building blocks of every Godot game.",
-        difficulty: "Beginner",
-        estimatedTime: "2.5 hours",
-        sections: 4,
-        pages: {
-            1: { name: "Understanding Nodes", steps: 3 },
-            2: { name: "Working with Scenes", steps: 4 },
-            3: { name: "Scene Tree", steps: 3 },
-            4: { name: "Instancing", steps: 4 }
-        }
-    },
-    3: { 
-        name: "Scripting Basics",
-        description: "Start coding with GDScript to make your games interactive.",
-        difficulty: "Intermediate",
-        estimatedTime: "3 hours",
-        sections: 4,
-        pages: {
-            1: { name: "Introduction to GDScript", steps: 4 },
-            2: { name: "Variables and Data Types", steps: 4 },
-            3: { name: "Functions and Logic", steps: 4 },
-            4: { name: "Basic Movement", steps: 4 }
-        }
-    },
-    4: { 
-        name: "Player Movement",
-        description: "Create playable characters with smooth controls.",
-        difficulty: "Intermediate",
-        estimatedTime: "3 hours",
-        sections: 4,
-        pages: {
-            1: { name: "Input Handling", steps: 3 },
-            2: { name: "Character Movement", steps: 4 },
-            3: { name: "Animation", steps: 4 },
-            4: { name: "Camera Controls", steps: 3 }
-        }
+let courseStructure = {};
+
+// Initialize course structure from global COURSE_DATA
+function initCourseStructure() {
+    if (typeof COURSE_DATA !== 'undefined') {
+        courseStructure = COURSE_DATA;
+        console.log('✅ Course data loaded:', Object.keys(courseStructure).length, 'units found');
+        return true;
+    } else {
+        console.error('❌ COURSE_DATA not found! Make sure course-data.js is loaded first.');
+        courseStructure = {};
+        return false;
     }
-};
+}
 
 // Save progress for a specific step
 function saveProgress(unitId, sectionId, stepId, completed) {
@@ -63,19 +22,17 @@ function saveProgress(unitId, sectionId, stepId, completed) {
     saved[stepId] = completed;
     localStorage.setItem(key, JSON.stringify(saved));
     
-    // Update all progress displays
+    // Update displays
     updateSectionProgress(unitId, sectionId);
     updateUnitProgress(unitId);
     updateOverallProgress();
 }
 
-// Load progress for a specific section
 function loadProgress(unitId, sectionId) {
     const key = `unit_${unitId}_section_${sectionId}`;
     return JSON.parse(localStorage.getItem(key)) || {};
 }
 
-// Get progress for entire unit
 function getUnitProgress(unitId) {
     const unitData = courseStructure[unitId];
     if (!unitData) return { completed: 0, total: 0, percentage: 0 };
@@ -83,13 +40,23 @@ function getUnitProgress(unitId) {
     let totalSteps = 0;
     let completedSteps = 0;
     
-    for (let section = 1; section <= unitData.sections; section++) {
-        const saved = loadProgress(unitId, section);
-        const sectionSteps = unitData.pages[section]?.steps || 0;
-        totalSteps += sectionSteps;
-        
-        const sectionCompleted = Object.values(saved).filter(v => v === true).length;
-        completedSteps += sectionCompleted;
+    // Count steps from pages
+    if (unitData.pages) {
+        for (let section = 1; section <= unitData.sections; section++) {
+            const saved = loadProgress(unitId, section);
+            const sectionSteps = unitData.pages[section]?.steps || 0;
+            totalSteps += sectionSteps;
+            const sectionCompleted = Object.values(saved).filter(v => v === true).length;
+            completedSteps += sectionCompleted;
+        }
+    } else {
+        // Fallback: count from sections
+        for (let section = 1; section <= unitData.sections; section++) {
+            const saved = loadProgress(unitId, section);
+            totalSteps += 3; // Assume 3 steps per section
+            const sectionCompleted = Object.values(saved).filter(v => v === true).length;
+            completedSteps += sectionCompleted;
+        }
     }
     
     return {
@@ -99,7 +66,6 @@ function getUnitProgress(unitId) {
     };
 }
 
-// Update section progress display
 function updateSectionProgress(unitId, sectionId) {
     const saved = loadProgress(unitId, sectionId);
     const checkboxes = document.querySelectorAll('.step-check');
@@ -116,25 +82,18 @@ function updateSectionProgress(unitId, sectionId) {
     
     const percentage = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
     
-    // Update section progress bar
     const progressFill = document.querySelector('.progress-fill');
     const progressPercent = document.getElementById('progress-percent');
     
-    if (progressFill) {
-        progressFill.style.width = `${percentage}%`;
-    }
-    if (progressPercent) {
-        progressPercent.textContent = `${Math.round(percentage)}%`;
-    }
-    
-    return percentage;
+    if (progressFill) progressFill.style.width = `${percentage}%`;
+    if (progressPercent) progressPercent.textContent = `${Math.round(percentage)}%`;
 }
 
-// Update overall unit progress (for unit overview page)
 function updateUnitProgress(unitId) {
     const progress = getUnitProgress(unitId);
+    console.log(`Updating Unit ${unitId} progress: ${Math.round(progress.percentage)}%`);
     
-    // Update unit progress bar on overview page
+    // Update main unit progress bar on unit index page
     const unitFill = document.getElementById('unit-progress-fill');
     const unitStatus = document.getElementById('completion-status');
     
@@ -145,20 +104,23 @@ function updateUnitProgress(unitId) {
         unitStatus.innerHTML = `Unit Progress: ${Math.round(progress.percentage)}%`;
     }
     
-    // Update section progress cards on overview page
-    for (let section = 1; section <= courseStructure[unitId].sections; section++) {
-        const sectionProgressSpan = document.getElementById(`section${section}-progress`);
-        if (sectionProgressSpan) {
-            const saved = loadProgress(unitId, section);
-            const sectionSteps = courseStructure[unitId].pages[section]?.steps || 0;
-            const sectionCompleted = Object.values(saved).filter(v => v === true).length;
-            const sectionPercent = sectionSteps > 0 ? (sectionCompleted / sectionSteps) * 100 : 0;
-            sectionProgressSpan.textContent = `${Math.round(sectionPercent)}% complete`;
+    // Update each section's progress card on the unit index page
+    const unitData = courseStructure[unitId];
+    if (unitData && unitData.pages) {
+        for (let section = 1; section <= unitData.sections; section++) {
+            const sectionProgressSpan = document.getElementById(`section${section}-progress`);
+            if (sectionProgressSpan) {
+                const saved = loadProgress(unitId, section);
+                const sectionSteps = unitData.pages[section]?.steps || 0;
+                const sectionCompleted = Object.values(saved).filter(v => v === true).length;
+                const sectionPercent = sectionSteps > 0 ? (sectionCompleted / sectionSteps) * 100 : 0;
+                sectionProgressSpan.textContent = `${Math.round(sectionPercent)}% complete`;
+                console.log(`  Section ${section}: ${Math.round(sectionPercent)}% (${sectionCompleted}/${sectionSteps} steps)`);
+            }
         }
     }
 }
 
-// Update overall course progress (for main page)
 function updateOverallProgress() {
     let totalStepsAllUnits = 0;
     let completedStepsAllUnits = 0;
@@ -171,32 +133,24 @@ function updateOverallProgress() {
     
     const overallPercentage = totalStepsAllUnits > 0 ? (completedStepsAllUnits / totalStepsAllUnits) * 100 : 0;
     
-    // Update main page displays if they exist
+    // Update main page displays
     const overallFill = document.getElementById('overall-progress-fill');
     const overallProgressSpan = document.getElementById('overall-progress');
     const completedStepsSpan = document.getElementById('completed-steps');
     const totalStepsSpan = document.getElementById('total-steps-count');
     
-    if (overallFill) {
-        overallFill.style.width = `${overallPercentage}%`;
-    }
-    if (overallProgressSpan) {
-        overallProgressSpan.textContent = `${Math.round(overallPercentage)}%`;
-    }
-    if (completedStepsSpan) {
-        completedStepsSpan.textContent = completedStepsAllUnits;
-    }
-    if (totalStepsSpan) {
-        totalStepsSpan.textContent = totalStepsAllUnits;
-    }
+    if (overallFill) overallFill.style.width = `${overallPercentage}%`;
+    if (overallProgressSpan) overallProgressSpan.textContent = `${Math.round(overallPercentage)}%`;
+    if (completedStepsSpan) completedStepsSpan.textContent = completedStepsAllUnits;
+    if (totalStepsSpan) totalStepsSpan.textContent = totalStepsAllUnits;  // This is the "tasks" number
     
-    // Update stat cards on main page
+    // Update the stats cards
     const totalUnitsSpan = document.getElementById('total-units');
     const totalSectionsSpan = document.getElementById('total-sections');
+    const totalStepsCardSpan = document.getElementById('total-steps');  // This is the "Tasks" stat card
     
-    if (totalUnitsSpan) {
-        totalUnitsSpan.textContent = Object.keys(courseStructure).length;
-    }
+    if (totalUnitsSpan) totalUnitsSpan.textContent = Object.keys(courseStructure).length;
+    
     if (totalSectionsSpan) {
         let totalSections = 0;
         for (const unitId in courseStructure) {
@@ -204,12 +158,28 @@ function updateOverallProgress() {
         }
         totalSectionsSpan.textContent = totalSections;
     }
+    
+    // THIS IS THE KEY FIX - Update the Tasks stat card
+    if (totalStepsCardSpan) {
+        totalStepsCardSpan.textContent = totalStepsAllUnits;
+    }
+    
+    console.log(`📊 Overall stats: ${totalStepsAllUnits} total tasks, ${completedStepsAllUnits} completed, ${Math.round(overallPercentage)}%`);
 }
 
-// Initialize the main page (index.html)
 function initializeMainPage() {
     const unitsGrid = document.getElementById('units-grid');
-    if (!unitsGrid) return;
+    if (!unitsGrid) {
+        console.log('Not on main page, skipping unit grid initialization');
+        return false;
+    }
+    
+    console.log('Initializing main page with', Object.keys(courseStructure).length, 'units');
+    
+    if (Object.keys(courseStructure).length === 0) {
+        unitsGrid.innerHTML = '<div class="loading">⚠️ No course data found. Please check course-data.js</div>';
+        return false;
+    }
     
     unitsGrid.innerHTML = '';
     
@@ -249,81 +219,183 @@ function initializeMainPage() {
     }
     
     updateOverallProgress();
+    console.log('✅ Main page initialized with', unitsGrid.children.length, 'unit cards');
+    return true;
 }
 
-// Initialize checkboxes on unit section pages
 function initializeCheckboxes() {
     const stepContainers = document.querySelectorAll('.steps');
+    if (stepContainers.length === 0) return false;
     
-    if (stepContainers.length === 0) return;
+    console.log('Initializing checkboxes for', stepContainers.length, 'sections');
     
     stepContainers.forEach(container => {
         const unitId = container.getAttribute('data-unit');
         const sectionId = container.getAttribute('data-section');
-        
         if (!unitId || !sectionId) return;
         
-        // Load saved progress
         const saved = loadProgress(unitId, sectionId);
-        
-        // Initialize checkboxes
         const checkboxes = container.querySelectorAll('.step-check');
+        
         checkboxes.forEach(checkbox => {
             const step = checkbox.getAttribute('data-step');
-            if (saved[step]) {
-                checkbox.checked = true;
-            }
+            if (saved[step]) checkbox.checked = true;
             
-            // Add change listener
             checkbox.addEventListener('change', function() {
                 saveProgress(unitId, sectionId, step, this.checked);
-                
-                // Show status message
                 showStatusMessage(container, `Step ${step} ${this.checked ? 'completed' : 'unchecked'}`);
             });
         });
         
-        // Update progress displays
         updateSectionProgress(unitId, sectionId);
     });
+    return true;
 }
 
-// Show temporary status message
 function showStatusMessage(container, message) {
     const statusMsg = document.createElement('div');
     statusMsg.className = 'status-message';
     statusMsg.textContent = `✓ ${message} - Auto-saved`;
     
-    // Remove old messages
     const oldMessages = document.querySelectorAll('.status-message');
     oldMessages.forEach(msg => msg.remove());
     
     container.parentNode.insertBefore(statusMsg, container.nextSibling);
-    
-    setTimeout(() => {
-        statusMsg.remove();
-    }, 2000);
+    setTimeout(() => statusMsg.remove(), 2000);
 }
 
-// Initialize unit overview page (units/unitX/index.html)
 function initializeUnitOverview() {
-    // Get unit ID from the current path
+    // Check if we're on a unit index page (has sections-grid)
+    const sectionsGrid = document.querySelector('.sections-grid');
+    if (!sectionsGrid) {
+        console.log('Not on a unit overview page, skipping');
+        return false;
+    }
+    
+    // Extract unit ID from the path
     const pathParts = window.location.pathname.split('/');
-    const unitIndex = pathParts.indexOf('unit');
     let unitId = null;
     
-    if (unitIndex !== -1 && pathParts[unitIndex + 1]) {
-        unitId = parseInt(pathParts[unitIndex + 1]);
+    // Look for unit pattern in path
+    for (let i = 0; i < pathParts.length; i++) {
+        if (pathParts[i] === 'unit' && pathParts[i + 1]) {
+            unitId = parseInt(pathParts[i + 1]);
+            break;
+        }
+    }
+    
+    // Also check for unit number in the page content
+    if (!unitId) {
+        const unitHeader = document.querySelector('.unit-header h1');
+        if (unitHeader) {
+            const match = unitHeader.textContent.match(/Unit\s+(\d+)/);
+            if (match) unitId = parseInt(match[1]);
+        }
     }
     
     if (unitId && courseStructure[unitId]) {
-        updateUnitProgress(unitId);
+        console.log(`🎯 Updating unit overview for Unit ${unitId}`);
+        // Small delay to ensure DOM is fully ready
+        setTimeout(() => {
+            updateUnitProgress(unitId);
+        }, 100);
+        return true;
+    } else if (unitId) {
+        console.warn(`Unit ${unitId} not found in course structure`);
+    }
+    
+    return false;
+}
+
+// Force update unit progress after any checkbox change
+function forceUpdateUnitPage() {
+    const sectionsGrid = document.querySelector('.sections-grid');
+    if (sectionsGrid) {
+        const pathParts = window.location.pathname.split('/');
+        let unitId = null;
+        for (let i = 0; i < pathParts.length; i++) {
+            if (pathParts[i] === 'unit' && pathParts[i + 1]) {
+                unitId = parseInt(pathParts[i + 1]);
+                break;
+            }
+        }
+        if (unitId && courseStructure[unitId]) {
+            updateUnitProgress(unitId);
+        }
     }
 }
 
-// Run the appropriate initialization based on the page
-window.onload = function() {
-    initializeMainPage();      // For index.html
-    initializeCheckboxes();    // For unit section pages
-    initializeUnitOverview();  // For unit overview pages
+// Override saveProgress to also update unit page if needed
+const originalSaveProgress = saveProgress;
+saveProgress = function(unitId, sectionId, stepId, completed) {
+    originalSaveProgress(unitId, sectionId, stepId, completed);
+    forceUpdateUnitPage();
 };
+
+// Add loading styles if not present
+const loadingStyles = `
+    .loading {
+        text-align: center;
+        padding: 50px;
+        color: var(--retro-cyan);
+        font-family: monospace;
+        font-size: 1.2rem;
+    }
+    .loading::before {
+        content: "📚";
+        display: inline-block;
+        margin-right: 10px;
+        animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+    }
+`;
+
+if (!document.querySelector('#loading-styles')) {
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = loadingStyles;
+    document.head.appendChild(styleSheet);
+}
+
+// Initialize everything when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing...');
+    
+    // Initialize course data
+    const dataLoaded = initCourseStructure();
+    
+    if (dataLoaded) {
+        // Run all initializers
+        initializeMainPage();
+        initializeCheckboxes();
+        initializeUnitOverview();
+        
+        // Extra check for unit overview pages - run again after a short delay
+        setTimeout(() => {
+            if (document.querySelector('.sections-grid')) {
+                console.log('🔄 Running delayed unit overview update');
+                initializeUnitOverview();
+            }
+        }, 500);
+    } else {
+        console.error('Failed to load course data, retrying...');
+        // Retry after a short delay
+        setTimeout(() => {
+            if (initCourseStructure()) {
+                initializeMainPage();
+                initializeCheckboxes();
+                initializeUnitOverview();
+            }
+        }, 500);
+    }
+});
+
+// Also run when page is fully loaded (for images, etc.)
+window.addEventListener('load', function() {
+    console.log('Window fully loaded, checking for unit overview...');
+    if (document.querySelector('.sections-grid') && Object.keys(courseStructure).length > 0) {
+        initializeUnitOverview();
+    }
+});
