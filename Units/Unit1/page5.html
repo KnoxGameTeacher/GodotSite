@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1.5: Adding Collision to Walls - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 1</a> > 
+                <span>Section 5: Adding Collision to Walls</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 5 of 5</span>
+                <a href="../../index.html" class="next-button">Unit Complete →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 5 Videos</h3>
+                    <p>Watch: "Adding Tile Collision in Godot 4"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 5: Adding Collision to Walls</h1>
+            <p class="unit-description">Create a collision-ready wall layer using transparent tiles and configure collision shapes in the TileSet panel.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="1" data-section="5">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1: Fill the Room with Blank Floor Tiles -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Fill the Entire Blue Boundary with Blank Floor Tiles</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🎨 Understanding the Blue Boundary</h4>
+                            <p>The blue rectangle in your viewport represents the visible game area. We want to fill this entire area with floor tiles.</p>
+                            <ul>
+                                <li>Select the <strong>"Background"</strong> (TileMapLayer) node</li>
+                                <li>In the TileSet panel, select a <strong>basic floor tile</strong></li>
+                                <li>Switch to the <strong>Paint Tool</strong> (press <kbd>D</kbd> key or click the pencil icon)</li>
+                                <li>Draw a rectangle around the area, switch to the Bucket <kbd>B</kbd> and fill the area</li>
+                                <li>The entire visible game area should now be covered with floor tiles</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The Fill tool is perfect for covering large areas quickly. Just make sure you have the right tile selected!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Filled floor with blank tiles"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 5.1: The entire blue boundary filled with basic floor tiles</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Create the Walls TileMapLayer -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Create a Child TileMapLayer Node Called "Walls"</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🏗️ Adding a Separate Layer for Walls</h4>
+                            <p>Using separate layers keeps your level organized and makes collision management easier.</p>
+                            <ul>
+                                <li>Select the <strong>"Background"</strong> (TileMapLayer) node</li>
+                                <li>Click the <strong>"+"</strong> (Add Child Node) icon, or Ctrl+A to add a node</li>
+                                <li>Search for and select <strong>"TileMapLayer"</strong></li>
+                                <li>Click <strong>"Create"</strong></li>
+                                <li>Right-click the new node and rename it to <strong>"Walls"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Using multiple TileMapLayer nodes (Background, Walls, Decorations) makes editing and adjusting each layer much easier!
+                            </div>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>❓ Why a Separate Walls Layer?</h4>
+                            <ul>
+                                <li>Makes it easy to edit walls without affecting the floor</li>
+                                <li>Better performance and organization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Creating Walls TileMapLayer"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 5.2: Creating a child TileMapLayer node named "Walls"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Configure the Walls TileSet -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Create a TileSet for the Walls Layer Using the Same Atlas</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🖼️ Setting Up the Walls TileSet</h4>
+                            <ul>
+                                <li>Select the <strong>"Walls"</strong> (TileMapLayer) node</li>
+                                <li>In the Inspector, find the <strong>"TileSet"</strong> property</li>
+                                <li>Click the dropdown and select <strong>"New TileSet"</strong></li>
+                                <li>Click the <strong>"TileSet"</strong> property to open the TileSet panel</li>
+                                <li>Click <strong>"Add Atlas"</strong> and drag your <strong>tilesheet.png</strong> again</li>
+                                <li>Set <strong>"Tile Size"</strong> to <strong>"64" x "64"</strong></li>
+                                <li>Click <strong>"OK"</strong> to create the atlas</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> You can reuse the same tilesheet across multiple TileMapLayer nodes. Each layer can have different collision settings!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Walls TileSet configuration"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 5.3: Configuring the Walls layer with the same tilesheet atlas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Paint Walls Around the Room with Rotation -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Paint Walls on the Room Boundaries Using Rotation Tools</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🧱 Painting the Outer Walls</h4>
+                            <ul>
+                                <li>Select the <strong>"Walls"</strong> (TileMapLayer) node</li>
+                                <li>In the TileSet panel, select a <strong>wall tile</strong> with transparent background</li>
+                                <li>Paint walls along the <strong>outer edge</strong> of your room</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🔄 Using Tile Rotation</h4>
+                            <p>To create a complete wall enclosure, you'll need to rotate wall tiles to face different directions:</p>
+                            <ul>
+                                <li>Select a wall tile in the TileSet panel</li>
+                                <li>Before painting, use rotation shortcuts:</li>
+                                <li><kbd>X</kbd> key - Rotate 90 degrees Right</li>
+                                <li><kbd>Z</kbd> - Rotate 90 degrees Left</li>
+                                <li>You can also click the <strong>rotation icons</strong> in the top toolbar of the TileSet Panel</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Walls painted with rotation"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 5.4: Walls painted around the room perimeter using tile rotation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Add Collision to Wall Tiles -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Create Collision Shapes for Wall Tiles in the TileSet Panel</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🛡️ Adding Collision to Tiles</h4>
+                            <p>This is the most important step! We'll add collision shapes to each wall tile so the player can't walk through them.</p>
+                            <ul>
+                                <li>With the <strong>"Walls"</strong> node selected, open the <strong>TileSet panel</strong></li>
+                                <li>In the Inspector panel, click the <strong>"Physics Layers"</strong> section</li>
+                                <li>Click <strong>"Add Physics Layer"</strong> and then click <strong>"Add Element"</strong></li>
+                                <li>On the TileSet panel again, double-click the atlas preview that says "tilesheet.png"</li>
+                                <li>Click on <strong>Select</strong>, click on a <strong>wall tile</strong> that you used on the room</li>
+                                <li>Using the <strong>Add Polygon</strong> tool, click to add points at the corners of the wall</li>
+                                <li>Do the same for any other wall tiles used in this scene</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> Make sure collision polygons cover the entire solid area of each wall tile. If the polygon is too small, the player might clip through corners!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Adding collision to wall tile"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 5.5: Adding a collision polygon to a wall tile in the TileSet panel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Test Your Collision-Ready Walls -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Save and Test Your Collision Walls</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>💾 Save Your Work</h4>
+                            <ul>
+                                <li>Press <kbd>Ctrl + S</kbd> to save your <strong>TestLevel.tscn</strong></li>
+                                <li>Make sure both Background and Walls layers are saved</li>
+                                <li>The TileSet collision data saves automatically with the scene</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🎮 Testing Your Collision Walls</h4>
+                            <ul>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>Try to move your player through the walls</li>
+                                <li>You should now <strong>bump into walls</strong> instead of walking through them!</li>
+                                <li>Test all four walls and corners</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🐛 Troubleshooting Common Issues</h4>
+                            <ul>
+                                <li><strong>Player walks through walls:</strong> Forgot to add collision polygon to the wall tile</li>
+                                <li><strong>Player gets stuck on walls:</strong> Collision polygon extends beyond the visual wall</li>
+                                <li><strong>Some walls work, others don't:</strong> Not all wall tiles have collision polygons added</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>🎉 Congratulations!</strong> Your A-Maze-Ball game now has proper collision! The player can explore the room but isn't much of a "maze". We'll fix that next with some level design!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Player bumping into wall"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 5.6: The player now collides with walls instead of walking through them!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page4.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <span class="current-page">Page 5</span>
+            </div>
+            <a href="../../index.html" class="nav-button primary">Unit Complete! →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

@@ -5,12 +5,13 @@ const COURSE_DATA = {
         description: "Learn the fundamentals of Godot Engine and create your first project.",
         difficulty: "Beginner",
         estimatedTime: "2 hours",
-        sections: 4,
+        sections: 5,
         pages: {
             1: { name: "Getting Started", steps: 3 },
-            2: { name: "Creating Your First Project", steps: 4 },
-            3: { name: "Exploring the Godot Interface", steps: 4 },
-            4: { name: "Your First Game Scene", steps: 4 }
+            2: { name: "Creating A-Maze-Ball Project", steps: 4 },
+            3: { name: "Creating the Player (CharacterBody2D)", steps: 5 },
+            4: { name: "Creating a Test Level with TileMapLayer", steps: 6 },
+            5: { name: "Adding Collision to Walls", steps: 6 }
         }
     },
     2: { 

@@ -3,27 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 1: Intro to Godot</title>
+    <title>Unit 1: Intro to Godot - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <div class="main-container">
+        <!-- YouTube Playlist Placeholder -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder" id="youtube-playlist">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>YouTube Playlist Coming Soon</h3>
+                    <p>Video tutorials for this unit will be added here</p>
+                    <div class="placeholder-meta">
+                        <span>🎬 Playlist ID: UNIT1_GODOT_2024</span>
+                        <span>📝 5 videos planned</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Unit Header -->
         <div class="unit-header">
             <h1>Unit 1: Intro to Godot</h1>
             <div class="unit-meta">
                 <span class="unit-badge">🎮 Beginner</span>
-                <span class="unit-badge">⏱️ 4 sections</span>
-                <span class="unit-badge">📦 12 tasks total</span>
+                <span class="unit-badge">⏱️ 3 hours</span>
+                <span class="unit-badge">📦 5 sections</span>
             </div>
-            <p class="unit-description">Learn the fundamentals of Godot Engine and create your first project.</p>
+            <p class="unit-description">Learn the fundamentals of Godot Engine and create your first playable maze level with A-Maze-Ball!</p>
         </div>
 
         <!-- Unit Overview / Sections Grid -->
         <div class="unit-overview">
             <h2>Unit Sections</h2>
             <div class="sections-grid">
+                <!-- Section 1 -->
                 <div class="section-card" data-section="1">
                     <div class="section-number">01</div>
                     <div class="section-info">
@@ -34,34 +54,48 @@
                     <a href="page1.html" class="section-button">Start →</a>
                 </div>
                 
+                <!-- Section 2 -->
                 <div class="section-card" data-section="2">
                     <div class="section-number">02</div>
                     <div class="section-info">
-                        <h3>Creating Your First Project</h3>
-                        <p>Set up a new project and understand the folder structure</p>
+                        <h3>Creating A-Maze-Ball Project</h3>
+                        <p>Set up a new 2D project and configure project settings</p>
                         <div class="section-progress" id="section2-progress">0% complete</div>
                     </div>
                     <a href="page2.html" class="section-button">Start →</a>
                 </div>
                 
+                <!-- Section 3 -->
                 <div class="section-card" data-section="3">
                     <div class="section-number">03</div>
                     <div class="section-info">
-                        <h3>Exploring the Godot Interface</h3>
-                        <p>Navigate the editor and learn essential shortcuts</p>
+                        <h3>Creating the Player (CharacterBody2D)</h3>
+                        <p>Add the player character with Sprite2D and top-down movement script</p>
                         <div class="section-progress" id="section3-progress">0% complete</div>
                     </div>
                     <a href="page3.html" class="section-button">Start →</a>
                 </div>
                 
+                <!-- Section 4 -->
                 <div class="section-card" data-section="4">
                     <div class="section-number">04</div>
                     <div class="section-info">
-                        <h3>Your First Game Scene</h3>
-                        <p>Add a sprite and run your first game</p>
+                        <h3>Creating a Test Level with TileMapLayer</h3>
+                        <p>Paint a visual test room using the Kenney Scribble Dungeons tileset</p>
                         <div class="section-progress" id="section4-progress">0% complete</div>
                     </div>
                     <a href="page4.html" class="section-button">Start →</a>
+                </div>
+
+                <!-- Section 5 -->
+                <div class="section-card" data-section="5">
+                    <div class="section-number">05</div>
+                    <div class="section-info">
+                        <h3>Adding Collision to Walls</h3>
+                        <p>Create a collision-ready wall layer and add physics to boundaries</p>
+                        <div class="section-progress" id="section5-progress">0% complete</div>
+                    </div>
+                    <a href="page5.html" class="section-button">Start →</a>
                 </div>
             </div>
         </div>
@@ -77,6 +111,7 @@
             </div>
         </div>
     </div>
+
     <script src="../../course-data.js"></script>
     <script src="../../script.js"></script>
 </body>

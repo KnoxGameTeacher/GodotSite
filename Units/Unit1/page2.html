@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1.2: Creating A-Maze-Ball Project - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 1</a> > 
+                <span>Section 2: Creating A-Maze-Ball Project</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 2 of 4</span>
+                <a href="page3.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 2 Videos</h3>
+                    <p>Watch: "Creating Your First Godot Project"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 2: Creating A-Maze-Ball Project</h1>
+            <p class="unit-description">Set up a new 3D project called "A-Maze-Ball" with the Forward+ renderer and configure project settings.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="1" data-section="2">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Open Godot and Create a New Project</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🚀 Launching the Project Manager</h4>
+                            <p>When you open Godot, you'll see the Project Manager window. This is where you can browse existing projects or create new ones.</p>
+                            <ul>
+                                <li>If Godot isn't already open, launch it from your desktop or applications folder</li>
+                                <li>In the Project Manager, click the <strong>"New Project"</strong> button on the right side</li>
+                                <li>A dialog box will appear asking for project details</li>
+                                <li>Click <strong>"Browse"</strong> to choose where to save your project</li>
+                                <li>Create a new folder called <strong>"GodotProjects"</strong> on your computer (or use an existing folder)</li>
+                                <li>Inside that folder, create a subfolder named <strong>"A-Maze-Ball"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Keep all your Godot projects organized in one parent folder (like "GodotProjects") so they're easy to find later!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Godot Project Manager"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 2.1: Godot Project Manager with New Project button highlighted</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Configure Project Settings</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>⚙️ Project Configuration</h4>
+                            <p>Now we'll set up the basic project information:</p>
+                            <ul>
+                                <li><strong>Project Name:</strong> Enter <code>"A-Maze-Ball"</code> (exactly as shown, with hyphens)</li>
+                                <li><strong>Project Path:</strong> Should show the folder you created (e.g., <code>/Users/YourName/GodotProjects/A-Maze-Ball</code>)</li>
+                                <li><strong>Renderer:</strong> Select <strong>"Forward+"</strong> from the dropdown menu</li>
+                                <li><strong>Create Folder:</strong> Keep this checked (it will create the default project structure)</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> The Forward+ renderer is recommended for modern 3D games. It provides better lighting and visual effects compared to the Compatibility renderer.
+                            </div>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🎮 What is Forward+?</h4>
+                            <ul>
+                                <li>Supports advanced lighting effects like global illumination</li>
+                                <li>Better performance for 3D games with many light sources</li>
+                                <li>Recommended for desktop and console games</li>
+                                <li>Requires a graphics card that supports Vulkan or Direct3D 12</li>
+                                <li>Perfect for our A-Maze-Ball 3D maze game!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="New Project Dialog"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 2.2: New Project dialog with Forward+ renderer selected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Create and Open the Project</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>✨ Creating Your First Project</h4>
+                            <p>With all settings configured, it's time to create the project:</p>
+                            <ul>
+                                <li>Double-check that the Project Name is <strong>"A-Maze-Ball"</strong></li>
+                                <li>Confirm the Renderer is set to <strong>"Forward+"</strong></li>
+                                <li>Click the <strong>"Create & Edit"</strong> button</li>
+                                <li>Godot will now create your project folder and open the editor</li>
+                                <li>You'll see the Godot editor with a default empty 3D scene</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The first time you open a new project, Godot creates several default files including <code>project.godot</code> (the project settings file) and an empty <code>Main.tscn</code> scene.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Godot Editor First Launch"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 2.3: Godot editor after creating a new 3D project</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Review Project Structure</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>📁 Understanding Your Project Files</h4>
+                            <p>Take a moment to explore what Godot created for you:</p>
+                            <ul>
+                                <li><strong>FileSystem Dock (bottom left):</strong> Shows all files in your project</li>
+                                <li><strong>project.godot:</strong> The main project configuration file (don't delete this!)</li>
+                                <li><strong>Main.tscn:</strong> Your first scene file (currently empty)</li>
+                                <li><strong>icon.svg:</strong> Default project icon (you'll replace this later)</li>
+                                <li><strong>imported/</strong> folder: Contains imported assets</li>
+                                <li><strong>.godot/</strong> folder: Cache files (safe to delete, will regenerate)</li>
+                            </ul>
+                            <div class="instruction-section">
+                                <h4>🎯 What's Next?</h4>
+                                <p>Now that your project is set up, you're ready to start building A-Maze-Ball! In the next sections you'll learn how to:</p>
+                                <ul>
+                                    <li>Create a 2D maze environment</li>
+                                    <li>Add a simple ball character</li>
+                                    <li>Write GDScript code for movement</li>
+                                    <li>Add collectibles and sound effects</li>
+                                </ul>
+                            </div>
+                            <div class="tip-box">
+                                <strong>🎉 Congratulations!</strong> You've successfully created your first Godot 3D project. Save your work and move to the next section when you're ready!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Project File Structure"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 2.4: Godot FileSystem dock showing A-Maze-Ball project structure</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page1.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <span class="current-page">Page 2</span>
+                <a href="page3.html" class="page-button">Page 3 →</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+            </div>
+            <a href="page3.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

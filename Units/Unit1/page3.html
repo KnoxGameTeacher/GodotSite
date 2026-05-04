@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1.3: Creating the Player (CharacterBody2D) - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 1</a> > 
+                <span>Section 3: Creating the Player (CharacterBody2D)</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 3 of 4</span>
+                <a href="page4.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 3 Videos</h3>
+                    <p>Watch: "Creating a CharacterBody2D Player in Godot"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 3: Creating the Player (CharacterBody2D)</h1>
+            <p class="unit-description">Set up the player character using CharacterBody2D, add the Scribble Dungeons assets, and script top-down movement.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="1" data-section="3">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1: Download and Add Assets -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Download and Add Scribble Dungeons Assets</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🎨 Downloading the Asset Pack</h4>
+                            <p>The Scribble Dungeons pack by Kenney provides beautiful hand-drawn style assets perfect for our maze game.</p>
+                            <ul>
+                                <li>Visit <a href="https://kenney.nl/assets/scribble-dungeons" target="_blank">https://kenney.nl/assets/scribble-dungeons</a></li>
+                                <li>Click the download button (it's free!)</li>
+                                <li>Extract the downloaded ZIP file</li>
+                                <li>Navigate the folders to the <strong>"PNG / Default 64px / Characters"</strong> folder inside the extracted files</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>📂 Adding Assets to Your Project</h4>
+                            <ul>
+                                <li>Back in Godot, In your project's FileSystem dock, right-click and select <strong>"Create Folder"</strong></li>
+                                <li>Name the folder <code>assets</code></li>
+                                <li>Inside <code>assets</code>, create another folder called <code>player</code></li>
+                                <li>Drag and drop the circle character textures from the extracted folder into <code>assets/player/</code></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Kenney’s assets use the CC0 license, meaning you can use them for free, even in commercial games!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Adding assets to FileSystem"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 3.1: Dragging circle character sprites into the assets/player folder</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Add CharacterBody2D Node -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Create the CharacterBody2D Root Node</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🏗️ Setting Up the Player Scene</h4>
+                            <p>We'll create a new scene for the player that will be reused throughout the game.</p>
+                            <ul>
+                                <li>Go to <strong>Scene → New Scene</strong> or press <kbd>Ctrl + N</kbd></li>
+                                <li>Click the <strong>"Other Node"</strong> button</li>
+                                <li>Search for and select <strong>"CharacterBody2D"</strong></li>
+                                <li>Click <strong>"Create"</strong></li>
+                                <li>Rename the node to <strong>"Player"</strong> (right-click the node and select Rename)</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> CharacterBody2D is the standard node for player-controlled characters. It handles movement, collision, and physics automatically!
+                            </div>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>❓ What is CharacterBody2D?</h4>
+                            <ul>
+                                <li>Designed for player-controlled movement</li>
+                                <li>Handles collisions and slopes for you</li>
+                                <li>Includes built-in methods like <code>move_and_slide()</code></li>
+                                <li>Perfect for top-down and platformer games</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Creating CharacterBody2D node"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 3.2: Creating a new CharacterBody2D node as the root of the player scene</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Add Sprite2D and CollisionShape2D -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add Sprite2D and CollisionShape2D</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🖼️ Adding Visual and Collision Components</h4>
+                            <p>With the Player node selected, add these child nodes:</p>
+                            <ul>
+                                <li>Click the <strong>"+"</strong> icon (Add Child Node) next to the Player node</li>
+                                <li>Search for and add <strong>"Sprite2D"</strong></li>
+                                <li>With Sprite2D selected, look at the Inspector</li>
+                                <li>Find the <strong>"Texture"</strong> property and click the dropdown</li>
+                                <li>Select <strong>"Load"</strong> and navigate to your <code>assets/player/</code> folder</li>
+                                <li>Choose the circle character sprite you want (e.g., <code>blue_character.png</code>)</li>
+                                <li>Click <strong>"Open"</strong> to apply the texture</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>💥 Adding Collision Detection</h4>
+                            <ul>
+                                <li>Again, click the <strong>"+"</strong> icon next to the Player node</li>
+                                <li>Search for and add <strong>"CollisionShape2D"</strong></li>
+                                <li>With CollisionShape2D selected, go to the Inspector</li>
+                                <li>Click the <strong>"Shape"</strong> dropdown and select <strong>"Circle Shape2D"</strong></li>
+                                <li>Click and drag the orange handles to roughly match the size of your character sprite</li>
+                                <li>The collision shape should cover the body of the character</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> A good collision shape should be slightly smaller than the sprite to avoid getting stuck on walls!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Sprite2D and CollisionShape2D setup"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 3.3: Sprite2D with circle texture and CollisionShape2D outline</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Save Player Scene -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Save the Player as a Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>💾 Saving Your Player Scene</h4>
+                            <p>Now we'll save this player setup as a reusable scene file.</p>
+                            <ul>
+                                <li>Press <kbd>Ctrl + S</kbd> (or <kbd>Cmd + S</kbd> on Mac) to save the scene</li>
+                                <li>Navigate to your project folder (usually the root or a <code>scenes/</code> folder)</li>
+                                <li>Name the file <strong>"player.tscn"</strong></li>
+                                <li>Click <strong>"Save"</strong></li>
+                                <li>You should now see <code>player.tscn</code> in your FileSystem dock</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Saving reusable scenes allows you to place multiple players or use the same player across different levels!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Saving player scene"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 3.4: Saving the player scene as player.tscn</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Add Movement Script -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Create and Edit the Movement Script</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>📝 Attaching a GDScript</h4>
+                            <ul>
+                                <li>Select the <strong>Player</strong> node (CharacterBody2D)</li>
+                                <li>Click the <strong>"📄"</strong> icon with a green plus sign with your Character node selected to add a script</li>
+                                <li>Name the script <strong>"player.gd"</strong></li>
+                                <li>Click <strong>"Create"</strong></li>
+                                <li>The script editor will open with some default code</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>⌨️ Writing Top-Down Movement Code</h4>
+                            <p>Replace the default code with this complete top-down movement script:</p>
+                            <pre><code>
+                                
+extends CharacterBody2D
+
+
+@export var SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+
+func _physics_process(_delta: float) -> void:
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if direction:
+		velocity = direction * SPEED
+	else:
+		velocity = velocity.move_toward(Vector2.ZERO, SPEED)
+
+	move_and_slide()
+</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The <code>@export</code> keyword lets you edit the speed value directly in the Inspector without changing code!
+                            </div>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🎮 Understanding the Code</h4>
+                            <ul>
+                                <li><strong>extends CharacterBody2D</strong> - Inherits movement abilities from the node type</li>
+                                <li><strong>@export var speed</strong> - A variable you can adjust in the Inspector</li>
+                                <li><strong>_physics_process</strong> - Called every physics frame (good for movement)</li>
+                                <li><strong>Input.get_vector()</strong> - Detects keyboard/controller input for 8-directional movement</li>
+                                <li><strong>move_and_slide()</strong> - Moves the character and handles collisions automatically</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Script editor with movement code"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 3.5: The completed player.gd script with top-down movement code</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page2.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <span class="current-page">Page 3</span>
+                <a href="page4.html" class="page-button">Page 4 →</a>
+            </div>
+            <a href="page4.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

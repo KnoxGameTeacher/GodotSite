@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1.4: Creating a Test Level with TileMapLayer - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 1</a> > 
+                <span>Section 4: Creating a Test Level with TileMapLayer</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 4 of 4</span>
+                <a href="page4.html" class="next-button">Coming Soon →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 4 Videos</h3>
+                    <p>Watch: "Using TileMapLayer in Godot 4"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 4: Creating a Test Level with TileMapLayer</h1>
+            <p class="unit-description">Create a new test scene, set up TileMapLayer with the Kenney tilesheet, and paint your first visual room.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="1" data-section="4">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1: Create a New Blank Scene -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create a New Blank Scene Called TestLevel.tscn</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🎬 Creating a New Scene</h4>
+                            <ul>
+                                <li>Go to <strong>Scene → New Scene</strong> or press <kbd>Ctrl + N</kbd></li>
+                                <li>Click <strong>"Other Node"</strong> and select a plain <strong>"Node2D"</strong> as the root</li>
+                                <li>Click <strong>"Create"</strong></li>
+                                <li>Press <kbd>Ctrl + S</kbd> to save the scene</li>
+                                <li>Name it <strong>"TestLevel.tscn"</strong></li>
+                                <li>Save it in your project folder (root directory is fine)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Creating separate test levels keeps your main game organized. You can always add this to your main scene later!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Creating new TestLevel scene"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 4.1: Creating a new Node2D scene and saving as TestLevel.tscn</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Add the Tilesheet to Your Project -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Add the Scribble Dungeons Tilesheet to Your Project</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>📂 Locating the Tilesheet</h4>
+                            <ul>
+                                <li>Navigate to your extracted <strong>Scribble Dungeons</strong> folder</li>
+                                <li>Look for a file named <strong>"tilesheet.png"</strong> (the main tilesheet image)</li>
+                                <li>The tiles are designed at <strong>64x64 pixels</strong> per tile</li>
+                                <li>This tilesheet includes floor tiles, wall tiles, and doorways</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>📁 Adding to Your Godot Project</h4>
+                            <ul>
+                                <li>In your Godot project's FileSystem dock, locate the <code>assets/</code> folder</li>
+                                <li>If you don't have an <code>assets/</code> folder, right-click and select <strong>"Create Folder"</strong></li>
+                                <li>Create a new folder inside <code>assets/</code> called <strong>"tiles"</strong></li>
+                                <li>Drag and drop the <strong>tilesheet.png</strong> file into <code>assets/tiles/</code></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The Scribble Dungeons pack uses a CC0 license, meaning you can use these tiles freely in any project, even commercial games!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Tilesheet in FileSystem"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 4.2: The Scribble Dungeons tilesheet added to assets/tiles/</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Create the TileMapLayer Node -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Create a TileMapLayer Node Called "Background"</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🏗️ Adding the TileMapLayer</h4>
+                            <ul>
+                                <li>With <strong>TestLevel.tscn</strong> open, select the root <strong>Node2D</strong></li>
+                                <li>Click the <strong>"+"</strong> (Add Child Node) icon</li>
+                                <li>Search for and select <strong>"TileMapLayer"</strong></li>
+                                <li>Click <strong>"Create"</strong></li>
+                                <li>Right-click the new TileMapLayer node and select <strong>"Rename"</strong></li>
+                                <li>Rename it to <strong>"Background"</strong></li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>❓ What is TileMapLayer?</h4>
+                            <ul>
+                                <li>Introduced in Godot 4.3+, replaces the older TileMap node</li>
+                                <li>Efficiently renders large numbers of tiles</li>
+                                <li>Perfect for creating dungeon rooms and maze levels</li>
+                                <li>Includes powerful painting and selection tools</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Note:</strong> If you're using Godot 4.2 or earlier, look for <strong>"TileMap"</strong> instead of TileMapLayer. The functionality is very similar!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Creating TileMapLayer node"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 4.3: Creating a TileMapLayer node and renaming it to "Background"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Create the TileSet Atlas -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Create a New TileSet and Configure the Atlas</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🖼️ Setting Up the TileSet Resource</h4>
+                            <ul>
+                                <li>Select the <strong>"Background"</strong> (TileMapLayer) node</li>
+                                <li>In the Inspector, find the <strong>"TileSet"</strong> property</li>
+                                <li>Click the dropdown and select <strong>"New TileSet"</strong></li>
+                                <li>Click the <strong>"TileSet"</strong> property to open the <strong>TileSet panel</strong> at the bottom</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>📐 Creating the Atlas from Your Tilesheet</h4>
+                            <ul>
+                                <li>In the TileSet panel (bottom of the screen), click <strong>"Add Atlas"</strong></li>
+                                <li>Locate your <strong>tilesheet.png</strong> in the FileSystem</li>
+                                <li>Drag it into the Atlas area</li>
+                                <li>Set the <strong>"Tile Size"</strong> to <strong>"64" x "64"</strong></li>
+                                <li>Click <strong>"OK"</strong> to create the atlas</li>
+                                <li>Godot will automatically slice the tilesheet into individual 64x64 tiles</li>
+                                <li>You should now see all your tiles (floors, walls, doorways) in the TileSet panel!</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> If your tilesheet has spacing around tiles, adjust the "Separation" and "Margin" settings in the Atlas properties!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="TileSet atlas configuration"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 4.4: TileSet panel showing the 64x64 atlas sliced from tilesheet.png</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Paint Your First Room -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Select Tiles and Paint a Simple Room</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🖌️ Selecting and Painting Tiles</h4>
+                            <ul>
+                                <li>Make sure the <strong>"Background"</strong> (TileMapLayer) node is selected</li>
+                                <li>Open the <strong>TileSet panel</strong> at the bottom (if not already open)</li>
+                                <li>Click on a <strong>floor tile</strong> in the left panel to select it (look for stone or cobblestone)</li>
+                                <li>Your cursor will change to a <strong>paintbrush icon</strong></li>
+                                <li>Click in the viewport to paint the selected tile!</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🏰 Build a Simple Room</h4>
+                            <ul>
+                                <li>Use floor tiles to paint a <strong>10x10 square room</strong></li>
+                                <li>Select <strong>wall tiles</strong> from the TileSet panel</li>
+                                <li>Paint walls around the <strong>outer edges</strong> of your room</li>
+                                <li>Select a <strong>doorway tile</strong> from the tilesheet</li>
+                                <li>Add doorways on one or more walls</li>
+                                <li>Add decorative tiles like puddles, cracks, or torches</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🛠️ Essential Painting Tools</h4>
+                            <ul>
+                                <li><strong>Paint (Pencil):</strong> <kbd>D</kbd> key - Click to paint single tiles</li>
+                                <li><strong>Fill (Bucket):</strong> <kbd>F</kbd> key - Click to fill an area with the selected tile</li>
+                                <li><strong>Eraser:</strong> <kbd>E</kbd> key - Click to remove tiles</li>
+                                <li><strong>Selection (Rectangle):</strong> <kbd>S</kbd> key - Drag to select multiple tiles</li>
+                                <li><strong>Zoom:</strong> <kbd>Ctrl + Mouse Wheel</kbd></li>
+                                <li><strong>Pan View:</strong> <kbd>Middle Mouse Button</kbd> or <kbd>Space + Drag</kbd></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Use the <strong>Fill tool</strong> to quickly cover large floor areas, then use the <strong>Pencil tool</strong> to add details!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Painting a room with tiles"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 4.5: A simple room painted with floor tiles, walls, and doorways</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Add the Player and Test -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Add Your Player Scene and Test Movement</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🎮 Adding the Player to Your Test Level</h4>
+                            <ul>
+                                <li>In the FileSystem dock, find your <strong>player.tscn</strong> file</li>
+                                <li>Click and drag <strong>player.tscn</strong> into the viewport</li>
+                                <li>Position the player in your room (e.g., near the center or by a doorway)</li>
+                                <li>Use the <strong>Move tool</strong> (<kbd>Q</kbd> key) to adjust the player's position</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🧪 Testing Your Room</h4>
+                            <ul>
+                                <li>Press <kbd>F5</kbd> (or click the <strong>Play button</strong> in the top-right)</li>
+                                <li>Your player should appear in the room you painted</li>
+                                <li>Use <strong>WASD</strong> or <strong>Arrow Keys</strong> to move the player around</li>
+                                <li>The player can move freely on the floor tiles</li>
+                                <li>Note: Walls are visual only right now - the player can walk through them</li>
+                                <li>Press <kbd>F8</kbd> to stop the game</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>🎯 What You've Accomplished:</strong>
+                                <ul>
+                                    <li>✅ Created a new TestLevel.tscn scene</li>
+                                    <li>✅ Added and configured a TileMapLayer with the Kenney tilesheet</li>
+                                    <li>✅ Painted a visual room with floors, walls, and doorways</li>
+                                    <li>✅ Added your player character to the level</li>
+                                    <li>✅ Tested player movement in your custom room</li>
+                                </ul>
+                            </div>
+                            <div class="warning-box">
+                                <strong>📝 Note:</strong> Since we haven't added collision to tiles yet, the player can currently walk through walls. In a future lesson, you'll learn how to add collision shapes to tiles to create proper boundaries!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Player in painted room"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 4.6: The player character inside the painted room, ready for movement testing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page3.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <span class="current-page">Page 4</span>
+            </div>
+            <a href="page4.html" class="nav-button primary" style="opacity:0.5; cursor:default;">More Coming Soon →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>
