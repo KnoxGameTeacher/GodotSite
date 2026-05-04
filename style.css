@@ -218,6 +218,8 @@ h1 {
 
 .unit-card-body {
     padding: 20px;
+    width: 100%;  /* Ensure full width */
+    box-sizing: border-box;  /* Include padding in width calculation */
 }
 
 .unit-progress-info {
@@ -230,6 +232,7 @@ h1 {
     margin-bottom: 8px;
     font-size: 0.8rem;
     color: var(--retro-cyan);
+    width: 100%;  /* Ensure full width */
 }
 
 .unit-progress-bar {
@@ -238,6 +241,7 @@ h1 {
     border-radius: 4px;
     padding: 2px;
     margin: 10px 0;
+    width: 100%;  /* Add this to stretch across the card */
 }
 
 .unit-progress-fill {
@@ -245,6 +249,7 @@ h1 {
     height: 16px;
     border-radius: 2px;
     transition: width 0.5s ease;
+    width: 0%;  /* Will be set dynamically by JavaScript */
 }
 
 .unit-stats {
@@ -905,20 +910,19 @@ h1 {
     transform: translateX(5px);
 }
 
-/* Unit progress bar */
-.unit-completion-status {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.unit-progress-bar {
+/* Unit progress bar - for unit overview page only */
+.unit-completion-status .unit-progress-bar {
     background: var(--retro-bg);
     border: 1px solid var(--retro-border);
     border-radius: 4px;
     padding: 2px;
     width: 200px;
     margin-bottom: 5px;
+}
+
+/* Main page unit card progress bars */
+.unit-card .unit-progress-bar {
+    width: 100%;
 }
 
 /* Unit navigation */
@@ -1190,4 +1194,33 @@ a:hover {
     background: var(--retro-green);
     vertical-align: middle;
     animation: blink 1s step-end infinite;
+}
+
+/* Force unit card progress bar to stretch full width */
+.unit-card .unit-progress-bar {
+    width: 100% !important;
+    display: block;
+}
+
+.unit-card .unit-progress-fill {
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.unit-card .unit-progress-text {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.unit-card .unit-card-body {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.unit-card .unit-progress-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
