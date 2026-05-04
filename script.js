@@ -1,5 +1,10 @@
 // script.js - Complete working version with proper progress propagation
+// Detect if we're on GitHub Pages and set base path
+const isGitHubPages = window.location.hostname.includes('github.io');
+const repoName = isGitHubPages ? window.location.pathname.split('/')[1] : '';
+const basePath = isGitHubPages ? `/${repoName}/` : './';
 
+console.log(`Base path: ${basePath}`);
 let courseStructure = {};
 
 // Initialize course structure from global COURSE_DATA
