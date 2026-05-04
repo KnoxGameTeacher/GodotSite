@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1.6: Designing the Maze - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 1</a> > 
+                <span>Section 6: Designing the Maze</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 6 of 7</span>
+                <a href="page7.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 6 Videos</h3>
+                    <p>Watch: "Level Design for Top-Down Games"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 6: Designing the Maze</h1>
+            <p class="unit-description">Create a fun, playable maze layout using your TileMapLayer tools, then test your player character navigating the paths.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="1" data-section="6">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1: Plan Your Maze Layout -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Plan Your Maze Layout (On Paper or Using a Generator for Inspiration)</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🗺️ Maze Design Options</h4>
+                            <p>You have two choices for creating your maze layout. Choose the one that works best for you:</p>
+                            
+                            <h5>Option A: Design Your Own Maze (Recommended)</h5>
+                            <ul>
+                                <li>Sketch a simple maze on grid paper or in a drawing app</li>
+                                <li>Start with an <strong>entrance</strong> and an <strong>exit</strong></li>
+                                <li>Create winding paths using the walls you already know how to paint</li>
+                                <li>Keep your maze size manageable (your grid in Godot is 19x11 tiles)</li>
+                            </ul>
+
+                            <h5>Option B: Use a Maze Generator for Inspiration Only</h5>
+                            <ul>
+                                <li>Visit <a href="https://www.mazegenerator.net" target="_blank" rel="noopener noreferrer">mazegenerator.net</a> to see examples of maze layouts</li>
+                                <li><strong>Important:</strong> These mazes are for <strong>personal/educational inspiration only</strong>. Do not copy them directly for any commercial project.</li>
+                                <li>Set the generator to <strong>Width: 19, Height: 11</strong> to see a sample layout</li>
+                                <li>Use the pattern as inspiration to <strong>draw your own unique maze</strong></li>
+                            </ul>
+                            
+                            <div class="warning-box">
+                                <strong>⚠️ License Notice:</strong> The mazes from Maze Generator are not free for commercial use. For this class project it is okay to use, but if you were to publish or monetize this game, you would need to create your own. Always check the license of any assets or content you use in your projects!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Maze layout sketch"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 6.1: A hand-drawn maze layout sketch (18x10 grid)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Create a New Level Scene -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Create a New Scene Called "Level1.tscn"</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🎬 Creating Your First Real Level</h4>
+                            <p>Instead of reusing the test level, we'll create a dedicated scene for your first maze level.</p>
+                            <ul>
+                                <li>Go to <strong>Scene → New Scene</strong> or press <kbd>Ctrl + N</kbd></li>
+                                <li>Click <strong>"Other Node"</strong> and select a plain <strong>"Node2D"</strong> as the root</li>
+                                <li>Click <strong>"Create"</strong></li>
+                                <li>Press <kbd>Ctrl + S</kbd> to save the scene</li>
+                                <li>Name it <strong>"Level1.tscn"</strong></li>
+                                <li>Save it in your project folder (root directory is fine)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Creating separate level files (Level1, Level2, etc.) makes it easy to build a multi-level game later!
+                            </div>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🏗️ Setting Up the Level Structure</h4>
+                            <ul>
+                                <li>With the root Node2D selected, add a <strong>TileMapLayer</strong> child node</li>
+                                <li>Rename it to <strong>"Background"</strong></li>
+                                <li>Add another <strong>TileMapLayer</strong> child node</li>
+                                <li>Rename it to <strong>"Walls"</strong></li>
+                                <li>Your level is now ready for maze building!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Creating Level1 scene"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 6.2: Creating a new Level1.tscn scene with Background and Walls layers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Save Your TileSet for Reuse -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Save Your Configured TileSet to Reuse in Future Levels</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>💾 Saving the TileSet Resource</h4>
+                            <p>Instead of recreating the TileSet atlas and collision shapes for every level, we can save it as a reusable resource.</p>
+                            <ul>
+                                <li>Open your <strong>TestLevel.tscn</strong> scene (or any scene with your working Walls TileSet)</li>
+                                <li>Select the <strong>"Walls"</strong> (TileMapLayer) node</li>
+                                <li>In the Inspector, click on the <strong>"TileSet"</strong> property</li>
+                                <li>Click the dropdown arrow and select <strong>"Save as..."</strong></li>
+                                <li>Navigate to your project folder and create a new folder called <strong>"resources"</strong> (if it doesn't exist)</li>
+                                <li>Name the file <strong>"scribble_dungeon_tileset.tres"</strong></li>
+                                <li>Click <strong>"Save"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Saving resources like TileSets, Materials, and Scenes makes your project organized and reusable. You'll use this same TileSet for all your levels!
+                            </div>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>📂 Loading the Saved TileSet</h4>
+                            <ul>
+                                <li>Go back to your <strong>Level1.tscn</strong> scene</li>
+                                <li>Select the <strong>"Walls"</strong> (TileMapLayer) node</li>
+                                <li>In the Inspector, click the <strong>"TileSet"</strong> dropdown</li>
+                                <li>Select <strong>"Load"</strong> and navigate to your saved <strong>scribble_dungeon_tileset.tres</strong></li>
+                                <li>Do the same for the <strong>"Background"</strong> node (they can share the same TileSet)</li>
+                                <li>Your collision shapes and tile selections are now ready to use!</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> Both the Background and Walls layers can use the same saved TileSet file. The collision physics only apply when the TileMapLayer node has collision enabled!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Saving TileSet resource"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 6.3: Saving the TileSet as a reusable .tres file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Paint Your Maze Walls -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Paint Your Maze Walls Using the "Walls" TileMapLayer</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🧱 Building the Maze Walls</h4>
+                            <p>Using your sketch as a guide, paint the walls of your maze:</p>
+                            <ul>
+                                <li>Select the <strong>"Walls"</strong> (TileMapLayer) node in Level1.tscn</li>
+                                <li>Choose a <strong>wall tile</strong> from the TileSet panel</li>
+                                <li>Use <kbd>X</kbd> and <kbd>Z</kbd> to rotate tiles as needed for corners and edges</li>
+                                <li>First, fill the entire blue boundary with <strong>floor tiles</strong> using the Background layer</li>
+                                <li>Then paint walls along the paths you designed, leaving a <strong>1-tile wide passage</strong> for the player</li>
+                                <li>Create a clear <strong>start area</strong> at the top of your maze</li>
+                                <li>Create an <strong>exit area</strong> at the bottom (you'll add a goal later)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Start by painting the outer boundary walls first, then fill in the interior walls. This prevents accidentally trapping yourself!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Painting maze walls"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 6.4: Painting maze walls using the saved TileSet</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Position the Player -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Position Your Player at the Start of the Maze</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🎮 Placing the Player Character</h4>
+                            <ul>
+                                <li>In the FileSystem dock, find your <strong>player.tscn</strong> file</li>
+                                <li>Drag <strong>player.tscn</strong> into the Level1 viewport</li>
+                                <li>Select the <strong>Player</strong> node</li>
+                                <li>Switch to the <strong>Move tool</strong> (<kbd>Q</kbd> key)</li>
+                                <li>Drag the player to the <strong>entrance/top of your maze</strong></li>
+                                <li>Make sure the player is positioned on a <strong>floor tile</strong>, not inside a wall</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Use the arrow keys on your keyboard to nudge the player pixel-by-pixel for precise placement!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Player positioned at maze start"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 6.5: The player character positioned at the top of the maze</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Test Your Complete Maze -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Run the Level and Test Your Maze Functionality</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🎯 Final Testing</h4>
+                            <ul>
+                                <li>Make sure <strong>Level1.tscn</strong> is your current open scene</li>
+                                <li>Press <kbd>F5</kbd> to run your game (may prompt to select a main scene)</li>
+                                <li>If prompted, select <strong>Level1.tscn</strong> as the main scene</li>
+                                <li>Use the <strong>Arrow Keys</strong> to navigate through your maze</li>
+                                <li>Check that walls block your movement correctly</li>
+                                <li>Verify you can reach the exit at the bottom</li>
+                                <li>Make note of any spots where you can walk through walls (missing collision)</li>
+                                <li>Stop the game with <kbd>F8</kbd> and fix any issues</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🐛 Common Maze Issues and Fixes</h4>
+                            <ul>
+                                <li><strong>Player walks through a wall:</strong> Add collision polygon to that tile type in the TileSet</li>
+                                <li><strong>Path is too narrow:</strong> Use the Eraser tool to widen passages to 2 tiles</li>
+                                <li><strong>Player gets stuck on invisible barriers:</strong> Check for leftover collision polygons on floor tiles</li>
+                                <li><strong>Maze feels too short/easy:</strong> Add more twists and turns using the Paint tools</li>
+                                <li><strong>TileSet not showing saved collision:</strong> Make sure you saved the .tres file and loaded it in both layers</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>📝 Next Steps:</strong> Now that you have a functional maze level, the next section will teach you how to create a Start Scene and a Win Scene, and connect all three scenes into a complete game loop!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Player navigating maze"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 6.6: The final test - navigating the completed Level1 maze!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page5.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <span class="current-page">Page 6</span>
+                <a href="page7.html" class="page-button">Page 7 →</a>
+            </div>
+            <a href="page7.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1.7: Start Scene, Win Scene & Game Loop - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 1</a> > 
+                <span>Section 7: Start Scene, Win Scene & Game Loop</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 7 of 7</span>
+                <a href="../../index.html" class="next-button">Unit Complete →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 7 Videos</h3>
+                    <p>Watch: "Scene Management and Game Loops in Godot"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 7: Start Scene, Win Scene & Game Loop</h1>
+            <p class="unit-description">Create a complete game experience with a start menu, win condition, and scene transitions.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="1" data-section="7">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1: Create the Start Scene -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create a New Start Scene Called "Start.tscn"</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🎬 Creating the Start Menu Scene</h4>
+                            <ul>
+                                <li>Go to <strong>Scene → New Scene</strong> or press <kbd>Ctrl + N</kbd></li>
+                                <li>Click <strong>"Other Node"</strong> and select a <strong>"Control"</strong> node as the root</li>
+                                <li>Click <strong>"Create"</strong></li>
+                                <li>Press <kbd>Ctrl + S</kbd> to save the scene</li>
+                                <li>Name it <strong>"Start.tscn"</strong></li>
+                                <li>Save it in your project folder</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🎨 Designing the Start Screen</h4>
+                            <ul>
+                                <li>With the root Control node selected, set its layout to <strong>"Full Rect"</strong> in the Inspector</li>
+                                <li>Add a <strong>"ColorRect"</strong> as a child to create a background color</li>
+                                <li>Add a <strong>"Label"</strong> child for your game title</li>
+                                <li>Set the Label text to <strong>"A-Maze-Ball"</strong> or your game name</li>
+                                <li>In the Inspector, increase the Label font size (try <strong>48</strong> or larger)</li>
+                                <li>Center the Label using the layout options</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Control nodes are designed for UI elements. They automatically scale with different screen sizes!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Start scene with title"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 7.1: The Start scene with game title and background</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Add Buttons to the Start Scene -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Add Start Game and Quit Buttons</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🔘 Creating UI Buttons</h4>
+                            <ul>
+                                <li>Add a <strong>"Button"</strong> node as a child of the Control root</li>
+                                <li>In the Inspector, change the button's <strong>"Text"</strong> property to <strong>"Start Game"</strong></li>
+                                <li>Add another <strong>"Button"</strong> node</li>
+                                <li>Change its text to <strong>"Quit"</strong></li>
+                                <li>Select both buttons and use the layout options to center them vertically</li>
+                                <li>Space them apart (one above the other)</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>📝 Adding Button Functionality</h4>
+                            <ul>
+                                <li>Select the <strong>"Start Game"</strong> button</li>
+                                <li>In the Inspector, click the <strong>"Node"</strong> tab (next to Inspector)</li>
+                                <li>Find the <strong>"pressed()"</strong> signal and double-click it</li>
+                                <li>Connect it to the root Control node and click <strong>"Connect"</strong></li>
+                                <li>Add this code to the function:</li>
+                            </ul>
+                            <pre><code>func _on_start_game_pressed():
+    get_tree().change_scene_to_file("res://Level1.tscn")</code></pre>
+                            <ul>
+                                <li>Select the <strong>"Quit"</strong> button</li>
+                                <li>Connect its <strong>"pressed()"</strong> signal the same way</li>
+                                <li>Add this code:</li>
+                            </ul>
+                            <pre><code>func _on_quit_pressed():
+    get_tree().quit()</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Signals are Godot's way of connecting UI events to code. The "pressed" signal fires when a button is clicked!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Start scene buttons"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 7.2: Start scene with Start Game and Quit buttons</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Add a Doorway Exit to Level1 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add an Exit Doorway with Area Trigger to Level1.tscn</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🚪 Creating the Level Exit</h4>
+                            <ul>
+                                <li>Open your <strong>Level1.tscn</strong> scene</li>
+                                <li>Select the root Node2D</li>
+                                <li>Add a new child node: <strong>"Area2D"</strong></li>
+                                <li>Rename it to <strong>"ExitDoorway"</strong></li>
+                                <li>Position it at the <strong>bottom of your maze</strong> (the exit area)</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🟦 Adding Collision to the Exit</h4>
+                            <ul>
+                                <li>With <strong>ExitDoorway</strong> selected, add a child node: <strong>"CollisionShape2D"</strong></li>
+                                <li>In the Inspector, click the <strong>"Shape"</strong> dropdown</li>
+                                <li>Select <strong>"New RectangleShape2D"</strong></li>
+                                <li>Resize the shape to cover the doorway area (about 64x64 pixels)</li>
+                                <li>Make it large enough for the player to easily trigger</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> The collision shape needs to be big enough for the player to touch. Position it where the player reaches the end of the maze!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Exit doorway with Area2D"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 7.3: Adding an Area2D trigger at the maze exit</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Add Win Scene Transition Script -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Add Script to Load Win Scene When Player Reaches Exit</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>📝 Scripting the Exit Trigger</h4>
+                            <ul>
+                                <li>Select the <strong>"ExitDoorway"</strong> (Area2D) node</li>
+                                <li>Click the <strong>"📄"</strong> icon next to "Script" in the Inspector</li>
+                                <li>Name the script <strong>"exit_doorway.gd"</strong></li>
+                                <li>Click <strong>"Create"</strong></li>
+                                <li>Add this code:</li>
+                            </ul>
+                            <pre><code>extends Area2D
+
+func _ready():
+    # Connect the body_entered signal
+    body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+    # Check if the entering body is the player
+    if body.name == "Player":
+        # Change to the win scene
+        get_tree().change_scene_to_file("res://Win.tscn")</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The <code>body_entered</code> signal fires whenever another physics body (like the player) touches the Area2D!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Exit trigger script"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 7.4: Script to detect player touch and load Win scene</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Create the Win Scene -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Create a Win Scene Called "Win.tscn"</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🏆 Creating the Win Screen</h4>
+                            <p>We'll duplicate the Start scene and modify it for winning:</p>
+                            <ul>
+                                <li>In the FileSystem dock, right-click on <strong>Start.tscn</strong></li>
+                                <li>Select <strong>"Duplicate"</strong></li>
+                                <li>Rename the duplicate to <strong>"Win.tscn"</strong></li>
+                                <li>Double-click <strong>Win.tscn</strong> to open it</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🎉 Customizing the Win Screen</h4>
+                            <ul>
+                                <li>Change the Label text to <strong>"You Win!"</strong> or <strong>"Victory!"</strong></li>
+                                <li>Delete the <strong>"Quit"</strong> button (optional, can keep it)</li>
+                                <li>Change the <strong>"Start Game"</strong> button text to <strong>"Play Again"</strong></li>
+                                <li>You can also add a <strong>"Main Menu"</strong> button if desired</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🔄 Updating the Play Again Button</h4>
+                            <ul>
+                                <li>Select the <strong>"Play Again"</strong> button</li>
+                                <li>Go to the <strong>"Node"</strong> tab and find the <strong>"pressed()"</strong> signal</li>
+                                <li>Double-click to reconnect it to the root Control node</li>
+                                <li>Update the code:</li>
+                            </ul>
+                            <pre><code>func _on_play_again_pressed():
+    get_tree().change_scene_to_file("res://Level1.tscn")</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Duplicating scenes saves time! Just remember to update the text and button functionality for the new purpose.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Win scene"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 7.5: The Win scene with Play Again button</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Set Start Scene as Main and Test -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Set Start.tscn as the Main Scene and Test Your Complete Game Loop</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>⚙️ Configuring the Main Scene</h4>
+                            <ul>
+                                <li>Go to <strong>Project → Project Settings</strong></li>
+                                <li>Click the <strong>"General"</strong> tab</li>
+                                <li>Scroll to <strong>"Application" → "Run" → "Main Scene"</strong></li>
+                                <li>Click the folder icon and select <strong>"Start.tscn"</strong></li>
+                                <li>Click <strong>"Close"</strong> to save the setting</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>🎮 Testing the Complete Game Loop</h4>
+                            <ul>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>You should see the <strong>Start screen</strong> with your title and buttons</li>
+                                <li>Click <strong>"Start Game"</strong> - Level1 should load</li>
+                                <li>Navigate through your maze to the <strong>exit doorway</strong></li>
+                                <li>Touch the exit - the <strong>Win screen</strong> should appear</li>
+                                <li>Click <strong>"Play Again"</strong> - Level1 should restart</li>
+                                <li>Press <strong>"Quit"</strong> (if available) to exit the game</li>
+                            </ul>
+                        </div>
+                        <div class="tip-box">
+                            <strong>🎉 Unit 1 Complete!</strong> You've built a complete game with:
+                            <ul>
+                                <li>✅ A player character with smooth top-down movement</li>
+                                <li>✅ Tile-based maze levels with collision</li>
+                                <li>✅ A reusable TileSet for level design</li>
+                                <li>✅ A Start scene with menu buttons</li>
+                                <li>✅ An exit trigger that detects player completion</li>
+                                <li>✅ A Win scene with Play Again functionality</li>
+                                <li>✅ A complete game loop from Start → Level → Win → Play Again</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" 
+                                alt="Complete game loop"
+                                width="600" 
+                                height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 7.6: The complete A-Maze-Ball game loop!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page6.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <span class="current-page">Page 7</span>
+            </div>
+            <a href="../../index.html" class="nav-button primary">Unit Complete! →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

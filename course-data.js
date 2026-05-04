@@ -1,17 +1,19 @@
-// course-data.js - Easy to edit when you add new units
+// course-data.js - Edit when you add new units
 const COURSE_DATA = {
     1: { 
         name: "Intro to Godot",
         description: "Learn the fundamentals of Godot Engine and create your first project.",
         difficulty: "Beginner",
-        estimatedTime: "2 hours",
-        sections: 5,
+        estimatedTime: "3 hours",
+        sections: 7,
         pages: {
             1: { name: "Getting Started", steps: 3 },
-            2: { name: "Creating A-Maze-Ball Project", steps: 4 },
+            2: { name: "Creating The A-Maze-Ball Project", steps: 4 },
             3: { name: "Creating the Player (CharacterBody2D)", steps: 5 },
             4: { name: "Creating a Test Level with TileMapLayer", steps: 6 },
-            5: { name: "Adding Collision to Walls", steps: 6 }
+            5: { name: "Adding Collision to Walls", steps: 6 },
+            6: { name: "Designing the Maze", steps: 6 },
+            7: { name: "Start Scene, Win Scene & Game Loop", steps: 6 }
         }
     },
     2: { 
