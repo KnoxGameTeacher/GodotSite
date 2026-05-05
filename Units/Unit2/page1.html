@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 2.1: Project Setup & Player Movement - Godot Game Design</title>
+    <title>Unit 2.1: Forage Frenzy - Project Setup - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <div class="main-container">
+        <!-- Section Header Navigation -->
         <div class="section-header-nav">
             <div class="breadcrumb">
                 <a href="../../index.html">Home</a> > 
@@ -20,6 +21,7 @@
             </div>
         </div>
 
+        <!-- YouTube Section -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
@@ -30,16 +32,18 @@
                 <div class="placeholder-content">
                     <div class="placeholder-icon">📺</div>
                     <h3>Section 1 Videos</h3>
-                    <p>Watch: "Setting Up Gem Catcher"</p>
+                    <p>Watch: "Setting Up Forage Frenzy with Kenney Assets"</p>
                 </div>
             </div>
         </div>
 
+        <!-- Section Header -->
         <div class="unit-header">
             <h1>Section 1: Project Setup & Player Movement</h1>
-            <p class="unit-description">Create the Gem Catcher project and set up your player character with screen boundary limits.</p>
+            <p class="unit-description">Create the "Forage Frenzy" project, download and import Kenney assets, and set up the player character with tilemap-based animation.</p>
         </div>
 
+        <!-- Steps Container -->
         <div class="steps" data-unit="2" data-section="1">
             <div class="progress-container">
                 <div class="progress-bar">
@@ -48,83 +52,193 @@
                 <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
             </div>
 
-            <!-- Step 1 -->
+            <!-- Step 1: Create Project -->
             <div class="step-card" data-step="1">
                 <div class="step-header">
                     <div class="step-number">1</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>Create New Project "Gem Catcher" with Forward+ Renderer</span>
+                            <span>Create New Project "Forage Frenzy" with Forward+ Renderer</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>🎮 Creating the Project</h4>
+                            <h4>Creating the Project</h4>
                             <ul>
                                 <li>Open Godot and click <strong>"New Project"</strong></li>
-                                <li>Name the project <strong>"Gem Catcher"</strong></li>
+                                <li>Name the project <strong>"Forage Frenzy"</strong></li>
                                 <li>Choose a location on your computer</li>
                                 <li>Select <strong>"Forward+"</strong> as the renderer</li>
                                 <li>Click <strong>"Create & Edit"</strong></li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> Keep all your Godot projects organized in one parent folder (like "GodotProjects")!
+                                <strong>💡 Pro Tip:</strong> "Forage Frenzy" is a collection game where you will gather mushrooms and avoid obstacles in a woodland setting.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="New project dialog" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 1.1: Creating the Gem Catcher project</div>
+                            <img src="../../_placeholderimage.png" alt="Creating Forage Frenzy project" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.1: Creating the Forage Frenzy project</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 2 -->
+            <!-- Step 2: Download Kenney Assets -->
             <div class="step-card" data-step="2">
                 <div class="step-header">
                     <div class="step-number">2</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>Create Player Scene with CharacterBody2D</span>
+                            <span>Download Map Pack and Sokoban Assets from Kenney</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>🏗️ Setting Up the Player</h4>
+                            <h4>Downloading Required Assets</h4>
+                            <p>We need two asset packs from Kenney for this game:</p>
                             <ul>
-                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
-                                <li>Add a <strong>CharacterBody2D</strong> as the root node</li>
-                                <li>Rename it to <strong>"Player"</strong></li>
-                                <li>Add a <strong>Sprite2D</strong> child (use a simple circle or placeholder)</li>
-                                <li>Add a <strong>CollisionShape2D</strong> child with a CircleShape2D</li>
-                                <li>Save the scene as <strong>"player.tscn"</strong></li>
+                                <li><strong>Map Pack:</strong> <a href="https://kenney.nl/assets/map-pack" target="_blank" rel="noopener noreferrer">https://kenney.nl/assets/map-pack</a>
+                                    <ul>
+                                        <li>Contains ground tiles (grass, dirt, paths)</li>
+                                        <li>Includes mushrooms and other forageable items</li>
+                                        <li>Perfect for the woodland foraging theme</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Sokoban Pack:</strong> <a href="https://kenney.nl/assets/sokoban" target="_blank" rel="noopener noreferrer">https://kenney.nl/assets/sokoban</a>
+                                    <ul>
+                                        <li>Contains a character sprite sheet with animations</li>
+                                        <li>Includes crates and walls (for future obstacles)</li>
+                                        <li>The character is what we will use for the player</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 License Notice:</strong> Both asset packs use the Creative Commons CC0 license. You may use them freely in any project, even commercial games.
+                            </div>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Download Instructions</h4>
+                            <ul>
+                                <li>Click each link above to visit the Kenney website</li>
+                                <li>Click the <strong>"Download"</strong> button for each pack</li>
+                                <li>Extract both ZIP files to a location you can find easily</li>
+                                <li>Inside the extracted folders, you will find PNG spritesheets and individual sprites</li>
                             </ul>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Player scene setup" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 1.2: Player scene with CharacterBody2D root</div>
+                            <img src="../../_placeholderimage.png" alt="Kenney asset download page" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.2: Downloading Map Pack and Sokoban assets from Kenney</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 3 -->
+            <!-- Step 3: Import Assets to Godot -->
             <div class="step-card" data-step="3">
                 <div class="step-header">
                     <div class="step-number">3</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="3">
+                            <span>Import Assets to Your Godot Project</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Organizing Your Project Assets</h4>
+                            <ul>
+                                <li>In the FileSystem dock, right-click and select <strong>"Create Folder"</strong></li>
+                                <li>Create a folder named <strong>"assets"</strong></li>
+                                <li>Inside <strong>assets</strong>, create subfolders:
+                                    <ul>
+                                        <li><strong>characters/</strong> - for player and NPC sprites</li>
+                                        <li><strong>environment/</strong> - for ground tiles and obstacles</li>
+                                        <li><strong>items/</strong> - for mushrooms and collectibles</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Copying the Assets</h4>
+                            <ul>
+                                <li>From the <strong>Sokoban</strong> extracted folder, find the character spritesheet</li>
+                                <li>Drag it into the <strong>assets/characters/</strong> folder</li>
+                                <li>From the <strong>Map Pack</strong> extracted folder, find the ground tiles</li>
+                                <li>Drag ground tile PNG files into <strong>assets/environment/</strong></li>
+                                <li>Find mushroom and item sprites in the Map Pack and drag into <strong>assets/items/</strong></li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> Keep your assets organized. A clean project structure will save you hours of searching later.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Imported assets in FileSystem" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.3: Organized assets in the FileSystem dock</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Create Player Scene -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Create Player Scene with CharacterBody2D and Sprite2D</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Setting Up the Player</h4>
+                            <ul>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add a <strong>CharacterBody2D</strong> as the root node</li>
+                                <li>Rename it to <strong>"Player"</strong></li>
+                                <li>Add a <strong>Sprite2D</strong> as a child</li>
+                                <li>In the Sprite2D's Texture property, load one of the character sprites from assets/characters/</li>
+                                <li>Add a <strong>CollisionShape2D</strong> as a child</li>
+                                <li>Set the CollisionShape2D to a <strong>RectangleShape2D</strong> roughly matching the character size</li>
+                                <li>Save the scene as <strong>"player.tscn"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> The Sokoban character spritesheet contains multiple frames. For now, we will use a single frame. Animation will be added later.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Player scene setup" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.4: Player scene with CharacterBody2D and Sprite2D</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Add Movement Script -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
                             <span>Add Movement Script with Screen Boundaries</span>
                         </label>
                     </div>
@@ -132,7 +246,7 @@
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>⌨️ Player Movement Script</h4>
+                            <h4>Player Movement Script</h4>
                             <p>Attach this script to the Player node:</p>
                             <pre><code>extends CharacterBody2D
 
@@ -147,20 +261,21 @@ func _physics_process(delta):
     position.x = clamp(position.x, 0, get_viewport_rect().size.x)
     position.y = clamp(position.y, 0, get_viewport_rect().size.y)</code></pre>
                             <div class="tip-box">
-                                <strong>💡 New Concept:</strong> <code>clamp()</code> keeps a value within a range. Here it prevents the player from leaving the screen!
+                                <strong>💡 New Concept:</strong> The clamp() function keeps the player from leaving the screen edges.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
                             <img src="../../_placeholderimage.png" alt="Movement script" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 1.3: Player script with screen boundaries</div>
+                            <div class="image-caption">Figure 1.5: Player script with movement and boundary clamping</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Page Navigation -->
         <div class="page-navigation">
             <a href="index.html" class="nav-button">← Back to Unit Overview</a>
             <div class="page-buttons">

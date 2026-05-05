@@ -23,8 +23,8 @@
 
         <!-- Test Header -->
         <div class="unit-header">
-            <h1>📝 Unit 1 Test: A-Maze-Ball Fundamentals</h1>
-            <p class="unit-description">Demonstrate your mastery of Godot basics by creating a complete multi-level maze game.</p>
+            <h1>Unit 1 Test: A-Maze-Ball Fundamentals</h1>
+            <p class="unit-description">Demonstrate your mastery of Godot basics by polishing your maze game with multiple levels after first checking your game for completion.</p>
         </div>
 
         <!-- Test Overview -->
@@ -38,14 +38,11 @@
                     <div class="test-stat-number">10</div>
                     <div class="test-stat-label">Bonus Points</div>
                 </div>
-                <div class="test-stat-card">
-                    <div class="test-stat-number">40</div>
-                    <div class="test-stat-label">Grand Total</div>
-                </div>
             </div>
             <div class="test-instructions">
-                <h3>📋 Test Instructions</h3>
+                <h3>Test Instructions</h3>
                 <ul>
+                    <li>The top sections are all review, walk through each step to make sure you have completed those items and check them off</li>
                     <li>Complete ALL required sections (30 points total)</li>
                     <li>Bonus challenges are optional (up to 10 extra points)</li>
                     <li>You MUST create <strong>Level2.tscn</strong> and <strong>Level3.tscn</strong> with increasing difficulty</li>
@@ -67,7 +64,6 @@
             <!-- SECTION 1: Project Setup (4 points) -->
             <div class="test-section">
                 <div class="test-section-header">
-                    <div class="test-section-icon">⚙️</div>
                     <div class="test-section-title">Section 1: Project Setup & Player Movement (4 points)</div>
                 </div>
                 
@@ -164,7 +160,6 @@ func _physics_process(delta):
             <!-- SECTION 2: TileMap & Level Design (11 points) -->
             <div class="test-section">
                 <div class="test-section-header">
-                    <div class="test-section-icon">🗺️</div>
                     <div class="test-section-title">Section 2: TileMapLayer & Level Design (11 points)</div>
                 </div>
 
@@ -280,7 +275,7 @@ func _physics_process(delta):
                     </div>
                     <div class="step-content">
                         <div class="instruction-section">
-                            <h4>🎮 Required: Create Level2.tscn</h4>
+                            <h4>Required: Create Level2.tscn</h4>
                             <ul>
                                 <li>Create a new scene called Level2.tscn</li>
                                 <li>Follow the same structure as Level1 (Background + Walls layers)</li>
@@ -307,7 +302,7 @@ func _physics_process(delta):
                     </div>
                     <div class="step-content">
                         <div class="instruction-section">
-                            <h4>📈 Difficulty Progression Criteria</h4>
+                            <h4>Difficulty Progression Criteria</h4>
                             <ul>
                                 <li>Level2 is LARGER than Level1 (more tiles or more complex layout)</li>
                                 <li>Level2 has MORE dead ends or branching paths</li>
@@ -330,7 +325,7 @@ func _physics_process(delta):
                     </div>
                     <div class="step-content">
                         <div class="instruction-section">
-                            <h4>🎮 Required: Create Level3.tscn</h4>
+                            <h4>Required: Create Level3.tscn</h4>
                             <ul>
                                 <li>Create a new scene called Level3.tscn</li>
                                 <li>Follow the same structure as previous levels</li>
@@ -354,11 +349,11 @@ func _physics_process(delta):
                     </div>
                     <div class="step-content">
                         <div class="instruction-section">
-                            <h4>📈 Difficulty Progression Criteria</h4>
+                            <h4>Difficulty Progression Criteria</h4>
                             <ul>
                                 <li>Level3 is noticeably more challenging than Level2</li>
                                 <li>Difficulty increases: Level1 (easiest) → Level2 (medium) → Level3 (hardest)</li>
-                                <li All three levels are clearly distinct from each other</li>
+                                <li>All three levels are clearly distinct from each other</li>
                             </ul>
                         </div>
                     </div>
@@ -368,7 +363,6 @@ func _physics_process(delta):
             <!-- SECTION 3: Scene Management (6 points) -->
             <div class="test-section">
                 <div class="test-section-header">
-                    <div class="test-section-icon">🎬</div>
                     <div class="test-section-title">Section 3: Scene Management & UI (6 points)</div>
                 </div>
 
@@ -452,7 +446,6 @@ func _physics_process(delta):
             <!-- SECTION 4: Code Quality (3 points) -->
             <div class="test-section">
                 <div class="test-section-header">
-                    <div class="test-section-icon">📦</div>
                     <div class="test-section-title">Section 4: Code Quality & Organization (3 points)</div>
                 </div>
 
@@ -574,9 +567,9 @@ func _physics_process(delta):
                             <h4>🏆 Bonus Challenge 3</h4>
                             <p>Add collectible items to one or more levels.</p>
                             <ul>
-                                <li>Create a Coin.tscn scene with Area2D and Sprite2D (2 points)</li>
-                                <li>Coins disappear when collected and increment a UI counter (1 point)</li>
-                                <li>Player must collect all coins before the exit activates (1 point)</li>
+                                <li>Create a collectible item scene with Area2D and Sprite2D (2 points)</li>
+                                <li>Collectibles disappear when collected and increment a UI counter (1 point)</li>
+                                <li>Player must collect all collectibles before the exit activates (1 point)</li>
                             </ul>
                         </div>
                     </div>

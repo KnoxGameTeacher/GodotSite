@@ -19,18 +19,18 @@ const COURSE_DATA = {
         }
     },
     2: { 
-        name: "Gem Catcher",
+        name: "Forage Frenzy",
         description: "Build a fast-paced collection game using signals, timers, and dynamic UI!",
         difficulty: "Beginner",
         estimatedTime: "4 hours",
         sections: 7,
         pages: {
             1: { name: "Project Setup & Player Movement", steps: 3 },
-            2: { name: "Creating the Gem (Area2D)", steps: 2 },
+            2: { name: "Creating the Collectibles (Area2D)", steps: 2 },
             3: { name: "Score System with UI", steps: 2 },
             4: { name: "Enemy Movement & Collision", steps: 3 },
             5: { name: "Game Over & Restart", steps: 2 },
-            6: { name: "Spawning Gems with Timer", steps: 2 },
+            6: { name: "Spawning Collectibles with Timer", steps: 2 },
             7: { name: "Win Condition & Polish", steps: 3 },
             test: { name: "Unit 2 Test", steps: 13 }
         }
