@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit X Test: [UNIT NAME] - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit X</a> > 
+                <span>Unit X Test</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Unit Test</span>
+                <a href="../../index.html" class="next-button">Back to Units →</a>
+            </div>
+        </div>
+
+        <!-- Test Header -->
+        <div class="unit-header">
+            <h1>📝 Unit X Test: [UNIT NAME]</h1>
+            <p class="unit-description">[Test description - what students should demonstrate]</p>
+        </div>
+
+        <!-- Test Overview -->
+        <div class="test-overview">
+            <div class="test-stats">
+                <div class="test-stat-card">
+                    <div class="test-stat-number">[REQUIRED POINTS]</div>
+                    <div class="test-stat-label">Required Points</div>
+                </div>
+                <div class="test-stat-card">
+                    <div class="test-stat-number">[BONUS POINTS]</div>
+                    <div class="test-stat-label">Bonus Points</div>
+                </div>
+                <div class="test-stat-card">
+                    <div class="test-stat-number">[TOTAL POINTS]</div>
+                    <div class="test-stat-label">Grand Total</div>
+                </div>
+            </div>
+            <div class="test-instructions">
+                <h3>📋 Test Instructions</h3>
+                <ul>
+                    <li>Complete ALL required sections ([REQUIRED POINTS] points total)</li>
+                    <li>Bonus challenges are optional (up to [BONUS POINTS] extra points)</li>
+                    <li>Submit your entire project folder for grading</li>
+                    <li>Use the checkboxes below to track your progress</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="[UNIT NUMBER]" data-section="test">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Test Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- SECTION 1: [TOPIC NAME] -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">[ICON]</div>
+                    <div class="test-section-title">Section 1: [TOPIC NAME] ([POINTS] points)</div>
+                </div>
+                
+                <div class="step-card" data-step="1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="1">
+                                <span>[REQUIREMENT DESCRIPTION] ([POINTS] point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>[Check item 1]</li>
+                                    <li>[Check item 2]</li>
+                                    <li>[Check item 3]</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more required steps -->
+            </div>
+
+            <!-- BONUS SECTION -->
+            <div class="test-section bonus-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">⭐</div>
+                    <div class="test-section-title">Bonus Challenges (Optional - up to [BONUS POINTS] points)</div>
+                </div>
+
+                <div class="step-card" data-step="[BONUS_STEP_NUMBER]">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="[BONUS_STEP_NUMBER]">
+                                <span>[BONUS CHALLENGE DESCRIPTION] ([POINTS] points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>🏆 Bonus Challenge</h4>
+                            <ul>
+                                <li>[Requirement 1]</li>
+                                <li>[Requirement 2]</li>
+                                <li>[Requirement 3]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more bonus steps -->
+            </div>
+        </div>
+
+        <!-- Submission Section -->
+        <div class="submission-section">
+            <h2>📤 Submission Instructions</h2>
+            <div class="submission-grid">
+                <div class="submission-card">
+                    <h3>What to Submit</h3>
+                    <ul>
+                        <li>Entire Godot project folder (compressed as .zip)</li>
+                        <li>[Additional submission requirements]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Navigation -->
+        <div class="test-navigation">
+            <a href="page7.html" class="nav-button">← Back to Section 7</a>
+            <div class="test-score" id="test-score">
+                Score: 0 / [REQUIRED POINTS] points possible
+            </div>
+            <a href="../../index.html" class="nav-button primary">Submit Test →</a>
+        </div>
+    </div>
+
+    <!-- Test Scoring Script -->
+    <script>
+        function calculateTestScore() {
+            // Required step point values
+            const stepPointValues = {
+                // Map step numbers to point values
+                // Example: 1: 1, 2: 2, 3: 1, etc.
+            };
+            
+            let earnedPoints = 0;
+            let maxPoints = 0;
+            
+            for (const [step, points] of Object.entries(stepPointValues)) {
+                maxPoints += points;
+                const checkbox = document.querySelector(`.step-check[data-step="${step}"]`);
+                if (checkbox && checkbox.checked) {
+                    earnedPoints += points;
+                }
+            }
+            
+            // Bonus checkboxes - add to earned points only
+            const bonusSteps = document.querySelectorAll('.step-check[data-step^="bonus"]');
+            bonusSteps.forEach(step => {
+                if (step.checked) {
+                    // Add bonus points based on step value
+                    const bonusValue = parseInt(step.getAttribute('data-bonus-value') || '0');
+                    earnedPoints += bonusValue;
+                }
+            });
+            
+            // Update display
+            const scoreDisplay = document.getElementById('test-score');
+            if (scoreDisplay) {
+                scoreDisplay.innerHTML = `Score: ${earnedPoints} / ${maxPoints} points possible`;
+            }
+            
+            return earnedPoints;
+        }
+        
+        // Add event listeners to checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.step-check');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', calculateTestScore);
+            });
+            calculateTestScore();
+        });
+    </script>
+    
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

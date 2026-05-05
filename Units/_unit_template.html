@@ -8,36 +8,146 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Unit Header - EDIT THESE -->
-        <div class="unit-header">
-            <h1>Unit X: [REPLACE WITH UNIT NAME]</h1>
-            <div class="unit-meta">
-                <span class="unit-badge">🎮 [Beginner/Intermediate/Advanced]</span>
-                <span class="unit-badge">⏱️ [X] hours</span>
-                <span class="unit-badge">📦 [NUMBER] sections</span>
+        <!-- YouTube Playlist Placeholder -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <p class="unit-description">[REPLACE WITH UNIT DESCRIPTION]</p>
+            <div class="youtube-placeholder" id="youtube-playlist">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>YouTube Playlist Coming Soon</h3>
+                    <p>Video tutorials for this unit will be added here</p>
+                    <div class="placeholder-meta">
+                        <span>🎬 Playlist ID: UNITX_GODOT_2024</span>
+                        <span>📝 [NUMBER] videos planned</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Uncomment when you have a YouTube playlist -->
+            <!-- 
+            <div class="youtube-embed">
+                <iframe 
+                    width="100%" 
+                    height="400" 
+                    src="https://www.youtube.com/embed/videoseries?list=YOUR_PLAYLIST_ID_HERE" 
+                    title="Unit X Video Tutorials" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            -->
         </div>
 
-        <!-- Sections Grid - EDIT EACH SECTION -->
+        <!-- Unit Header -->
+        <div class="unit-header">
+            <h1>Unit X: [UNIT NAME]</h1>
+            <div class="unit-meta">
+                <span class="unit-badge">🎮 [DIFFICULTY LEVEL]</span>
+                <span class="unit-badge">⏱️ [ESTIMATED HOURS] hours</span>
+                <span class="unit-badge">📦 [NUMBER] sections</span>
+            </div>
+            <p class="unit-description">[UNIT DESCRIPTION - Brief overview of what students will learn]</p>
+        </div>
+
+        <!-- Unit Overview / Sections Grid -->
         <div class="unit-overview">
             <h2>Unit Sections</h2>
             <div class="sections-grid">
-                <!-- Copy this block for each section -->
+                <!-- Section 1 -->
                 <div class="section-card" data-section="1">
                     <div class="section-number">01</div>
                     <div class="section-info">
-                        <h3>[Section Title]</h3>
-                        <p>[Section description]</p>
+                        <h3>[SECTION 1 TITLE]</h3>
+                        <p>[Brief description of what this section covers]</p>
                         <div class="section-progress" id="section1-progress">0% complete</div>
                     </div>
                     <a href="page1.html" class="section-button">Start →</a>
                 </div>
-                <!-- End section block -->
+                
+                <!-- Section 2 -->
+                <div class="section-card" data-section="2">
+                    <div class="section-number">02</div>
+                    <div class="section-info">
+                        <h3>[SECTION 2 TITLE]</h3>
+                        <p>[Brief description of what this section covers]</p>
+                        <div class="section-progress" id="section2-progress">0% complete</div>
+                    </div>
+                    <a href="page2.html" class="section-button">Start →</a>
+                </div>
+                
+                <!-- Section 3 -->
+                <div class="section-card" data-section="3">
+                    <div class="section-number">03</div>
+                    <div class="section-info">
+                        <h3>[SECTION 3 TITLE]</h3>
+                        <p>[Brief description of what this section covers]</p>
+                        <div class="section-progress" id="section3-progress">0% complete</div>
+                    </div>
+                    <a href="page3.html" class="section-button">Start →</a>
+                </div>
+                
+                <!-- Section 4 -->
+                <div class="section-card" data-section="4">
+                    <div class="section-number">04</div>
+                    <div class="section-info">
+                        <h3>[SECTION 4 TITLE]</h3>
+                        <p>[Brief description of what this section covers]</p>
+                        <div class="section-progress" id="section4-progress">0% complete</div>
+                    </div>
+                    <a href="page4.html" class="section-button">Start →</a>
+                </div>
+
+                <!-- Section 5 -->
+                <div class="section-card" data-section="5">
+                    <div class="section-number">05</div>
+                    <div class="section-info">
+                        <h3>[SECTION 5 TITLE]</h3>
+                        <p>[Brief description of what this section covers]</p>
+                        <div class="section-progress" id="section5-progress">0% complete</div>
+                    </div>
+                    <a href="page5.html" class="section-button">Start →</a>
+                </div>
+
+                <!-- Section 6 -->
+                <div class="section-card" data-section="6">
+                    <div class="section-number">06</div>
+                    <div class="section-info">
+                        <h3>[SECTION 6 TITLE]</h3>
+                        <p>[Brief description of what this section covers]</p>
+                        <div class="section-progress" id="section6-progress">0% complete</div>
+                    </div>
+                    <a href="page6.html" class="section-button">Start →</a>
+                </div>
+
+                <!-- Section 7 -->
+                <div class="section-card" data-section="7">
+                    <div class="section-number">07</div>
+                    <div class="section-info">
+                        <h3>[SECTION 7 TITLE]</h3>
+                        <p>[Brief description of what this section covers]</p>
+                        <div class="section-progress" id="section7-progress">0% complete</div>
+                    </div>
+                    <a href="page7.html" class="section-button">Start →</a>
+                </div>
+
+                <!-- Test Section -->
+                <div class="section-card" data-section="test">
+                    <div class="section-number">🎯</div>
+                    <div class="section-info">
+                        <h3>Unit X Test</h3>
+                        <p>Demonstrate your skills with required tasks and bonus challenges</p>
+                        <div class="section-progress" id="section-test-progress">0% complete</div>
+                    </div>
+                    <a href="test.html" class="section-button">Take Test →</a>
+                </div>
             </div>
         </div>
 
-        <!-- Navigation -->
+        <!-- Unit Navigation -->
         <div class="unit-navigation">
             <a href="../../index.html" class="nav-button">← Back to Units</a>
             <div class="unit-completion-status">

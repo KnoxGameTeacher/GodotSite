@@ -13,7 +13,8 @@ const COURSE_DATA = {
             4: { name: "Creating a Test Level with TileMapLayer", steps: 6 },
             5: { name: "Adding Collision to Walls", steps: 6 },
             6: { name: "Designing the Maze", steps: 6 },
-            7: { name: "Start Scene, Win Scene & Game Loop", steps: 6 }
+            7: { name: "Start Scene, Win Scene & Game Loop", steps: 6 },
+            test: { name: "Unit 1 Test", steps: 16 }
         }
     },
     2: { 

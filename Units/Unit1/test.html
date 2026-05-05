@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1 Test: A-Maze-Ball Fundamentals - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 1</a> > 
+                <span>Unit 1 Test</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Unit Test</span>
+                <a href="../../index.html" class="next-button">Back to Units →</a>
+            </div>
+        </div>
+
+        <!-- Test Header -->
+        <div class="unit-header">
+            <h1>📝 Unit 1 Test: A-Maze-Ball Fundamentals</h1>
+            <p class="unit-description">Demonstrate your mastery of Godot basics by creating a complete multi-level maze game.</p>
+        </div>
+
+        <!-- Test Overview -->
+        <div class="test-overview">
+            <div class="test-stats">
+                <div class="test-stat-card">
+                    <div class="test-stat-number">30</div>
+                    <div class="test-stat-label">Required Points</div>
+                </div>
+                <div class="test-stat-card">
+                    <div class="test-stat-number">10</div>
+                    <div class="test-stat-label">Bonus Points</div>
+                </div>
+                <div class="test-stat-card">
+                    <div class="test-stat-number">40</div>
+                    <div class="test-stat-label">Grand Total</div>
+                </div>
+            </div>
+            <div class="test-instructions">
+                <h3>📋 Test Instructions</h3>
+                <ul>
+                    <li>Complete ALL required sections (30 points total)</li>
+                    <li>Bonus challenges are optional (up to 10 extra points)</li>
+                    <li>You MUST create <strong>Level2.tscn</strong> and <strong>Level3.tscn</strong> with increasing difficulty</li>
+                    <li>Submit your entire project folder for grading</li>
+                    <li>Use the checkboxes below to track your progress</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="1" data-section="test">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Test Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- SECTION 1: Project Setup (4 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">⚙️</div>
+                    <div class="test-section-title">Section 1: Project Setup & Player Movement (4 points)</div>
+                </div>
+                
+                <div class="step-card" data-step="1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="1">
+                                <span>Project is correctly named "A-Maze-Ball" with Forward+ renderer (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>Open your project.godot file in a text editor</li>
+                                    <li>Check that <code>config/name="A-Maze-Ball"</code></li>
+                                    <li>Check that <code>rendering/renderer/rendering_method="forward+"</code></li>
+                                    <li>Project runs without errors</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="2">
+                                <span>Player scene (player.tscn) exists with CharacterBody2D root (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>Open player.tscn</li>
+                                    <li>Root node is CharacterBody2D named "Player"</li>
+                                    <li>Has Sprite2D child with texture assigned</li>
+                                    <li>Has CollisionShape2D child with shape assigned</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="3">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="3">
+                                <span>Player has working movement script with WASD/Arrow Keys (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>player.gd script attached to Player node</li>
+                                    <li>Uses <code>Input.get_vector()</code> for input detection</li>
+                                    <li>Velocity is set correctly and uses <code>move_and_slide()</code></li>
+                                    <li>Player moves smoothly in 8 directions</li>
+                                </ul>
+                            </div>
+                            <div class="tip-box">
+                                <strong>💡 Reference Code:</strong>
+                                <pre><code>extends CharacterBody2D
+
+@export var speed = 300.0
+
+func _physics_process(delta):
+    var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+    if direction:
+        velocity = direction * speed
+    else:
+        velocity = velocity.move_toward(Vector2.ZERO, speed)
+    move_and_slide()</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: TileMap & Level Design (11 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">🗺️</div>
+                    <div class="test-section-title">Section 2: TileMapLayer & Level Design (11 points)</div>
+                </div>
+
+                <div class="step-card" data-step="4">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="4">
+                                <span>Kenney tilesheet imported and TileSet configured correctly (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>tilesheet.png exists in assets/tiles/ folder</li>
+                                    <li>TileSet resource created with 64x64 tile size</li>
+                                    <li>Atlas is properly sliced showing all tiles</li>
+                                    <li>TileSet saved as .tres file in resources/ folder</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="5">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="5">
+                                <span>Level1.tscn has proper Background and Walls layers (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>Level1.tscn exists with Node2D root</li>
+                                    <li>Has "Background" TileMapLayer child</li>
+                                    <li>Has "Walls" TileMapLayer child</li>
+                                    <li>Both layers use the saved TileSet resource</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="6">
+                    <div class="step-header">
+                        <div class="step-number">6</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="6">
+                                <span>Level1 has full floor coverage and working wall collision (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>Entire blue visible area covered with floor tiles</li>
+                                    <li>Walls painted around perimeter and interior maze paths</li>
+                                    <li>All wall tiles have collision polygons added</li>
+                                    <li>Player cannot walk through walls</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="7">
+                    <div class="step-header">
+                        <div class="step-number">7</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="7">
+                                <span>Exit doorway with Area2D trigger at maze end (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>Area2D named "ExitDoorway" placed at maze exit</li>
+                                    <li>CollisionShape2D covers the doorway area</li>
+                                    <li>Script attached with body_entered signal connection</li>
+                                    <li>Script loads Win.tscn when player touches exit</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="8">
+                    <div class="step-header">
+                        <div class="step-number">8</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="8">
+                                <span>Level2.tscn created with complete maze layout (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>🎮 Required: Create Level2.tscn</h4>
+                            <ul>
+                                <li>Create a new scene called Level2.tscn</li>
+                                <li>Follow the same structure as Level1 (Background + Walls layers)</li>
+                                <li>Use the saved TileSet resource</li>
+                                <li>Paint a COMPLETE maze layout (not just a copy of Level1)</li>
+                                <li>Must have floor tiles, walls with collision, and an exit trigger</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Requirement:</strong> Level2 must be a different maze than Level1, not just a minor variation!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="9">
+                    <div class="step-header">
+                        <div class="step-number">9</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="9">
+                                <span>Level2 demonstrates increasing difficulty from Level1 (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>📈 Difficulty Progression Criteria</h4>
+                            <ul>
+                                <li>Level2 is LARGER than Level1 (more tiles or more complex layout)</li>
+                                <li>Level2 has MORE dead ends or branching paths</li>
+                                <li>Level2 requires more strategic navigation</li>
+                                <li>Consider making passages narrower or adding more turns</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="10">
+                    <div class="step-header">
+                        <div class="step-number">10</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="10">
+                                <span>Level3.tscn created with complete maze layout (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>🎮 Required: Create Level3.tscn</h4>
+                            <ul>
+                                <li>Create a new scene called Level3.tscn</li>
+                                <li>Follow the same structure as previous levels</li>
+                                <li>Use the saved TileSet resource</li>
+                                <li>Paint a COMPLETE maze layout</li>
+                                <li>Must have floor tiles, walls with collision, and an exit trigger</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="11">
+                    <div class="step-header">
+                        <div class="step-number">11</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="11">
+                                <span>Level3 demonstrates progressive difficulty from Level2 (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>📈 Difficulty Progression Criteria</h4>
+                            <ul>
+                                <li>Level3 is noticeably more challenging than Level2</li>
+                                <li>Difficulty increases: Level1 (easiest) → Level2 (medium) → Level3 (hardest)</li>
+                                <li All three levels are clearly distinct from each other</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Scene Management (6 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">🎬</div>
+                    <div class="test-section-title">Section 3: Scene Management & UI (6 points)</div>
+                </div>
+
+                <div class="step-card" data-step="12">
+                    <div class="step-header">
+                        <div class="step-number">12</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="12">
+                                <span>Start.tscn created with title and buttons (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>Start.tscn exists with Control root node</li>
+                                    <li>Has Label with game title "A-Maze-Ball"</li>
+                                    <li>Has "Start Game" button</li>
+                                    <li>Has "Quit" button</li>
+                                    <li>Buttons have proper signal connections</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="13">
+                    <div class="step-header">
+                        <div class="step-number">13</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="13">
+                                <span>Win.tscn created and styled appropriately (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>Win.tscn exists (can be duplicated from Start.tscn)</li>
+                                    <li>Label says "You Win!" or similar victory message</li>
+                                    <li>Has "Play Again" button that loads Level1.tscn</li>
+                                    <li>Optional: "Quit" or "Main Menu" buttons</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="14">
+                    <div class="step-header">
+                        <div class="step-number">14</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="14">
+                                <span>Start.tscn set as Main Scene with complete game loop (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>Open Project → Project Settings → General</li>
+                                    <li>Check Application → Run → Main Scene points to "res://Start.tscn"</li>
+                                    <li>Game launches to Start screen when pressing F5</li>
+                                    <li>Complete game loop works: Start → Level1 → Win → Play Again</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: Code Quality (3 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">📦</div>
+                    <div class="test-section-title">Section 4: Code Quality & Organization (3 points)</div>
+                </div>
+
+                <div class="step-card" data-step="15">
+                    <div class="step-header">
+                        <div class="step-number">15</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="15">
+                                <span>Code is clear, well-commented, and properly formatted (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>Scripts have comments explaining key sections</li>
+                                    <li>Variable names are meaningful (e.g., "speed" not "s")</li>
+                                    <li>Functions are properly indented</li>
+                                    <li>No orphaned or commented-out code</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="16">
+                    <div class="step-header">
+                        <div class="step-number">16</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="16">
+                                <span>Project is organized with assets/, resources/, scenes/ folders (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>✅ Verification Checklist</h4>
+                                <ul>
+                                    <li>assets/ folder contains tiles/ and player/ subfolders</li>
+                                    <li>resources/ folder contains TileSet .tres file</li>
+                                    <li>Scene files are in root or a scenes/ folder</li>
+                                    <li>No unnecessary files in project root</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BONUS SECTION (10 points possible) -->
+            <div class="test-section bonus-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">⭐</div>
+                    <div class="test-section-title">Bonus Challenges (Optional - up to 10 points)</div>
+                </div>
+
+                <div class="step-card" data-step="17">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="17">
+                                <span>Add decorative elements (torches, barrels, cracks) to levels (3 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>🏆 Bonus Challenge 1</h4>
+                            <p>Enhance the visual appeal of your levels.</p>
+                            <ul>
+                                <li>Added decorative tiles to at least one level (2 points)</li>
+                                <li>Decorations are placed thoughtfully, not randomly (1 point)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="18">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="18">
+                                <span>Create a level selection screen (3 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>🏆 Bonus Challenge 2</h4>
+                            <p>Replace the Start button with a level select menu.</p>
+                            <ul>
+                                <li>LevelSelect.tscn scene created with buttons for each level (1 point)</li>
+                                <li>Players can choose which level to play (Level1, Level2, Level3) (1 point)</li>
+                                <li>Win scene returns to level select instead of restarting Level1 (1 point)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="19">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="19">
+                                <span>Add a simple animated coin/pickup system (4 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>🏆 Bonus Challenge 3</h4>
+                            <p>Add collectible items to one or more levels.</p>
+                            <ul>
+                                <li>Create a Coin.tscn scene with Area2D and Sprite2D (2 points)</li>
+                                <li>Coins disappear when collected and increment a UI counter (1 point)</li>
+                                <li>Player must collect all coins before the exit activates (1 point)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submission Section -->
+        <div class="submission-section">
+            <h2>📤 Submission Instructions</h2>
+            <div class="submission-grid">
+                <div class="submission-card">
+                    <h3>What to Submit</h3>
+                    <ul>
+                        <li>Entire Godot project folder (compressed as .zip) turned in on Google Classroom</li>
+                        <li>Screenshots of each level (Level1, Level2, Level3)</li>
+                        <li>Brief reflection on your design process for each level</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Navigation -->
+        <div class="test-navigation">
+            <a href="page7.html" class="nav-button">← Back to Section 7</a>
+            <div class="test-score" id="test-score">
+                Score: 0 / 30 points possible
+            </div>
+            <a href="../../index.html" class="nav-button primary">Course Home →</a>
+        </div>
+    </div>
+
+    <!-- Test Scoring Script -->
+    <script>
+        function calculateTestScore() {
+            // Required step point values (total 30 points possible)
+            const stepPointValues = {
+                1: 1,    // Project name renderer
+                2: 1,    // Player scene exists
+                3: 2,    // Movement script
+                4: 1,    // Tilesheet imported
+                5: 1,    // Level1 proper layers
+                6: 2,    // Level1 floor collision
+                7: 1,    // Exit doorway
+                8: 2,    // Level2 created
+                9: 2,    // Level2 difficulty
+                10: 1,   // Level3 created
+                11: 1,   // Level3 difficulty
+                12: 2,   // Start.tscn
+                13: 2,   // Win.tscn
+                14: 2,   // Main scene set
+                15: 2,   // Code quality
+                16: 1    // Organization
+            };
+            
+            let earnedPoints = 0;
+            let maxPoints = 0;
+            
+            for (const [step, points] of Object.entries(stepPointValues)) {
+                maxPoints += points;
+                const checkbox = document.querySelector(`.step-check[data-step="${step}"]`);
+                if (checkbox && checkbox.checked) {
+                    earnedPoints += points;
+                }
+            }
+            
+            // Bonus checkboxes (17-19) - add to earned points but not to max
+            const bonus17 = document.querySelector('.step-check[data-step="17"]');
+            const bonus18 = document.querySelector('.step-check[data-step="18"]');
+            const bonus19 = document.querySelector('.step-check[data-step="19"]');
+            
+            if (bonus17 && bonus17.checked) earnedPoints += 3;
+            if (bonus18 && bonus18.checked) earnedPoints += 3;
+            if (bonus19 && bonus19.checked) earnedPoints += 4;
+            
+            // Update display
+            const scoreDisplay = document.getElementById('test-score');
+            if (scoreDisplay) {
+                scoreDisplay.innerHTML = `Score: ${earnedPoints} / ${maxPoints} points possible`;
+            }
+            
+            return earnedPoints;
+        }
+        
+        // Add event listeners to checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.step-check');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    calculateTestScore();
+                    
+                    // Update progress bar based on required steps only
+                    const requiredSteps = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+                    let totalRequired = requiredSteps.length;
+                    let completedRequired = 0;
+                    
+                    requiredSteps.forEach(step => {
+                        const cb = document.querySelector(`.step-check[data-step="${step}"]`);
+                        if (cb && cb.checked) completedRequired++;
+                    });
+                    
+                    const percent = (completedRequired / totalRequired) * 100;
+                    
+                    const progressFill = document.querySelector('.progress-fill');
+                    const progressPercent = document.getElementById('progress-percent');
+                    
+                    if (progressFill) progressFill.style.width = `${percent}%`;
+                    if (progressPercent) progressPercent.textContent = `${Math.round(percent)}%`;
+                });
+            });
+            
+            calculateTestScore();
+        });
+    </script>
+    
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

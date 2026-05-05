@@ -1224,3 +1224,140 @@ a:hover {
     display: flex;
     flex-direction: column;
 }
+
+/* Unit Test Page Styles */
+.test-overview {
+    margin-bottom: 40px;
+}
+
+.test-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.test-stat-card {
+    background: var(--retro-terminal);
+    border: 2px solid var(--retro-green);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.test-stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--retro-green);
+    font-family: monospace;
+}
+
+.test-stat-label {
+    font-size: 0.85rem;
+    color: var(--retro-gray);
+    margin-top: 5px;
+}
+
+.test-instructions {
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.test-instructions h3 {
+    color: var(--retro-cyan);
+    margin-bottom: 15px;
+}
+
+.test-section {
+    margin-bottom: 30px;
+}
+
+.test-section-header {
+    background: rgba(74, 252, 120, 0.1);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.test-section-icon {
+    font-size: 1.5rem;
+}
+
+.test-section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--retro-green);
+}
+
+.bonus-section {
+    border: 2px solid var(--retro-amber);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.bonus-section .test-section-header {
+    background: rgba(255, 179, 71, 0.1);
+}
+
+.bonus-section .test-section-title {
+    color: var(--retro-amber);
+}
+
+.bonus-section .test-stat-number {
+    color: var(--retro-amber);
+}
+
+.submission-section {
+    margin: 40px 0;
+    padding: 25px;
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 12px;
+}
+
+.submission-section h2 {
+    color: var(--retro-cyan);
+    margin-bottom: 20px;
+}
+
+.submission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.submission-card {
+    background: var(--retro-surface);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.submission-card h3 {
+    color: var(--retro-green);
+    margin-bottom: 15px;
+}
+
+.test-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px;
+}
+
+.test-score {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--retro-cyan);
+    font-family: monospace;
+}
