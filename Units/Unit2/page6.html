@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2.6: Spawning Gems - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 2</a> > 
+                <span>Spawning Gems</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 6 of 7</span>
+                <a href="page7.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 6 Videos</h3>
+                    <p>Watch: "Spawning Objects with Timers"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="unit-header">
+            <h1>Section 6: Spawning Gems with Timer</h1>
+            <p class="unit-description">Use Timer nodes to spawn gems at random intervals and positions.</p>
+        </div>
+
+        <div class="steps" data-unit="2" data-section="6">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Add Timer Node to Game Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>⏰ Setting Up the Spawn Timer</h4>
+                            <ul>
+                                <li>Open <strong>Game.tscn</strong></li>
+                                <li>Add a new child node: <strong>Timer</strong></li>
+                                <li>Rename it to <strong>"SpawnTimer"</strong></li>
+                                <li>In the Inspector, set <strong>Wait Time</strong> to <strong>1.5</strong> seconds</li>
+                                <li>Enable <strong>Autostart</strong> to begin spawning immediately</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Spawn timer setup" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.1: Timer node configured for spawning</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Connect Timer Signal to Spawn Function</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>📦 Spawning Script</h4>
+                            <p>Add this to your Game.gd script:</p>
+                            <pre><code>@onready var spawn_timer = $SpawnTimer
+var gem_scene = preload("res://gem.tscn")
+
+func _ready():
+    spawn_timer.timeout.connect(_on_spawn_timer_timeout)
+
+func _on_spawn_timer_timeout():
+    var gem = gem_scene.instantiate()
+    gem.position = Vector2(randf_range(50, 750), randf_range(50, 550))
+    gem.collected.connect(_on_gem_collected)
+    add_child(gem)</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 New Concepts:</strong> <code>preload()</code> loads a scene, <code>instantiate()</code> creates a copy, and <code>randf_range()</code> creates random numbers!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Spawning script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.2: Script that spawns gems at random positions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-navigation">
+            <a href="page5.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <span class="current-page">Page 6</span>
+                <a href="page7.html" class="page-button">Page 7 →</a>
+            </div>
+            <a href="page7.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

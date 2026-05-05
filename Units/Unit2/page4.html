@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2.4: Enemy Movement - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 2</a> > 
+                <span>Enemy Movement</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 4 of 7</span>
+                <a href="page5.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 4 Videos</h3>
+                    <p>Watch: "Creating Moving Enemies"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="unit-header">
+            <h1>Section 4: Enemy Movement & Collision</h1>
+            <p class="unit-description">Add moving enemies that patrol back and forth and end the game on contact.</p>
+        </div>
+
+        <div class="steps" data-unit="2" data-section="4">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create Enemy Scene with Area2D</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>👾 Creating the Enemy</h4>
+                            <ul>
+                                <li>Create a new scene with <strong>Area2D</strong> root</li>
+                                <li>Rename to <strong>"Enemy"</strong></li>
+                                <li>Add a <strong>Sprite2D</strong> child (use a red square or skull image)</li>
+                                <li>Add a <strong>CollisionShape2D</strong> child with RectangleShape2D</li>
+                                <li>Save as <strong>"enemy.tscn"</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Enemy scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.1: Enemy scene with Area2D</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Add Patrol Movement Script to Enemy</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🚶 Enemy Patrol Script</h4>
+                            <pre><code>extends Area2D
+
+@export var speed = 100.0
+@export var left_limit = 50
+@export var right_limit = 750
+
+var moving_right = true
+
+func _physics_process(delta):
+    if moving_right:
+        position.x += speed * delta
+        if position.x >= right_limit:
+            moving_right = false
+    else:
+        position.x -= speed * delta
+        if position.x <= left_limit:
+            moving_right = true</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> Patrolling enemies move back and forth between two limits - great for adding challenge!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Enemy patrol script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.2: Enemy script with patrol movement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add Enemy Collision Signal to Game Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>💀 Enemy Contact Script</h4>
+                            <p>Add this to the Enemy script:</p>
+                            <pre><code>signal game_over
+
+func _ready():
+    body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+    if body.name == "Player":
+        game_over.emit()</code></pre>
+                            <p>Then in your Game script:</p>
+                            <pre><code>func _on_enemy_game_over():
+    get_tree().change_scene_to_file("res://GameOver.tscn")</code></pre>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Enemy signal" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.3: Enemy sends game_over signal on player contact</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-navigation">
+            <a href="page3.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <span class="current-page">Page 4</span>
+                <a href="page5.html" class="page-button">Page 5 →</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+            </div>
+            <a href="page5.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

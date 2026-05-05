@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2.3: Score System - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 2</a> > 
+                <span>Score System</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 3 of 7</span>
+                <a href="page4.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 3 Videos</h3>
+                    <p>Watch: "Creating a Dynamic Score System"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="unit-header">
+            <h1>Section 3: Score System with UI</h1>
+            <p class="unit-description">Create a score counter that updates when gems are collected using signals.</p>
+        </div>
+
+        <div class="steps" data-unit="2" data-section="3">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create Main Scene "Game.tscn" with UI CanvasLayer</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🎮 Setting Up the Game Scene</h4>
+                            <ul>
+                                <li>Create a new scene with <strong>Node2D</strong> root called <strong>"Game"</strong></li>
+                                <li>Add your <strong>player.tscn</strong> as a child</li>
+                                <li>Add a <strong>CanvasLayer</strong> node for UI</li>
+                                <li>Inside CanvasLayer, add a <strong>Label</strong> named <strong>"ScoreLabel"</strong></li>
+                                <li>Position the label in the top-left corner</li>
+                                <li>Save as <strong>"Game.tscn"</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Game scene with UI" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.1: Game scene with CanvasLayer and ScoreLabel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Connect Gem Signal to Update Score</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>📊 Score Management Script</h4>
+                            <p>Attach this script to the Game node:</p>
+                            <pre><code>extends Node2D
+
+var score = 0
+
+func _ready():
+    # Connect gem signal when gems are spawned
+    pass
+
+func add_score(amount):
+    score += amount
+    $CanvasLayer/ScoreLabel.text = "Score: " + str(score)
+
+func _on_gem_collected():
+    add_score(10)</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> Signals allow different scenes to communicate. The gem tells the game "I was collected!" and the game adds to the score!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Score script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.2: Game script with score tracking</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-navigation">
+            <a href="page2.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <span class="current-page">Page 3</span>
+                <a href="page4.html" class="page-button">Page 4 →</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+            </div>
+            <a href="page4.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2 Test: Gem Catcher - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 2</a> > 
+                <span>Unit 2 Test</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Unit Test</span>
+                <a href="../../index.html" class="next-button">Back to Units →</a>
+            </div>
+        </div>
+
+        <div class="unit-header">
+            <h1>📝 Unit 2 Test: Gem Catcher</h1>
+            <p class="unit-description">Demonstrate your mastery of signals, timers, instancing, and UI systems.</p>
+        </div>
+
+        <div class="test-overview">
+            <div class="test-stats">
+                <div class="test-stat-card">
+                    <div class="test-stat-number">30</div>
+                    <div class="test-stat-label">Required Points</div>
+                </div>
+                <div class="test-stat-card">
+                    <div class="test-stat-number">10</div>
+                    <div class="test-stat-label">Bonus Points</div>
+                </div>
+                <div class="test-stat-card">
+                    <div class="test-stat-number">40</div>
+                    <div class="test-stat-label">Grand Total</div>
+                </div>
+            </div>
+            <div class="test-instructions">
+                <h3>📋 Test Instructions</h3>
+                <ul>
+                    <li>Complete ALL required sections (30 points total)</li>
+                    <li>Bonus challenges are optional (up to 10 extra points)</li>
+                    <li>Submit your entire project folder for grading</li>
+                    <li>Use the checkboxes below to track your progress</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="steps" data-unit="2" data-section="test">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Test Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Section 1: Core Mechanics (12 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">🎮</div>
+                    <div class="test-section-title">Section 1: Core Mechanics (12 points)</div>
+                </div>
+                
+                <div class="step-card" data-step="1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="1"> Player moves with WASD/Arrows and screen boundaries (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="2"> Gem scene with Area2D and collision (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="3">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="3"> Gem sends collected signal and queues free (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="4">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="4"> Score system with UI Label updating correctly (3 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="5">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="5"> Timer spawns gems at random positions (3 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Enemies & Game Over (8 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">👾</div>
+                    <div class="test-section-title">Section 2: Enemies & Game Over (8 points)</div>
+                </div>
+
+                <div class="step-card" data-step="6">
+                    <div class="step-header">
+                        <div class="step-number">6</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="6"> Enemy scene with patrol movement (3 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="7">
+                    <div class="step-header">
+                        <div class="step-number">7</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="7"> Enemy sends game_over signal on player contact (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="8">
+                    <div class="step-header">
+                        <div class="step-number">8</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="8"> GameOver.tscn loads when enemy touches player (3 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: UI & Polish (6 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">🎨</div>
+                    <div class="test-section-title">Section 3: UI & Polish (6 points)</div>
+                </div>
+
+                <div class="step-card" data-step="9">
+                    <div class="step-header">
+                        <div class="step-number">9</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="9"> Start.tscn menu with Start and Quit buttons (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="10">
+                    <div class="step-header">
+                        <div class="step-number">10</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="10"> Win.tscn victory screen loads at target score (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="11">
+                    <div class="step-header">
+                        <div class="step-number">11</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="11"> Play Again button restarts game correctly (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Code Quality (4 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">📝</div>
+                    <div class="test-section-title">Section 4: Code Quality (4 points)</div>
+                </div>
+
+                <div class="step-card" data-step="12">
+                    <div class="step-header">
+                        <div class="step-number">12</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="12"> Well-commented, clean code (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="13">
+                    <div class="step-header">
+                        <div class="step-number">13</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="13"> Organized project folders (assets/, scenes/, etc.) (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bonus Section (10 points) -->
+            <div class="test-section bonus-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">⭐</div>
+                    <div class="test-section-title">Bonus Challenges (up to 10 points)</div>
+                </div>
+
+                <div class="step-card" data-step="bonus1" data-bonus-value="3">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus1" data-bonus-value="3"> Different gem types with varying point values (3 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="bonus2" data-bonus-value="3">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus2" data-bonus-value="3"> Power-up system (speed boost, invincibility, magnet) (3 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="bonus3" data-bonus-value="4">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus3" data-bonus-value="4"> High score system saving to file (4 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="submission-section">
+            <h2>📤 Submission Instructions</h2>
+            <div class="submission-grid">
+                <div class="submission-card">
+                    <h3>What to Submit</h3>
+                    <ul>
+                        <li>Entire Godot project folder (compressed as .zip)</li>
+                        <li>Screenshots of gameplay showing score counter</li>
+                        <li>Brief reflection on what you learned about signals and instancing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-navigation">
+            <a href="page7.html" class="nav-button">← Back to Section 7</a>
+            <div class="test-score" id="test-score">Score: 0 / 30 points possible</div>
+            <a href="../../index.html" class="nav-button primary">Submit Test →</a>
+        </div>
+    </div>
+
+    <script>
+        function calculateTestScore() {
+            const stepPointValues = {
+                1: 2, 2: 2, 3: 2, 4: 3, 5: 3,
+                6: 3, 7: 2, 8: 3,
+                9: 2, 10: 2, 11: 2,
+                12: 2, 13: 2
+            };
+            
+            let earnedPoints = 0;
+            let maxPoints = 0;
+            
+            for (const [step, points] of Object.entries(stepPointValues)) {
+                maxPoints += points;
+                const checkbox = document.querySelector(`.step-check[data-step="${step}"]`);
+                if (checkbox && checkbox.checked) earnedPoints += points;
+            }
+            
+            const bonus1 = document.querySelector('.step-check[data-step="bonus1"]');
+            const bonus2 = document.querySelector('.step-check[data-step="bonus2"]');
+            const bonus3 = document.querySelector('.step-check[data-step="bonus3"]');
+            
+            if (bonus1 && bonus1.checked) earnedPoints += 3;
+            if (bonus2 && bonus2.checked) earnedPoints += 3;
+            if (bonus3 && bonus3.checked) earnedPoints += 4;
+            
+            const scoreDisplay = document.getElementById('test-score');
+            if (scoreDisplay) {
+                scoreDisplay.innerHTML = `Score: ${earnedPoints} / ${maxPoints} points possible`;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.step-check');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', calculateTestScore);
+            });
+            calculateTestScore();
+            
+            const requiredSteps = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+            let completedRequired = 0;
+            requiredSteps.forEach(step => {
+                const cb = document.querySelector(`.step-check[data-step="${step}"]`);
+                if (cb && cb.checked) completedRequired++;
+            });
+            const percent = (completedRequired / requiredSteps.length) * 100;
+            const progressFill = document.querySelector('.progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            if (progressFill) progressFill.style.width = `${percent}%`;
+            if (progressPercent) progressPercent.textContent = `${Math.round(percent)}%`;
+        });
+    </script>
+    
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

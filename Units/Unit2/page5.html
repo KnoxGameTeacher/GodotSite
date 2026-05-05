@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2.5: Game Over & Restart - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 2</a> > 
+                <span>Game Over & Restart</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 5 of 7</span>
+                <a href="page6.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 5 Videos</h3>
+                    <p>Watch: "Game Over Screens and Restarting"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="unit-header">
+            <h1>Section 5: Game Over & Restart</h1>
+            <p class="unit-description">Create a Game Over screen with restart functionality.</p>
+        </div>
+
+        <div class="steps" data-unit="2" data-section="5">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create GameOver.tscn Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>💀 Game Over Screen</h4>
+                            <ul>
+                                <li>Create a new scene with <strong>Control</strong> root</li>
+                                <li>Add a <strong>Label</strong> with text "GAME OVER"</li>
+                                <li>Add a <strong>Button</strong> with text "Play Again"</li>
+                                <li>Add a <strong>Button</strong> with text "Quit" (optional)</li>
+                                <li>Save as <strong>"GameOver.tscn"</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Game Over scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.1: Game Over scene with Play Again button</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Add Restart Functionality to Play Again Button</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>🔄 Restart Script</h4>
+                            <p>Attach this script to the GameOver node:</p>
+                            <pre><code>extends Control
+
+func _ready():
+    $PlayAgainButton.pressed.connect(_on_play_again_pressed)
+    $QuitButton.pressed.connect(_on_quit_pressed)
+
+func _on_play_again_pressed():
+    get_tree().change_scene_to_file("res://Game.tscn")
+
+func _on_quit_pressed():
+    get_tree().quit()</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Resetting the game loads a fresh copy of Game.tscn, resetting score and all game objects!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Restart script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.2: GameOver script with restart functionality</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-navigation">
+            <a href="page4.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <span class="current-page">Page 5</span>
+                <a href="page6.html" class="page-button">Page 6 →</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+            </div>
+            <a href="page6.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

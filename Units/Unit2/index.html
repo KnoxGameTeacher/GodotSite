@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2: Gem Catcher - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- YouTube Playlist Placeholder -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder" id="youtube-playlist">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>YouTube Playlist Coming Soon</h3>
+                    <p>Video tutorials for this unit will be added here</p>
+                    <div class="placeholder-meta">
+                        <span>🎬 Playlist ID: UNIT2_GEMCATCHER_2024</span>
+                        <span>📝 7 videos planned</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unit Header -->
+        <div class="unit-header">
+            <h1>Unit 2: Gem Catcher</h1>
+            <div class="unit-meta">
+                <span class="unit-badge">🎮 Beginner</span>
+                <span class="unit-badge">⏱️ 4 hours</span>
+                <span class="unit-badge">📦 7 sections</span>
+            </div>
+            <p class="unit-description">Build a fast-paced collection game where you catch falling gems while avoiding enemies. Learn signals, instancing, timers, and dynamic UI!</p>
+        </div>
+
+        <!-- Unit Overview / Sections Grid -->
+        <div class="unit-overview">
+            <h2>Unit Sections</h2>
+            <div class="sections-grid">
+                <div class="section-card" data-section="1">
+                    <div class="section-number">01</div>
+                    <div class="section-info">
+                        <h3>Project Setup & Player Movement</h3>
+                        <p>Create the Gem Catcher project and set up your player scene</p>
+                        <div class="section-progress" id="section1-progress">0% complete</div>
+                    </div>
+                    <a href="page1.html" class="section-button">Start →</a>
+                </div>
+                
+                <div class="section-card" data-section="2">
+                    <div class="section-number">02</div>
+                    <div class="section-info">
+                        <h3>Creating the Gem (Area2D)</h3>
+                        <p>Build a collectible gem scene with Area2D and signals</p>
+                        <div class="section-progress" id="section2-progress">0% complete</div>
+                    </div>
+                    <a href="page2.html" class="section-button">Start →</a>
+                </div>
+                
+                <div class="section-card" data-section="3">
+                    <div class="section-number">03</div>
+                    <div class="section-info">
+                        <h3>Score System with UI</h3>
+                        <p>Create a score counter that updates when gems are collected</p>
+                        <div class="section-progress" id="section3-progress">0% complete</div>
+                    </div>
+                    <a href="page3.html" class="section-button">Start →</a>
+                </div>
+                
+                <div class="section-card" data-section="4">
+                    <div class="section-number">04</div>
+                    <div class="section-info">
+                        <h3>Enemy Movement & Collision</h3>
+                        <p>Add moving enemies that end the game on contact</p>
+                        <div class="section-progress" id="section4-progress">0% complete</div>
+                    </div>
+                    <a href="page4.html" class="section-button">Start →</a>
+                </div>
+
+                <div class="section-card" data-section="5">
+                    <div class="section-number">05</div>
+                    <div class="section-info">
+                        <h3>Game Over & Restart</h3>
+                        <p>Create a Game Over screen with restart functionality</p>
+                        <div class="section-progress" id="section5-progress">0% complete</div>
+                    </div>
+                    <a href="page5.html" class="section-button">Start →</a>
+                </div>
+
+                <div class="section-card" data-section="6">
+                    <div class="section-number">06</div>
+                    <div class="section-info">
+                        <h3>Spawning Gems with Timer</h3>
+                        <p>Use Timer nodes to spawn gems at random intervals and positions</p>
+                        <div class="section-progress" id="section6-progress">0% complete</div>
+                    </div>
+                    <a href="page6.html" class="section-button">Start →</a>
+                </div>
+
+                <div class="section-card" data-section="7">
+                    <div class="section-number">07</div>
+                    <div class="section-info">
+                        <h3>Win Condition & Polish</h3>
+                        <p>Add a win condition, sound effects, and visual polish</p>
+                        <div class="section-progress" id="section7-progress">0% complete</div>
+                    </div>
+                    <a href="page7.html" class="section-button">Start →</a>
+                </div>
+
+                <div class="section-card" data-section="test">
+                    <div class="section-number">🎯</div>
+                    <div class="section-info">
+                        <h3>Unit 2 Test</h3>
+                        <p>Demonstrate your skills with bonus challenges</p>
+                        <div class="section-progress" id="section-test-progress">0% complete</div>
+                    </div>
+                    <a href="test.html" class="section-button">Take Test →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unit Navigation -->
+        <div class="unit-navigation">
+            <a href="../../index.html" class="nav-button">← Back to Units</a>
+            <div class="unit-completion-status">
+                <div class="unit-progress-bar">
+                    <div class="unit-progress-fill" id="unit-progress-fill" style="width: 0%"></div>
+                </div>
+                <span id="completion-status">Unit Progress: 0%</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

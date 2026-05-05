@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 2.1: Project Setup & Player Movement - Godot Game Design</title>
+    <title>Unit 2.7: Win Condition & Polish - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -12,11 +12,11 @@
             <div class="breadcrumb">
                 <a href="../../index.html">Home</a> > 
                 <a href="index.html">Unit 2</a> > 
-                <span>Project Setup & Player Movement</span>
+                <span>Win Condition & Polish</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section 1 of 7</span>
-                <a href="page2.html" class="next-button">Next Section →</a>
+                <span class="section-nav-current">Section 7 of 7</span>
+                <a href="test.html" class="next-button">Take Test →</a>
             </div>
         </div>
 
@@ -29,18 +29,18 @@
             <div class="youtube-placeholder">
                 <div class="placeholder-content">
                     <div class="placeholder-icon">📺</div>
-                    <h3>Section 1 Videos</h3>
-                    <p>Watch: "Setting Up Gem Catcher"</p>
+                    <h3>Section 7 Videos</h3>
+                    <p>Watch: "Win Conditions and Game Polish"</p>
                 </div>
             </div>
         </div>
 
         <div class="unit-header">
-            <h1>Section 1: Project Setup & Player Movement</h1>
-            <p class="unit-description">Create the Gem Catcher project and set up your player character with screen boundary limits.</p>
+            <h1>Section 7: Win Condition & Polish</h1>
+            <p class="unit-description">Add a win condition, sound effects, and visual polish to complete your game.</p>
         </div>
 
-        <div class="steps" data-unit="2" data-section="1">
+        <div class="steps" data-unit="2" data-section="7">
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -48,113 +48,99 @@
                 <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
             </div>
 
-            <!-- Step 1 -->
             <div class="step-card" data-step="1">
                 <div class="step-header">
                     <div class="step-number">1</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>Create New Project "Gem Catcher" with Forward+ Renderer</span>
+                            <span>Create Win.tscn Victory Screen</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>🎮 Creating the Project</h4>
+                            <h4>🏆 Victory Screen</h4>
                             <ul>
-                                <li>Open Godot and click <strong>"New Project"</strong></li>
-                                <li>Name the project <strong>"Gem Catcher"</strong></li>
-                                <li>Choose a location on your computer</li>
-                                <li>Select <strong>"Forward+"</strong> as the renderer</li>
-                                <li>Click <strong>"Create & Edit"</strong></li>
+                                <li>Duplicate <strong>GameOver.tscn</strong> and rename to <strong>Win.tscn</strong></li>
+                                <li>Change the Label text to <strong>"YOU WIN!"</strong></li>
+                                <li>Change button text to <strong>"Play Again"</strong></li>
+                                <li>Optionally change colors to celebrate victory</li>
                             </ul>
-                            <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> Keep all your Godot projects organized in one parent folder (like "GodotProjects")!
-                            </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="New project dialog" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 1.1: Creating the Gem Catcher project</div>
+                            <img src="../../_placeholderimage.png" alt="Win scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.1: Win screen with Play Again button</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 2 -->
             <div class="step-card" data-step="2">
                 <div class="step-header">
                     <div class="step-number">2</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>Create Player Scene with CharacterBody2D</span>
+                            <span>Add Win Condition to Game Script</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>🏗️ Setting Up the Player</h4>
-                            <ul>
-                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
-                                <li>Add a <strong>CharacterBody2D</strong> as the root node</li>
-                                <li>Rename it to <strong>"Player"</strong></li>
-                                <li>Add a <strong>Sprite2D</strong> child (use a simple circle or placeholder)</li>
-                                <li>Add a <strong>CollisionShape2D</strong> child with a CircleShape2D</li>
-                                <li>Save the scene as <strong>"player.tscn"</strong></li>
-                            </ul>
+                            <h4>🎯 Win Condition Script</h4>
+                            <p>Add to Game.gd:</p>
+                            <pre><code>var win_score = 100
+var score = 0
+
+func add_score(amount):
+    score += amount
+    $CanvasLayer/ScoreLabel.text = "Score: " + str(score)
+    
+    if score >= win_score:
+        get_tree().change_scene_to_file("res://Win.tscn")</code></pre>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Player scene setup" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 1.2: Player scene with CharacterBody2D root</div>
+                            <img src="../../_placeholderimage.png" alt="Win condition script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.2: Script that checks for win condition</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 3 -->
             <div class="step-card" data-step="3">
                 <div class="step-header">
                     <div class="step-number">3</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="3">
-                            <span>Add Movement Script with Screen Boundaries</span>
+                            <span>Add Start.tscn Menu Scene</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>⌨️ Player Movement Script</h4>
-                            <p>Attach this script to the Player node:</p>
-                            <pre><code>extends CharacterBody2D
-
-@export var speed = 400.0
-
-func _physics_process(delta):
-    var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-    velocity = direction * speed
-    move_and_slide()
-    
-    # Keep player within screen boundaries
-    position.x = clamp(position.x, 0, get_viewport_rect().size.x)
-    position.y = clamp(position.y, 0, get_viewport_rect().size.y)</code></pre>
-                            <div class="tip-box">
-                                <strong>💡 New Concept:</strong> <code>clamp()</code> keeps a value within a range. Here it prevents the player from leaving the screen!
-                            </div>
+                            <h4>🎮 Start Menu</h4>
+                            <ul>
+                                <li>Create <strong>Start.tscn</strong> with Control root</li>
+                                <li>Add title "Gem Catcher"</li>
+                                <li>Add "Start Game" button (loads Game.tscn)</li>
+                                <li>Add "Quit" button</li>
+                                <li>Set as Main Scene in Project Settings</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Movement script" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 1.3: Player script with screen boundaries</div>
+                            <img src="../../_placeholderimage.png" alt="Start menu" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.3: Start menu for Gem Catcher</div>
                         </div>
                     </div>
                 </div>
@@ -162,17 +148,17 @@ func _physics_process(delta):
         </div>
 
         <div class="page-navigation">
-            <a href="index.html" class="nav-button">← Back to Unit Overview</a>
+            <a href="page6.html" class="nav-button">← Previous Section</a>
             <div class="page-buttons">
-                <span class="current-page">Page 1</span>
-                <a href="page2.html" class="page-button">Page 2 →</a>
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
                 <a href="page3.html" class="page-button">Page 3</a>
                 <a href="page4.html" class="page-button">Page 4</a>
                 <a href="page5.html" class="page-button">Page 5</a>
                 <a href="page6.html" class="page-button">Page 6</a>
-                <a href="page7.html" class="page-button">Page 7</a>
+                <span class="current-page">Page 7</span>
             </div>
-            <a href="page2.html" class="nav-button primary">Next Section →</a>
+            <a href="test.html" class="nav-button primary">Take Unit Test →</a>
         </div>
     </div>
     <script src="../../course-data.js"></script>
