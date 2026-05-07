@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 2: Gem Catcher - Godot Game Design</title>
+    <title>Unit 2: Plenty o' Platforms - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -21,8 +21,8 @@
                     <h3>YouTube Playlist Coming Soon</h3>
                     <p>Video tutorials for this unit will be added here</p>
                     <div class="placeholder-meta">
-                        <span>🎬 Playlist ID: UNIT2_GEMCATCHER_2024</span>
-                        <span>📝 7 videos planned</span>
+                        <span>Playlist ID: UNIT2_PLATFORMER_2024</span>
+                        <span>7 videos planned</span>
                     </div>
                 </div>
             </div>
@@ -30,94 +30,105 @@
 
         <!-- Unit Header -->
         <div class="unit-header">
-            <h1>Unit 2: Forage Frenzy</h1>
+            <h1>Unit 2: Plenty o' Platforms</h1>
             <div class="unit-meta">
-                <span class="unit-badge">🎮 Beginner</span>
-                <span class="unit-badge">⏱️ 4 hours</span>
-                <span class="unit-badge">📦 7 sections</span>
+                <span class="unit-badge">Beginner/Intermediate</span>
+                <span class="unit-badge">~4 hours</span>
+                <span class="unit-badge">7 sections</span>
             </div>
-            <p class="unit-description">Build a fast-paced collection game where you forage mushrooms while avoiding enemies. Learn signals, instancing, timers, and dynamic UI!</p>
+            <p class="unit-description">
+                Build a classic 2D platformer with gravity, jumping, and multiple levels. 
+                Choose your own visual theme from Kenney's platformer asset packs!
+            </p>
         </div>
 
         <!-- Unit Overview / Sections Grid -->
         <div class="unit-overview">
             <h2>Unit Sections</h2>
             <div class="sections-grid">
+                <!-- Section 1 -->
                 <div class="section-card" data-section="1">
                     <div class="section-number">01</div>
                     <div class="section-info">
-                        <h3>Project Setup & Player Movement</h3>
-                        <p>Create the Gem Catcher project and set up your player scene</p>
+                        <h3>Project Setup & Character Selection</h3>
+                        <p>Create the project, choose a Kenney platformer asset pack, and import assets</p>
                         <div class="section-progress" id="section1-progress">0% complete</div>
                     </div>
                     <a href="page1.html" class="section-button">Start →</a>
                 </div>
-                
+
+                <!-- Section 2 -->
                 <div class="section-card" data-section="2">
                     <div class="section-number">02</div>
                     <div class="section-info">
-                        <h3>Creating the Gem (Area2D)</h3>
-                        <p>Build a collectible gem scene with Area2D and signals</p>
+                        <h3>Player Scene & Gravity</h3>
+                        <p>Set up CharacterBody2D with gravity, collision, and basic movement</p>
                         <div class="section-progress" id="section2-progress">0% complete</div>
                     </div>
                     <a href="page2.html" class="section-button">Start →</a>
                 </div>
-                
+
+                <!-- Section 3 -->
                 <div class="section-card" data-section="3">
                     <div class="section-number">03</div>
                     <div class="section-info">
-                        <h3>Score System with UI</h3>
-                        <p>Create a score counter that updates when gems are collected</p>
+                        <h3>Jump Mechanic & Ground Detection</h3>
+                        <p>Add jumping with ground detection to prevent double jumps</p>
                         <div class="section-progress" id="section3-progress">0% complete</div>
                     </div>
                     <a href="page3.html" class="section-button">Start →</a>
                 </div>
-                
+
+                <!-- Section 4 -->
                 <div class="section-card" data-section="4">
                     <div class="section-number">04</div>
                     <div class="section-info">
-                        <h3>Enemy Movement & Collision</h3>
-                        <p>Add moving enemies that end the game on contact</p>
+                        <h3>Animated Character</h3>
+                        <p>Create idle, run, and jump animations using AnimatedSprite2D</p>
                         <div class="section-progress" id="section4-progress">0% complete</div>
                     </div>
                     <a href="page4.html" class="section-button">Start →</a>
                 </div>
 
+                <!-- Section 5 -->
                 <div class="section-card" data-section="5">
                     <div class="section-number">05</div>
                     <div class="section-info">
-                        <h3>Game Over & Restart</h3>
-                        <p>Create a Game Over screen with restart functionality</p>
+                        <h3>Platform TileMap & Camera</h3>
+                        <p>Build platforms with TileMapLayer and add a following camera</p>
                         <div class="section-progress" id="section5-progress">0% complete</div>
                     </div>
                     <a href="page5.html" class="section-button">Start →</a>
                 </div>
 
+                <!-- Section 6 -->
                 <div class="section-card" data-section="6">
                     <div class="section-number">06</div>
                     <div class="section-info">
-                        <h3>Spawning Gems with Timer</h3>
-                        <p>Use Timer nodes to spawn gems at random intervals and positions</p>
+                        <h3>Collectibles & Scoring</h3>
+                        <p>Add collectible items with Area2D signals and a score display</p>
                         <div class="section-progress" id="section6-progress">0% complete</div>
                     </div>
                     <a href="page6.html" class="section-button">Start →</a>
                 </div>
 
+                <!-- Section 7 -->
                 <div class="section-card" data-section="7">
                     <div class="section-number">07</div>
                     <div class="section-info">
-                        <h3>Win Condition & Polish</h3>
-                        <p>Add a win condition, sound effects, and visual polish</p>
+                        <h3>Goal, UI & Game Flow</h3>
+                        <p>Create a goal area, win scene, and complete game loop</p>
                         <div class="section-progress" id="section7-progress">0% complete</div>
                     </div>
                     <a href="page7.html" class="section-button">Start →</a>
                 </div>
 
+                <!-- Test Section -->
                 <div class="section-card" data-section="test">
                     <div class="section-number">🎯</div>
                     <div class="section-info">
                         <h3>Unit 2 Test</h3>
-                        <p>Demonstrate your skills with bonus challenges</p>
+                        <p>Create additional levels, add moving platforms, and implement double jump</p>
                         <div class="section-progress" id="section-test-progress">0% complete</div>
                     </div>
                     <a href="test.html" class="section-button">Take Test →</a>

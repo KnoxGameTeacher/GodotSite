@@ -18,21 +18,21 @@ const COURSE_DATA = {
             test: { name: "Unit 1 Test", steps: 16 }
         }
     },
-    2: { 
-        name: "Forage Frenzy",
-        description: "Build a fast-paced collection game using signals, timers, and dynamic UI!",
-        difficulty: "Beginner",
+    2: {
+        name: "Plenty o' Platforms",
+        description: "Build a classic 2D platformer with gravity, jumping, and multiple levels. Choose your own visual theme from Kenney's platformer asset packs!",
+        difficulty: "Beginner/Intermediate",
         estimatedTime: "4 hours",
         sections: 7,
         pages: {
-            1: { name: "Project Setup & Player Movement", steps: 3 },
-            2: { name: "Creating the Collectibles (Area2D)", steps: 2 },
-            3: { name: "Score System with UI", steps: 2 },
-            4: { name: "Enemy Movement & Collision", steps: 3 },
-            5: { name: "Game Over & Restart", steps: 2 },
-            6: { name: "Spawning Collectibles with Timer", steps: 2 },
-            7: { name: "Win Condition & Polish", steps: 3 },
-            test: { name: "Unit 2 Test", steps: 13 }
+            1: { name: "Project Setup & Character Selection", steps: 4 },
+            2: { name: "Player Scene & Gravity", steps: 4 },
+            3: { name: "Jump Mechanic & Ground Detection", steps: 4 },
+            4: { name: "Animated Character", steps: 5 },
+            5: { name: "Platform TileMap & Camera", steps: 5 },
+            6: { name: "Collectibles & Scoring", steps: 4 },
+            7: { name: "Goal, UI & Game Flow", steps: 5 },
+            test: { name: "Unit 2 Test", steps: 12 }
         }
     }
 

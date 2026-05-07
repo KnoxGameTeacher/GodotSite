@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 2.3: Score System - Godot Game Design</title>
+    <title>Unit 2.2: Plenty o' Platforms - Player Scene & Gravity - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <div class="main-container">
+        <!-- Section Header Navigation -->
         <div class="section-header-nav">
             <div class="breadcrumb">
                 <a href="../../index.html">Home</a> > 
                 <a href="index.html">Unit 2</a> > 
-                <span>Score System</span>
+                <span>Player Scene & Gravity</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section 3 of 7</span>
-                <a href="page4.html" class="next-button">Next Section →</a>
+                <span class="section-nav-current">Section 2 of 7</span>
+                <a href="page3.html" class="next-button">Next Section →</a>
             </div>
         </div>
 
+        <!-- YouTube Section -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
@@ -29,18 +31,20 @@
             <div class="youtube-placeholder">
                 <div class="placeholder-content">
                     <div class="placeholder-icon">📺</div>
-                    <h3>Section 3 Videos</h3>
-                    <p>Watch: "Creating a Dynamic Score System"</p>
+                    <h3>Section 2 Videos</h3>
+                    <p>Watch: "Setting Up Player Physics in Godot"</p>
                 </div>
             </div>
         </div>
 
+        <!-- Section Header -->
         <div class="unit-header">
-            <h1>Section 3: Score System with UI</h1>
-            <p class="unit-description">Create a score counter that updates when gems are collected using signals.</p>
+            <h1>Section 2: Player Scene & Gravity</h1>
+            <p class="unit-description">Set up the player character with gravity, collision, and basic movement using the sprite from your chosen asset pack.</p>
         </div>
 
-        <div class="steps" data-unit="2" data-section="3">
+        <!-- Steps Container -->
+        <div class="steps" data-unit="2" data-section="2">
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -48,95 +52,187 @@
                 <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
             </div>
 
+            <!-- Step 1: Create Player Scene -->
             <div class="step-card" data-step="1">
                 <div class="step-header">
                     <div class="step-number">1</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>Create Main Scene "Game.tscn" with UI CanvasLayer</span>
+                            <span>Create a New Scene with CharacterBody2D Root</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>🎮 Setting Up the Game Scene</h4>
+                            <h4>Creating the Player Scene</h4>
                             <ul>
-                                <li>Create a new scene with <strong>Node2D</strong> root called <strong>"Game"</strong></li>
-                                <li>Add your <strong>player.tscn</strong> as a child</li>
-                                <li>Add a <strong>CanvasLayer</strong> node for UI</li>
-                                <li>Inside CanvasLayer, add a <strong>Label</strong> named <strong>"ScoreLabel"</strong></li>
-                                <li>Position the label in the top-left corner</li>
-                                <li>Save as <strong>"Game.tscn"</strong></li>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Click <strong>"Other Node"</strong> and search for <strong>CharacterBody2D</strong></li>
+                                <li>Click <strong>"Create"</strong></li>
+                                <li>Right-click the node and select <strong>"Rename"</strong></li>
+                                <li>Name it <strong>"Player"</strong></li>
                             </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> CharacterBody2D is designed for player-controlled movement and handles physics collisions automatically.
+                            </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Game scene with UI" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 3.1: Game scene with CanvasLayer and ScoreLabel</div>
+                            <img src="../../_placeholderimage.png" alt="Creating CharacterBody2D" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.1: Creating a new CharacterBody2D node as the Player root</div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Step 2: Add Sprite2D -->
             <div class="step-card" data-step="2">
                 <div class="step-header">
                     <div class="step-number">2</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>Connect Gem Signal to Update Score</span>
+                            <span>Add a Sprite2D Child with Your Character Sprite</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>📊 Score Management Script</h4>
-                            <p>Attach this script to the Game node:</p>
-                            <pre><code>extends Node2D
-
-var score = 0
-
-func _ready():
-    # Connect gem signal when gems are spawned
-    pass
-
-func add_score(amount):
-    score += amount
-    $CanvasLayer/ScoreLabel.text = "Score: " + str(score)
-
-func _on_gem_collected():
-    add_score(10)</code></pre>
+                            <h4>Adding Visuals to the Player</h4>
+                            <ul>
+                                <li>Select the <strong>Player</strong> node</li>
+                                <li>Click the <strong>"+"</strong> (Add Child Node) icon</li>
+                                <li>Search for and add a <strong>Sprite2D</strong> node</li>
+                                <li>In the FileSystem dock, navigate to your imported asset pack</li>
+                                <li>Look for the <strong>Characters</strong> or <strong>Player</strong> folder</li>
+                                <li>Find a single sprite frame (not the whole spritesheet yet)</li>
+                                <li>Select the Sprite2D node, then in the Inspector click the <strong>"Texture"</strong> dropdown</li>
+                                <li>Select <strong>"Load"</strong> and choose your character sprite PNG</li>
+                            </ul>
                             <div class="tip-box">
-                                <strong>💡 New Concept:</strong> Signals allow different scenes to communicate. The gem tells the game "I was collected!" and the game adds to the score!
+                                <strong>💡 Pro Tip:</strong> Kenney packs often include individual sprite PNG files. For now, pick one static frame. We will add animation later.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Score script" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 3.2: Game script with score tracking</div>
+                            <img src="../../_placeholderimage.png" alt="Adding Sprite2D" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.2: Adding a Sprite2D child with a character sprite</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Add CollisionShape2D -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add a CollisionShape2D for Physics</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Setting Up Collision Detection</h4>
+                            <ul>
+                                <li>Select the <strong>Player</strong> node</li>
+                                <li>Add a child node: <strong>CollisionShape2D</strong></li>
+                                <li>In the Inspector, click the <strong>"Shape"</strong> dropdown</li>
+                                <li>Select the shape that makes the most sense for your character</li>
+                                <li>Use the orange handles to resize the shape around your character</li>
+                                <li>The collision shape should roughly match the character's body size</li>
+                                <li>Make it slightly smaller than the sprite to avoid getting stuck on walls</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> The collision shape determines how your character interacts with platforms and walls. A properly sized shape is essential for good gameplay feel.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Adding CollisionShape2D" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.3: Adding a CollisionShape2D around the character sprite</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Add Gravity and Movement Script -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Add Script with Gravity and Horizontal Movement</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Player Script with Gravity</h4>
+                            <p>Select the <strong>Player</strong> node and click the <strong>"📄"</strong> icon next to Script. Name it <strong>"player.gd"</strong> and add this code:</p>
+                            <pre><code>extends CharacterBody2D
+
+@export var speed = 300.0
+@export var gravity = 980.0
+
+func _physics_process(delta):
+    # Apply gravity
+    velocity.y += gravity * delta
+    
+    # Get horizontal input
+    var direction = Input.get_axis("ui_left", "ui_right")
+    velocity.x = direction * speed
+    
+    move_and_slide()</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Code</h4>
+                            <ul>
+                                <li><strong>@export var speed</strong> - Horizontal movement speed (editable in the Inspector)</li>
+                                <li><strong>@export var gravity</strong> - Downward force (980 is realistic for platformers)</li>
+                                <li><strong>velocity.y += gravity * delta</strong> - Increases downward velocity each frame</li>
+                                <li><strong>Input.get_axis()</strong> - Returns -1 for left, 1 for right, 0 for none</li>
+                                <li><strong>move_and_slide()</strong> - Moves the character and handles collisions</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> Gravity makes the player fall. Without it, the character would float in the air!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Player gravity script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.4: Player script with gravity and horizontal movement</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Page Navigation -->
         <div class="page-navigation">
-            <a href="page2.html" class="nav-button">← Previous Section</a>
+            <a href="page1.html" class="nav-button">← Previous Section</a>
             <div class="page-buttons">
                 <a href="page1.html" class="page-button">Page 1</a>
-                <a href="page2.html" class="page-button">Page 2</a>
-                <span class="current-page">Page 3</span>
-                <a href="page4.html" class="page-button">Page 4 →</a>
+                <span class="current-page">Page 2</span>
+                <a href="page3.html" class="page-button">Page 3 →</a>
+                <a href="page4.html" class="page-button">Page 4</a>
                 <a href="page5.html" class="page-button">Page 5</a>
                 <a href="page6.html" class="page-button">Page 6</a>
                 <a href="page7.html" class="page-button">Page 7</a>
             </div>
-            <a href="page4.html" class="nav-button primary">Next Section →</a>
+            <a href="page3.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>
     <script src="../../course-data.js"></script>
