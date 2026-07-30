@@ -80,16 +80,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Filled floor with blank tiles"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 5.1: The entire blue boundary filled with basic floor tiles</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -128,16 +118,6 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Creating Walls TileMapLayer"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 5.2: Creating a child TileMapLayer node named "Walls"</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -157,27 +137,15 @@
                         <div class="instruction-section">
                             <h4>Setting Up the Walls TileSet</h4>
                             <ul>
-                                <li>Select the <strong>"Walls"</strong> (TileMapLayer) node</li>
-                                <li>In the Inspector, find the <strong>"TileSet"</strong> property</li>
-                                <li>Click the dropdown and select <strong>"New TileSet"</strong></li>
-                                <li>Click the <strong>"TileSet"</strong> property to open the TileSet panel</li>
-                                <li>Click <strong>"Add Atlas"</strong> and drag your <strong>tilesheet.png</strong> again</li>
-                                <li>Set <strong>"Tile Size"</strong> to <strong>"64" x "64"</strong></li>
-                                <li>Click <strong>"OK"</strong> to create the atlas</li>
+                                <li>Select the <strong>"Background"</strong> node and click on the tileset dropdown</li>
+                                <li>Click<strong>"Save"</strong> and save this set to your <strong>Assets/Tiles</strong> folder</li>
+                                <li>Select the <strong>"Walls"</strong> node and click on the tileset dropdown</li>
+                                <li>Click <strong>"Load"</strong> and select the tileset you just saved</li>
+                                <li>Now both the Background and Walls layers share the same tilesheet atlas</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> You can reuse the same tilesheet across multiple TileMapLayer nodes. Each layer can have different collision settings!
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Walls TileSet configuration"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 5.3: Configuring the Walls layer with the same tilesheet atlas</div>
                         </div>
                     </div>
                 </div>
@@ -216,16 +184,6 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Walls painted with rotation"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 5.4: Walls painted around the room perimeter using tile rotation</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -259,16 +217,6 @@
                             <div class="warning-box">
                                 <strong>⚠️ Important:</strong> Make sure collision polygons cover the entire solid area of each wall tile. If the polygon is too small, the player might clip through corners!
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Adding collision to wall tile"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 5.5: Adding a collision polygon to a wall tile in the TileSet panel</div>
                         </div>
                     </div>
                 </div>
@@ -314,16 +262,6 @@
                             <div class="tip-box">
                                 <strong>🎉 Congratulations!</strong> Your A-Maze-Ball game now has proper collision! The player can explore the room but isn't much of a "maze". We'll fix that next with some level design!
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Player bumping into wall"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 5.6: The player now collides with walls instead of walking through them!</div>
                         </div>
                     </div>
                 </div>

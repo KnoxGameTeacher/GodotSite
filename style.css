@@ -1361,3 +1361,210 @@ a:hover {
     color: var(--retro-cyan);
     font-family: monospace;
 }
+
+/* Submission Page Styles */
+.submission-guidelines {
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.submission-guidelines h2 {
+    color: var(--retro-cyan);
+    margin-bottom: 15px;
+}
+
+.submission-guidelines ul {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.submission-guidelines li {
+    margin: 8px 0;
+    color: var(--retro-white);
+}
+
+.submit-button {
+    display: inline-block;
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    transform: translateX(5px);
+    box-shadow: var(--glow);
+}
+
+/* Filter Controls */
+.filter-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    padding: 15px;
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 8px;
+}
+
+.filter-controls span {
+    color: var(--retro-gray);
+    font-size: 0.9rem;
+}
+
+.filter-btn {
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border);
+    color: var(--retro-white);
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+}
+
+.filter-btn:hover {
+    border-color: var(--retro-cyan);
+    color: var(--retro-cyan);
+}
+
+.filter-btn.active {
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    border-color: var(--retro-green);
+}
+
+/* Gallery Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.submission-card {
+    background: var(--retro-terminal);
+    border: 1px solid var(--retro-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.submission-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--retro-green);
+    box-shadow: var(--glow);
+}
+
+.submission-thumbnail {
+    position: relative;
+    background: var(--retro-bg);
+    height: 180px;
+    overflow: hidden;
+}
+
+.submission-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.submission-unit-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--retro-green);
+    color: var(--retro-bg);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.submission-info {
+    padding: 20px;
+}
+
+.submission-info h3 {
+    color: var(--retro-white);
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.submission-author {
+    color: var(--retro-cyan);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.submission-description {
+    color: var(--retro-gray);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.submission-links {
+    display: flex;
+    gap: 10px;
+}
+
+.submission-link {
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border);
+    color: var(--retro-white);
+    padding: 5px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.submission-link:hover {
+    border-color: var(--retro-green);
+    color: var(--retro-green);
+}
+
+.submission-navigation {
+    margin-top: 40px;
+    padding: 20px 0;
+    border-top: 1px solid var(--retro-border);
+}
+
+/* Empty state */
+#empty-state {
+    text-align: center;
+    padding: 50px;
+    color: var(--retro-gray);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-controls span {
+        text-align: center;
+    }
+
+    .filter-btn {
+        text-align: center;
+    }
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Submissions - Godot Game Design Class</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > 
+                <span>Student Submissions</span>
+            </div>
+        </div>
+        <!-- Page Header -->
+        <div class="site-header">
+            <h1>Student Submissions</h1>
+            <p class="site-tagline">Showcase of completed game projects from the Godot Game Design Class</p>
+        </div>
+
+        <!-- Submission Guidelines -->
+        <div class="submission-guidelines">
+            <h2>Submission Guidelines</h2>
+            <ul>
+                <li>Submit your completed project via Google Classroom/li>
+                <li>Complete the submission assignment and notify me of its completion so I can add it!</li>
+            </ul>
+            <a href="#" class="submit-button">Submit Your Project →</a>
+        </div>
+
+        <!-- Filter/Sort Controls -->
+        <div class="filter-controls">
+            <span>Filter by Unit:</span>
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="unit1">Unit 1: A-Maze-Ball</button>
+            <button class="filter-btn" data-filter="unit2">Unit 2: Plenty o' Platforms</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="gallery-grid">
+            <!-- Example Submission Cards - These will be populated dynamically or manually -->
+            
+            <!-- Submission 1 -->
+            <div class="submission-card" data-unit="unit1">
+                <div class="submission-thumbnail">
+                    <img src="Units/Unit1/Images/GameSS.png" alt="Project thumbnail">
+                    <span class="submission-unit-badge">Unit 1</span>
+                </div>
+                <div class="submission-info">
+                    <h3>A-Maze-Ball</h3>
+                    <p class="submission-author">By Mrs Lucas</p>
+                    <p class="submission-description">A simple maze game made as a blueprint for you</p>
+                    <div class="submission-links">
+                        <a href="https://knoxgames.itch.io/" class="submission-link">Play Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submission 3 -->
+            <div class="submission-card" data-unit="unit2">
+                <div class="submission-thumbnail">
+                    <img src="_placeholderimage.png" alt="Project thumbnail">
+                    <span class="submission-unit-badge">Unit 2</span>
+                </div>
+                <div class="submission-info">
+                    <h3>Platform Peril</h3>
+                    <p class="submission-author">By Student Name</p>
+                    <p class="submission-description">A challenging platformer with moving platforms, spikes, and hidden secrets.</p>
+                    <div class="submission-links">
+                        <a href="#" class="submission-link">Play Now</a>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Empty State (shown when no submissions) -->
+        <div id="empty-state" style="display: none;">
+            <p>No submissions yet. Be the first to submit your project!</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="submission-navigation">
+            <a href="index.html" class="nav-button">← Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Simple filter functionality for unit badges
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const submissions = document.querySelectorAll('.submission-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    submissions.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-unit') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

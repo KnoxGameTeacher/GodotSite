@@ -74,30 +74,20 @@
                                 <li>Sketch a simple maze on grid paper or in a drawing app</li>
                                 <li>Start with an <strong>entrance</strong> and an <strong>exit</strong></li>
                                 <li>Create winding paths using the walls you already know how to paint</li>
-                                <li>Keep your maze size manageable (your grid in Godot is 19x11 tiles)</li>
+                                <li>Keep your maze size manageable (your grid in Godot is 18x10 tiles)</li>
                             </ul>
 
                             <h5>Option B: Use a Maze Generator for Inspiration Only</h5>
                             <ul>
                                 <li>Visit <a href="https://www.mazegenerator.net" target="_blank" rel="noopener noreferrer">mazegenerator.net</a> to see examples of maze layouts</li>
                                 <li><strong>Important:</strong> These mazes are for <strong>personal/educational inspiration only</strong>. Do not copy them directly for any commercial project.</li>
-                                <li>Set the generator to <strong>Width: 19, Height: 11</strong> to see a sample layout</li>
+                                <li>Set the generator to <strong>Width: 18, Height: 10</strong> to see a sample layout</li>
                                 <li>Use the pattern as inspiration to <strong>draw your own unique maze</strong></li>
                             </ul>
                             
                             <div class="warning-box">
                                 <strong>⚠️ License Notice:</strong> The mazes from Maze Generator are not free for commercial use. For this class project it is okay to use, but if you were to publish or monetize this game, you would need to create your own. Always check the license of any assets or content you use in your projects!
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Maze layout sketch"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 6.1: A hand-drawn maze layout sketch (18x10 grid)</div>
                         </div>
                     </div>
                 </div>
@@ -142,80 +132,13 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Creating Level1 scene"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 6.2: Creating a new Level1.tscn scene with Background and Walls layers</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Step 3: Save Your TileSet for Reuse -->
+            <!-- Step 3: Paint Your Maze Walls -->
             <div class="step-card" data-step="3">
                 <div class="step-header">
                     <div class="step-number">3</div>
-                    <div class="step-title">
-                        <label>
-                            <input type="checkbox" class="step-check" data-step="3">
-                            <span>Save Your Configured TileSet to Reuse in Future Levels</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="step-content">
-                    <div class="step-instructions">
-                        <div class="instruction-section">
-                            <h4>Saving the TileSet Resource</h4>
-                            <p>Instead of recreating the TileSet atlas and collision shapes for every level, we can save it as a reusable resource.</p>
-                            <ul>
-                                <li>Open your <strong>TestLevel.tscn</strong> scene (or any scene with your working Walls TileSet)</li>
-                                <li>Select the <strong>"Walls"</strong> (TileMapLayer) node</li>
-                                <li>In the Inspector, click on the <strong>"TileSet"</strong> property</li>
-                                <li>Click the dropdown arrow and select <strong>"Save as..."</strong></li>
-                                <li>Navigate to your project folder and create a new folder called <strong>"resources"</strong> (if it doesn't exist)</li>
-                                <li>Name the file <strong>"scribble_dungeon_tileset.tres"</strong></li>
-                                <li>Click <strong>"Save"</strong></li>
-                            </ul>
-                            <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> Saving resources like TileSets, Materials, and Scenes makes your project organized and reusable. You'll use this same TileSet for all your levels!
-                            </div>
-                        </div>
-                        <div class="instruction-section">
-                            <h4>Loading the Saved TileSet</h4>
-                            <ul>
-                                <li>Go back to your <strong>Level1.tscn</strong> scene</li>
-                                <li>Select the <strong>"Walls"</strong> (TileMapLayer) node</li>
-                                <li>In the Inspector, click the <strong>"TileSet"</strong> dropdown</li>
-                                <li>Select <strong>"Load"</strong> and navigate to your saved <strong>scribble_dungeon_tileset.tres</strong></li>
-                                <li>Do the same for the <strong>"Background"</strong> node (they can share the same TileSet)</li>
-                                <li>Your collision shapes and tile selections are now ready to use!</li>
-                            </ul>
-                            <div class="warning-box">
-                                <strong>⚠️ Important:</strong> Both the Background and Walls layers can use the same saved TileSet file. The collision physics only apply when the TileMapLayer node has collision enabled!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Saving TileSet resource"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 6.3: Saving the TileSet as a reusable .tres file</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 4: Paint Your Maze Walls -->
-            <div class="step-card" data-step="4">
-                <div class="step-header">
-                    <div class="step-number">4</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="4">
@@ -242,23 +165,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Painting maze walls"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 6.4: Painting maze walls using the saved TileSet</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Step 5: Position the Player -->
-            <div class="step-card" data-step="5">
+            <!-- Step 4: Position the Player -->
+            <div class="step-card" data-step="4">
                 <div class="step-header">
-                    <div class="step-number">5</div>
+                    <div class="step-number">4</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="5">
@@ -283,23 +196,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Player positioned at maze start"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 6.5: The player character positioned at the top of the maze</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Step 6: Test Your Complete Maze -->
-            <div class="step-card" data-step="6">
+            <!-- Step 5: Test Your Complete Maze -->
+            <div class="step-card" data-step="5">
                 <div class="step-header">
-                    <div class="step-number">6</div>
+                    <div class="step-number">5</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="6">
@@ -338,7 +241,7 @@
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
+                            <img src="./Images/U1L6-5.png" 
                                 alt="Player navigating maze"
                                 width="600" 
                                 height="400"

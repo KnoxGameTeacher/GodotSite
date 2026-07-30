@@ -31,6 +31,7 @@ function saveProgress(unitId, sectionId, stepId, completed) {
     updateSectionProgress(unitId, sectionId);
     updateUnitProgress(unitId);
     updateOverallProgress();
+    updateMainPageUnitCards();
 }
 
 function loadProgress(unitId, sectionId) {
@@ -147,8 +148,51 @@ function updateOverallProgress() {
         }
         totalSectionsSpan.textContent = totalSections;
     }
-    
+    updateMainPageUnitCards();
     console.log(`Overall progress: ${completedStepsAllUnits}/${totalStepsAllUnits} = ${Math.round(overallPercentage)}%`);
+}
+
+// Update individual unit cards on the main page
+// Update individual unit cards on the main page
+function updateMainPageUnitCards() {
+    const unitsGrid = document.getElementById('units-grid');
+    if (!unitsGrid) return;
+    
+    const unitCards = unitsGrid.querySelectorAll('.unit-card');
+    const unitIds = Object.keys(courseStructure);
+    
+    console.log(`🔄 Updating ${unitCards.length} unit cards...`);
+    
+    for (let i = 0; i < unitCards.length && i < unitIds.length; i++) {
+        const unitId = parseInt(unitIds[i]);
+        const progress = getUnitTotalProgress(unitId);
+        const card = unitCards[i];
+        
+        if (card) {
+            // Update percentage display
+            const percentSpan = card.querySelector('.unit-progress-text span:last-child');
+            if (percentSpan) {
+                percentSpan.textContent = `${Math.round(progress.percentage)}%`;
+                console.log(`  Card ${i}: Set percent to ${Math.round(progress.percentage)}%`);
+            }
+            
+            // Update progress bar fill
+            const progressFill = card.querySelector('.unit-progress-fill');
+            if (progressFill) {
+                progressFill.style.width = `${progress.percentage}%`;
+                console.log(`  Card ${i}: Set progress bar to ${progress.percentage}%`);
+            }
+            
+            // Update tasks count
+            const statsSpan = card.querySelector('.unit-stats span:nth-child(2)');
+            if (statsSpan) {
+                statsSpan.innerHTML = `✅ ${progress.completed}/${progress.total} tasks`;
+                console.log(`  Card ${i}: Set tasks to ${progress.completed}/${progress.total}`);
+            }
+        }
+    }
+    
+    console.log('✅ Unit cards updated on main page');
 }
 
 function initializeMainPage() {
@@ -273,12 +317,14 @@ function initializeCheckboxes() {
                     statusMsg.style.display = 'none';
                 }, 2000);
                 
+                // Only call these once - the order matters!
                 if (document.querySelector('.sections-grid')) {
                     updateUnitProgress(unitId);
                 }
                 
+                // This single call will handle both overall progress AND unit cards
                 if (document.getElementById('units-grid')) {
-                    updateOverallProgress();
+                    updateOverallProgress(); // This already calls updateMainPageUnitCards() inside it
                 }
             };
         });

@@ -93,7 +93,7 @@
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
+                            <img src="./Images/U1L7-1.png" 
                                 alt="Start scene with title"
                                 width="600" 
                                 height="400"
@@ -153,12 +153,12 @@
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
+                            <img src="./Images/U1L7-2.png" 
                                 alt="Start scene buttons"
                                 width="600" 
                                 height="400"
                                 class="step-image">
-                            <div class="image-caption">Figure 7.2: Start scene with Start Game and Quit buttons</div>
+                            <div class="image-caption">Figure 7.2: Completed code for the Start and Quit buttons</div>
                         </div>
                     </div>
                 </div>
@@ -180,35 +180,20 @@
                         <div class="instruction-section">
                             <h4>Creating the Level Exit</h4>
                             <ul>
+                                <li>Create a new scene called <strong>"Exit"</strong> and add a <strong>Area2D</strong> node</li>
+                                <li>Add a <strong>CollisionShape2D</strong> as a child and set its shape to a <strong>RectangleShape2D</strong></li>
                                 <li>Open your <strong>Level1.tscn</strong> scene</li>
-                                <li>Select the root Node2D</li>
-                                <li>Add a new child node: <strong>"Area2D"</strong></li>
-                                <li>Rename it to <strong>"ExitDoorway"</strong></li>
+                                <li>Drag the <strong>Exit</strong> scene into Level1 as a child of the root node</li>
                                 <li>Position it at the <strong>bottom of your maze</strong> (the exit area)</li>
                             </ul>
                         </div>
                         <div class="instruction-section">
-                            <h4>Adding Collision to the Exit</h4>
+                            <h4>Adding Aesthetics to the Exit</h4>
                             <ul>
-                                <li>With <strong>ExitDoorway</strong> selected, add a child node: <strong>"CollisionShape2D"</strong></li>
-                                <li>In the Inspector, click the <strong>"Shape"</strong> dropdown</li>
-                                <li>Select <strong>"New RectangleShape2D"</strong></li>
-                                <li>Resize the shape to cover the doorway area (about 64x64 pixels)</li>
-                                <li>Make it large enough for the player to easily trigger</li>
+                                <li>On your <strong>Walls</strong> node, paint a doorway or opening at the exit location</li>
+                                <li>Make sure the <strong>Exit</strong> node is positioned over the doorway</li>
+                                <li>Use the scale tool to make the Exit fully cover the doorway</li>
                             </ul>
-                            <div class="warning-box">
-                                <strong>⚠️ Important:</strong> The collision shape needs to be big enough for the player to touch. Position it where the player reaches the end of the maze!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Exit doorway with Area2D"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 7.3: Adding an Area2D trigger at the maze exit</div>
                         </div>
                     </div>
                 </div>
@@ -230,11 +215,13 @@
                         <div class="instruction-section">
                             <h4>Scripting the Exit Trigger</h4>
                             <ul>
-                                <li>Select the <strong>"ExitDoorway"</strong> (Area2D) node</li>
+                                <li>Select the <strong>"Exit"</strong> scene</li>
                                 <li>Click the <strong>"📄"</strong> icon next to "Script" in the Inspector</li>
-                                <li>Name the script <strong>"exit_doorway.gd"</strong></li>
+                                <li>Name the script <strong>"exit.gd"</strong></li>
                                 <li>Click <strong>"Create"</strong></li>
-                                <li>Add this code:</li>
+                                <li>Open the signal list with the Area2D node selected and find the <strong>body_entered</strong> signal</li>
+                                <li>Double-click to connect it to the Exit node</li>
+                                <li>Add the following code to the signal function:</li>
                             </ul>
                             <pre><code>extends Area2D
 
@@ -250,16 +237,6 @@ func _on_body_entered(body):
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> The <code>body_entered</code> signal fires whenever another physics body (like the player) touches the Area2D!
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Exit trigger script"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 7.4: Script to detect player touch and load Win scene</div>
                         </div>
                     </div>
                 </div>
@@ -312,16 +289,6 @@ func _on_body_entered(body):
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Win scene"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 7.5: The Win scene with Play Again button</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -371,16 +338,6 @@ func _on_body_entered(body):
                                 <li>✅ A Win scene with Play Again functionality</li>
                                 <li>✅ A complete game loop from Start → Level → Win → Play Again</li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="Complete game loop"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure 7.6: The complete A-Maze-Ball game loop!</div>
                         </div>
                     </div>
                 </div>

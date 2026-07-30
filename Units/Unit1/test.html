@@ -21,6 +21,22 @@
             </div>
         </div>
 
+                <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Submission Video</h3>
+                    <p>Watch: "How to turn in your project"</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Test Header -->
         <div class="unit-header">
             <h1>Unit 1 Test: A-Maze-Ball Fundamentals</h1>
@@ -44,8 +60,8 @@
                 <ul>
                     <li>The top sections are all review, walk through each step to make sure you have completed those items and check them off</li>
                     <li>Complete ALL required sections (30 points total)</li>
-                    <li>Bonus challenges are optional (up to 10 extra points)</li>
                     <li>You MUST create <strong>Level2.tscn</strong> and <strong>Level3.tscn</strong> with increasing difficulty</li>
+                    <li>Bonus challenges are optional (up to 10 extra points)</li>
                     <li>Submit your entire project folder for grading</li>
                     <li>Use the checkboxes below to track your progress</li>
                 </ul>
@@ -73,7 +89,7 @@
                         <div class="step-title">
                             <label>
                                 <input type="checkbox" class="step-check" data-step="1">
-                                <span>Project is correctly named "A-Maze-Ball" with Forward+ renderer (1 point)</span>
+                                <span>Project is correctly named "A-Maze-Ball" with Compatibility renderer (1 point)</span>
                             </label>
                         </div>
                     </div>
@@ -84,7 +100,6 @@
                                 <ul>
                                     <li>Open your project.godot file in a text editor</li>
                                     <li>Check that <code>config/name="A-Maze-Ball"</code></li>
-                                    <li>Check that <code>rendering/renderer/rendering_method="forward+"</code></li>
                                     <li>Project runs without errors</li>
                                 </ul>
                             </div>
@@ -123,7 +138,7 @@
                         <div class="step-title">
                             <label>
                                 <input type="checkbox" class="step-check" data-step="3">
-                                <span>Player has working movement script with WASD/Arrow Keys (2 points)</span>
+                                <span>Player has working movement script with Arrow Keys (2 points)</span>
                             </label>
                         </div>
                     </div>
@@ -135,22 +150,8 @@
                                     <li>player.gd script attached to Player node</li>
                                     <li>Uses <code>Input.get_vector()</code> for input detection</li>
                                     <li>Velocity is set correctly and uses <code>move_and_slide()</code></li>
-                                    <li>Player moves smoothly in 8 directions</li>
+                                    <li>Player moves smoothly in 4 directions</li>
                                 </ul>
-                            </div>
-                            <div class="tip-box">
-                                <strong>💡 Reference Code:</strong>
-                                <pre><code>extends CharacterBody2D
-
-@export var speed = 300.0
-
-func _physics_process(delta):
-    var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-    if direction:
-        velocity = direction * speed
-    else:
-        velocity = velocity.move_toward(Vector2.ZERO, speed)
-    move_and_slide()</code></pre>
                             </div>
                         </div>
                     </div>
@@ -181,7 +182,7 @@ func _physics_process(delta):
                                     <li>tilesheet.png exists in assets/tiles/ folder</li>
                                     <li>TileSet resource created with 64x64 tile size</li>
                                     <li>Atlas is properly sliced showing all tiles</li>
-                                    <li>TileSet saved as .tres file in resources/ folder</li>
+                                    <li>TileSet saved as .tres file in assets/tiles/ folder</li>
                                 </ul>
                             </div>
                         </div>
@@ -253,10 +254,10 @@ func _physics_process(delta):
                             <div class="instruction-section">
                                 <h4>✅ Verification Checklist</h4>
                                 <ul>
-                                    <li>Area2D named "ExitDoorway" placed at maze exit</li>
+                                    <li>Area2D named "Exit" placed at maze exit</li>
                                     <li>CollisionShape2D covers the doorway area</li>
                                     <li>Script attached with body_entered signal connection</li>
-                                    <li>Script loads Win.tscn when player touches exit</li>
+                                    <li>Script loads next level or Win.tscn when player touches exit</li>
                                 </ul>
                             </div>
                         </div>
@@ -480,7 +481,7 @@ func _physics_process(delta):
                         <div class="step-title">
                             <label>
                                 <input type="checkbox" class="step-check" data-step="16">
-                                <span>Project is organized with assets/, resources/, scenes/ folders (1 point)</span>
+                                <span>Project is organized with assets/, scripts/, scenes/ folders (1 point)</span>
                             </label>
                         </div>
                     </div>
@@ -490,9 +491,8 @@ func _physics_process(delta):
                                 <h4>✅ Verification Checklist</h4>
                                 <ul>
                                     <li>assets/ folder contains tiles/ and player/ subfolders</li>
-                                    <li>resources/ folder contains TileSet .tres file</li>
-                                    <li>Scene files are in root or a scenes/ folder</li>
-                                    <li>No unnecessary files in project root</li>
+                                    <li>Scene files are in root or a levels/ folder</li>
+                                    <li>Scripts are in the scripts/ folder</li>
                                 </ul>
                             </div>
                         </div>
@@ -523,8 +523,11 @@ func _physics_process(delta):
                             <p>Enhance the visual appeal of your levels.</p>
                             <ul>
                                 <li>Added decorative tiles to at least one level (2 points)</li>
-                                <li>Decorations are placed thoughtfully, not randomly (1 point)</li>
+                                <li>Change the color settings of the layers so that it is easy to distinguish them (1 point)</li>
                             </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Use a TileMap node to place decorative elements on an extra layer!
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -544,7 +547,7 @@ func _physics_process(delta):
                             <h4>🏆 Bonus Challenge 2</h4>
                             <p>Replace the Start button with a level select menu.</p>
                             <ul>
-                                <li>LevelSelect.tscn scene created with buttons for each level (1 point)</li>
+                                <li>Add buttons for each level (1 point)</li>
                                 <li>Players can choose which level to play (Level1, Level2, Level3) (1 point)</li>
                                 <li>Win scene returns to level select instead of restarting Level1 (1 point)</li>
                             </ul>
@@ -558,7 +561,7 @@ func _physics_process(delta):
                         <div class="step-title">
                             <label>
                                 <input type="checkbox" class="step-check" data-step="19">
-                                <span>Add a simple animated coin/pickup system (4 points)</span>
+                                <span>Add a simple coin/pickup system (4 points)</span>
                             </label>
                         </div>
                     </div>
@@ -568,8 +571,7 @@ func _physics_process(delta):
                             <p>Add collectible items to one or more levels.</p>
                             <ul>
                                 <li>Create a collectible item scene with Area2D and Sprite2D (2 points)</li>
-                                <li>Collectibles disappear when collected and increment a UI counter (1 point)</li>
-                                <li>Player must collect all collectibles before the exit activates (1 point)</li>
+                                <li>Collectibles disappear when collected and increment a UI counter (2 points)</li>
                             </ul>
                         </div>
                     </div>
@@ -586,7 +588,8 @@ func _physics_process(delta):
                     <ul>
                         <li>Entire Godot project folder (compressed as .zip) turned in on Google Classroom</li>
                         <li>Screenshots of each level (Level1, Level2, Level3)</li>
-                        <li>Brief reflection on your design process for each level</li>
+                        <li>Brief reflection on your design process for each level, 3 sentences minimum</li>
+                        <li>View student submissions here:<a href="../..//submissions.html">Student Submissions</a></li>
                     </ul>
                 </div>
             </div>
