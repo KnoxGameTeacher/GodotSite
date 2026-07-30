@@ -3,6 +3,7 @@
 *.log
 # Google Drive temporary and system files
 .tmp.driveupload/
+Icon?
 # Generic temp files
 *.tmp
 *.bak
