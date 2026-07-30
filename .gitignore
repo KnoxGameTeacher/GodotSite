@@ -1,3 +1,6 @@
 .DS_Store
 .vscode/
 *.log
+# Google Drive temporary and system files
+.tmp.driveupload/
+Icon?

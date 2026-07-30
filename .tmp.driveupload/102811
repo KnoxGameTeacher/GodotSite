@@ -1,36 +1,23 @@
-Finalized unit 1 content and images
-
+gitignore updated to ignore GDrive temps
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
 #
 # On branch main
-# Your branch is up to date with 'origin/main'.
+# Your branch is ahead of 'origin/main' by 1 commit.
+#   (use "git push" to publish your local commits)
 #
 # Changes to be committed:
-#	new file:   "Units/Icon\r"
-#	new file:   "Units/Unit1/Icon\r"
-#	new file:   Units/Unit1/Images/GameSS.png
-#	new file:   "Units/Unit1/Images/Icon\r"
-#	new file:   Units/Unit1/Images/U1L3-1.png
-#	new file:   Units/Unit1/Images/U1L3-3.png
-#	new file:   Units/Unit1/Images/U1L3-5.png
-#	new file:   Units/Unit1/Images/U1L4-4.png
-#	new file:   Units/Unit1/Images/U1L4-5.png
-#	new file:   Units/Unit1/Images/U1L6-5.png
-#	new file:   Units/Unit1/Images/U1L7-1.png
-#	new file:   Units/Unit1/Images/U1L7-2.png
-#	modified:   Units/Unit1/page1.html
-#	modified:   Units/Unit1/page2.html
-#	modified:   Units/Unit1/page3.html
-#	modified:   Units/Unit1/page4.html
-#	modified:   Units/Unit1/page5.html
-#	modified:   Units/Unit1/page6.html
-#	modified:   Units/Unit1/page7.html
-#	modified:   Units/Unit1/test.html
-#	new file:   "Units/Unit2/Icon\r"
-#	new file:   "Units/Unit3/Icon\r"
-#	modified:   index.html
-#	modified:   script.js
-#	modified:   style.css
-#	new file:   submissions.html
+#	new file:   .tmp.driveupload/102811
+#	new file:   .tmp.driveupload/102819
+#	new file:   .tmp.driveupload/102825
+#	new file:   .tmp.driveupload/102871
+#	new file:   .tmp.driveupload/149638
+#
+# Changes not staged for commit:
+#	modified:   .gitignore
+#	deleted:    .tmp.driveupload/102811
+#	deleted:    .tmp.driveupload/102819
+#	deleted:    .tmp.driveupload/102825
+#	deleted:    .tmp.driveupload/102871
+#	deleted:    .tmp.driveupload/149638
 #
