@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit X.Y: [SECTION TITLE] - Godot Game Design</title>
+    <title>Unit 2.5: Enemy Scene with Animation & Patrol - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -12,53 +12,41 @@
         <div class="section-header-nav">
             <div class="breadcrumb">
                 <a href="../../index.html">Home</a> > 
-                <a href="index.html">Unit X</a> > 
-                <span>[SECTION TITLE]</span>
+                <a href="index.html">Unit 2</a> > 
+                <span>Enemy Scene with Animation & Patrol</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section [Y] of [TOTAL]</span>
-                <a href="page[NEXT].html" class="next-button">Next Section →</a>
+                <span class="section-nav-current">Section 5 of 7</span>
+                <a href="page6.html" class="next-button">Next Section →</a>
             </div>
         </div>
 
-        <!-- YouTube Section -->
+        <!-- YouTube Playlist Thumbnail Link -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
                 <h2>Video Tutorials</h2>
                 <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <div class="youtube-placeholder">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">📺</div>
-                    <h3>Section [Y] Videos</h3>
-                    <p>Watch: "[VIDEO TITLE]"</p>
+            <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
+                    </div>
                 </div>
-            </div>
-            <!-- Uncomment when you have a YouTube video -->
-            <!-- 
-            <div class="youtube-embed">
-                <iframe 
-                    width="100%" 
-                    height="400" 
-                    src="https://www.youtube.com/embed/VIDEO_ID" 
-                    title="Section [Y] Video" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            -->
+            </a>
         </div>
 
         <!-- Section Header -->
         <div class="unit-header">
-            <h1>[SECTION TITLE]</h1>
-            <p class="unit-description">[Brief description of what this section covers]</p>
+            <h1>Section 5: Enemy Scene with Animation & Patrol</h1>
+            <p class="unit-description">Create an animated enemy that patrols back and forth, adding challenge to your platformer levels.</p>
         </div>
 
         <!-- Steps Container -->
-        <div class="steps" data-unit="[UNIT NUMBER]" data-section="[SECTION NUMBER]">
+        <div class="steps" data-unit="2" data-section="5">
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -66,141 +54,316 @@
                 <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
             </div>
 
-            <!-- STEP 1 TEMPLATE -->
+            <!-- Step 1 -->
             <div class="step-card" data-step="1">
                 <div class="step-header">
                     <div class="step-number">1</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>[STEP 1 TITLE]</span>
+                            <span>Create the Enemy Scene with CharacterBody2D</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions here...]</p>
+                            <h4>Creating the Enemy Scene</h4>
+                            <p>We'll use CharacterBody2D for our enemy so it can interact with physics and detect collisions.</p>
                             <ul>
-                                <li>[First bullet point]</li>
-                                <li>[Second bullet point]</li>
-                                <li>[Third bullet point]</li>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add a <strong>CharacterBody2D</strong> as the root node</li>
+                                <li>Rename it to <strong>"Enemy"</strong></li>
+                                <li>Save the scene as <strong>"enemy.tscn"</strong></li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Adding Visuals and Collision</h4>
+                            <ul>
+                                <li>Add an <strong>AnimatedSprite2D</strong> as a child</li>
+                                <li>Add a <strong>CollisionShape2D</strong> as a child</li>
+                                <li>Set the CollisionShape2D to a shape roughly matching the enemy's size</li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Tip:</strong> [Helpful tip for students]
+                                <strong>💡 Pro Tip:</strong> Making the enemy a CharacterBody2D allows it to use <code>move_and_slide()</code> just like the player, making collision detection consistent.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 2 TEMPLATE -->
+            <!-- Step 2 -->
             <div class="step-card" data-step="2">
                 <div class="step-header">
                     <div class="step-number">2</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>[STEP 2 TITLE]</span>
+                            <span>Add Enemy Sprite Animations</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
+                            <h4>Setting Up Enemy Animations</h4>
+                            <p>Like the player, we'll create animations for the enemy. Most Kenney platformer packs include enemy spritesheets.</p>
                             <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
+                                <li>Select the <strong>AnimatedSprite2D</strong> node</li>
+                                <li>Create a new <strong>SpriteFrames</strong> resource</li>
+                                <li>Open the Animation panel (click the SpriteFrames property)</li>
+                                <li>Create two animations:
+                                    <ul>
+                                        <li><strong>"idle"</strong> - Single frame or subtle animation</li>
+                                        <li><strong>"walk"</strong> - Walking animation with frames</li>
+                                    </ul>
+                                </li>
+                                <li>Set the <strong>FPS</strong> for walk to the same as your player character for consistency</li>
                             </ul>
-                            <div class="warning-box">
-                                <strong>⚠️ Warning:</strong> [Important caution for students]
-                            </div>
                         </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
+                        <div class="instruction-section">
+                            <h4>Finding Enemy Sprites</h4>
+                            <ul>
+                                <li>In the FileSystem dock, look for enemy sprites in your asset pack</li>
+                                <li>Common locations: <strong>PNG/Enemies</strong> or <strong>Spritesheets/Enemy</strong></li>
+                                <li>If your pack doesn't have enemies, you can use a recolored player sprite as a placeholder</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 3 TEMPLATE -->
+            <!-- Step 3 -->
             <div class="step-card" data-step="3">
                 <div class="step-header">
                     <div class="step-number">3</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="3">
-                            <span>[STEP 3 TITLE]</span>
+                            <span>Add the Patrol Script to the Enemy</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
-                            <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
-                                <li>[Step detail 3]</li>
-                            </ul>
+                            <h4>Enemy Patrol Script</h4>
+                            <p>This script moves the enemy back and forth between two points and plays the appropriate animation.</p>
+                            <pre><code>extends CharacterBody2D
+
+@export var speed = 50.0
+@export var left_limit = 100
+@export var right_limit = 600
+
+var moving_right = true
+@onready var animated_sprite_2d = $AnimatedSprite2D
+
+func _ready():
+    # Optional: Start with a random direction
+    moving_right = randf() > 0.5
+
+func _physics_process(delta):
+    # Move the enemy
+    if moving_right:
+        velocity.x = speed
+        animated_sprite_2d.flip_h = true
+        if position.x > right_limit:
+            moving_right = false
+    else:
+        velocity.x = -speed
+        animated_sprite_2d.flip_h = false
+        if position.x < left_limit:
+            moving_right = true
+    
+    # Update animation
+    if animated_sprite_2d.sprite_frames.has_animation("walk"):
+        animated_sprite_2d.play("walk")
+    else:
+        animated_sprite_2d.play("idle")
+    
+    move_and_slide()</code></pre>
                         </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Script</h4>
+                            <ul>
+                                <li><strong>@export var speed</strong> - How fast the enemy moves</li>
+                                <li><strong>left_limit</strong> and <strong>right_limit</strong> - The patrol boundaries</li>
+                                <li><strong>moving_right</strong> - Tracks current direction</li>
+                                <li><strong>flip_h</strong> - Flips the sprite to face the direction of movement</li>
+                                <li><strong>move_and_slide()</strong> - Handles physics and collision</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>randf()</code> returns a random float between 0 and 1. This makes the enemy start in a random direction, adding variety.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Add more steps as needed (copy the pattern above) -->
-            <!-- STEP 4, 5, 6, etc. -->
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Add Player Collision Detection</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Detecting Player Contact</h4>
+                            <p>We'll use an Area2D to detect when the player touches the enemy.</p>
+                            <ul>
+                                <li>Add a child <strong>Area2D</strong> to the Enemy node</li>
+                                <li>Name it <strong>"HitBox"</strong></li>
+                                <li>Add a <strong>CollisionShape2D</strong> as a child of HitBox</li>
+                                <li>Set the shape to slightly smaller than the enemy sprite, but make sure it's larger than its collision box or else the player won't touch it</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Scripting the HitBox</h4>
+                            <p>Add this script to the <strong>HitBox</strong> node:</p>
+                            <pre><code>extends Area2D
 
+signal hit_player
+
+func _ready():
+    body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+    if body.name == "Player":
+        hit_player.emit()</code></pre>
+
+                            <p>Then in the <strong>Enemy</strong> script, connect the signal:</p>
+
+                            <pre><code># Add this to Enemy script
+@onready var hit_box = $HitBox
+
+func _ready():
+    hit_box.hit_player.connect(_on_hit_player)
+
+func _on_hit_player():
+    print("Player hit the enemy!")
+    # We'll handle the actual damage in the next section</code></pre>
+
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> The HitBox uses an Area2D because Area2Ds can detect overlapping bodies without needing physics collision. This is perfect for detecting the player without pushing them.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L5-4.png" alt="Enemy HitBox setup" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.4: Adding a HitBox Area2D to detect player contact</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Place Enemies in Level1.tscn</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Adding Enemies to the Level</h4>
+                            <ul>
+                                <li>Open <strong>Level1.tscn</strong></li>
+                                <li>In the FileSystem dock, find <strong>enemy.tscn</strong></li>
+                                <li>Drag it into the viewport</li>
+                                <li>Position the enemy on solid ground or a platform</li>
+                                <li>Select the enemy and look at the Inspector</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Customizing Enemy Patrol Limits</h4>
+                            <p>You can adjust the patrol range for each enemy individually:</p>
+                            <ul>
+                                <li>With the enemy selected, find the <strong>Script Variables</strong> section in the Inspector</li>
+                                <li>Adjust <strong>speed</strong> to change how fast the enemy moves</li>
+                                <li>Adjust <strong>left_limit</strong> and <strong>right_limit</strong> to set patrol boundaries</li>
+                                <li>These limits are in <strong>global coordinates</strong>, so you can set them based on your level layout</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Place enemies on different platforms and adjust their patrol ranges so they don't walk off the edge of the platform.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the Enemy in Your Level</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Enemy Behavior</h4>
+                            <ul>
+                                <li>Open <strong>Game.tscn</strong></li>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>Approach the enemy to see if it detects the player in the console</li>
+                                <li>Check that the enemy patrols within the set limits</li>
+                                <li>Verify that the enemy faces the direction it's moving</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Common Issues and Fixes</h4>
+                            <ul>
+                                <li><strong>Enemy doesn't move:</strong> Check that speed is set and left/right limits are correct</li>
+                                <li><strong>Enemy falls off platform:</strong> Adjust patrol limits to stay on the platform</li>
+                                <li><strong>Enemy doesn't flip:</strong> Check that <code>flip_h</code> is being set correctly</li>
+                                <li><strong>Player not detected:</strong> Check that HitBox has a collision shape and the signal is connected</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Congratulations!</strong> You now have animated patrolling enemies in your platformer. In the next section, you'll add health and scoring to make the game complete.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L5-6.png" alt="Testing enemy behavior" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.6: Testing enemy patrol and player detection in the level</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Page Navigation -->
         <div class="page-navigation">
-            <a href="page[PREV].html" class="nav-button">← Previous Section</a>
+            <a href="page4.html" class="nav-button">← Previous Section</a>
             <div class="page-buttons">
                 <a href="page1.html" class="page-button">Page 1</a>
                 <a href="page2.html" class="page-button">Page 2</a>
                 <a href="page3.html" class="page-button">Page 3</a>
                 <a href="page4.html" class="page-button">Page 4</a>
-                <a href="page5.html" class="page-button">Page 5</a>
-                <a href="page6.html" class="page-button">Page 6</a>
+                <span class="current-page">Page 5</span>
+                <a href="page6.html" class="page-button">Page 6 →</a>
                 <a href="page7.html" class="page-button">Page 7</a>
-                <span class="current-page">Page [Y]</span>
             </div>
-            <a href="page[NEXT].html" class="nav-button primary">Next Section →</a>
+            <a href="page6.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>
-    
     <script src="../../course-data.js"></script>
     <script src="../../script.js"></script>
 </body>

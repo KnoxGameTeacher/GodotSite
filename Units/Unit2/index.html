@@ -8,32 +8,31 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- YouTube Playlist Placeholder -->
+        <!-- YouTube Playlist Thumbnail Link -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
                 <h2>Video Tutorials</h2>
                 <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <div class="youtube-placeholder" id="youtube-playlist">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">📺</div>
-                    <h3>YouTube Playlist Coming Soon</h3>
-                    <p>Video tutorials for this unit will be added here</p>
-                    <div class="placeholder-meta">
-                        <span>Playlist ID: UNIT2_PLATFORMER_2024</span>
-                        <span>7 videos planned</span>
+            <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
+        
 
         <!-- Unit Header -->
         <div class="unit-header">
             <h1>Unit 2: Plenty o' Platforms</h1>
             <div class="unit-meta">
-                <span class="unit-badge">Beginner/Intermediate</span>
-                <span class="unit-badge">~4 hours</span>
+                <span class="unit-badge">Beginner</span>
+                <span class="unit-badge">~5-10 hours</span>
                 <span class="unit-badge">7 sections</span>
             </div>
             <p class="unit-description">
@@ -50,7 +49,7 @@
                 <div class="section-card" data-section="1">
                     <div class="section-number">01</div>
                     <div class="section-info">
-                        <h3>Project Setup & Character Selection</h3>
+                        <h3>Project Setup</h3>
                         <p>Create the project, choose a Kenney platformer asset pack, and import assets</p>
                         <div class="section-progress" id="section1-progress">0% complete</div>
                     </div>
@@ -61,8 +60,8 @@
                 <div class="section-card" data-section="2">
                     <div class="section-number">02</div>
                     <div class="section-info">
-                        <h3>Player Scene & Gravity</h3>
-                        <p>Set up CharacterBody2D with gravity, collision, and basic movement</p>
+                        <h3>Player Scene</h3>
+                        <p>Set up CharacterBody2D with gravity, collision, and the standard movement template</p>
                         <div class="section-progress" id="section2-progress">0% complete</div>
                     </div>
                     <a href="page2.html" class="section-button">Start →</a>
@@ -72,8 +71,8 @@
                 <div class="section-card" data-section="3">
                     <div class="section-number">03</div>
                     <div class="section-info">
-                        <h3>Jump Mechanic & Ground Detection</h3>
-                        <p>Add jumping with ground detection to prevent double jumps</p>
+                        <h3>Player Animation with AnimatedSprite2D</h3>
+                        <p>Replace the static sprite with animated idle, run, and jump states</p>
                         <div class="section-progress" id="section3-progress">0% complete</div>
                     </div>
                     <a href="page3.html" class="section-button">Start →</a>
@@ -83,8 +82,8 @@
                 <div class="section-card" data-section="4">
                     <div class="section-number">04</div>
                     <div class="section-info">
-                        <h3>Animated Character</h3>
-                        <p>Create idle, run, and jump animations using AnimatedSprite2D</p>
+                        <h3>Game Scene Architecture & Level Design</h3>
+                        <p>Create Game.tscn manager scene and paint the first level with TileMapLayer</p>
                         <div class="section-progress" id="section4-progress">0% complete</div>
                     </div>
                     <a href="page4.html" class="section-button">Start →</a>
@@ -94,8 +93,8 @@
                 <div class="section-card" data-section="5">
                     <div class="section-number">05</div>
                     <div class="section-info">
-                        <h3>Platform TileMap & Camera</h3>
-                        <p>Build platforms with TileMapLayer and add a following camera</p>
+                        <h3>Enemy Scene with Animation & Patrol</h3>
+                        <p>Create animated enemies with simple back-and-forth patrol movement</p>
                         <div class="section-progress" id="section5-progress">0% complete</div>
                     </div>
                     <a href="page5.html" class="section-button">Start →</a>
@@ -105,8 +104,8 @@
                 <div class="section-card" data-section="6">
                     <div class="section-number">06</div>
                     <div class="section-info">
-                        <h3>Collectibles & Scoring</h3>
-                        <p>Add collectible items with Area2D signals and a score display</p>
+                        <h3>Health, Score & HUD</h3>
+                        <p>Add health and scoring systems with a Heads-Up Display</p>
                         <div class="section-progress" id="section6-progress">0% complete</div>
                     </div>
                     <a href="page6.html" class="section-button">Start →</a>
@@ -116,8 +115,8 @@
                 <div class="section-card" data-section="7">
                     <div class="section-number">07</div>
                     <div class="section-info">
-                        <h3>Goal, UI & Game Flow</h3>
-                        <p>Create a goal area, win scene, and complete game loop</p>
+                        <h3>Level Transitions & Game Flow</h3>
+                        <p>Create a complete game loop with level transitions, win, and game over states</p>
                         <div class="section-progress" id="section7-progress">0% complete</div>
                     </div>
                     <a href="page7.html" class="section-button">Start →</a>

@@ -20,19 +20,38 @@ const COURSE_DATA = {
     },
     2: {
         name: "Plenty o' Platforms",
-        description: "Build a classic 2D platformer with gravity, jumping, and multiple levels. Choose your own visual theme from Kenney's platformer asset packs!",
-        difficulty: "Beginner/Intermediate",
-        estimatedTime: "4 hours",
+        description: "Build a classic 2D platformer with gravity, jumping, and multiple levels. Choose your own visual theme!",
+        difficulty: "Beginner",
+        estimatedTime: "5-10 hours",
         sections: 7,
         pages: {
-            1: { name: "Project Setup & Character Selection", steps: 4 },
-            2: { name: "Player Scene & Gravity", steps: 4 },
-            3: { name: "Jump Mechanic & Ground Detection", steps: 4 },
-            4: { name: "Animated Character", steps: 5 },
-            5: { name: "Platform TileMap & Camera", steps: 5 },
-            6: { name: "Collectibles & Scoring", steps: 4 },
-            7: { name: "Goal, UI & Game Flow", steps: 5 },
+            1: { name: "Project Setup", steps: 4 },
+            2: { name: "Player Scene", steps: 5 },
+            3: { name: "Player Animation with AnimatedSprite2D", steps: 5 },
+            4: { name: "Game Scene Architecture & Level Design", steps: 6 },
+            5: { name: "Enemy Scene with Animation & Patrol", steps: 6 },
+            6: { name: "Health, Score & HUD", steps: 6 },
+            7: { name: "Level Transitions & Game Flow", steps: 7 },
             test: { name: "Unit 2 Test", steps: 12 }
+        }
+    },
+    3: {
+        name: "Forage Fever",
+        description: "Create a 3D survival game where you hunt animals for food while managing hunger and avoiding predators!",
+        difficulty: "Intermediate",
+        estimatedTime: "6 hours",
+        sections: 9,
+        pages: {
+            1: { name: "Game Design Document", steps: 7 },
+            2: { name: "3D Project Setup & Environment", steps: 5 },
+            3: { name: "Player Movement", steps: 6 },
+            4: { name: "Third-Person Camera", steps: 6 },
+            5: { name: "Hunger & Health Systems", steps: 5 },
+            6: { name: "Prey AI (Flee)", steps: 6 },
+            7: { name: "Predator AI (Chase)", steps: 6 },
+            8: { name: "Hunting Mechanic", steps: 6 },
+            9: { name: "Game Loop & Polish", steps: 6 },
+            test: { name: "Unit 3 Test", steps: 15 }
         }
     }
 

@@ -1,64 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit X.Y: [SECTION TITLE] - Godot Game Design</title>
+    <title>Unit 2.6: Health, Score & HUD - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
+
 <body>
     <div class="main-container">
         <!-- Section Header Navigation -->
         <div class="section-header-nav">
             <div class="breadcrumb">
-                <a href="../../index.html">Home</a> > 
-                <a href="index.html">Unit X</a> > 
-                <span>[SECTION TITLE]</span>
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 2</a> >
+                <span>Health, Score & HUD</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section [Y] of [TOTAL]</span>
-                <a href="page[NEXT].html" class="next-button">Next Section →</a>
+                <span class="section-nav-current">Section 6 of 7</span>
+                <a href="page7.html" class="next-button">Next Section →</a>
             </div>
         </div>
 
-        <!-- YouTube Section -->
+        <!-- YouTube Playlist Thumbnail Link -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
                 <h2>Video Tutorials</h2>
                 <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <div class="youtube-placeholder">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">📺</div>
-                    <h3>Section [Y] Videos</h3>
-                    <p>Watch: "[VIDEO TITLE]"</p>
+            <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
+                    </div>
                 </div>
-            </div>
-            <!-- Uncomment when you have a YouTube video -->
-            <!-- 
-            <div class="youtube-embed">
-                <iframe 
-                    width="100%" 
-                    height="400" 
-                    src="https://www.youtube.com/embed/VIDEO_ID" 
-                    title="Section [Y] Video" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            -->
+            </a>
         </div>
 
         <!-- Section Header -->
         <div class="unit-header">
-            <h1>[SECTION TITLE]</h1>
-            <p class="unit-description">[Brief description of what this section covers]</p>
+            <h1>Section 6: Health, Score & HUD</h1>
+            <p class="unit-description">Add health and scoring systems to your game with a Heads-Up Display (HUD)
+                showing player status.</p>
         </div>
 
         <!-- Steps Container -->
-        <div class="steps" data-unit="[UNIT NUMBER]" data-section="[SECTION NUMBER]">
+        <div class="steps" data-unit="2" data-section="6">
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -66,142 +57,399 @@
                 <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
             </div>
 
-            <!-- STEP 1 TEMPLATE -->
+            <!-- Step 1 -->
+
             <div class="step-card" data-step="1">
                 <div class="step-header">
                     <div class="step-number">1</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>[STEP 1 TITLE]</span>
+                            <span>Create the HUD in Game.tscn</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions here...]</p>
+                            <h4>Adding a HUD to the Game Manager</h4>
+                            <p>The HUD (Heads-Up Display) will show the player's health and score during gameplay.</p>
                             <ul>
-                                <li>[First bullet point]</li>
-                                <li>[Second bullet point]</li>
-                                <li>[Third bullet point]</li>
+                                <li>Create a new scene</li>
+                                <li>Add a <strong>CanvasLayer</strong> node as the root node</li>
+                                <li>Rename it to <strong>"HUD"</strong></li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Creating HUD Elements</h4>
+                            <ul>
+                                <li>Add a <strong>Canvas</strong> node as a child of HUD</li>
+                                <li>Add a <strong>Label</strong> node as a child of Canvas</li>
+                                <li>Rename it to <strong>"ScoreLabel"</strong></li>
+                                <li>Set its text to <strong>"Score: 0"</strong></li>
+                                <li>Position it in the top-left corner</li>
+                                <li>Add another <strong>Label</strong> node</li>
+                                <li>Rename it to <strong>"HealthLabel"</strong></li>
+                                <li>Set its text to <strong>"Health: 3"</strong></li>
+                                <li>Position it next to the ScoreLabel</li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Tip:</strong> [Helpful tip for students]
+                                <strong>💡 Pro Tip:</strong> You can also add Sprite2D or custom panels to make the
+                                score stand out instead of plain text.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 2 TEMPLATE -->
+            <!-- Step 2 -->
             <div class="step-card" data-step="2">
                 <div class="step-header">
                     <div class="step-number">2</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>[STEP 2 TITLE]</span>
+                            <span>Add Health and Score to Game.gd</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
+                            <h4>Setting Up Game Variables</h4>
+                            <p>We'll add health and score variables to our Game.gd script so they can be accessed from
+                                anywhere in the game.</p>
                             <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
+                                <li>Open your <strong>Game.gd</strong> script</li>
+                                <li>Edit your script with the following:</li>
                             </ul>
-                            <div class="warning-box">
-                                <strong>⚠️ Warning:</strong> [Important caution for students]
+                            <pre><code>extends Node2D
+
+var current_level_node
+var current_level = 1
+
+# Health and Score
+var health = 3
+var score = 0
+var max_health = 5
+
+func _ready():
+    load_level(current_level)
+
+# Score functions
+func add_score(amount):
+    score += amount
+    update_hud()
+    print("Score: " + str(score))
+    
+
+func get_score():
+    return score
+
+func reset_score():
+    score = 0
+
+# Health functions
+func take_damage(amount):
+    health -= amount
+    update_hud()
+    print("Health: " + str(health))
+    
+    if health <= 0:
+        health = 0
+        game_over()
+
+func heal(amount):
+    health = min(health + amount, max_health)
+    update_hud()
+
+func get_health():
+    return health
+
+func reset_health():
+    health = max_health
+
+# Game state functions
+func game_over():
+    get_tree().change_scene_to_file("res://Scenes/GameOver.tscn")
+
+func win_game():
+    get_tree().change_scene_to_file("res://Scenes/Win.tscn")
+
+func reset_game():
+    current_level = 1
+    reset_health()
+    reset_score()
+    get_tree().change_scene_to_file("res://Game.tscn")
+
+# Level loading (from Section 4)
+func load_level(level_number):
+    current_level = level_number
+    if current_level_node:
+        current_level_node.queue_free()
+    
+    var level_path = "res://Scenes/Levels/Level" + str(level_number) + ".tscn"
+    if ResourceLoader.exists(level_path):
+        var level_scene = load(level_path)
+        current_level_node = level_scene.instantiate()
+        add_child(current_level_node)
+    else:
+        print("Level not found: " + level_path)
+
+func get_current_level_node():
+    return current_level_node
+
+# HUD update
+func update_hud():
+    if has_node("HUD"):
+        get_node("HUD").update_display()</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>score_to_win</code> is a variable that sets how
+                                many points the player needs to win the game.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
+                            <img src="./Images/U2L6-1.png" alt="Game.gd with health and score" width="600"
+                                height="400" class="step-image">
+                            <div class="image-caption">Figure 6.1: Adding health and score variables to Game.gd</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 3 TEMPLATE -->
+
+            <!-- Step 3 -->
             <div class="step-card" data-step="3">
                 <div class="step-header">
                     <div class="step-number">3</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="3">
-                            <span>[STEP 3 TITLE]</span>
+                            <span>Connect the HUD to Game Variables</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
+                            <h4>Finding the Game Node</h4>
+                            <p>Add a script to the HUD that updates whenever the health or score changes.</p>
                             <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
-                                <li>[Step detail 3]</li>
+                                <li>Select the <strong>HUD</strong> (CanvasLayer) node</li>
+                                <li>Add a script to it</li>
                             </ul>
+                            <pre><code>extends CanvasLayer
+
+@onready var score_label = $ScoreLabel
+@onready var health_label = $HealthLabel
+var game
+
+func _ready():
+    # Find the Game node (the parent of the HUD)
+    game = get_parent()
+    update_display()
+
+func update_display():
+    if game:
+        score_label.text = "Score: " + str(game.score)
+        health_label.text = "Health: " + str(game.health)</code></pre>
                         </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
+                        <div class="instruction-section">
+                            <h4>Triggering Updates from Game.gd</h4>
+                            <p>In Game.gd, we already added <code>update_hud()</code> calls in the health and score
+                                functions.</p>
+                            <pre><code># In Game.gd
+func update_hud():
+    if has_node("HUD"):
+        get_node("HUD").update_display()</code></pre>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> The HUD must be a child of the Game node for this to
+                                work. <code>get_parent()</code> returns the Game node.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Add more steps as needed (copy the pattern above) -->
-            <!-- STEP 4, 5, 6, etc. -->
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Implement Player Damage from Enemies</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Connecting Enemy Hits to Health</h4>
+                            <p>When the player touches an enemy, we need to reduce health and provide feedback.</p>
+                            <ul>
+                                <li>Open the <strong>Enemy</strong> script</li>
+                                <li>Modify the hit signal to reduce player health:</li>
+                            </ul>
+                            <pre><code># In Enemy.gd
+@onready var hit_box = $HitBox
 
+func _ready():
+    hit_box.hit_player.connect(_on_hit_player)
+
+func _on_hit_player():
+    # Find the Game node and take damage
+    var game = get_tree().current_scene
+    if game and game.has_method("take_damage"):
+        game.take_damage(1)</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Adding Invincibility Frames</h4>
+                            <p>To prevent the player from being damaged every frame, add a brief invincibility period:
+                            </p>
+                            <pre><code># In Player.gd
+var hurt = false
+var hurt_timer = 0.25
+
+# Connect to a signal from the enemy or use a separate method
+func take_damage_from_enemy():
+    if !hurt:
+        hurt = true
+        # Visual feedback (flash sprite)
+        animated_sprite_2d.play("hurt")
+        animated_sprite_2d.modulate = Color(1, 0, 0, 0.8)
+        await get_tree().create_timer(hurt_timer).timeout
+        hurt = false
+        animated_sprite_2d.modulate = Color(1, 1, 1, 1)</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>get_tree().current_scene</code> gets the current
+                                root scene. Since Game.tscn is the root, this finds the Game node.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Add Score Pickups to the Level</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating a Score Pickup</h4>
+                            <p>We'll create a simple coin or gem that adds to the player's score when collected.</p>
+                            <ul>
+                                <li>Create a new scene with <strong>Area2D</strong> as the root</li>
+                                <li>Name it <strong>"Coin"</strong> (or "Gem" or "Star")</li>
+                                <li>Add a <strong>Sprite2D</strong> or <strong>AnimatedSprite2D</strong> with a
+                                    collectible visual from your asset pack</li>
+                                <li>Add a <strong>CollisionShape2D</strong></li>
+                                <li>Save it as <strong>"(insertcollectibletype)tscn"</strong></li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Collection Script</h4>
+                            <pre><code>extends Area2D
+
+func _ready():
+    body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+    if body.name == "Player":
+        # Find the Game node and add score
+        var game = get_tree().current_scene
+        if game and game.has_method("add_score"):
+            game.add_score(10)
+            queue_free()</code></pre>
+                            <p>Place coins throughout your level in <strong>Level1.tscn</strong>.</p>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Place collectibles in challenging positions or along the
+                                main path to encourage exploration and reward skillful play.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test Health, Score, and HUD</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing the Complete System</h4>
+                            <ul>
+                                <li>Open <strong>Game.tscn</strong></li>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>Collect coins and watch the score increase</li>
+                                <li>Touch an enemy and watch health decrease</li>
+                                <li>Check that the HUD updates correctly</li>
+                                <li>Test hurt animation by touching the enemy repeatedly</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Troubleshooting</h4>
+                            <ul>
+                                <li><strong>Score doesn't update:</strong> Check that game.add_score() is called and HUD
+                                    update works</li>
+                                <li><strong>Health doesn't decrease:</strong> Check that the enemy signal is connected
+                                    properly</li>
+                                <li><strong>HUD doesn't show:</strong> Check that CanvasLayer is in Game.tscn</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Congratulations!</strong> Your game now has a complete health and score
+                                system with a working HUD. In the final section, you'll add level transitions and game
+                                flow!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L6-6.png" alt="Testing HUD" width="600" height="400"
+                                class="step-image">
+                            <div class="image-caption">Figure 6.6: Testing the complete HUD with health and score
+                                updates</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Page Navigation -->
         <div class="page-navigation">
-            <a href="page[PREV].html" class="nav-button">← Previous Section</a>
+            <a href="page5.html" class="nav-button">← Previous Section</a>
             <div class="page-buttons">
                 <a href="page1.html" class="page-button">Page 1</a>
                 <a href="page2.html" class="page-button">Page 2</a>
                 <a href="page3.html" class="page-button">Page 3</a>
                 <a href="page4.html" class="page-button">Page 4</a>
                 <a href="page5.html" class="page-button">Page 5</a>
-                <a href="page6.html" class="page-button">Page 6</a>
-                <a href="page7.html" class="page-button">Page 7</a>
-                <span class="current-page">Page [Y]</span>
+                <span class="current-page">Page 6</span>
+                <a href="page7.html" class="page-button">Page 7 →</a>
             </div>
-            <a href="page[NEXT].html" class="nav-button primary">Next Section →</a>
+            <a href="page7.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>
-    
     <script src="../../course-data.js"></script>
     <script src="../../script.js"></script>
 </body>
+
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 2.2: Plenty o' Platforms - Player Scene & Gravity - Godot Game Design</title>
+    <title>Unit 2.2: Plenty o' Platforms - Player Scene - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -21,25 +21,27 @@
             </div>
         </div>
 
-        <!-- YouTube Section -->
+        <!-- YouTube Playlist Thumbnail Link -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
                 <h2>Video Tutorials</h2>
                 <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <div class="youtube-placeholder">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">📺</div>
-                    <h3>Section 2 Videos</h3>
-                    <p>Watch: "Setting Up Player Physics in Godot"</p>
+            <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Section Header -->
         <div class="unit-header">
-            <h1>Section 2: Player Scene & Gravity</h1>
+            <h1>Section 2: Player Scene</h1>
             <p class="unit-description">Set up the player character with gravity, collision, and basic movement using the sprite from your chosen asset pack.</p>
         </div>
 
@@ -79,12 +81,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Creating CharacterBody2D" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 2.1: Creating a new CharacterBody2D node as the Player root</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -116,12 +112,6 @@
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> Kenney packs often include individual sprite PNG files. For now, pick one static frame. We will add animation later.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Adding Sprite2D" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 2.2: Adding a Sprite2D child with a character sprite</div>
                         </div>
                     </div>
                 </div>
@@ -156,12 +146,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Adding CollisionShape2D" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 2.3: Adding a CollisionShape2D around the character sprite</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -180,30 +164,20 @@
                     <div class="step-instructions">
                         <div class="instruction-section">
                             <h4>Player Script with Gravity</h4>
-                            <p>Select the <strong>Player</strong> node and click the <strong>"📄"</strong> icon next to Script. Name it <strong>"player.gd"</strong> and add this code:</p>
-                            <pre><code>extends CharacterBody2D
-
-@export var speed = 300.0
-@export var gravity = 980.0
-
-func _physics_process(delta):
-    # Apply gravity
-    velocity.y += gravity * delta
-    
-    # Get horizontal input
-    var direction = Input.get_axis("ui_left", "ui_right")
-    velocity.x = direction * speed
-    
-    move_and_slide()</code></pre>
+                            <ul>
+                                <li>Select the <strong>Player</strong> node and click the <strong>"📄"</strong> icon next to Script. Name it <strong>"player.gd"</strong></li>
+                                <li>This time, we are going to check the box to use Godot's built in template for CharacterBody2D</li>
+                            </ul>
+                            
                         </div>
                         <div class="instruction-section">
                             <h4>Understanding the Code</h4>
+
                             <ul>
-                                <li><strong>@export var speed</strong> - Horizontal movement speed (editable in the Inspector)</li>
-                                <li><strong>@export var gravity</strong> - Downward force (980 is realistic for platformers)</li>
-                                <li><strong>velocity.y += gravity * delta</strong> - Increases downward velocity each frame</li>
-                                <li><strong>Input.get_axis()</strong> - Returns -1 for left, 1 for right, 0 for none</li>
+                                <li><strong>const SPEED and const JUMP_VELOCITY</strong> - Constants are values that never change. SPEED controls how fast the player moves left/right. JUMP_VELOCITY is the upward force when jumping. (Negative = upward).</li>
                                 <li><strong>move_and_slide()</strong> - Moves the character and handles collisions</li>
+                                <li><strong>if not is_on_floor(): velocity.y += gravity * delta</strong>This checks if the player is in the air. If they are not on the floor, we increase their downward velocity, pulling them back down. This is the core of gravity.</li>
+                                <li><strong>if Input.is_action_just_pressed("ui_accept") and is_on_floor(): velocity.y = JUMP_VELOCITY</strong>This checks two things: 1- The player just pressed the jump key (Space or Up arrow), and 2- they are on the floor. If both are true, we set the vertical velocity to the jump value, launching them upward.</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 New Concept:</strong> Gravity makes the player fall. Without it, the character would float in the air!
@@ -212,11 +186,45 @@ func _physics_process(delta):
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Player gravity script" width="600" height="400" class="step-image">
+                            <img src="./Images/U2L2-4.png" alt="Player gravity script" width="600" height="400" class="step-image">
                             <div class="image-caption">Figure 2.4: Player script with gravity and horizontal movement</div>
                         </div>
                     </div>
                 </div>
+
+                <!--Step 5: Test the player movement-->
+                <div class="step-card" data-step="5">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="5">
+                                <span>Test the Player Movement</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>Testing the Player Scene</h4>
+                                <ul>
+                                    <li>Click the <strong>"Play Scene"</strong> button (or press F6)</li>
+                                    <li>Use the arrow keys to move left and right</li>
+                                    <li>Press Space to jump</li>
+                                    <li>Observe how gravity pulls the player back down after jumping</li>
+                                </ul>
+                                <div class="tip-box">
+                                    <strong>💡 Tip:</strong> If you want to be sure your movement is correct, make a quick test room with StaticBody2D nodes with collision to jump on.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-media">
+                            <div class="image-container">
+                                <img src="./Images/U2L2-5.png" alt="Testing player movement" width="600" height="400" class="step-image">
+                                <div class="image-caption">Figure 2.5: Testing the player movement with gravity and jumping</div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
 

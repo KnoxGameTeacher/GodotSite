@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit X Test: [UNIT NAME] - Godot Game Design</title>
+    <title>Unit 2 Test: Plenty o' Platforms - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
         <div class="section-header-nav">
             <div class="breadcrumb">
                 <a href="../../index.html">Home</a> > 
-                <a href="index.html">Unit X</a> > 
-                <span>Unit X Test</span>
+                <a href="index.html">Unit 2</a> > 
+                <span>Unit 2 Test</span>
             </div>
             <div class="section-nav">
                 <span class="section-nav-current">Unit Test</span>
@@ -23,31 +23,33 @@
 
         <!-- Test Header -->
         <div class="unit-header">
-            <h1>📝 Unit X Test: [UNIT NAME]</h1>
-            <p class="unit-description">[Test description - what students should demonstrate]</p>
+            <h1> Unit 2 Test: Plenty o' Platforms</h1>
+            <p class="unit-description">Demonstrate your mastery of 2D platformer development by creating multiple levels and implementing advanced mechanics.</p>
         </div>
 
         <!-- Test Overview -->
         <div class="test-overview">
             <div class="test-stats">
                 <div class="test-stat-card">
-                    <div class="test-stat-number">[REQUIRED POINTS]</div>
+                    <div class="test-stat-number">30</div>
                     <div class="test-stat-label">Required Points</div>
                 </div>
                 <div class="test-stat-card">
-                    <div class="test-stat-number">[BONUS POINTS]</div>
+                    <div class="test-stat-number">10</div>
                     <div class="test-stat-label">Bonus Points</div>
                 </div>
                 <div class="test-stat-card">
-                    <div class="test-stat-number">[TOTAL POINTS]</div>
+                    <div class="test-stat-number">40</div>
                     <div class="test-stat-label">Grand Total</div>
                 </div>
             </div>
             <div class="test-instructions">
-                <h3>📋 Test Instructions</h3>
+                <h3> Test Instructions</h3>
                 <ul>
-                    <li>Complete ALL required sections ([REQUIRED POINTS] points total)</li>
-                    <li>Bonus challenges are optional (up to [BONUS POINTS] extra points)</li>
+                    <li>Complete ALL required sections (30 points total)</li>
+                    <li>You MUST create at least <strong>5 levels</strong> (Level1 through Level5)</li>
+                    <li><strong>10 levels</strong> earns bonus points</li>
+                    <li>Bonus challenges are optional (up to 10 extra points)</li>
                     <li>Submit your entire project folder for grading</li>
                     <li>Use the checkboxes below to track your progress</li>
                 </ul>
@@ -55,7 +57,7 @@
         </div>
 
         <!-- Steps Container -->
-        <div class="steps" data-unit="[UNIT NUMBER]" data-section="test">
+        <div class="steps" data-unit="2" data-section="test">
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -63,70 +65,315 @@
                 <div class="progress-text">Test Progress: <span id="progress-percent">0%</span></div>
             </div>
 
-            <!-- SECTION 1: [TOPIC NAME] -->
+            <!-- Section 1: Core Systems (8 points) -->
             <div class="test-section">
                 <div class="test-section-header">
-                    <div class="test-section-icon">[ICON]</div>
-                    <div class="test-section-title">Section 1: [TOPIC NAME] ([POINTS] points)</div>
+                    <div class="test-section-icon"></div>
+                    <div class="test-section-title">Section 1: Core Systems (8 points)</div>
                 </div>
                 
                 <div class="step-card" data-step="1">
                     <div class="step-header">
                         <div class="step-number">1</div>
                         <div class="step-title">
-                            <label>
-                                <input type="checkbox" class="step-check" data-step="1">
-                                <span>[REQUIREMENT DESCRIPTION] ([POINTS] point)</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="step-content">
-                        <div class="step-instructions">
-                            <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
-                                <ul>
-                                    <li>[Check item 1]</li>
-                                    <li>[Check item 2]</li>
-                                    <li>[Check item 3]</li>
-                                </ul>
-                            </div>
+                            <label><input type="checkbox" class="step-check" data-step="1"> Player has working gravity, movement, and jumping (2 points)</label>
                         </div>
                     </div>
                 </div>
 
-                <!-- Add more required steps -->
+                <div class="step-card" data-step="2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="2"> AnimatedSprite2D with idle, run, and jump animations (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="3">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="3"> Game.tscn manager scene loads levels dynamically (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="4">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="4"> HUD displays health and score correctly (2 points)</label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- BONUS SECTION -->
+            <!-- Section 2: Level Design (10 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon"></div>
+                    <div class="test-section-title">Section 2: Level Design (10 points)</div>
+                </div>
+
+                <div class="step-card" data-step="5">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="5"> Level1.tscn is complete and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="6">
+                    <div class="step-header">
+                        <div class="step-number">6</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="6"> Level2.tscn is complete and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="7">
+                    <div class="step-header">
+                        <div class="step-number">7</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="7"> Level3.tscn is complete and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="8">
+                    <div class="step-header">
+                        <div class="step-number">8</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="8"> Level4.tscn is complete and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="9">
+                    <div class="step-header">
+                        <div class="step-number">9</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="9"> Level5.tscn is complete and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="10">
+                    <div class="step-header">
+                        <div class="step-number">10</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="10"> Each level increases in difficulty from the previous (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="11">
+                    <div class="step-header">
+                        <div class="step-number">11</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="11"> Exit doors properly transition between all levels (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Enemies & Collectibles (7 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon"></div>
+                    <div class="test-section-title">Section 3: Enemies & Collectibles (7 points)</div>
+                </div>
+
+                <div class="step-card" data-step="12">
+                    <div class="step-header">
+                        <div class="step-number">12</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="12"> Enemy scene with animations and patrol movement (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="13">
+                    <div class="step-header">
+                        <div class="step-number">13</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="13"> Enemies placed throughout levels (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="14">
+                    <div class="step-header">
+                        <div class="step-number">14</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="14"> Collectible coins/items with score system (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="15">
+                    <div class="step-header">
+                        <div class="step-number">15</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="15"> Health system works with enemy damage (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Polish & UI (5 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon"></div>
+                    <div class="test-section-title">Section 4: Polish & UI (5 points)</div>
+                </div>
+
+                <div class="step-card" data-step="16">
+                    <div class="step-header">
+                        <div class="step-number">16</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="16"> Win.tscn displays final score (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="17">
+                    <div class="step-header">
+                        <div class="step-number">17</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="17"> GameOver.tscn with restart functionality (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="18">
+                    <div class="step-header">
+                        <div class="step-number">18</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="18"> Complete game loop: Start → Levels → Win/Game Over (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="19">
+                    <div class="step-header">
+                        <div class="step-number">19</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="19"> Well-commented, clean code (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="20">
+                    <div class="step-header">
+                        <div class="step-number">20</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="20"> Organized project folders (assets/, scenes/, etc.) (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bonus Section: Level Count (up to 10 points) -->
             <div class="test-section bonus-section">
                 <div class="test-section-header">
                     <div class="test-section-icon">⭐</div>
-                    <div class="test-section-title">Bonus Challenges (Optional - up to [BONUS POINTS] points)</div>
+                    <div class="test-section-title">Bonus: Additional Levels (up to 5 points)</div>
                 </div>
 
-                <div class="step-card" data-step="[BONUS_STEP_NUMBER]">
+                <div class="step-card" data-step="bonus1" data-bonus-value="2">
                     <div class="step-header">
                         <div class="step-number">⭐</div>
                         <div class="step-title">
-                            <label>
-                                <input type="checkbox" class="step-check" data-step="[BONUS_STEP_NUMBER]">
-                                <span>[BONUS CHALLENGE DESCRIPTION] ([POINTS] points)</span>
-                            </label>
+                            <label><input type="checkbox" class="step-check" data-step="bonus1" data-bonus-value="2"> Level6.tscn created and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="bonus2" data-bonus-value="2">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus2" data-bonus-value="2"> Level7.tscn created and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="bonus3" data-bonus-value="2">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus3" data-bonus-value="2"> Level8.tscn created and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="bonus4" data-bonus-value="2">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus4" data-bonus-value="2"> Level9.tscn created and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="bonus5" data-bonus-value="2">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus5" data-bonus-value="2"> Level10.tscn created and playable (1 point)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bonus Section: Advanced Mechanics (up to 5 points) -->
+            <div class="test-section bonus-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">⭐</div>
+                    <div class="test-section-title">Bonus: Advanced Mechanics (up to 5 points)</div>
+                </div>
+
+                <div class="step-card" data-step="bonus6" data-bonus-value="3">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus6" data-bonus-value="3"> Required collectible (key) added to levels (2 points)</label>
                         </div>
                     </div>
                     <div class="step-content">
                         <div class="instruction-section">
-                            <h4>🏆 Bonus Challenge</h4>
+                            <h4>Key System Requirements</h4>
                             <ul>
-                                <li>[Requirement 1]</li>
-                                <li>[Requirement 2]</li>
-                                <li>[Requirement 3]</li>
+                                <li>Create a "Key" collectible scene</li>
+                                <li>Exit door only activates when key is collected</li>
+                                <li>UI indicates if key has been collected</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- Add more bonus steps -->
+                <div class="step-card" data-step="bonus7" data-bonus-value="3">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus7" data-bonus-value="3"> Enemies can be destroyed for points (2 points)</label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>Enemy Destruction Requirements</h4>
+                            <ul>
+                                <li>Enemy destruction mechanic (e.g., stomp from above or shoot)</li>
+                                <li>Destroyed enemies award points</li>
+                                <li>Enemy respawns or spawns animation on death</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -138,7 +385,19 @@
                     <h3>What to Submit</h3>
                     <ul>
                         <li>Entire Godot project folder (compressed as .zip)</li>
-                        <li>[Additional submission requirements]</li>
+                        <li>At least 5 levels (Level1 through Level5)</li>
+                        <li>Screenshots of each level</li>
+                        <li>Brief reflection on your level design process</li>
+                    </ul>
+                </div>
+                <div class="submission-card">
+                    <h3>Level Design Requirements</h3>
+                    <ul>
+                        <li>Each level must be unique</li>
+                        <li>Progressive difficulty from Level1 to Level5</li>
+                        <li>Each level must have enemies and collectibles</li>
+                        <li>Each level must have an exit that leads to the next</li>
+                        <li>Bonus: 10 levels for extra credit</li>
                     </ul>
                 </div>
             </div>
@@ -147,20 +406,19 @@
         <!-- Test Navigation -->
         <div class="test-navigation">
             <a href="page7.html" class="nav-button">← Back to Section 7</a>
-            <div class="test-score" id="test-score">
-                Score: 0 / [REQUIRED POINTS] points possible
-            </div>
+            <div class="test-score" id="test-score">Score: 0 / 30 points possible</div>
             <a href="../../index.html" class="nav-button primary">Submit Test →</a>
         </div>
     </div>
 
-    <!-- Test Scoring Script -->
     <script>
         function calculateTestScore() {
             // Required step point values
             const stepPointValues = {
-                // Map step numbers to point values
-                // Example: 1: 1, 2: 2, 3: 1, etc.
+                1: 2, 2: 2, 3: 2, 4: 2,    // Core Systems
+                5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 2, 11: 2,  // Level Design
+                12: 2, 13: 1, 14: 2, 15: 2,  // Enemies
+                16: 1, 17: 1, 18: 1, 19: 1, 20: 1  // Polish
             };
             
             let earnedPoints = 0;
@@ -169,37 +427,57 @@
             for (const [step, points] of Object.entries(stepPointValues)) {
                 maxPoints += points;
                 const checkbox = document.querySelector(`.step-check[data-step="${step}"]`);
-                if (checkbox && checkbox.checked) {
-                    earnedPoints += points;
-                }
+                if (checkbox && checkbox.checked) earnedPoints += points;
             }
             
-            // Bonus checkboxes - add to earned points only
-            const bonusSteps = document.querySelectorAll('.step-check[data-step^="bonus"]');
-            bonusSteps.forEach(step => {
-                if (step.checked) {
-                    // Add bonus points based on step value
-                    const bonusValue = parseInt(step.getAttribute('data-bonus-value') || '0');
-                    earnedPoints += bonusValue;
-                }
-            });
+            // Bonus levels (bonus1-bonus5) - each worth 1 point
+            let bonusLevels = 0;
+            for (let i = 1; i <= 5; i++) {
+                const checkbox = document.querySelector(`.step-check[data-step="bonus${i}"]`);
+                if (checkbox && checkbox.checked) bonusLevels += 1;
+            }
             
-            // Update display
+            // Bonus mechanics (bonus6-bonus7) - each worth 2 points
+            let bonusMechanics = 0;
+            const bonus6 = document.querySelector('.step-check[data-step="bonus6"]');
+            const bonus7 = document.querySelector('.step-check[data-step="bonus7"]');
+            if (bonus6 && bonus6.checked) bonusMechanics += 2;
+            if (bonus7 && bonus7.checked) bonusMechanics += 2;
+            
+            const totalBonus = bonusLevels + bonusMechanics;
+            const totalScore = earnedPoints + totalBonus;
+            
             const scoreDisplay = document.getElementById('test-score');
             if (scoreDisplay) {
-                scoreDisplay.innerHTML = `Score: ${earnedPoints} / ${maxPoints} points possible`;
+                scoreDisplay.innerHTML = `Score: ${earnedPoints} / ${maxPoints} points (Bonus: +${totalBonus}) → Total: ${totalScore}`;
             }
             
-            return earnedPoints;
+            return totalScore;
         }
         
-        // Add event listeners to checkboxes
         document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = document.querySelectorAll('.step-check');
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', calculateTestScore);
             });
             calculateTestScore();
+            
+            // Progress bar based on required steps
+            const requiredSteps = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+            let totalRequired = requiredSteps.length;
+            let completedRequired = 0;
+            
+            requiredSteps.forEach(step => {
+                const cb = document.querySelector(`.step-check[data-step="${step}"]`);
+                if (cb && cb.checked) completedRequired++;
+            });
+            
+            const percent = (completedRequired / totalRequired) * 100;
+            const progressFill = document.querySelector('.progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            
+            if (progressFill) progressFill.style.width = `${percent}%`;
+            if (progressPercent) progressPercent.textContent = `${Math.round(percent)}%`;
         });
     </script>
     

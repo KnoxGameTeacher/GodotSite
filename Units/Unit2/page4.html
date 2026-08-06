@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit X.Y: [SECTION TITLE] - Godot Game Design</title>
+    <title>Unit 2.4: Game Scene Architecture & Level Design - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -12,53 +12,41 @@
         <div class="section-header-nav">
             <div class="breadcrumb">
                 <a href="../../index.html">Home</a> > 
-                <a href="index.html">Unit X</a> > 
-                <span>[SECTION TITLE]</span>
+                <a href="index.html">Unit 2</a> > 
+                <span>Game Scene Architecture & Level Design</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section [Y] of [TOTAL]</span>
-                <a href="page[NEXT].html" class="next-button">Next Section →</a>
+                <span class="section-nav-current">Section 4 of 7</span>
+                <a href="page5.html" class="next-button">Next Section →</a>
             </div>
         </div>
 
-        <!-- YouTube Section -->
+        <!-- YouTube Playlist Thumbnail Link -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
                 <h2>Video Tutorials</h2>
                 <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <div class="youtube-placeholder">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">📺</div>
-                    <h3>Section [Y] Videos</h3>
-                    <p>Watch: "[VIDEO TITLE]"</p>
+            <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
+                    </div>
                 </div>
-            </div>
-            <!-- Uncomment when you have a YouTube video -->
-            <!-- 
-            <div class="youtube-embed">
-                <iframe 
-                    width="100%" 
-                    height="400" 
-                    src="https://www.youtube.com/embed/VIDEO_ID" 
-                    title="Section [Y] Video" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            -->
+            </a>
         </div>
 
         <!-- Section Header -->
         <div class="unit-header">
-            <h1>[SECTION TITLE]</h1>
-            <p class="unit-description">[Brief description of what this section covers]</p>
+            <h1>Section 4: Game Scene Architecture & Level Design</h1>
+            <p class="unit-description">Create a Game.tscn scene to manage your game, and build your first playable level with TileMapLayer.</p>
         </div>
 
         <!-- Steps Container -->
-        <div class="steps" data-unit="[UNIT NUMBER]" data-section="[SECTION NUMBER]">
+        <div class="steps" data-unit="2" data-section="4">
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -66,141 +54,293 @@
                 <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
             </div>
 
-            <!-- STEP 1 TEMPLATE -->
+            <!-- Step 1 -->
             <div class="step-card" data-step="1">
                 <div class="step-header">
                     <div class="step-number">1</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>[STEP 1 TITLE]</span>
+                            <span>Create Game.tscn - The Game Manager Scene</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions here...]</p>
+                            <h4>Understanding the Game Manager Pattern</h4>
+                            <p>In larger games, it's useful to have a <strong>Game Manager</strong> scene that handles loading levels, tracking score, and managing overall game state. This keeps your code organized and reusable.</p>
                             <ul>
-                                <li>[First bullet point]</li>
-                                <li>[Second bullet point]</li>
-                                <li>[Third bullet point]</li>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add a <strong>Node2D</strong> as the root node</li>
+                                <li>Rename it to <strong>"Game"</strong></li>
+                                <li>Save the scene as <strong>"Game.tscn"</strong></li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Tip:</strong> [Helpful tip for students]
+                                <strong>💡 Pro Tip:</strong> The Game Manager pattern separates the <strong>game logic</strong> from the <strong>level content</strong>. This makes it easier to add new levels and manage game state.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 2 TEMPLATE -->
+            <!-- Step 2 -->
             <div class="step-card" data-step="2">
                 <div class="step-header">
                     <div class="step-number">2</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>[STEP 2 TITLE]</span>
+                            <span>Set Up the Game Manager Script</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
-                            <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
-                            </ul>
-                            <div class="warning-box">
-                                <strong>⚠️ Warning:</strong> [Important caution for students]
-                            </div>
+                            <h4>Scripting the Game Manager</h4>
+                            <p>Add a script to the Game node that will handle loading levels and managing game state.</p>
+                            <pre><code>extends Node2D
+
+var current_level_node
+var current_level = 1
+
+func _ready():
+    load_level(current_level)
+
+func load_level(level_number):
+    # Clear any existing level
+    if current_level_node:
+        current_level_node.queue_free()
+    
+    # Load the level scene
+    var level_path = "res://Scenes/Levels/Level" + str(level_number) + ".tscn"
+    if ResourceLoader.exists(level_path):
+        var level_scene = load(level_path)
+        current_level_node = level_scene.instantiate()
+        add_child(current_level_node)
+    else:
+        print("Level not found: " + level_path)
+
+func get_current_level_node():
+    return current_level_node</code></pre>
                         </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Script</h4>
+                            <ul>
+                                <li><strong>current_level_node</strong> - Stores a reference to the currently loaded level</li>
+                                <li><strong>load_level()</strong> - Removes the old level and loads a new one</li>
+                                <li><strong>queue_free()</strong> - Safely removes the old level from memory</li>
+                                <li><strong>instantiate()</strong> - Creates an instance of the level scene</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>queue_free()</code> is a safe way to delete nodes. It waits until the end of the frame to remove the node, preventing errors.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 3 TEMPLATE -->
+            <!-- Step 3 -->
             <div class="step-card" data-step="3">
                 <div class="step-header">
                     <div class="step-number">3</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="3">
-                            <span>[STEP 3 TITLE]</span>
+                            <span>Create Level1.tscn - The First Playable Level</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
+                            <h4>Creating the Level Scene</h4>
                             <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
-                                <li>[Step detail 3]</li>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add a <strong>Node2D</strong> as the root node</li>
+                                <li>Rename it to <strong>"Level"</strong></li>
+                                <li>Save the scene as <strong>"Level1.tscn"</strong></li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
+                        <div class="instruction-section">
+                            <h4>Setting Up the Level Structure</h4>
+                            <ul>
+                                <li>With the Level node selected, add a child <strong>TileMapLayer</strong></li>
+                                <li>Rename it to <strong>"Ground"</strong></li>
+                                <li>Add another child <strong>TileMapLayer</strong></li>
+                                <li>Rename it to <strong>"Platforms"</strong></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Add more steps as needed (copy the pattern above) -->
-            <!-- STEP 4, 5, 6, etc. -->
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Set Up the TileSet with Collision</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Configuring the TileSet</h4>
+                            <ul>
+                                <li>Select the <strong>"Ground"</strong> TileMapLayer node</li>
+                                <li>In the Inspector, click the <strong>"TileSet"</strong> dropdown</li>
+                                <li>Select <strong>"New TileSet"</strong></li>
+                                <li>Click <strong>"TileSet"</strong> to open the TileSet panel</li>
+                                <li>Click <strong>"Add Atlas"</strong> and load your platformer tilesheet</li>
+                                <li>Set <strong>"Tile Size"</strong> to match your tiles (often 16x16, 32x32, or 64x64)</li>
+                                <li>Click <strong>"OK"</strong> to create the atlas</li>
+                                <li>Save the TileSet</li> 
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Adding Collision to Tiles</h4>
+                            <ul>
+                                <li>In the TileSet panel, select a tile you want to have collision</li>
+                                <li>In the right panel, click the <strong>"Physics"</strong> tab</li>
+                                <li>Click <strong>"Add Physics Layer"</strong></li>
+                                <li>Click <strong>"Add Collision Polygon"</strong></li>
+                                <li>Adjust the polygon to cover the tile's solid area</li>
+                                <li>Repeat for other tiles that need collision (ground, walls)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> For platformers, you typically want collision on ground tiles and walls, but not on decorative tiles. This keeps gameplay smooth and predictable.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L4-4.png" alt="Setting up TileSet with collision" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.4: Configuring TileSet with collision polygons</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Paint the First Level</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Using TileMapLayer Tools</h4>
+                            <p>Select the appropriate TileMapLayer node and use the tools to paint your level.</p>
+                            <ul>
+                                <li>Select the <strong>"Ground"</strong> TileMapLayer</li>
+                                <li>Use the <strong>Paint tool</strong> (<kbd>D</kbd>) to draw the ground</li>
+                                <li>Use the <strong>Fill tool</strong> (<kbd>F</kbd>) for large areas</li>
+                                <li>Select the <strong>"Platforms"</strong> TileMapLayer</li>
+                                <li>Paint floating platforms where needed</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Level Design Tips</h4>
+                            <ul>
+                                <li>Start with a <strong>flat ground</strong> section for the player to land on</li>
+                                <li>Add <strong>platforms at different heights</strong> to teach jumping</li>
+                                <li>Include <strong>gaps</strong> that require precise jumps</li>
+                                <li>Place the <strong>player spawn point</strong> at the start</li>
+                                <li>Place the <strong>exit</strong> at the end</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Test your level frequently! It's easier to adjust placement while you're still painting than after everything is done.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L4-5.png" alt="Painting the level" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.5: Painting the first level with platforms and ground</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the Level with Game.tscn</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Your Setup</h4>
+                            <ul>
+                                <li>Open <strong>Game.tscn</strong></li>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>Your level should load and the player should appear</li>
+                                <li>Test movement and jumping on your newly painted platforms</li>
+                                <li>If something isn't working, check:
+                                    <ul>
+                                        <li>Is the player scene correct?</li>
+                                        <li>Does the TileSet have collision?</li>
+                                        <li>Is the level path correct in Game.gd?</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>What You've Accomplished</h4>
+                            <ul>
+                                <li>✅ Created a Game.tscn manager scene</li>
+                                <li>✅ Built Level1.tscn with TileMapLayer</li>
+                                <li>✅ Configured TileSet with collision</li>
+                                <li>✅ Painted a playable level</li>
+                                <li>✅ Tested the full setup</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Next Steps:</strong> In the next section, you'll add animated enemies to make your level more challenging!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L4-6.png" alt="Testing the level" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.6: Testing the complete setup with player in the level</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Page Navigation -->
         <div class="page-navigation">
-            <a href="page[PREV].html" class="nav-button">← Previous Section</a>
+            <a href="page3.html" class="nav-button">← Previous Section</a>
             <div class="page-buttons">
                 <a href="page1.html" class="page-button">Page 1</a>
                 <a href="page2.html" class="page-button">Page 2</a>
                 <a href="page3.html" class="page-button">Page 3</a>
-                <a href="page4.html" class="page-button">Page 4</a>
-                <a href="page5.html" class="page-button">Page 5</a>
+                <span class="current-page">Page 4</span>
+                <a href="page5.html" class="page-button">Page 5 →</a>
                 <a href="page6.html" class="page-button">Page 6</a>
                 <a href="page7.html" class="page-button">Page 7</a>
-                <span class="current-page">Page [Y]</span>
             </div>
-            <a href="page[NEXT].html" class="nav-button primary">Next Section →</a>
+            <a href="page5.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>
-    
     <script src="../../course-data.js"></script>
     <script src="../../script.js"></script>
 </body>

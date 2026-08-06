@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3.1: Game Design Document - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 3</a> > 
+                <span>Game Design Document</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 1 of 9</span>
+                <a href="page2.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 1 Videos</h3>
+                    <p>Watch: "Game Design Document & Planning"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 1: Game Design Document</h1>
+            <p class="unit-description">Plan your game using a Game Design Document. Learn about Minimum Viable Product (MVP) and how to avoid scope creep.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="3" data-section="1">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>What is a Game Design Document?</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>What is a GDD?</h4>
+                            <p>A <strong>Game Design Document (GDD)</strong> is a living document that outlines the vision, mechanics, and scope of a game. It serves as:</p>
+                            <ul>
+                                <li>A <strong>blueprint</strong> for developers</li>
+                                <li>A <strong>reference</strong> during production</li>
+                                <li>A <strong>tool</strong> for communicating ideas</li>
+                            </ul>
+                            <p>Think of it like a recipe: you wouldn't bake a cake without knowing the ingredients and steps. A GDD is your recipe for building a game.</p>
+                            <div class="tip-box">
+                                <strong>💡 Why This Matters:</strong> A GDD helps you stay focused, organized, and on track. It's also a great tool for getting feedback from others before you start coding.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Game Design Document" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.1: A Game Design Document is your game's blueprint</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Understanding Minimum Viable Product (MVP)</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>What is an MVP?</h4>
+                            <p>An <strong>MVP (Minimum Viable Product)</strong> is the simplest version of your game that still functions as a complete, playable experience. It contains only the essential features needed for the core loop to work.</p>
+                            
+                            <p>Let's look at an example everyone knows: <strong>Minecraft</strong>.</p>
+                            
+                            <div class="example-box">
+                                <h5>Minecraft's MVP would include:</h5>
+                                <ul>
+                                    <li>Player can walk and jump in a 3D world</li>
+                                    <li>Breaking and placing blocks (just dirt, stone, and wood)</li>
+                                    <li>Day and night cycle (simple, no sleep mechanic)</li>
+                                    <li>Hostile mobs (just zombies that appear at night)</li>
+                                    <li>A crafting table with a few basic recipes</li>
+                                    <li>A simple health bar</li>
+                                    <li>A survival goal: build a shelter and survive one night</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="example-box">
+                                <h5>What would NOT be in Minecraft's MVP:</h5>
+                                <ul>
+                                    <li>Nether or End dimensions</li>
+                                    <li>Redstone and complex circuits</li>
+                                    <li>Enchanting and potions</li>
+                                    <li>Villages and trading</li>
+                                    <li>Multiplayer</li>
+                                    <li>Creative mode</li>
+                                </ul>
+                            </div>
+                            
+                            <p>The MVP of Minecraft would still be recognizable as Minecraft—you can walk, build, and survive—but it would be missing many of the features we know today. Those features were added over time as <strong>updates</strong> and <strong>expansions</strong>.</p>
+                            
+                            <div class="tip-box">
+                                <strong>💡 Key Idea:</strong> "Make something simple that works before making something complex that breaks." Your MVP should be a game you'd be proud to show someone, even if it's not finished yet.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Minecraft MVP vs Full Game" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.2: Minecraft's MVP (left) vs the full game today (right)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>What is Scope Creep?</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>What is Scope Creep?</h4>
+                            <p><strong>Scope creep</strong> is when a project grows beyond its original goals, adding features that delay completion and make the game harder to finish.</p>
+                            
+                            <p>Examples of Scope Creep:</p>
+                            <ul>
+                                <li>"Let's add 10 different animals!" (started with 3)</li>
+                                <li>"What if there was crafting too?" (not in original plan)</li>
+                                <li>"Let's make it multiplayer!" (was single-player)</li>
+                                <li>"We should add day/night cycles and weather!" (beyond scope)</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Warning:</strong> Scope creep is the enemy of finished games. The more features you add, the less likely you are to complete your project.
+                            </div>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The best way to avoid scope creep is to write down your MVP and <strong>stick to it</strong>. If you think of a cool new feature, add it to a "Stretch Goals" list for later.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Scope Creep" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.3: Scope creep adds features that delay your game's completion</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Forage Fever - Core Concept</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Your Game: Forage Fever</h4>
+                            <p>You're going to create a game called <strong>Forage Fever</strong>. Here's the core concept:</p>
+                            <ul>
+                                <li>You play as a creature in a 3D forest</li>
+                                <li>You must hunt animals for food to survive</li>
+                                <li>You have a <strong>hunger meter</strong> that decreases over time</li>
+                                <li>Animals also hunt YOU</li>
+                                <li>You need to balance hunting and being hunted</li>
+                            </ul>
+                            <p>Your first task is to plan your version of this game. You get to make choices about:</p>
+                            <ul>
+                                <li>What animals exist in your ecosystem?</li>
+                                <li>What tools do you use to hunt?</li>
+                                <li>What does the environment look like?</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Remember:</strong> You're building YOUR version of this game. Make choices that excite you!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Forage Fever Concept" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.4: Forage Fever - You hunt and are hunted</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Fill Out Your GDD Template</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Your GDD Template</h4>
+                            <p>Open the GDD template below and fill it out for your version of Forage Fever. Be specific about your MVP and what you'll save for later.</p>
+                            
+                            <p><a href="../../resources/gdd_template.docx" download class="download-link">📄 Download GDD Template</a></p>
+                            
+                            <p>Key sections to fill out:</p>
+                            <ul>
+                                <li><strong>Game Overview</strong> - What's your elevator pitch?</li>
+                                <li><strong>MVP Statement</strong> - What's the minimum version that works?</li>
+                                <li><strong>Theme & Aesthetic</strong> - What does your world look like?</li>
+                                <li><strong>Core Mechanics</strong> - What does the player actually do?</li>
+                                <li><strong>Stretch Goals</strong> - What comes after MVP?</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Don't worry if your GDD changes as you build. GDDs are "living documents" - they evolve as you learn and test things!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="GDD Template" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.5: Fill out your GDD template with your game vision</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>MVP vs Stretch Goals</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>MVP vs Stretch Goals</h4>
+                            <p>When designing your GDD, separate features into two categories. Think of it like planning your own version of Minecraft:</p>
+                            
+                            <div class="comparison-box">
+                                <div class="comparison-column">
+                                    <h5>✅ MVP (Must Have)</h5>
+                                    <ul>
+                                        <li>Player can move and look around</li>
+                                        <li>Basic 3D world with ground and objects</li>
+                                        <li>Hunger meter that decreases over time</li>
+                                        <li>Health meter</li>
+                                        <li>At least 1 prey animal to hunt</li>
+                                        <li>At least 1 predator animal to avoid</li>
+                                        <li>A tool to hunt with (spear, bow, etc.)</li>
+                                        <li>Win condition (survive X time or collect X food)</li>
+                                        <li>Lose condition (health reaches 0)</li>
+                                    </ul>
+                                </div>
+                                <div class="comparison-column">
+                                    <h5>🌟 Stretch Goals (Nice to Have)</h5>
+                                    <ul>
+                                        <li>More than 2 animal types</li>
+                                        <li>Crafting system for tools</li>
+                                        <li>Day/night cycle</li>
+                                        <li>Multiple environments (forest, desert, snow)</li>
+                                        <li>Sound effects and music</li>
+                                        <li>Polished UI with animations</li>
+                                        <li>Animal breeding or taming</li>
+                                        <li>Score tracking or achievements</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <p>Just like Minecraft started simple and added features over time, your game should start with the MVP and grow from there.</p>
+                            
+                            <div class="tip-box">
+                                <strong>💡 Key Idea:</strong> Complete your MVP FIRST. If you have time, add stretch goals. A finished MVP is better than an unfinished game with 10 features.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="MVP vs Stretch Goals" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.6: Start with your MVP, then add stretch goals later</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="step-card" data-step="7">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="7">
+                            <span>Share Your GDD & Get Feedback</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Share & Feedback</h4>
+                            <p>Share your GDD with a partner or in a small group. Give each other feedback on:</p>
+                            <ul>
+                                <li><strong>MVP Focus:</strong> Is the MVP small enough to finish?</li>
+                                <li><strong>Scope Check:</strong> Are there too many features for the timeline?</li>
+                                <li><strong>Clarity:</strong> Is the game concept easy to understand?</li>
+                                <li><strong>Excitement:</strong> Does this sound like a fun game to play?</li>
+                            </ul>
+                            
+                            <p>Use this feedback to revise your GDD before you start coding.</p>
+                            
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Getting feedback early saves you from building something that isn't fun or is too complex to finish. Share early, share often!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Sharing Feedback" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.7: Share your GDD and get feedback before you start coding</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Back to Unit Overview</a>
+            <div class="page-buttons">
+                <span class="current-page">Page 1</span>
+                <a href="page2.html" class="page-button">Page 2 →</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+                <a href="page8.html" class="page-button">Page 8</a>
+                <a href="page9.html" class="page-button">Page 9</a>
+            </div>
+            <a href="page2.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit X.Y: [SECTION TITLE] - Godot Game Design</title>
+    <title>Unit 2.7: Level Transitions & Game Flow - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -12,53 +12,41 @@
         <div class="section-header-nav">
             <div class="breadcrumb">
                 <a href="../../index.html">Home</a> > 
-                <a href="index.html">Unit X</a> > 
-                <span>[SECTION TITLE]</span>
+                <a href="index.html">Unit 2</a> > 
+                <span>Level Transitions & Game Flow</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section [Y] of [TOTAL]</span>
-                <a href="page[NEXT].html" class="next-button">Next Section →</a>
+                <span class="section-nav-current">Section 7 of 7</span>
+                <a href="test.html" class="next-button">Take Test →</a>
             </div>
         </div>
 
-        <!-- YouTube Section -->
+        <!-- YouTube Playlist Thumbnail Link -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
                 <h2>Video Tutorials</h2>
                 <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <div class="youtube-placeholder">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">📺</div>
-                    <h3>Section [Y] Videos</h3>
-                    <p>Watch: "[VIDEO TITLE]"</p>
+            <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
+                    </div>
                 </div>
-            </div>
-            <!-- Uncomment when you have a YouTube video -->
-            <!-- 
-            <div class="youtube-embed">
-                <iframe 
-                    width="100%" 
-                    height="400" 
-                    src="https://www.youtube.com/embed/VIDEO_ID" 
-                    title="Section [Y] Video" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            -->
+            </a>
         </div>
 
         <!-- Section Header -->
         <div class="unit-header">
-            <h1>[SECTION TITLE]</h1>
-            <p class="unit-description">[Brief description of what this section covers]</p>
+            <h1>Section 7: Level Transitions & Game Flow</h1>
+            <p class="unit-description">Create a complete game loop with level transitions, win conditions, and game over states.</p>
         </div>
 
         <!-- Steps Container -->
-        <div class="steps" data-unit="[UNIT NUMBER]" data-section="[SECTION NUMBER]">
+        <div class="steps" data-unit="2" data-section="7">
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -66,127 +54,314 @@
                 <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
             </div>
 
-            <!-- STEP 1 TEMPLATE -->
+            <!-- Step 1 -->
             <div class="step-card" data-step="1">
                 <div class="step-header">
                     <div class="step-number">1</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>[STEP 1 TITLE]</span>
+                            <span>Create the Exit Scene for Level Transitions</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions here...]</p>
+                            <h4>Creating a Reusable Exit</h4>
+                            <p>The Exit scene will be placed at the end of each level. When the player touches it, the game loads the next level.</p>
                             <ul>
-                                <li>[First bullet point]</li>
-                                <li>[Second bullet point]</li>
-                                <li>[Third bullet point]</li>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add an <strong>Area2D</strong> as the root node</li>
+                                <li>Rename it to <strong>"Exit"</strong></li>
+                                <li>Add a <strong>CollisionShape2D</strong> child</li>
+                                <li>Set the shape to <strong>RectangleShape2D</strong> covering the exit area</li>
+                                <li><strong>Do not add a Sprite2D</strong> - this exit is invisible</li>
+                                <li>Save the scene as <strong>"exit.tscn"</strong></li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Tip:</strong> [Helpful tip for students]
+                                <strong>💡 Pro Tip:</strong> Making the exit invisible allows you to place it anywhere without visual clutter. The player triggers it by walking through the area.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 2 TEMPLATE -->
+            <!-- Step 2 -->
             <div class="step-card" data-step="2">
                 <div class="step-header">
                     <div class="step-number">2</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>[STEP 2 TITLE]</span>
+                            <span>Add Exit Script to Load Next Level</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
-                            <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
-                            </ul>
-                            <div class="warning-box">
-                                <strong>⚠️ Warning:</strong> [Important caution for students]
+                            <h4>Exit Script</h4>
+                            <p>This script detects when the player touches the exit and triggers the next level.</p>
+                            <pre><code>extends Area2D
+
+func _ready():
+    body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+    if body.name == "Player":
+        # Find the Game node
+        var game = get_tree().current_scene
+        if game and game.has_method("load_next_level"):
+            game.load_next_level()
+            queue_free()  # Remove the exit after use</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>queue_free()</code> removes the exit node after it's triggered, preventing multiple activations.
                             </div>
                         </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
+                        <div class="step-media">
+                            <div class="image-container">
+                                <img src="./Images/U2L7-2.png" alt="Creating the Exit scene" width="600" height="400" class="step-image">
+                                <div class="image-caption">Figure 7.2: Placing the exit in the level</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 3 TEMPLATE -->
+            <!-- Step 3 -->
             <div class="step-card" data-step="3">
                 <div class="step-header">
                     <div class="step-number">3</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="3">
-                            <span>[STEP 3 TITLE]</span>
+                            <span>Add Level Progression to Game.gd</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
-                            <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
-                                <li>[Step detail 3]</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
+                            <h4>Game Level Management</h4>
+                            <p>Add these functions to your <strong>Game.gd</strong> script to handle level progression.</p>
+                            <pre><code># Add to Game.gd
+func load_next_level():
+    var next_level = current_level + 1
+    load_level(next_level)
+
+func load_level(level_number):
+    current_level = level_number
+    if current_level_node:
+        current_level_node.queue_free()
+    
+    var level_path = "res://Scenes/Levels/Level" + str(level_number) + ".tscn"
+    if ResourceLoader.exists(level_path):
+        var level_scene = load(level_path)
+        current_level_node = level_scene.instantiate()
+        add_child(current_level_node)
+        print("Loaded: " + level_path)
+    else:
+        # No more levels - win the game!
+        win_game()
+
+func win_game():
+    if current_level_node:
+    current_level_node.queue_free()
+    
+    var level_path = "res://Scenes/Levels/Win.tscn"
+    if ResourceLoader.exists(level_path):
+        var level_scene = load(level_path)
+        current_level_node = level_scene.instantiate()
+        add_child(current_level_node)
+        print("Win Screen")
+   </code></pre>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> The game checks if the next level file exists. If not, it triggers the win screen.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Add more steps as needed (copy the pattern above) -->
-            <!-- STEP 4, 5, 6, etc. -->
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Create Win.tscn Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating the Win Screen</h4>
+                            <ul>
+                                <li>Create a new scene with <strong>Control</strong> as the root node</li>
+                                <li>Add a <strong>Label</strong> with text <strong>"You Win!"</strong></li>
+                                <li>Add another <strong>Label</strong> for displaying final score</li>
+                                <li>Add a <strong>Button</strong> with text <strong>"Play Again"</strong></li>
+                                <li>Add a <strong>Button</strong> with text <strong>"Quit"</strong></li>
+                                <li>Save as <strong>"Win.tscn"</strong></li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Win Scene Script</h4>
+                            <pre><code>extends Control
 
+@onready var score_label = $ScoreLabel
+@onready var play_again_button = $PlayAgainButton
+@onready var quit_button = $QuitButton
+
+func _ready():
+    # Get final score from Game
+    var game = get_tree().current_scene
+    if game and game.has_method("get_score"):
+        score_label.text = "Final Score: " + str(game.get_score())
+
+func _on_play_again_pressed():
+    var game = get_tree().current_scene
+    if game and game.has_method("reset_game"):
+        game.reset_game()
+
+func _on_quit_button_pressed():
+    get_tree().quit()</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The Win scene displays the player's final score and offers options to continue playing or return to the main menu.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L7-4.png" alt="Win scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.4: Creating the Win scene with final score display</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Create GameOver.tscn Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating the Game Over Screen</h4>
+                            <ul>
+                                <li>This is as simple as duplicating the Win scene</li>
+                                <li>Change the text to <strong>"Game Over"</strong> or something similar</li>
+                                <li>Keep the final score label to show how well the player did</li>
+                                <li>Keep the "Play Again" and "Quit" buttons, you can change the text for flavor if you want</li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L7-5.png" alt="Game Over scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.5: Creating the Game Over scene with restart options</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Place Exits and Create Level2.tscn</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Placing Exits in Your Levels</h4>
+                            <ul>
+                                <li>Open <strong>Level1.tscn</strong></li>
+                                <li>Drag <strong>exit.tscn</strong> from the FileSystem into the level</li>
+                                <li>Position it at the end of the level</li>
+                                <li>Save the level</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Creating Level2.tscn</h4>
+                            <ul>
+                                <li>Create a new scene with <strong>Node2D</strong> as the root</li>
+                                <li>Name it <strong>"Level"</strong></li>
+                                <li>Add <strong>TileMapLayer</strong> nodes for Ground and Platforms</li>
+                                <li>Paint a new, more challenging level</li>
+                                <li>Place the player, enemies, coins, and an exit</li>
+                                <li>Save as <strong>"Level2.tscn"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Make Level2 more challenging than Level1 with harder jumps, more enemies, or tricky platform placements.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="step-card" data-step="7">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="7">
+                            <span>Test the Complete Game Loop</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Your Full Game</h4>
+                            <ul>
+                                <li>Open <strong>Game.tscn</strong></li>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>Play through Level1</li>
+                                <li>Reach the exit to trigger Level2</li>
+                                <li>Complete Level2 to reach the Win screen</li>
+                                <li>Test what happens when you lose all health</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Complete Game Flow</h4>
+                            <ul>
+                                <li><strong>Start.tscn</strong> → Player clicks "Play"</li>
+                                <li><strong>Game.tscn</strong> → Loads Level1</li>
+                                <li><strong>Level1</strong> → Player reaches exit → Loads Level2</li>
+                                <li><strong>Level2</strong> → Player reaches exit → Loads Win.tscn</li>
+                                <li><strong>Win.tscn</strong> → Player clicks "Play Again" → Restarts Game.tscn</li>
+                                <li><strong>Game Over</strong> → Player clicks "Try Again" → Restarts current level</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>🎉 Congratulations!</strong> You've built a complete platformer with multiple levels, enemies, collectibles, health, score, and a full game loop!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Page Navigation -->
         <div class="page-navigation">
-            <a href="page[PREV].html" class="nav-button">← Previous Section</a>
+            <a href="page6.html" class="nav-button">← Previous Section</a>
             <div class="page-buttons">
                 <a href="page1.html" class="page-button">Page 1</a>
                 <a href="page2.html" class="page-button">Page 2</a>
@@ -194,13 +369,11 @@
                 <a href="page4.html" class="page-button">Page 4</a>
                 <a href="page5.html" class="page-button">Page 5</a>
                 <a href="page6.html" class="page-button">Page 6</a>
-                <a href="page7.html" class="page-button">Page 7</a>
-                <span class="current-page">Page [Y]</span>
+                <span class="current-page">Page 7</span>
             </div>
-            <a href="page[NEXT].html" class="nav-button primary">Next Section →</a>
+            <a href="test.html" class="nav-button primary">Take Unit Test →</a>
         </div>
     </div>
-    
     <script src="../../course-data.js"></script>
     <script src="../../script.js"></script>
 </body>

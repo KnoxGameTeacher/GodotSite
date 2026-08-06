@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit X.Y: [SECTION TITLE] - Godot Game Design</title>
+    <title>Unit 2.3: Player Animation with AnimatedSprite2D - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -12,53 +12,41 @@
         <div class="section-header-nav">
             <div class="breadcrumb">
                 <a href="../../index.html">Home</a> > 
-                <a href="index.html">Unit X</a> > 
-                <span>[SECTION TITLE]</span>
+                <a href="index.html">Unit 2</a> > 
+                <span>Player Animation with AnimatedSprite2D</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section [Y] of [TOTAL]</span>
-                <a href="page[NEXT].html" class="next-button">Next Section →</a>
+                <span class="section-nav-current">Section 3 of 7</span>
+                <a href="page4.html" class="next-button">Next Section →</a>
             </div>
         </div>
 
-        <!-- YouTube Section -->
+        <!-- YouTube Playlist Thumbnail Link -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
                 <h2>Video Tutorials</h2>
                 <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <div class="youtube-placeholder">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">📺</div>
-                    <h3>Section [Y] Videos</h3>
-                    <p>Watch: "[VIDEO TITLE]"</p>
+            <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
+                    </div>
                 </div>
-            </div>
-            <!-- Uncomment when you have a YouTube video -->
-            <!-- 
-            <div class="youtube-embed">
-                <iframe 
-                    width="100%" 
-                    height="400" 
-                    src="https://www.youtube.com/embed/VIDEO_ID" 
-                    title="Section [Y] Video" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            -->
+            </a>
         </div>
 
         <!-- Section Header -->
         <div class="unit-header">
-            <h1>[SECTION TITLE]</h1>
-            <p class="unit-description">[Brief description of what this section covers]</p>
+            <h1>Section 3: Player Animation with AnimatedSprite2D</h1>
+            <p class="unit-description">Replace the static Sprite2D with an AnimatedSprite2D and create multiple animation states for idle, running, and jumping.</p>
         </div>
 
         <!-- Steps Container -->
-        <div class="steps" data-unit="[UNIT NUMBER]" data-section="[SECTION NUMBER]">
+        <div class="steps" data-unit="2" data-section="3">
             <div class="progress-container">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -66,141 +54,240 @@
                 <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
             </div>
 
-            <!-- STEP 1 TEMPLATE -->
+            <!-- Step 1 -->
             <div class="step-card" data-step="1">
                 <div class="step-header">
                     <div class="step-number">1</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>[STEP 1 TITLE]</span>
+                            <span>Replace Sprite2D with AnimatedSprite2D</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions here...]</p>
+                            <h4>Understanding the Difference</h4>
+                            <p>A <strong>Sprite2D</strong> displays a single static image. An <strong>AnimatedSprite2D</strong> can display multiple frames in sequence, creating animation.</p>
                             <ul>
-                                <li>[First bullet point]</li>
-                                <li>[Second bullet point]</li>
-                                <li>[Third bullet point]</li>
+                                <li>Select the <strong>Player</strong> node</li>
+                                <li>Delete the existing <strong>Sprite2D</strong> child node (right-click → Delete)</li>
+                                <li>Add a new child node: <strong>AnimatedSprite2D</strong></li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Tip:</strong> [Helpful tip for students]
+                                <strong>💡 Pro Tip:</strong> AnimatedSprite2D is more flexible than Sprite2D because it supports multiple animation states that can be changed in code.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 2 TEMPLATE -->
+            <!-- Step 2 -->
             <div class="step-card" data-step="2">
                 <div class="step-header">
                     <div class="step-number">2</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>[STEP 2 TITLE]</span>
+                            <span>Locate the Character Spritesheet</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
+                            <h4>Finding the Sprite Frames</h4>
+                            <p>Most Kenney platformer packs include a spritesheet with multiple character frames arranged in a grid.</p>
                             <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
+                                <li>In the FileSystem dock, navigate to your imported asset pack</li>
+                                <li>Look for a folder named <strong>PNG</strong> or <strong>Spritesheets</strong></li>
+                                <li>Find a file named something like <strong>"character.png"</strong> or <strong>"player.png"</strong></li>
+                                <li>If you see individual sprite files instead of a spritesheet, that's fine too</li>
                             </ul>
                             <div class="warning-box">
-                                <strong>⚠️ Warning:</strong> [Important caution for students]
+                                <strong>⚠️ Important:</strong> If using individual PNG files instead of a spritesheet, you'll need to import each frame separately. The process works the same way but with multiple files.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 3 TEMPLATE -->
+            <!-- Step 3 -->
             <div class="step-card" data-step="3">
                 <div class="step-header">
                     <div class="step-number">3</div>
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="3">
-                            <span>[STEP 3 TITLE]</span>
+                            <span>Create the SpriteFrames Resource</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>[SUBHEADING]</h4>
-                            <p>[Detailed instructions...]</p>
+                            <h4>Setting Up Animation Frames</h4>
+                            <p>The SpriteFrames resource holds all animations and their frames.</p>
                             <ul>
-                                <li>[Step detail 1]</li>
-                                <li>[Step detail 2]</li>
-                                <li>[Step detail 3]</li>
+                                <li>Select the <strong>AnimatedSprite2D</strong> node</li>
+                                <li>In the Inspector, find the <strong>"SpriteFrames"</strong> property</li>
+                                <li>Click the dropdown and select <strong>"New SpriteFrames"</strong></li>
+                                <li>Click the <strong>"SpriteFrames"</strong> property to open the Animation panel at the bottom</li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" 
-                                alt="[STEP TITLE] example"
-                                width="600" 
-                                height="400"
-                                class="step-image">
-                            <div class="image-caption">Figure [Y].[STEP] - [Image description]</div>
+                        <div class="instruction-section">
+                            <h4>Adding Frames to the Animation</h4>
+                            <ul>
+                                <li>In the Animation panel, you'll see a default animation named <strong>"default"</strong></li>
+                                <li>Rename it to <strong>"idle"</strong> (right-click → Rename Animation)</li>
+                                <li>Click the <strong>"Add Frames from Sprite Sheet"</strong> button (the little icon)</li>
+                                <li>Select your <strong>character.png</strong> or multiple PNG files</li>
+                                <li>For a spritesheet, set the <strong>"Rows"</strong> and <strong>"Columns"</strong> to match your sheet</li>
+                                <li>Select the frames that correspond to the idle animation</li>
+                                <li>Click <strong>"Add Selected"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> If you have individual PNG files, use the <strong>"Add Frames from Files"</strong> option instead of the spritesheet option.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Add more steps as needed (copy the pattern above) -->
-            <!-- STEP 4, 5, 6, etc. -->
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Create Run and Jump Animations</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Adding More Animations</h4>
+                            <ul>
+                                <li>In the Animation panel, click <strong>"New Animation"</strong></li>
+                                <li>Name it <strong>"run"</strong></li>
+                                <li>Add the running frames from your spritesheet</li>
+                                <li>Create another animation named <strong>"jump"</strong></li>
+                                <li>Add the jumping frames</li>
+                                <li>Set the <strong>"FPS"</strong> (Frames Per Second) for each animation to the same number across all states for consistency</li>
+                                <li>Check the <strong>"Autorun"</strong> box for idle so that it begins on game start automatically</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L3-4.png" alt="Creating run and jump animations" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.4: Adding run and jump animations with frame selections</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Script the Animation States</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Switching Animations Based on State</h4>
+                            <p>Update your player script to change animations based on what the player is doing.</p>
+                            <pre><code>extends CharacterBody2D
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+@onready var animated_sprite_2d = $AnimatedSprite2D
+
+func _physics_process(delta: float):
+    # Gravity
+    if not is_on_floor():
+        velocity.y += get_gravity() * delta
+
+    # Jump
+    if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+        velocity.y = JUMP_VELOCITY
+
+    # Movement
+    var direction := Input.get_axis("ui_left", "ui_right")
+    if direction:
+        velocity.x = direction * SPEED
+    else:
+        velocity.x = move_toward(velocity.x, 0, SPEED)
+
+    # Animate
+    update_animation(direction)
+    
+    move_and_slide()
+
+func update_animation(direction):
+    if not is_on_floor():
+        animated_sprite_2d.play("jump")
+    elif direction != 0:
+        animated_sprite_2d.play("run")
+    else:
+        animated_sprite_2d.play("idle")
+    
+    # Flip sprite based on direction
+    if direction > 0:
+        animated_sprite_2d.flip_h = false
+    elif direction < 0:
+        animated_sprite_2d.flip_h = true</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Animation Code</h4>
+                            <ul>
+                                <li><strong>@onready var animated_sprite</strong> - Gets a reference to the AnimatedSprite2D node</li>
+                                <li><strong>update_animation(direction)</strong> - New function that decides which animation to play</li>
+                                <li><strong>animated_sprite.play("jump")</strong> - Plays the jump animation when in the air</li>
+                                <li><strong>animated_sprite.play("run")</strong> - Plays the run animation when moving on the ground</li>
+                                <li><strong>animated_sprite.play("idle")</strong> - Plays the idle animation when standing still</li>
+                                <li><strong>animated_sprite.flip_h</strong> - Flips the sprite horizontally to face left or right</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>@onready</code> is a special keyword that waits until the node is ready before assigning the variable. This ensures the AnimatedSprite2D exists before we try to use it.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="./Images/U2L3-5.png" alt="Animation state script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.5: The updated player script with animation state management</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Page Navigation -->
         <div class="page-navigation">
-            <a href="page[PREV].html" class="nav-button">← Previous Section</a>
+            <a href="page2.html" class="nav-button">← Previous Section</a>
             <div class="page-buttons">
                 <a href="page1.html" class="page-button">Page 1</a>
                 <a href="page2.html" class="page-button">Page 2</a>
-                <a href="page3.html" class="page-button">Page 3</a>
-                <a href="page4.html" class="page-button">Page 4</a>
+                <span class="current-page">Page 3</span>
+                <a href="page4.html" class="page-button">Page 4 →</a>
                 <a href="page5.html" class="page-button">Page 5</a>
                 <a href="page6.html" class="page-button">Page 6</a>
                 <a href="page7.html" class="page-button">Page 7</a>
-                <span class="current-page">Page [Y]</span>
             </div>
-            <a href="page[NEXT].html" class="nav-button primary">Next Section →</a>
+            <a href="page4.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>
-    
     <script src="../../course-data.js"></script>
     <script src="../../script.js"></script>
 </body>
