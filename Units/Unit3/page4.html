@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3.4: Third-Person Camera - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 3</a> > 
+                <span>Third-Person Camera</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 4 of 9</span>
+                <a href="page5.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 4 Videos</h3>
+                    <p>Watch: "Third-Person Camera in Godot"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 4: Third-Person Camera</h1>
+            <p class="unit-description">Add a third-person camera with SpringArm3D that follows the player and rotates with the mouse.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="3" data-section="4">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Add SpringArm3D to the Environment Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>What is SpringArm3D?</h4>
+                            <p>SpringArm3D is a special node that acts like a selfie stick for your camera. It:</p>
+                            <ul>
+                                <li>Follows the player automatically</li>
+                                <li>Detects walls and moves the camera closer to avoid clipping</li>
+                                <li>Allows smooth rotation around the player</li>
+                            </ul>
+                            <p>Open your <strong>Environment.tscn</strong> and add the SpringArm3D:</p>
+                            <ul>
+                                <li>Select the root <strong>Node3D</strong> (Environment)</li>
+                                <li>Click the <strong>"+"</strong> (Add Child Node) icon</li>
+                                <li>Search for and add a <strong>SpringArm3D</strong> node</li>
+                                <li>Rename it to <strong>"CameraArm"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Important:</strong> The SpringArm3D must be a <strong>sibling</strong> of the Player node, not a child. This allows it to follow the player independently.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Adding SpringArm3D" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.1: Adding SpringArm3D as a sibling of the Player</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Add and Configure the Camera3D</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Setting Up the Camera</h4>
+                            <p>Add a Camera3D as a child of the SpringArm3D:</p>
+                            <ul>
+                                <li>Select the <strong>CameraArm</strong> (SpringArm3D) node</li>
+                                <li>Add a child node: <strong>Camera3D</strong></li>
+                                <li>Rename it to <strong>"Camera3D"</strong></li>
+                                <li>Select the <strong>CameraArm</strong> node again</li>
+                                <li>In the Inspector, set the <strong>"Spring Length"</strong> to <strong>8.0</strong></li>
+                                <li>Set <strong>"Margin"</strong> to <strong>0.5</strong></li>
+                                <li>Set <strong>"Collision Mask"</strong> to <strong>1</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Spring Length of 8 is a good starting point. You can adjust it later based on your preference.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Configuring SpringArm3D" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.2: Configuring SpringArm3D with Spring Length and Margin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add the Camera Follow Script</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>CameraArm Script (Using SpringArm's Built-in Rotation)</h4>
+                            <p>Add this script to the <strong>CameraArm</strong> (SpringArm3D) node:</p>
+                            <pre><code>extends SpringArm3D
+
+            @export var target: Node3D
+            @export var rotation_speed: float = 0.005
+
+            func _ready():
+                if target == null:
+                    target = get_node("../Player")
+                    if target == null:
+                        return
+                
+                # Capture the mouse for camera control
+                Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+            func _input(event):
+                if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+                    # Directly modify the SpringArm's built-in rotation
+                    rotation.y -= event.relative.x * rotation_speed
+                    rotation.x -= event.relative.y * rotation_speed
+                    rotation.x = clamp(rotation.x, -0.5, 1.0)
+
+            func _physics_process(delta):
+                if target == null:
+                    return
+                
+                # Move SpringArm to target position
+                global_position = target.global_position
+                
+                # The SpringArm's rotation is already set in _input()
+                # No need to do anything else - the Camera3D child will follow naturally</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Code</h4>
+                            <ul>
+                                <li><strong>@export var target</strong> - The player node the camera follows</li>
+                                <li><strong>Input.set_mouse_mode()</strong> - Captures the mouse for camera control</li>
+                                <li><strong>rotation.y</strong> - Directly sets the SpringArm's horizontal rotation</li>
+                                <li><strong>rotation.x</strong> - Directly sets the SpringArm's vertical rotation</li>
+                                <li><strong>clamp(rotation.x, -0.5, 1.0)</strong> - Limits vertical rotation to prevent flipping</li>
+                                <li><strong>global_position = target.global_position</strong> - Makes the SpringArm follow the player</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> This script modifies the SpringArm's built-in <code>rotation</code> property directly. The Camera3D child will automatically point in the direction of the SpringArm's rotation. Do NOT use <code>look_at()</code> - it will fight with the SpringArm's internal mechanics!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Camera follow script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.3: SpringArm3D script using built-in rotation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Connect the Target Property</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Linking the Camera to the Player</h4>
+                            <p>With the <strong>CameraArm</strong> node selected, go to the Inspector:</p>
+                            <ul>
+                                <li>Find the <strong>"Target"</strong> property under Script Variables</li>
+                                <li>Click the dropdown and select the <strong>Player</strong> node</li>
+                                <li>If you can't see the Player node, make sure it's in the scene</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Quick Check:</strong> If the script can't find the target, it will print "CameraArm: No target found!" in the console.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Connecting target property" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.4: Connecting the Target property to the Player node</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Update Player Movement to be Camera-Relative</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Why Camera-Relative Movement?</h4>
+                            <p>By default, WASD moves the player along the world axes (X and Z). When the camera rotates, this feels unnatural because W doesn't move "forward" relative to the camera.</p>
+                            
+                            <p>We need to make the player's movement relative to the camera's orientation. Here's the updated player script:</p>
+                            <pre><code>extends CharacterBody3D
+
+const SPEED = 5.0
+const JUMP_VELOCITY = 4.5
+
+@onready var animation_player = $AnimationPlayer
+@onready var character = $character
+
+var current_animation = "idle"
+
+func _physics_process(delta: float) -> void:
+    # Gravity
+    if not is_on_floor():
+        velocity += get_gravity() * delta
+
+    # Jump
+    if Input.is_action_just_pressed("jump") and is_on_floor():
+        velocity.y = JUMP_VELOCITY
+
+    # Get camera-relative movement
+    var input_dir = Input.get_vector("left", "right", "up", "down")
+    var camera = get_viewport().get_camera_3d()
+    
+    if camera:
+        # Get camera's forward and right vectors, flattened to horizontal
+        var forward = camera.global_transform.basis.z
+        var right = camera.global_transform.basis.x
+        forward.y = 0
+        right.y = 0
+        forward = forward.normalized()
+        right = right.normalized()
+        
+        var direction = (forward * input_dir.y + right * input_dir.x).normalized()
+        velocity.x = direction.x * SPEED
+        velocity.z = direction.z * SPEED
+        
+        # Face the direction of movement
+        if direction.length() > 0:
+            var target_rotation = atan2(direction.x, direction.z)
+            character.rotation.y = lerp(character.rotation.y, target_rotation, 0.1)
+            if is_on_floor():
+                animation_player.play("walk")
+        else:
+            velocity.x = move_toward(velocity.x, 0, SPEED)
+            velocity.z = move_toward(velocity.z, 0, SPEED)
+            if is_on_floor():
+                animation_player.play("idle")
+        update_animations(direction)
+    
+    move_and_slide()</code></pre>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Camera-relative player movement" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.5: Player movement now relative to camera direction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the Complete Camera and Movement System</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Your Setup</h4>
+                            <ul>
+                                <li>Press <kbd>F6</kbd> to run the game</li>
+                                <li>Use <strong>WASD</strong> to move the player</li>
+                                <li>Move the mouse to rotate the camera</li>
+                                <li>W should always move toward where the camera is facing</li>
+                                <li>A and D should move left and right relative to the camera</li>
+                                <li>Press <strong>Space</strong> to jump</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Troubleshooting Common Issues</h4>
+                            <ul>
+                                <li><strong>Camera doesn't follow player:</strong> Check that Target is set to the Player node</li>
+                                <li><strong>Mouse doesn't rotate camera:</strong> Check that mouse is captured (console should show "Mouse captured")</li>
+                                <li><strong>Movement feels wrong:</strong> Make sure you're using the camera-relative version of the script</li>
+                                <li><strong>Player moves in unexpected directions:</strong> Check that camera is active and the script is getting the camera correctly</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Congratulations!</strong> You now have a complete third-person camera system with camera-relative movement!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing camera and movement" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.6: Testing the complete camera and movement system</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page3.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <span class="current-page">Page 4</span>
+                <a href="page5.html" class="page-button">Page 5 →</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+                <a href="page8.html" class="page-button">Page 8</a>
+                <a href="page9.html" class="page-button">Page 9</a>
+            </div>
+            <a href="page5.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

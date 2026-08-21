@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3.7: Predator AI (Chase) - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 3</a> > 
+                <span>Predator AI (Chase)</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 7 of 9</span>
+                <a href="page8.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 7 Videos</h3>
+                    <p>Watch: "Predator AI - Chase Behavior in Godot"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 7: Predator AI (Chase)</h1>
+            <p class="unit-description">Create predators that chase the player and deal damage, adding danger and tension to your game world.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="3" data-section="7">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create the Predator Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating a Predator Animal</h4>
+                            <p>We'll create a predator scene (wolf, bear, or other hunter) that will chase the player. Like the prey, it will support multiple models.</p>
+                            <ul>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add a <strong>CharacterBody3D</strong> as the root node</li>
+                                <li>Rename it to <strong>"Predator"</strong></li>
+                                <li>Save the scene as <strong>"predator.tscn"</strong></li>
+                            </ul>
+                            <h5>Setting Up the Node Structure</h5>
+                            <ul>
+                                <li>Add a child node: <strong>Node3D</strong></li>
+                                <li>Rename it to <strong>"ModelContainer"</strong></li>
+                                <li>Add a <strong>CollisionShape3D</strong> as a child of Predator</li>
+                                <li>Set the shape to <strong>CapsuleShape3D</strong></li>
+                                <li>Set the height to <strong>1.2</strong> and radius to <strong>0.6</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> The Predator scene is similar to the Prey scene, but with different behavior (chase instead of flee) and larger collision size.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Creating the predator scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.1: Creating the Predator scene with CharacterBody3D and ModelContainer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Import Predator Models</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Getting Predator Models</h4>
+                            <p>You'll need predator animal models. Here are some options:</p>
+                            <ul>
+                                <li><strong>Kenney Animal Pack:</strong> <a href="https://kenney.nl/assets/animal-pack" target="_blank">https://kenney.nl/assets/animal-pack</a></li>
+                                <li><strong>KayKit Animals:</strong> <a href="https://kaylousberg.com/game-assets" target="_blank">https://kaylousberg.com/game-assets</a></li>
+                                <li><strong>Itch.io Free 3D Animals:</strong> <a href="https://itch.io/game-assets/free/tag-3d" target="_blank">Search for "animals"</a></li>
+                            </ul>
+                            <h5>Importing Models</h5>
+                            <ul>
+                                <li>Download predator models (.glb or .gltf)</li>
+                                <li>Place them in <strong>assets/animals/</strong></li>
+                                <li>Name them clearly: <strong>wolf.glb</strong>, <strong>bear.glb</strong>, etc.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> If you don't have predator models yet, use a red-colored BoxMesh or CapsuleMesh as a placeholder. The behavior will work the same way!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Imported predator models" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.2: Predator models imported into the assets/animals/ folder</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add the Chase Script with Model Selection</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Chase Script with Multiple Models</h4>
+                            <p>Add this script to the <strong>Predator</strong> node:</p>
+                            <pre><code>extends CharacterBody3D
+
+@export var speed = 3.0
+@export var detection_range = 10.0
+@export var attack_range = 1.5
+@export var attack_cooldown = 2.0
+@export var damage = 10.0
+
+@export var animal_type: String = "wolf"
+
+@onready var model_container = $ModelContainer
+
+var target: Node3D
+var attack_timer = 0.0
+var is_chasing = false
+var wander_direction: Vector3
+var wander_timer = 0.0
+
+func _ready():
+    load_model()
+    
+    target = get_tree().current_scene.get_node("Player")
+    if target == null:
+        print("⚠️ Predator: No player found!")
+    
+    randomize_wander()
+
+func load_model():
+    for child in model_container.get_children():
+        child.queue_free()
+    
+    var model_path = ""
+    match animal_type:
+        "wolf":
+            model_path = "res://assets/animals/wolf.glb"
+        "bear":
+            model_path = "res://assets/animals/bear.glb"
+        "big_cat":
+            model_path = "res://assets/animals/big_cat.glb"
+        _:
+            model_path = "res://assets/animals/default_predator.glb"
+    
+    if ResourceLoader.exists(model_path):
+        var model = load(model_path).instantiate()
+        model_container.add_child(model)
+    else:
+        print("Model not found: ", model_path)
+
+func _physics_process(delta):
+    if target == null:
+        return
+    
+    attack_timer = max(attack_timer - delta, 0)
+    
+    var distance_to_player = global_position.distance_to(target.global_position)
+    
+    if distance_to_player < detection_range:
+        is_chasing = true
+        var direction = (target.global_position - global_position).normalized()
+        velocity = direction * speed
+        
+        if velocity.length() > 0.1:
+            var target_rotation = atan2(velocity.x, velocity.z)
+            rotation.y = lerp(rotation.y, target_rotation, 0.1)
+        
+        if distance_to_player < attack_range and attack_timer == 0:
+            attack_player()
+    else:
+        is_chasing = false
+        wander(delta)
+    
+    move_and_slide()
+
+func wander(delta):
+    wander_timer += delta
+    if wander_timer > 2.0 + randf() * 3.0:
+        randomize_wander()
+        wander_timer = 0.0
+    
+    velocity = wander_direction * speed * 0.3
+
+func randomize_wander():
+    wander_direction = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()
+
+func attack_player():
+    if target.has_method("take_damage"):
+        target.take_damage(damage)
+    attack_timer = attack_cooldown
+    print("Predator attacked!")</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Code</h4>
+                            <ul>
+                                <li><strong>@export var speed</strong> - How fast the predator moves</li>
+                                <li><strong>detection_range</strong> - How far the predator can see the player</li>
+                                <li><strong>attack_range</strong> - How close the predator must be to attack</li>
+                                <li><strong>attack_cooldown</strong> - Time between attacks (prevents spam)</li>
+                                <li><strong>damage</strong> - How much health the player loses per attack</li>
+                                <li><strong>attack_timer</strong> - Tracks time since last attack</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Reminder:</strong> <code>has_method()</code> checks if an object has a specific function before calling it. This prevents errors if the target doesn't have the expected function.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Chase script with model selection" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.3: The chase script with model selection and attack logic</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Place Predators in the Environment</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Adding Danger to the World</h4>
+                            <ul>
+                                <li>Open your <strong>Environment.tscn</strong> scene</li>
+                                <li>In the FileSystem dock, find <strong>predator.tscn</strong></li>
+                                <li>Drag it into the viewport multiple times</li>
+                                <li>For each instance, select it and go to the Inspector</li>
+                                <li>Find the <strong>animal_type</strong> property</li>
+                                <li>Choose different predators for each instance</li>
+                            </ul>
+                            <h5>Example Placement</h5>
+                            <ul>
+                                <li>Wolf 1: animal_type = "wolf", speed = 4.0, detection_range = 12.0</li>
+                                <li>Bear 1: animal_type = "bear", speed = 2.5, detection_range = 8.0, damage = 20</li>
+                                <li>Big Cat 1: animal_type = "big_cat", speed = 5.0, detection_range = 15.0</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> Place predators away from the player's starting position! Give the player time to gather food before facing danger.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Placing predators in environment" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.4: Placing predators in the environment with different types</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Connect Predator Attacks to Player Health</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Making Predators Dangerous</h4>
+                            <p>In your <strong>Player</strong> script, make sure the <code>take_damage()</code> function exists and updates health:</p>
+                            <pre><code># In player.gd - Add if not already present
+func take_damage(amount):
+    health -= amount
+    health = max(health, 0)
+    update_hud()
+    
+    # Knockback effect (optional)
+    var knockback_direction = (global_position - predator.global_position).normalized()
+    velocity = knockback_direction * 5.0
+    
+    if health <= 0:
+        game_over()</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Adding a knockback effect when the player is attacked creates a more visceral, responsive feel. The player feels the impact of being hit.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Connecting predator attacks" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.5: Connecting predator attacks to the player's health system</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the Predator AI</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Your Predators</h4>
+                            <ul>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>Walk toward a predator</li>
+                                <li>The predator should <strong>chase</strong> you</li>
+                                <li>If it catches you, it should <strong>attack</strong> and reduce your health</li>
+                                <li>The HUD health bar should update</li>
+                                <li>If you run away far enough, the predator should give up and <strong>wander</strong></li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Troubleshooting Common Issues</h4>
+                            <ul>
+                                <li><strong>Predator doesn't chase:</strong> Check detection_range is large enough</li>
+                                <li><strong>Predator doesn't attack:</strong> Check attack_range and that take_damage() exists on the player</li>
+                                <li><strong>Predator attacks too fast:</strong> Increase attack_cooldown</li>
+                                <li><strong>Predator falls through ground:</strong> Add CollisionShape3D to the Predator node</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Congratulations!</strong> You now have predators that hunt the player! The world is now dangerous and exciting. In the next section, you'll add the hunting mechanic to fight back!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing predator AI" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.6: Testing predator chase and attack behavior</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page6.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <span class="current-page">Page 7</span>
+                <a href="page8.html" class="page-button">Page 8 →</a>
+                <a href="page9.html" class="page-button">Page 9</a>
+            </div>
+            <a href="page8.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

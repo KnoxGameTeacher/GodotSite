@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3.5: Hunger & Health Systems - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 3</a> > 
+                <span>Hunger & Health Systems</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 5 of 9</span>
+                <a href="page6.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 5 Videos</h3>
+                    <p>Watch: "Hunger & Health Systems in Godot"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 5: Hunger & Health Systems</h1>
+            <p class="unit-description">Add survival meters for hunger and health, with a Heads-Up Display (HUD) to track your status.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="3" data-section="5">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Add Hunger and Health Variables to Player.gd</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Setting Up Player Stats</h4>
+                            <p>Open your <strong>player.gd</strong> script and add hunger and health variables:</p>
+                            <pre><code>extends CharacterBody3D
+
+const SPEED = 5.0
+const JUMP_VELOCITY = 4.5
+
+# Survival stats
+var health = 100.0
+var max_health = 100.0
+var hunger = 100.0
+var max_hunger = 100.0
+var hunger_rate = 2.0  # Hunger lost per second
+
+@onready var animation_player = $AnimationPlayer
+@onready var character = $character
+
+var current_animation = "idle"
+
+func _ready():
+    # Start the hunger timer
+    var hunger_timer = Timer.new()
+    hunger_timer.wait_time = 1.0
+    hunger_timer.timeout.connect(_on_hunger_tick)
+    add_child(hunger_timer)
+    hunger_timer.start()
+
+func _on_hunger_tick():
+    # Decrease hunger over time
+    hunger -= hunger_rate
+    hunger = max(hunger, 0)
+    
+    # If hunger reaches 0, start losing health
+    if hunger <= 0:
+        health -= 5.0
+        health = max(health, 0)
+    
+    # Update the HUD
+    update_hud()
+
+func take_damage(amount):
+    health -= amount
+    health = max(health, 0)
+    update_hud()
+    
+    if health <= 0:
+        game_over()
+
+func heal(amount):
+    health = min(health + amount, max_health)
+    update_hud()
+
+func eat(amount):
+    hunger = min(hunger + amount, max_hunger)
+    update_hud()
+
+func update_hud():
+    # This will be connected to the UI in Step 2
+    pass
+
+func game_over():
+    get_tree().change_scene_to_file("res://GameOver.tscn")</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Code</h4>
+                            <ul>
+                                <li><strong>health</strong> and <strong>hunger</strong> - Track the player's status (0-100)</li>
+                                <li><strong>hunger_rate</strong> - How fast hunger decreases (2 points per second)</li>
+                                <li><strong>Timer</strong> - Creates a timer that fires every second</li>
+                                <li><strong>_on_hunger_tick()</strong> - Called each second; decreases hunger, then health if hunger is 0</li>
+                                <li><strong>max()</strong> - Prevents values from going below 0</li>
+                                <li><strong>min()</strong> - Prevents values from exceeding the maximum</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>Timer</code> nodes are used to trigger events at regular intervals. Here, we use one to simulate hunger decreasing over time.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Hunger and health variables" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.1: Adding hunger and health variables to the player script</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Create a HUD with Health and Hunger Bars</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Building the Heads-Up Display</h4>
+                            <p>We'll create a simple HUD using CanvasLayer and TextureProgressBar nodes.</p>
+                            <ul>
+                                <li>Open your <strong>Environment.tscn</strong> scene</li>
+                                <li>Add a <strong>CanvasLayer</strong> node as a child of the root</li>
+                                <li>Rename it to <strong>"HUD"</strong></li>
+                            </ul>
+                            <h5>Adding Health Bar</h5>
+                            <ul>
+                                <li>Add a <strong>TextureProgressBar</strong> as a child of HUD</li>
+                                <li>Rename it to <strong>"HealthBar"</strong></li>
+                                <li>In the Inspector, set <strong>Min Value</strong> to <strong>0</strong></li>
+                                <li>Set <strong>Max Value</strong> to <strong>100</strong></li>
+                                <li>Set <strong>Value</strong> to <strong>100</strong></li>
+                                <li>Set the <strong>FILL</strong> color to <strong>Red</strong></li>
+                                <li>Position it in the top-left corner</li>
+                            </ul>
+                            <h5>Adding Hunger Bar</h5>
+                            <ul>
+                                <li>Add another <strong>TextureProgressBar</strong> as a child of HUD</li>
+                                <li>Rename it to <strong>"HungerBar"</strong></li>
+                                <li>Set <strong>Min Value</strong> to <strong>0</strong>, <strong>Max Value</strong> to <strong>100</strong></li>
+                                <li>Set <strong>Value</strong> to <strong>100</strong></li>
+                                <li>Set the <strong>FILL</strong> color to <strong>Green</strong></li>
+                                <li>Position it below the Health Bar</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> You can add labels above each bar using <strong>Label</strong> nodes to show "Health" and "Hunger" text.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="HUD with health and hunger bars" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.2: Creating the HUD with health and hunger bars</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Connect the HUD to the Player</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Updating the HUD in Real-Time</h4>
+                            <p>Add a script to the <strong>HUD</strong> (CanvasLayer) node:</p>
+                            <pre><code>extends CanvasLayer
+
+@onready var health_bar = $HealthBar
+@onready var hunger_bar = $HungerBar
+@onready var health_label = $HealthLabel
+@onready var hunger_label = $HungerLabel
+
+var player
+
+func _ready():
+    # Find the player
+    player = get_node("../Player")
+    if player:
+        update_display()
+
+func update_display():
+    if player:
+        health_bar.value = player.health
+        hunger_bar.value = player.hunger
+        
+        # Update labels if they exist
+        if health_label:
+            health_label.text = "Health: " + str(int(player.health)) + "%"
+        if hunger_label:
+            hunger_label.text = "Hunger: " + str(int(player.hunger)) + "%"</code></pre>
+                            <p>Then update the <strong>player.gd</strong> script to call the HUD:</p>
+                            <pre><code># Add this to player.gd
+func update_hud():
+    var hud = get_node("../HUD")
+    if hud:
+        hud.update_display()</code></pre>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> Make sure the HUD is a sibling of the Player node (both children of Environment) so the path <code>../HUD</code> works correctly.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="HUD connection script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.3: Connecting the HUD to the player's stats</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Create a Game Over Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Game Over Screen</h4>
+                            <p>When the player's health reaches 0, we'll show a Game Over screen.</p>
+                            <ul>
+                                <li>Create a new scene with <strong>Control</strong> as the root node</li>
+                                <li>Add a <strong>Label</strong> with text <strong>"Game Over"</strong></li>
+                                <li>Add a <strong>Button</strong> with text <strong>"Try Again"</strong></li>
+                                <li>Add a <strong>Button</strong> with text <strong>"Main Menu"</strong></li>
+                                <li>Save as <strong>"GameOver.tscn"</strong></li>
+                            </ul>
+                            <p>Add this script to the GameOver scene:</p>
+                            <pre><code>extends Control
+
+func _ready():
+    $TryAgainButton.pressed.connect(_on_try_again_pressed)
+    $MainMenuButton.pressed.connect(_on_main_menu_pressed)
+
+func _on_try_again_pressed():
+    get_tree().reload_current_scene()
+
+func _on_main_menu_pressed():
+    get_tree().change_scene_to_file("res://Start.tscn")</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> <code>get_tree().reload_current_scene()</code> reloads the current scene, which resets the player and all game objects to their starting state.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Game Over scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.4: Creating the Game Over scene</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Test the Hunger and Health Systems</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Your Survival Systems</h4>
+                            <ul>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>Watch the hunger bar decrease over time</li>
+                                <li>When hunger reaches 0, health should start decreasing</li>
+                                <li>If health reaches 0, the Game Over scene should appear</li>
+                                <li>Click "Try Again" to restart</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Testing with Debug Commands</h4>
+                            <p>To test more quickly, add these debug commands to your <strong>player.gd</strong>:</p>
+                            <pre><code># Add to player.gd
+func _input(event):
+    if event is InputEventKey and event.pressed:
+        if event.keycode == KEY_H:
+            # Press H to heal
+            heal(20)
+        elif event.keycode == KEY_E:
+            # Press E to eat (restore hunger)
+            eat(20)</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Congratulations!</strong> You now have a working hunger and health system with a HUD! In the next section, you'll add animals that can be hunted for food.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing hunger and health systems" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.5: Testing the survival systems and HUD</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page4.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <span class="current-page">Page 5</span>
+                <a href="page6.html" class="page-button">Page 6 →</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+                <a href="page8.html" class="page-button">Page 8</a>
+                <a href="page9.html" class="page-button">Page 9</a>
+            </div>
+            <a href="page6.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

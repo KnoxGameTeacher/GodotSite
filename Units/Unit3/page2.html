@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3.2: 3D Project Setup & Environment - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 3</a> > 
+                <span>3D Project Setup & Environment</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 2 of 9</span>
+                <a href="page3.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 2 Videos</h3>
+                    <p>Watch: "3D Project Setup & Environment"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 2: 3D Project Setup & Environment</h1>
+            <p class="unit-description">Create a 3D project, import Kenney assets, and build a simple forest environment for your survival game.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="3" data-section="2">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create a New 3D Project</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating Your 3D Project</h4>
+                            <ul>
+                                <li>Open Godot and click <strong>"New Project"</strong></li>
+                                <li>Name your project <strong>"Forage Fever"</strong></li>
+                                <li>Choose a location on your computer</li>
+                                <li>Select <strong>"Compatibility"</strong> as the renderer</li>
+                                <li>Click <strong>"Create & Edit"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Why Compatibility?</strong> The Compatibility renderer allows you to export your game to the web (HTML5) so others can play it in a browser. Forward+ is more powerful but doesn't support web export.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Creating a 3D project" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.1: Creating a new 3D project with Compatibility renderer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Find and Download 3D Assets</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Where to Find Free 3D Assets</h4>
+                            <p>All of these sites offer high-quality 3D assets. Many are under the CC0 license (free for any use, no attribution required) or have very permissive terms.</p>
+
+                            <div class="asset-sources">
+                                <div class="source-card">
+                                    <h5>🎮 Kenney.nl</h5>
+                                    <p><strong>Recommended:</strong> The assets I'll be using in my example. Kenney provides beautifully designed, low-poly 3D assets in consistent art styles. All CC0.</p>
+                                    <a href="https://kenney.nl/assets" target="_blank" class="source-link">Visit Kenney.nl →</a>
+                                </div>
+
+                                <div class="source-card">
+                                    <h5>🎯 Itch.io - Free 3D Assets</h5>
+                                    <p><strong>Huge Variety:</strong> Over 7,000 free 3D asset packs. Many creators offer their work for free or "pay what you want." Great for finding unique styles.</p>
+                                    <a href="https://itch.io/game-assets/free/tag-3d" target="_blank" class="source-link">Browse Itch.io →</a>
+                                </div>
+
+                                <div class="source-card">
+                                    <h5>📦 DevAssets.com</h5>
+                                    <p><strong>Polished Packs:</strong> High-quality, ready-to-use asset packs. "Pay what you want" or grab them for free. Commercial and non-commercial use allowed.</p>
+                                    <a href="https://devassets.com" target="_blank" class="source-link">Visit DevAssets →</a>
+                                </div>
+
+                                <div class="source-card">
+                                    <h5>🎨 Kay Lousberg (KayKit)</h5>
+                                    <p><strong>Stylized & Consistent:</strong> Beautiful, hand-crafted asset packs with a consistent art style. Includes characters, environments, and tools. Very generous licensing.</p>
+                                    <a href="https://kaylousberg.com/game-assets" target="_blank" class="source-link">Browse KayKit →</a>
+                                </div>
+                            </div>
+
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> For this unit, I'll be using Kenney's Nature Pack, Animal Pack, and Character Pack. You're welcome to use the same, or explore other sources to create a unique style for your game!
+                            </div>
+
+                            <div class="warning-box">
+                                <strong>⚠️ License Check:</strong> Always check the license terms for any asset you download. While many are CC0, some may require attribution or have other conditions. When in doubt, read the license!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Free 3D asset sources" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.2: Popular sources for free 3D game assets</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Import Assets into Godot</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Organizing and Importing</h4>
+                            <ul>
+                                <li>In the FileSystem dock, right-click and select <strong>"Create Folder"</strong></li>
+                                <li>Create a folder named <strong>"assets"</strong></li>
+                                <li>Inside <strong>assets</strong>, create subfolders:
+                                    <ul>
+                                        <li><strong>nature/</strong> - for trees, rocks, terrain, etc.</li>
+                                        <li><strong>animals/</strong> - for animal models</li>
+                                        <li><strong>characters/</strong> - for player character</li>
+                                        <li><strong>weapons/</strong> - for hunting tools</li>
+                                    </ul>
+                                </li>
+                                <li>Open your file explorer and navigate to the extracted asset pack folders</li>
+                                <li>Drag and drop the <strong>.glb</strong> and <strong>.png</strong> files into the appropriate asset folders</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> Assets come in many different filetypes, but Godot prefers <strong>.glb</strong> for 3D models and <strong>.png</strong> for textures. Avoid using <strong>.fbx</strong> or <strong>.obj</strong> unless necessary, as they may require extra steps to work properly in Godot.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Imported assets in FileSystem" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.3: Organized assets in the FileSystem dock</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Create a Terrain with MeshInstance3D</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Building the Ground</h4>
+                            <ul>
+                                <li>Create a new scene with a <strong>Node3D</strong> root</li>
+                                <li>Rename it to <strong>"Environment"</strong></li>
+                                <li>Add a child node: <strong>MeshInstance3D</strong></li>
+                                <li>Rename it to <strong>"Ground"</strong></li>
+                                <li>In the Inspector, click the <strong>"Mesh"</strong> dropdown</li>
+                                <li>Select <strong>"New PlaneMesh"</strong></li>
+                                <li>Set the <strong>"Size"</strong> to <strong>20 x 20</strong> (for a 20x20 meter area)</li>
+                                <li>Add a <strong>StaticBody3D</strong> as a child of Ground</li>
+                                <li>Add a <strong>CollisionShape3D</strong> as a child of StaticBody3D</li>
+                                <li>Set the shape to <strong>"New BoxShape3D"</strong> and size it to match the ground</li>
+                                <li>Rotate the ground 90 degrees on the X axis so it's flat</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> StaticBody3D is used for objects that don't move (like the ground). CollisionShape3D tells the physics engine where the ground is so the player doesn't fall through.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Creating terrain" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.4: Creating a flat terrain with MeshInstance3D</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Add Trees, Rocks, and Lighting</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Building a Forest Environment</h4>
+                            <ul>
+                                <li>In the FileSystem dock, find a tree model in <strong>assets/nature/</strong></li>
+                                <li>Drag it into the viewport to add it to the scene</li>
+                                <li>Copy and paste the tree (or duplicate it) to create a small forest</li>
+                                <li>Position trees around the terrain</li>
+                                <li>Add a <strong>DirectionalLight3D</strong> node to simulate sunlight</li>
+                                <li>Add a <strong>WorldEnvironment</strong> node for sky and ambient light</li>
+                                <li>In the WorldEnvironment Inspector, click <strong>"New Environment"</strong></li>
+                                <li>Set the <strong>"Background"</strong> to <strong>"Sky"</strong> and choose a sky color</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Place trees in a natural-looking pattern, not in a perfect grid. Nature is messy! Vary the rotation and scale of each tree slightly for a more realistic look.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Forest environment with lighting" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.5: Your forest environment with trees, rocks, and lighting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page1.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <span class="current-page">Page 2</span>
+                <a href="page3.html" class="page-button">Page 3 →</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+                <a href="page8.html" class="page-button">Page 8</a>
+                <a href="page9.html" class="page-button">Page 9</a>
+            </div>
+            <a href="page3.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

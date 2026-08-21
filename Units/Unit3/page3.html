@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3.3: Player Movement - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 3</a> > 
+                <span>Player Movement</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 3 of 9</span>
+                <a href="page4.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 3 Videos</h3>
+                    <p>Watch: "3D Player Movement in Godot"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 3: Player Movement</h1>
+            <p class="unit-description">Import a 3D character model, set up textures, and build a player with movement, gravity, and jumping using the CharacterBody3D template.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="3" data-section="3">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Find and Import a 3D Character Model (.glb)</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Getting a 3D Character</h4>
+                            <p>You'll need a 3D character model for your player. Here are some free options:</p>
+                            <ul>
+                                <li><strong>Kenney Character Pack:</strong> <a href="https://kenney.nl/assets/character-pack" target="_blank">https://kenney.nl/assets/character-pack</a></li>
+                                <li><strong>KayKit Characters:</strong> <a href="https://kaylousberg.com/game-assets" target="_blank">https://kaylousberg.com/game-assets</a></li>
+                                <li><strong>Itch.io Free 3D Characters:</strong> <a href="https://itch.io/game-assets/free/tag-3d" target="_blank">Search for "character"</a></li>
+                            </ul>
+                            <p>For this example, I'll use a Kenney character model.</p>
+                            <ul>
+                                <li>Download your chosen character pack</li>
+                                <li>Extract the ZIP file</li>
+                                <li>Look for a <strong>.glb</strong> file (the 3D model)</li>
+                                <li>Make sure you also have the <strong>.png</strong> texture files</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 What is .glb?</strong> .glb is a 3D model format that can include textures, animations, and materials all in one file. It's the recommended format for Godot 3D.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Downloading character model" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.1: Downloading a 3D character model from Kenney</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Import the Model into Your Project</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Adding the Model to Godot</h4>
+                            <ul>
+                                <li>In the FileSystem dock, navigate to your <strong>assets/characters/</strong> folder</li>
+                                <li>Drag the <strong>.glb</strong> file into the folder</li>
+                                <li>Also drag any <strong>.png</strong> texture files that came with the model</li>
+                                <li>Godot will automatically import the model</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> Keep the .glb and .png files in the same folder. Godot uses the textures automatically when the model is imported.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Importing .glb model" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.2: Importing the .glb model into the assets/characters/ folder</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Create a Character Scene from the Model</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Making the Model a Standalone Scene</h4>
+                            <p>We'll turn the imported model into its own scene so we can easily reuse it and add scripts.</p>
+                            <ul>
+                                <li>In the FileSystem dock, right-click your <strong>.glb</strong> file</li>
+                                <li>Select <strong>"New Inherited Scene"</strong></li>
+                                <li>This creates a new scene with the model as the root</li>
+                                <li>Save it as <strong>"character.tscn"</strong></li>
+                                <li>Double-click the new scene to open it</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> "New Inherited Scene" creates a scene that inherits from the .glb file. This means if you update the .glb file, your scene updates automatically.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Creating inherited scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.3: Creating a new inherited scene from the .glb model</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Create the Player Scene with CharacterBody3D</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Building the Player Scene</h4>
+                            <ul>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add a <strong>CharacterBody3D</strong> as the root node</li>
+                                <li>Rename it to <strong>"Player"</strong></li>
+                                <li>Add your <strong>character.tscn</strong> as a child of the Player node</li>
+                                <li>Add a <strong>CollisionShape3D</strong> as a child of the Player node</li>
+                                <li>Set the collision shape to <strong>CapsuleShape3D</strong> (Height: 1.8, Radius: 0.4)</li>
+                                <li>Position the collision shape to match the character model</li>
+                                <li>Save the scene as <strong>"player.tscn"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Why CapsuleShape3D?</strong> Capsule shapes are ideal for humanoid characters because they approximate the body shape and handle collisions smoothly with the environment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Player scene structure" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.4: Player scene with CharacterBody3D, character model, and CollisionShape3D</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Add the CharacterBody3D Movement Script</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Using Godot's CharacterBody3D Template</h4>
+                            <p>Select the <strong>Player</strong> node and add a script. Name it <strong>"player.gd"</strong>. Godot provides a great starting template for CharacterBody3D. Use this code:</p>
+                            <pre><code>extends CharacterBody3D
+
+const SPEED = 5.0
+const JUMP_VELOCITY = 4.5
+
+func _physics_process(delta: float) -> void:
+    # Add the gravity.
+    if not is_on_floor():
+        velocity += get_gravity() * delta
+
+    # Handle jump.
+    if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+        velocity.y = JUMP_VELOCITY
+
+    # Get the input direction and handle the movement/deceleration.
+    var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+    var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+    if direction:
+        velocity.x = direction.x * SPEED
+        velocity.z = direction.z * SPEED
+    else:
+        velocity.x = move_toward(velocity.x, 0, SPEED)
+        velocity.z = move_toward(velocity.z, 0, SPEED)
+
+    move_and_slide()</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Template Code</h4>
+                            <ul>
+                                <li><strong>const SPEED</strong> - Horizontal movement speed</li>
+                                <li><strong>const JUMP_VELOCITY</strong> - How high the player jumps</li>
+                                <li><strong>get_gravity()</strong> - Gets the gravity value from Project Settings</li>
+                                <li><strong>Input.is_action_just_pressed("ui_accept")</strong> - Detects Spacebar press</li>
+                                <li><strong>transform.basis</strong> - Makes movement relative to player facing direction</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>get_gravity()</code> pulls the gravity value from your Project Settings. This keeps gravity consistent across all physics objects in your game.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="CharacterBody3D template script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.5: The CharacterBody3D template script with movement, gravity, and jumping</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Set Up AnimationPlayer and Create Animation States</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Adding Animation to Your Character</h4>
+                            
+                            <h5>Option A: Using Kenney's Built-in Animations</h5>
+                            <ul>
+                                <li>Open your <strong>player.tscn</strong> scene</li>
+                                <li>Select the <strong>character.tscn</strong> (imported model) node</li>
+                                <li>Right click and select <strong>Editable Children</strong></li>
+                                <li>In the Inspector, find the <strong>AnimationPlayer</strong> node</li>
+                                <li>You should see animations like "idle", "walk", "run", "jump"</li>
+                                <li>Note the exact names of these animations</li>
+                            </ul>
+                            
+                            <h5>Option B: Creating Simple Animations</h5>
+                            <ul>
+                                <p>Open your <strong>player.tscn</strong> scene and add an AnimationPlayer to control the character's animations:</p>
+                                <li>Select the root <strong>Player</strong> (CharacterBody3D) node</li>
+                                <li>Add a child node: <strong>AnimationPlayer</strong></li>
+                                <li>Rename it to <strong>"AnimationPlayer"</strong></li>
+                                <li>Select the <strong>AnimationPlayer</strong> node</li>
+                                <li>Click <strong>"Animation"</strong> → <strong>"New"</strong> and name it "idle"</li>
+                                <li>Set the length to <strong>1.0</strong> second</li>
+                                <li>Add keyframes for the character's standing pose</li>
+                                <li>Repeat for "walk" (length: 0.5 seconds) and "jump" (length: 0.3 seconds)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Kenney character models often come with built-in animations. Check the Animation section in the Inspector first!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Setting up AnimationPlayer" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.6: Adding AnimationPlayer and creating animation states</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="step-card" data-step="7">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="7">
+                            <span>Add Animation Controller to Movement Script</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Full Player Script with Animations</h4>
+                            <p>Update your <strong>player.gd</strong> script to include animation control and character rotation:</p>
+                            <pre><code>extends CharacterBody3D
+
+            const SPEED = 5.0
+            const JUMP_VELOCITY = 4.5
+            # This line is if your character model animation is handmade by you DO NOT use both lines
+            @onready var animation_player = $AnimationPlayer
+            # This line is if your character model is imported from a .glb file with animations DO NOT use both lines
+            @onready var animation_player = $character/AnimationPlayer
+
+            @onready var character = $character  # Your imported model node
+
+            var current_animation = "idle"
+
+            func _physics_process(delta: float) -> void:
+                # Add the gravity.
+                if not is_on_floor():
+                    velocity += get_gravity() * delta
+
+                # Handle jump.
+                if Input.is_action_just_pressed("space") and is_on_floor():
+                    velocity.y = JUMP_VELOCITY
+
+                # Get the input direction and handle the movement/deceleration.
+                var input_dir := Input.get_vector("left", "right", "up", "down")
+                var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+                if direction:
+                    velocity.x = direction.x * SPEED
+                    velocity.z = direction.z * SPEED
+                else:
+                    velocity.x = move_toward(velocity.x, 0, SPEED)
+                    velocity.z = move_toward(velocity.z, 0, SPEED)
+
+                move_and_slide()
+                
+                # Update animations
+                update_animations(direction)
+
+            func update_animations(direction):
+                var target_animation = "idle"
+                
+                # Check if jumping
+                if not is_on_floor():
+                    target_animation = "jump"
+                # Check if walking
+                elif direction.length() > 0:
+                    target_animation = "walk"
+                    # Rotate character to face movement direction
+                    var target_rotation = atan2(direction.x, direction.z)
+                    character.rotation.y = lerp(character.rotation.y, target_rotation, 0.1)
+                else:
+                    target_animation = "idle"
+                
+                # Switch animation if needed
+                if current_animation != target_animation:
+                    current_animation = target_animation
+                    animation_player.play(current_animation)</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Animation Code</h4>
+                            <ul>
+                                <li><strong>@onready var animation_player</strong> - Gets the AnimationPlayer node</li>
+                                <li><strong>@onready var character</strong> - Gets the character model node</li>
+                                <li><strong>update_animations()</strong> - Decides which animation to play</li>
+                                <li><strong>atan2()</strong> - Calculates the angle to face movement direction</li>
+                                <li><strong>lerp()</strong> - Smoothly rotates the character</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>atan2()</code> calculates the angle from the x and z components of the direction vector, used to rotate the character smoothly toward movement direction.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Full player script with animations" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.7: Player script with movement, jumping, and animation control</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="step-card" data-step="8">
+                <div class="step-header">
+                    <div class="step-number">8</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="8">
+                            <span>Test Player with Animations</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Your Animated Player</h4>
+                            <ul>
+                                <li>Open <strong>Environment.tscn</strong></li>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>Use <strong>WASD</strong> to move the player</li>
+                                <li>The character should <strong>turn</strong> to face the movement direction</li>
+                                <li>The character should play the <strong>walk animation</strong> when moving</li>
+                                <li>Press <strong>Space</strong> to jump and see the <strong>jump animation</strong></li>
+                                <li>When standing still, the character should play the <strong>idle animation</strong></li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Troubleshooting</h4>
+                            <ul>
+                                <li><strong>Character doesn't turn:</strong> Check that the character node is correctly referenced</li>
+                                <li><strong>Animation doesn't play:</strong> Verify animation names match the script</li>
+                                <li><strong>Character snaps rotation:</strong> Adjust the lerp speed (0.1 is a good starting point)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Congratulations!</strong> Your player now has a fully animated character that moves, turns, and jumps with correct animations!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing animated player" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.8: Testing the animated player with movement and jumping</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page2.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <span class="current-page">Page 3</span>
+                <a href="page4.html" class="page-button">Page 4 →</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+                <a href="page8.html" class="page-button">Page 8</a>
+                <a href="page9.html" class="page-button">Page 9</a>
+            </div>
+            <a href="page4.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

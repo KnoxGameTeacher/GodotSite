@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3.6: Prey AI (Flee) - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 3</a> > 
+                <span>Prey AI (Flee)</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 6 of 9</span>
+                <a href="page7.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 6 Videos</h3>
+                    <p>Watch: "Prey AI - Flee Behavior in Godot"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 6: Prey AI (Flee)</h1>
+            <p class="unit-description">Create animals that run away from the player, with support for multiple animal models in a single scene.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="3" data-section="6">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create the Prey Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating a Prey Animal</h4>
+                            <p>We'll create a single scene that can be used for any prey animal (rabbits, deer, squirrels, etc.).</p>
+                            <ul>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add a <strong>CharacterBody3D</strong> as the root node</li>
+                                <li>Rename it to <strong>"Prey"</strong></li>
+                                <li>Save the scene as <strong>"prey.tscn"</strong></li>
+                            </ul>
+                            <h5>Setting Up the Node Structure</h5>
+                            <ul>
+                                <li>Add a child node: <strong>Node3D</strong></li>
+                                <li>Rename it to <strong>"ModelContainer"</strong></li>
+                                <li>This node will hold the 3D model</li>
+                                <li>Add a <strong>CollisionShape3D</strong> as a child of Prey</li>
+                                <li>Set the shape to <strong>CapsuleShape3D</strong></li>
+                                <li>Set the height to <strong>1.0</strong> and radius to <strong>0.5</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Why a ModelContainer?</strong> This makes it easy to swap different animal models without affecting the collision or behavior logic.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Creating the prey scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.1: Creating the Prey scene with CharacterBody3D and ModelContainer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Import Animal Models</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Getting Animal Models</h4>
+                            <p>You'll need 3D animal models for your prey. Here are some options:</p>
+                            <ul>
+                                <li><strong>Kenney Animal Pack:</strong> <a href="https://kenney.nl/assets/animal-pack" target="_blank">https://kenney.nl/assets/animal-pack</a></li>
+                                <li><strong>KayKit Animals:</strong> <a href="https://kaylousberg.com/game-assets" target="_blank">https://kaylousberg.com/game-assets</a></li>
+                                <li><strong>Itch.io Free 3D Animals:</strong> <a href="https://itch.io/game-assets/free/tag-3d" target="_blank">Search for "animals"</a></li>
+                            </ul>
+                            <h5>Importing Models</h5>
+                            <ul>
+                                <li>Download your chosen animal models (.glb or .gltf)</li>
+                                <li>Create a folder: <strong>assets/animals/</strong></li>
+                                <li>Drag the model files into this folder</li>
+                                <li>Name them clearly: <strong>rabbit.glb</strong>, <strong>deer.glb</strong>, etc.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> If you don't have animal models yet, you can use primitive shapes (BoxMesh, CapsuleMesh) as placeholders. The script will work the same way!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Imported animal models" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.2: Animal models imported into the assets/animals/ folder</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add the Flee Script with Model Selection</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Flee Script with Multiple Models</h4>
+                            <p>Add this script to the <strong>Prey</strong> node. It includes support for selecting different animal models in the Inspector.</p>
+                            <pre><code>extends CharacterBody3D
+
+@export var speed = 4.0
+@export var detection_range = 8.0
+@export var flee_distance = 15.0
+
+@export var animal_type: String = "rabbit"
+
+@onready var model_container = $ModelContainer
+
+var target: Node3D
+var flee_direction: Vector3
+var is_fleeing = false
+var wander_direction: Vector3
+var wander_timer = 0.0
+
+func _ready():
+    load_model()
+    
+    target = get_tree().current_scene.get_node("Player")
+    if target == null:
+        print("Prey: No player found!")
+    
+    randomize_wander()
+
+func load_model():
+    # Clear existing model
+    for child in model_container.get_children():
+        child.queue_free()
+    
+    # Load the appropriate model based on animal_type
+    var model_path = ""
+    match animal_type:
+        "rabbit":
+            model_path = "res://assets/animals/rabbit.glb"
+        "deer":
+            model_path = "res://assets/animals/deer.glb"
+        "squirrel":
+            model_path = "res://assets/animals/squirrel.glb"
+        "fox":
+            model_path = "res://assets/animals/fox.glb"
+        _:
+            model_path = "res://assets/animals/default.glb"
+    
+    # Instantiate and add the model
+    if ResourceLoader.exists(model_path):
+        var model = load(model_path).instantiate()
+        model_container.add_child(model)
+    else:
+        print("Model not found: ", model_path)
+
+func _physics_process(delta):
+    if target == null:
+        return
+    
+    var distance_to_player = global_position.distance_to(target.global_position)
+    
+    if distance_to_player < detection_range:
+        is_fleeing = true
+        flee_direction = (global_position - target.global_position).normalized()
+        velocity = flee_direction * speed
+        
+        if distance_to_player > flee_distance:
+            is_fleeing = false
+            randomize_wander()
+    else:
+        is_fleeing = false
+        wander(delta)
+    
+    if velocity.length() > 0.1:
+        var target_rotation = atan2(velocity.x, velocity.z)
+        rotation.y = lerp(rotation.y, target_rotation, 0.1)
+    
+    move_and_slide()
+
+func wander(delta):
+    wander_timer += delta
+    if wander_timer > 2.0 + randf() * 3.0:
+        randomize_wander()
+        wander_timer = 0.0
+    
+    velocity = wander_direction * speed * 0.5
+
+func randomize_wander():
+    wander_direction = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Model Selection Code</h4>
+                            <ul>
+                                <li><strong>@export var animal_type</strong> - Dropdown in Inspector to choose which animal</li>
+                                <li><strong>load_model()</strong> - Loads the selected model when the scene starts</li>
+                                <li><strong>match</strong> - A switch statement that picks the correct model path</li>
+                                <li><strong>model_container</strong> - The Node3D that holds the model</li>
+                                <li><strong>queue_free()</strong> - Removes the old model before loading a new one</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 New Concept:</strong> <code>match</code> is a powerful conditional statement in GDScript. It's like a switch statement and is perfect for selecting between multiple options.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Flee script with model selection" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.3: The flee script with built-in model selection</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Place Prey Animals in the Environment</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Populating the World</h4>
+                            <ul>
+                                <li>Open your <strong>Environment.tscn</strong> scene</li>
+                                <li>In the FileSystem dock, find <strong>prey.tscn</strong></li>
+                                <li>Drag it into the viewport multiple times</li>
+                                <li>For each instance, select it and go to the Inspector</li>
+                                <li>Find the <strong>animal_type</strong> property</li>
+                                <li>Choose a different animal for each instance</li>
+                            </ul>
+                            <h5>Example Placement</h5>
+                            <ul>
+                                <li>Rabbit 1: animal_type = "rabbit", speed = 4.0, detection_range = 8.0</li>
+                                <li>Rabbit 2: animal_type = "rabbit", speed = 3.5, detection_range = 10.0</li>
+                                <li>Deer 1: animal_type = "deer", speed = 5.0, detection_range = 12.0</li>
+                                <li>Squirrel 1: animal_type = "squirrel", speed = 6.0, detection_range = 6.0</li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> Place prey animals on top of the ground (y = 0.5 for a 1-tall capsule) or they will fall through the world!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Placing prey in environment" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.4: Placing multiple prey animals with different types in the environment</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Add Detection Area (Optional)</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Using Area3D for Detection</h4>
+                            <p>Instead of calculating distance in the script, you can use an Area3D node for detection. This is more efficient with many animals.</p>
+                            <ul>
+                                <li>Select the <strong>Prey</strong> node</li>
+                                <li>Add a child node: <strong>Area3D</strong></li>
+                                <li>Rename it to <strong>"DetectionArea"</strong></li>
+                                <li>Add a <strong>CollisionShape3D</strong> as a child</li>
+                                <li>Set the shape to <strong>SphereShape3D</strong> with radius <strong>8.0</strong></li>
+                            </ul>
+                            <p>Then modify the script:</p>
+                            <pre><code># Add these variables
+var player_in_range = false
+
+func _ready():
+    load_model()
+    target = get_tree().current_scene.get_node("Player")
+    $DetectionArea.body_entered.connect(_on_detection_area_body_entered)
+    $DetectionArea.body_exited.connect(_on_detection_area_body_exited)
+    randomize_wander()
+
+func _on_detection_area_body_entered(body):
+    if body.name == "Player":
+        player_in_range = true
+
+func _on_detection_area_body_exited(body):
+    if body.name == "Player":
+        player_in_range = false
+
+# Replace the distance check in _physics_process with:
+if player_in_range:
+    is_fleeing = true
+    flee_direction = (global_position - target.global_position).normalized()
+    velocity = flee_direction * speed
+else:
+    # Wander...</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Using Area3D is more efficient than checking distance every frame, especially with many animals in the scene.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Detection area" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.5: Adding an Area3D for player detection</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the Prey AI with Multiple Models</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Your Prey Animals</h4>
+                            <ul>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>Walk toward each type of prey animal</li>
+                                <li>Each animal should <strong>flee</strong> away from you</li>
+                                <li>Different animals should have different models</li>
+                                <li>If you stop chasing, the animal should <strong>wander</strong> again</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Troubleshooting Common Issues</h4>
+                            <ul>
+                                <li><strong>Prey doesn't move:</strong> Check that speed is set and the script is attached</li>
+                                <li><strong>Prey falls through ground:</strong> Add a CollisionShape3D to the Prey node</li>
+                                <li><strong>Prey ignores player:</strong> Check that detection_range is large enough</li>
+                                <li><strong>Model doesn't appear:</strong> Check that the model path in the script matches your file location</li>
+                                <li><strong>All animals look the same:</strong> Verify each instance has a different animal_type selected</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Congratulations!</strong> You now have multiple types of prey animals that flee from the player! In the next section, you'll add predators that chase the player.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing prey AI" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.6: Testing multiple prey types with different models and behaviors</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page5.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <span class="current-page">Page 6</span>
+                <a href="page7.html" class="page-button">Page 7 →</a>
+                <a href="page8.html" class="page-button">Page 8</a>
+                <a href="page9.html" class="page-button">Page 9</a>
+            </div>
+            <a href="page7.html" class="nav-button primary">Next Section →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

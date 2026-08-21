@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3 Test: Forage Fever - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 3</a> > 
+                <span>Unit 3 Test</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Unit Test</span>
+                <a href="../../index.html" class="next-button">Back to Units →</a>
+            </div>
+        </div>
+
+        <!-- Test Header -->
+        <div class="unit-header">
+            <h1>📝 Unit 3 Test: Forage Fever</h1>
+            <p class="unit-description">Demonstrate your mastery of 3D game development by completing the required challenges and earning bonus points.</p>
+        </div>
+
+        <!-- Test Overview -->
+        <div class="test-overview">
+            <div class="test-stats">
+                <div class="test-stat-card">
+                    <div class="test-stat-number">20</div>
+                    <div class="test-stat-label">Required Points</div>
+                </div>
+                <div class="test-stat-card">
+                    <div class="test-stat-number">10</div>
+                    <div class="test-stat-label">Bonus Points</div>
+                </div>
+                <div class="test-stat-card">
+                    <div class="test-stat-number">30</div>
+                    <div class="test-stat-label">Grand Total</div>
+                </div>
+            </div>
+            <div class="test-instructions">
+                <h3>📋 Test Instructions</h3>
+                <ul>
+                    <li>Complete ALL required sections (20 points total)</li>
+                    <li>You MUST create at least <strong>3 prey types</strong> and <strong>3 predator types</strong></li>
+                    <li>You MUST implement a <strong>health warning</strong> when health drops below 25%</li>
+                    <li>Bonus challenges are optional (up to 10 extra points)</li>
+                    <li>Submit your entire project folder for grading</li>
+                    <li>Use the checkboxes below to track your progress</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="3" data-section="test">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Test Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- SECTION 1: Core Systems (6 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">⚙️</div>
+                    <div class="test-section-title">Section 1: Core Systems (6 points)</div>
+                </div>
+                
+                <div class="step-card" data-step="1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="1"> 3D player with movement, gravity, and jumping (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="2"> Third-person camera with mouse look (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="3">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="3"> Player animation states (idle, walk, jump) (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Survival Systems (6 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">🍖</div>
+                    <div class="test-section-title">Section 2: Survival Systems (6 points)</div>
+                </div>
+
+                <div class="step-card" data-step="4">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="4"> Hunger system with timer and HUD bar (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="5">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="5"> Health system with HUD bar and damage (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="6">
+                    <div class="step-header">
+                        <div class="step-number">6</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="6"> Game Over scene when health reaches 0 (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: AI Systems (6 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">🐾</div>
+                    <div class="test-section-title">Section 3: AI Systems (6 points)</div>
+                </div>
+
+                <div class="step-card" data-step="7">
+                    <div class="step-header">
+                        <div class="step-number">7</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="7"> Prey AI with flee behavior and wandering (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="8">
+                    <div class="step-header">
+                        <div class="step-number">8</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="8"> Predator AI with chase behavior and attacks (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="9">
+                    <div class="step-header">
+                        <div class="step-number">9</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="9"> Hunting mechanic with raycasting (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: Game Loop (2 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">🔄</div>
+                    <div class="test-section-title">Section 4: Game Loop (2 points)</div>
+                </div>
+
+                <div class="step-card" data-step="10">
+                    <div class="step-header">
+                        <div class="step-number">10</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="10"> Complete game loop: Start → Game → Win/Game Over (2 points)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REQUIRED CHALLENGES (8 points) -->
+            <div class="test-section required-challenges">
+                <div class="test-section-header">
+                    <div class="test-section-icon">⭐</div>
+                    <div class="test-section-title">Required Challenges (8 points)</div>
+                </div>
+
+                <div class="step-card" data-step="11">
+                    <div class="step-header">
+                        <div class="step-number">11</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="11"> At least 3 different prey types (rabbit, deer, squirrel, etc.) (3 points)</label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>✅ Verification Checklist</h4>
+                            <ul>
+                                <li>3 distinct prey animal types with different models</li>
+                                <li>Each has different speed and detection_range values</li>
+                                <li>All are in the "prey" group with a hunted() function</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="12">
+                    <div class="step-header">
+                        <div class="step-number">12</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="12"> At least 3 different predator types (wolf, bear, big cat, etc.) (3 points)</label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>✅ Verification Checklist</h4>
+                            <ul>
+                                <li>3 distinct predator animal types with different models</li>
+                                <li>Each has different speed, detection_range, and damage values</li>
+                                <li>All properly chase and attack the player</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="13">
+                    <div class="step-header">
+                        <div class="step-number">13</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="13"> Visual health warning when health drops below 25% (2 points)</label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>✅ Verification Checklist</h4>
+                            <ul>
+                                <li>Warning activates when health ≤ 25%</li>
+                                <li>Screen overlay, border flash, or pulsing effect</li>
+                                <li>Warning is clear and noticeable but not obstructive</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BONUS SECTION (10 points) -->
+            <div class="test-section bonus-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon">🌟</div>
+                    <div class="test-section-title">Bonus Challenges (Optional - up to 10 points)</div>
+                </div>
+
+                <div class="step-card" data-step="bonus1" data-bonus-value="5">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus1" data-bonus-value="5"> Meat/Consumable Drop System (5 points)</label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>🏆 Bonus Challenge 1</h4>
+                            <p>When a prey animal is hunted, spawn a "meat" pickup that the player must collect.</p>
+                            <ul>
+                                <li>Meat pickup spawns at the prey's position when hunted (2 points)</li>
+                                <li>Player must walk over the pickup to collect it (Area3D detection) (1 point)</li>
+                                <li>Collecting meat restores hunger (e.g., +25 hunger) (1 point)</li>
+                                <li>Meat pickup has a visual (mesh or sprite) and despawns after 10 seconds (1 point)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="bonus2" data-bonus-value="5">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus2" data-bonus-value="5"> Animal Health System (5 points)</label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>🏆 Bonus Challenge 2</h4>
+                            <p>Add health systems to prey and predator animals.</p>
+                            <ul>
+                                <li>Prey animals require 2 hits to be fully hunted (1 point)</li>
+                                <li>Predator animals require 3 hits to be defeated (1 point)</li>
+                                <li>Visual feedback for each hit (flash red, change color, etc.) (2 points)</li>
+                                <li>Defeated predators also drop a consumable or have some consequence (1 point)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submission Section -->
+        <div class="submission-section">
+            <h2>📤 Submission Instructions</h2>
+            <div class="submission-grid">
+                <div class="submission-card">
+                    <h3>What to Submit</h3>
+                    <ul>
+                        <li>Entire Godot project folder (compressed as .zip)</li>
+                        <li>At least 3 prey types and 3 predator types</li>
+                        <li>Health warning system implemented</li>
+                        <li>Screenshots of your game in action</li>
+                        <li>Brief reflection on your design process</li>
+                    </ul>
+                </div>
+                <div class="submission-card">
+                    <h3>Required Checklist</h3>
+                    <ul>
+                        <li>✅ 3 Prey Types (rabbit, deer, squirrel, etc.)</li>
+                        <li>✅ 3 Predator Types (wolf, bear, big cat, etc.)</li>
+                        <li>✅ Health Warning System</li>
+                        <li>✅ Complete Game Loop</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Navigation -->
+        <div class="test-navigation">
+            <a href="page9.html" class="nav-button">← Back to Section 9</a>
+            <div class="test-score" id="test-score">Score: 0 / 20 required points</div>
+            <a href="../../index.html" class="nav-button primary">Submit Test →</a>
+        </div>
+    </div>
+
+    <!-- Test Scoring Script -->
+    <script>
+        function calculateTestScore() {
+            // Required step point values (20 points total)
+            const stepPointValues = {
+                1: 2, 2: 2, 3: 2,   // Core Systems (6)
+                4: 2, 5: 2, 6: 2,   // Survival Systems (6)
+                7: 2, 8: 2, 9: 2,   // AI Systems (6)
+                10: 2,              // Game Loop (2)
+                11: 3, 12: 3, 13: 2 // Required Challenges (8)
+            };
+            
+            let earnedPoints = 0;
+            let maxPoints = 0;
+            
+            for (const [step, points] of Object.entries(stepPointValues)) {
+                maxPoints += points;
+                const checkbox = document.querySelector(`.step-check[data-step="${step}"]`);
+                if (checkbox && checkbox.checked) earnedPoints += points;
+            }
+            
+            // Bonus challenges (bonus1-bonus2) - each worth up to 5 points
+            let bonusPoints = 0;
+            const bonus1 = document.querySelector('.step-check[data-step="bonus1"]');
+            const bonus2 = document.querySelector('.step-check[data-step="bonus2"]');
+            
+            if (bonus1 && bonus1.checked) bonusPoints += 5;
+            if (bonus2 && bonus2.checked) bonusPoints += 5;
+            
+            const totalScore = earnedPoints + bonusPoints;
+            
+            const scoreDisplay = document.getElementById('test-score');
+            if (scoreDisplay) {
+                scoreDisplay.innerHTML = `Score: ${earnedPoints} / ${maxPoints} required points (Bonus: +${bonusPoints}) → Total: ${totalScore}`;
+            }
+            
+            return totalScore;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.step-check');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', calculateTestScore);
+            });
+            calculateTestScore();
+            
+            // Progress bar based on required steps (1-13)
+            const requiredSteps = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+            let totalRequired = requiredSteps.length;
+            let completedRequired = 0;
+            
+            requiredSteps.forEach(step => {
+                const cb = document.querySelector(`.step-check[data-step="${step}"]`);
+                if (cb && cb.checked) completedRequired++;
+            });
+            
+            const percent = (completedRequired / totalRequired) * 100;
+            const progressFill = document.querySelector('.progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            
+            if (progressFill) progressFill.style.width = `${percent}%`;
+            if (progressPercent) progressPercent.textContent = `${Math.round(percent)}%`;
+        });
+    </script>
+    
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>
