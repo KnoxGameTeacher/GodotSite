@@ -80,8 +80,8 @@
                                 <li>Rename it to <strong>"ModelContainer"</strong></li>
                                 <li>This node will hold the 3D model</li>
                                 <li>Add a <strong>CollisionShape3D</strong> as a child of Prey</li>
-                                <li>Set the shape to <strong>CapsuleShape3D</strong></li>
-                                <li>Set the height to <strong>1.0</strong> and radius to <strong>0.5</strong></li>
+                                <li>Set the shape to <strong>CapsuleShape3D</strong> or a shape appropriate to your animal models</li>
+                                <li>Adjust the size of the collision shape to fit your animal model</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Why a ModelContainer?</strong> This makes it easy to swap different animal models without affecting the collision or behavior logic.
@@ -124,6 +124,7 @@
                                 <li>Create a folder: <strong>assets/animals/</strong></li>
                                 <li>Drag the model files into this folder</li>
                                 <li>Name them clearly: <strong>rabbit.glb</strong>, <strong>deer.glb</strong>, etc.</li>
+                                <li>You may need to assign textures manually and do an advanced reimport to get your animations</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> If you don't have animal models yet, you can use primitive shapes (BoxMesh, CapsuleMesh) as placeholders. The script will work the same way!

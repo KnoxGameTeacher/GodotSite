@@ -79,6 +79,8 @@
                                 <li>Click the <strong>"+"</strong> (Add Child Node) icon</li>
                                 <li>Search for and add a <strong>SpringArm3D</strong> node</li>
                                 <li>Rename it to <strong>"CameraArm"</strong></li>
+                                <li>Add a <strong>RayCast3D</strong> node as a child of the SpringArm3D</li>
+                                <li>Rename the RayCast3D to <strong>"GroundCheck"</strong></li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Important:</strong> The SpringArm3D must be a <strong>sibling</strong> of the Player node, not a child. This allows it to follow the player independently.
@@ -120,7 +122,7 @@
                                 <li>Set <strong>"Collision Mask"</strong> to <strong>1</strong></li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> Spring Length of 8 is a good starting point. You can adjust it later based on your preference.
+                                <strong>💡 Pro Tip:</strong> Spring Length of 8 is a good starting point for a distant view. You can adjust it later based on your preference.
                             </div>
                         </div>
                     </div>
@@ -151,34 +153,40 @@
                             <p>Add this script to the <strong>CameraArm</strong> (SpringArm3D) node:</p>
                             <pre><code>extends SpringArm3D
 
-            @export var target: Node3D
-            @export var rotation_speed: float = 0.005
+@export var target: Node3D
+@export var rotation_speed: float = 0.005
+@export var min_height: float = 0.3
+@onready var ground_check: RayCast3D = $GroundCheck
 
-            func _ready():
-                if target == null:
-                    target = get_node("../Player")
-                    if target == null:
-                        return
-                
-                # Capture the mouse for camera control
-                Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+func _ready():
+	if target == null:
+		target = get_node("../Player")
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	ground_check.target_position = Vector3(0, -spring_length, 0)
 
-            func _input(event):
-                if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-                    # Directly modify the SpringArm's built-in rotation
-                    rotation.y -= event.relative.x * rotation_speed
-                    rotation.x -= event.relative.y * rotation_speed
-                    rotation.x = clamp(rotation.x, -0.5, 1.0)
+func _input(event):
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		# Directly modify the SpringArm's rotation
+		rotation.y -= event.relative.x * rotation_speed
+		rotation.x -= event.relative.y * rotation_speed
+		rotation.x = clamp(rotation.x, -0.5, 1.0)
 
-            func _physics_process(delta):
-                if target == null:
-                    return
-                
-                # Move SpringArm to target position
-                global_position = target.global_position
-                
-                # The SpringArm's rotation is already set in _input()
-                # No need to do anything else - the Camera3D child will follow naturally</code></pre>
+func _physics_process(delta):
+	if target == null:
+		return
+	# Move to target position
+	global_position = target.global_position
+	
+		# Check if camera is below ground
+	ground_check.global_position = global_position
+	ground_check.force_raycast_update()
+	
+	if ground_check.is_colliding():
+		var hit_y = ground_check.get_collision_point().y
+		if global_position.y < hit_y + min_height:
+			global_position.y = hit_y + min_height
+</code></pre>
                         </div>
                         <div class="instruction-section">
                             <h4>Understanding the Code</h4>
@@ -189,6 +197,7 @@
                                 <li><strong>rotation.x</strong> - Directly sets the SpringArm's vertical rotation</li>
                                 <li><strong>clamp(rotation.x, -0.5, 1.0)</strong> - Limits vertical rotation to prevent flipping</li>
                                 <li><strong>global_position = target.global_position</strong> - Makes the SpringArm follow the player</li>
+                                <li><strong>RayCast3D</strong> - Checks if the camera is below the ground and adjusts its height to avoid clipping</li>
                             </ul>
                             <div class="warning-box">
                                 <strong>⚠️ Important:</strong> This script modifies the SpringArm's built-in <code>rotation</code> property directly. The Camera3D child will automatically point in the direction of the SpringArm's rotation. Do NOT use <code>look_at()</code> - it will fight with the SpringArm's internal mechanics!

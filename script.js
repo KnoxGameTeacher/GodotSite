@@ -244,7 +244,7 @@ function initializeMainPage() {
                 </div>
             </div>
             <div class="unit-card-footer">
-                <a href="units/unit${id}/index.html" class="start-unit-button">Start Unit ${id}: ${unit.name} →</a>
+                <a href="Units/Unit${id}/index.html" class="start-unit-button">Start Unit ${id}: ${unit.name} →</a>
             </div>
         `;
         

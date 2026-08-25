@@ -100,8 +100,7 @@ func _on_hunger_tick():
     
     # If hunger reaches 0, start losing health
     if hunger <= 0:
-        health -= 5.0
-        health = max(health, 0)
+        take_damage(2)
     
     # Update the HUD
     update_hud()
@@ -168,7 +167,7 @@ func game_over():
                     <div class="step-instructions">
                         <div class="instruction-section">
                             <h4>Building the Heads-Up Display</h4>
-                            <p>We'll create a simple HUD using CanvasLayer and TextureProgressBar nodes.</p>
+                            <p>We'll create a simple HUD using CanvasLayer and ProgressBar nodes.</p>
                             <ul>
                                 <li>Open your <strong>Environment.tscn</strong> scene</li>
                                 <li>Add a <strong>CanvasLayer</strong> node as a child of the root</li>
@@ -176,12 +175,12 @@ func game_over():
                             </ul>
                             <h5>Adding Health Bar</h5>
                             <ul>
-                                <li>Add a <strong>TextureProgressBar</strong> as a child of HUD</li>
+                                <li>Add a <strong>ProgressBar</strong> as a child of HUD</li>
                                 <li>Rename it to <strong>"HealthBar"</strong></li>
                                 <li>In the Inspector, set <strong>Min Value</strong> to <strong>0</strong></li>
                                 <li>Set <strong>Max Value</strong> to <strong>100</strong></li>
                                 <li>Set <strong>Value</strong> to <strong>100</strong></li>
-                                <li>Set the <strong>FILL</strong> color to <strong>Red</strong></li>
+                                <li>In the <strong>theme overrides</strong> section, set the background color to <strong>Red</strong></li>
                                 <li>Position it in the top-left corner</li>
                             </ul>
                             <h5>Adding Hunger Bar</h5>
@@ -190,7 +189,7 @@ func game_over():
                                 <li>Rename it to <strong>"HungerBar"</strong></li>
                                 <li>Set <strong>Min Value</strong> to <strong>0</strong>, <strong>Max Value</strong> to <strong>100</strong></li>
                                 <li>Set <strong>Value</strong> to <strong>100</strong></li>
-                                <li>Set the <strong>FILL</strong> color to <strong>Green</strong></li>
+                                <li>In the <strong>theme overrides</strong> section, set the background color to <strong>Green</strong></li>
                                 <li>Position it below the Health Bar</li>
                             </ul>
                             <div class="tip-box">
@@ -227,8 +226,6 @@ func game_over():
 
 @onready var health_bar = $HealthBar
 @onready var hunger_bar = $HungerBar
-@onready var health_label = $HealthLabel
-@onready var hunger_label = $HungerLabel
 
 var player
 
@@ -242,12 +239,7 @@ func update_display():
     if player:
         health_bar.value = player.health
         hunger_bar.value = player.hunger
-        
-        # Update labels if they exist
-        if health_label:
-            health_label.text = "Health: " + str(int(player.health)) + "%"
-        if hunger_label:
-            hunger_label.text = "Hunger: " + str(int(player.hunger)) + "%"</code></pre>
+</code></pre>
                             <p>Then update the <strong>player.gd</strong> script to call the HUD:</p>
                             <pre><code># Add this to player.gd
 func update_hud():
