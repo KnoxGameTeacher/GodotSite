@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3.10: Game Loop & Polish - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 3</a> > 
+                <span>Game Loop & Polish</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 10 of 10</span>
+                <a href="test.html" class="next-button">Take Test →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 10 Videos</h3>
+                    <p>Watch: "Game Loop & Polish"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 10: Game Loop & Polish</h1>
+            <p class="unit-description">Complete your game with win/lose conditions, menus, sound effects, and a polished player experience.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="3" data-section="10">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Add Win Condition</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating a Win Condition</h4>
+                            <ul>
+                                <li>Open <strong>player.gd</strong></li>
+                                <li>Add a survival timer and win check:</li>
+                            </ul>
+                            <pre><code>var survival_time = 0.0
+var win_time = 120.0
+
+func _process(delta):
+    survival_time += delta
+    if survival_time >= win_time:
+        win_game()
+
+func win_game():
+    get_tree().change_scene_to_file("res://Win.tscn")</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Alternative Win Conditions:</strong> You could also win by collecting a certain number of food items or hunting a certain number of prey.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Adding win condition" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.1: Adding a survival timer win condition</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Create Win and Start Scenes</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating Menu Scenes</h4>
+                            <h5>Start.tscn</h5>
+                            <ul>
+                                <li>Create a new scene with <strong>Control</strong> root</li>
+                                <li>Add a <strong>Label</strong> with text "Forage Fever"</li>
+                                <li>Add a <strong>Button</strong> with text "Start Game" (loads character_select.tscn)</li>
+                                <li>Add a <strong>Button</strong> with text "Quit"</li>
+                                <li>Save as <strong>"Start.tscn"</strong></li>
+                            </ul>
+                            <h5>Win.tscn</h5>
+                            <ul>
+                                <li>Create a new scene with <strong>Control</strong> root</li>
+                                <li>Add a <strong>Label</strong> with text "You Win!"</li>
+                                <li>Add a <strong>Label</strong> to display survival time</li>
+                                <li>Add a <strong>Button</strong> with text "Play Again"</li>
+                                <li>Add a <strong>Button</strong> with text "Main Menu"</li>
+                                <li>Save as <strong>"Win.tscn"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The Win scene is the reward for the player's effort. Make it feel celebratory with encouraging text and a final score.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Creating menu scenes" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.2: Creating Start and Win scenes for the game loop</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Connect Menu Scene Scripts</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Scripting Menu Transitions</h4>
+                            <h5>Start.tscn Script</h5>
+                            <pre><code>extends Control
+
+func _ready():
+    $StartButton.pressed.connect(_on_start_pressed)
+    $QuitButton.pressed.connect(_on_quit_pressed)
+
+func _on_start_pressed():
+    get_tree().change_scene_to_file("res://character_select.tscn")
+
+func _on_quit_pressed():
+    get_tree().quit()</code></pre>
+                            <h5>Win.tscn Script</h5>
+                            <pre><code>extends Control
+
+func _ready():
+    $PlayAgainButton.pressed.connect(_on_play_again_pressed)
+    $MainMenuButton.pressed.connect(_on_main_menu_pressed)
+
+func _on_play_again_pressed():
+    get_tree().reload_current_scene()
+
+func _on_main_menu_pressed():
+    get_tree().change_scene_to_file("res://Start.tscn")</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Use <code>reload_current_scene()</code> to restart the game without reloading the entire project.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Menu scripts" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.3: Scripting menu transitions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Add Sound Effects</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Adding Audio to Your Game</h4>
+                            <ul>
+                                <li>Find free sound effects (e.g., from <a href="https://kenney.nl/assets/audio" target="_blank">Kenney Audio</a>)</li>
+                                <li>Create an <strong>AudioStreamPlayer</strong> node for each sound</li>
+                                <li>Place them in your Player scene</li>
+                            </ul>
+                            <h5>Add to player.gd</h5>
+                            <pre><code>@onready var hunt_sound = $HuntSound
+@onready var hurt_sound = $HurtSound
+
+func hunt():
+    if hunt_ray.is_colliding():
+        var collider = hunt_ray.get_collider()
+        if collider.is_in_group("prey"):
+            collider.hunted()
+            eat(20)
+            hunt_sound.play()
+        else:
+            hunt_sound.pitch_scale = 0.5
+            hunt_sound.play()
+
+func take_damage(amount):
+    health -= amount
+    health = max(health, 0)
+    hurt_sound.play()
+    update_hud()</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> You can adjust <code>pitch_scale</code> to make sounds slightly different each time, creating variety.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Adding sound effects" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.4: Adding sound effects to the player</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Polish the User Interface</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Making Your UI Shine</h4>
+                            <ul>
+                                <li>Add <strong>color gradients</strong> to health and hunger bars</li>
+                                <li>Add <strong>icons</strong> for health and hunger (heart, food)</li>
+                                <li>Add a <strong>timer display</strong> showing survival time</li>
+                                <li>Add <strong>subtle animations</strong> (pulsing bars, smooth transitions)</li>
+                            </ul>
+                            <h5>Enhanced HUD Script</h5>
+                            <pre><code>extends CanvasLayer
+
+@onready var health_bar = $HealthBar
+@onready var hunger_bar = $HungerBar
+@onready var time_label = $TimeLabel
+var player
+
+func _ready():
+    player = get_node("../Player")
+    if player:
+        update_display()
+
+func _process(delta):
+    if player:
+        var time = player.survival_time
+        var minutes = int(time / 60)
+        var seconds = int(time) % 60
+        time_label.text = str(minutes).pad_zeros(2) + ":" + str(seconds).pad_zeros(2)
+        update_bar_colors()
+
+func update_display():
+    if player:
+        health_bar.value = player.health
+        hunger_bar.value = player.hunger
+
+func update_bar_colors():
+    var health_ratio = health_bar.value / health_bar.max_value
+    if health_ratio > 0.5:
+        health_bar.modulate = Color(0, 1, 0, 1)
+    elif health_ratio > 0.25:
+        health_bar.modulate = Color(1, 1, 0, 1)
+    else:
+        health_bar.modulate = Color(1, 0, 0, 1)</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Color-coding bars helps players understand their status at a glance, even without reading numbers.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Polished UI" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.5: Enhanced UI with color gradients and timer display</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the Complete Game Loop</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Complete Game Flow</h4>
+                            <div class="flow-diagram">
+                                <p><strong>Start.tscn</strong> → (Press "Start Game")</p>
+                                <p>↓</p>
+                                <p><strong>character_select.tscn</strong> → (Choose Character + Press "Start")</p>
+                                <p>↓</p>
+                                <p><strong>Environment.tscn</strong> → (Player survives 120 seconds)</p>
+                                <p>↓</p>
+                                <p><strong>Win.tscn</strong> → (Press "Play Again" or "Main Menu")</p>
+                            </div>
+                            <div class="tip-box">
+                                <strong>🎉 Congratulations!</strong> You've completed Unit 3: Forage Fever! You've built a complete 3D survival game with character selection, player movement, camera, hunger and health systems, prey and predator AI, hunting mechanics, and a polished game loop. Take the unit test to demonstrate your skills!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Complete game loop" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.6: The complete game loop from start to win</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page9.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+                <a href="page8.html" class="page-button">Page 8</a>
+                <a href="page9.html" class="page-button">Page 9</a>
+                <span class="current-page">Page 10</span>
+            </div>
+            <a href="test.html" class="nav-button primary">Take Unit Test →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

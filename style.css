@@ -1710,4 +1710,26 @@ a:hover {
     .comparison-box {
         grid-template-columns: 1fr;
     }
+    /* Special submission card styling */
+    .special-card {
+        border-color: var(--retro-cyan);
+        background: linear-gradient(135deg, var(--retro-terminal) 0%, rgba(95, 207, 255, 0.05) 100%);
+    }
+
+    .special-card:hover {
+        border-color: var(--retro-cyan);
+        box-shadow: 0 0 15px rgba(95, 207, 255, 0.3);
+    }
+
+    .special-card .unit-number {
+        color: var(--retro-cyan);
+    }
+
+    .special-card .start-unit-button {
+        background: var(--retro-cyan);
+    }
+
+    .special-card .start-unit-button:hover {
+        background: #4ab0e0;
+    }
 }

@@ -250,7 +250,26 @@ function initializeMainPage() {
         
         unitsGrid.appendChild(unitCard);
     }
-    
+    // Add special submissions card after all unit cards
+    const submissionsCard = document.createElement('div');
+    submissionsCard.className = 'unit-card special-card';
+    submissionsCard.innerHTML = `
+        <div class="unit-card-header">
+            <div class="unit-number">SHOWCASE</div>
+            <h3>Student Submissions</h3>
+            <p class="unit-description">Explore completed projects from your fellow students!</p>
+        </div>
+        <div class="unit-card-body">
+            <div class="unit-stats">
+                <span>🎨 Featured projects</span>
+                <span>👥 Community showcase</span>
+            </div>
+        </div>
+        <div class="unit-card-footer">
+            <a href="submissions.html" class="start-unit-button">View Submissions →</a>
+        </div>
+    `;
+    unitsGrid.appendChild(submissionsCard);
     updateOverallProgress();
     return true;
 }

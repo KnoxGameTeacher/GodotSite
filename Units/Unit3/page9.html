@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 3.9: Game Loop & Polish - Godot Game Design</title>
+    <title>Unit 3.9: Character Select Screen - Godot Game Design</title>
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
@@ -13,11 +13,11 @@
             <div class="breadcrumb">
                 <a href="../../index.html">Home</a> > 
                 <a href="index.html">Unit 3</a> > 
-                <span>Game Loop & Polish</span>
+                <span>Character Select Screen</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section 9 of 9</span>
-                <a href="test.html" class="next-button">Take Test →</a>
+                <span class="section-nav-current">Section 9 of 10</span>
+                <a href="page10.html" class="next-button">Next Section →</a>
             </div>
         </div>
 
@@ -32,15 +32,15 @@
                 <div class="placeholder-content">
                     <div class="placeholder-icon">📺</div>
                     <h3>Section 9 Videos</h3>
-                    <p>Watch: "Game Loop & Polish"</p>
+                    <p>Watch: "Character Select Screen"</p>
                 </div>
             </div>
         </div>
 
         <!-- Section Header -->
         <div class="unit-header">
-            <h1>Section 9: Game Loop & Polish</h1>
-            <p class="unit-description">Complete your game with win/lose conditions, menus, sound effects, and a polished player experience.</p>
+            <h1>Section 9: Character Select Screen</h1>
+            <p class="unit-description">Create a character selection screen that allows players to choose between two characters before starting the game.</p>
         </div>
 
         <!-- Steps Container -->
@@ -59,46 +59,36 @@
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>Add Win Condition</span>
+                            <span>Create the Character Select Scene</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Creating a Win Condition</h4>
-                            <p>Players need a goal to work toward. We'll add a win condition based on survival time.</p>
+                            <h4>Creating the Scene</h4>
                             <ul>
-                                <li>Open <strong>player.gd</strong></li>
-                                <li>Add a survival timer and win check:</li>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add a <strong>Control</strong> node as the root</li>
+                                <li>Rename it to <strong>"CharacterSelect"</strong></li>
+                                <li>Save the scene as <strong>"character_select.tscn"</strong></li>
                             </ul>
-                            <pre><code># Add to player.gd
-var survival_time = 0.0
-var win_time = 120.0  # Win after 2 minutes (in seconds)
-
-func _process(delta):
-    # Track survival time
-    survival_time += delta
-    
-    # Check win condition
-    if survival_time >= win_time:
-        win_game()
-
-func win_game():
-    # Show win screen
-    get_tree().change_scene_to_file("res://Win.tscn")
-    
-    # Optionally save stats
-    print("You survived!", survival_time, "seconds!")</code></pre>
+                            <h5>Setting Up the Layout</h5>
+                            <ul>
+                                <li>Select the root Control node</li>
+                                <li>In the Inspector, set <strong>Layout</strong> to <strong>"Full Rect"</strong></li>
+                                <li>Add a <strong>ColorRect</strong> as a child for a background</li>
+                                <li>Add a <strong>Label</strong> with text "Choose Your Character"</li>
+                            </ul>
                             <div class="tip-box">
-                                <strong>💡 Alternative Win Conditions:</strong> You could also win by collecting a certain number of food items, hunting a certain number of prey, or reaching a specific location.
+                                <strong>💡 Pro Tip:</strong> A Control node with Full Rect layout ensures your UI scales properly to any screen size.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Adding win condition" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 9.1: Adding a survival timer win condition</div>
+                            <img src="../../_placeholderimage.png" alt="Creating Character Select Scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.1: Creating the Character Select scene with Control root</div>
                         </div>
                     </div>
                 </div>
@@ -111,44 +101,38 @@ func win_game():
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>Create Win and Start Scenes</span>
+                            <span>Add Character Buttons</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Creating Menu Scenes</h4>
-                            <p>We need a Start scene and a Win scene for the complete game loop.</p>
-                            
-                            <h5>Start.tscn</h5>
+                            <h4>Creating the Character Buttons</h4>
                             <ul>
-                                <li>Create a new scene with <strong>Control</strong> root</li>
-                                <li>Add a <strong>Label</strong> with text "Forage Fever"</li>
-                                <li>Add a <strong>Button</strong> with text "Start Game"</li>
-                                <li>Add a <strong>Button</strong> with text "Quit"</li>
-                                <li>Save as <strong>"Start.tscn"</strong></li>
+                                <li>Add a <strong>HBoxContainer</strong> node as a child of the root Control</li>
+                                <li>Add a <strong>Button</strong> node as a child of HBoxContainer</li>
+                                <li>Rename it to <strong>"Character1Button"</strong></li>
+                                <li>Set its <strong>Text</strong> property to <strong>"Character 1"</strong></li>
+                                <li>Add another <strong>Button</strong> as a child of HBoxContainer</li>
+                                <li>Rename it to <strong>"Character2Button"</strong></li>
+                                <li>Set its <strong>Text</strong> property to <strong>"Character 2"</strong></li>
                             </ul>
-                            
-                            <h5>Win.tscn</h5>
+                            <h5>Adding Character Previews (Optional)</h5>
                             <ul>
-                                <li>Create a new scene with <strong>Control</strong> root</li>
-                                <li>Add a <strong>Label</strong> with text "You Win!"</li>
-                                <li>Add a <strong>Label</strong> to display survival time</li>
-                                <li>Add a <strong>Button</strong> with text "Play Again"</li>
-                                <li>Add a <strong>Button</strong> with text "Main Menu"</li>
-                                <li>Save as <strong>"Win.tscn"</strong></li>
+                                <li>Add a <strong>TextureRect</strong> above each button</li>
+                                <li>Load a preview image of each character</li>
+                                <li>This gives visual feedback for the selection</li>
                             </ul>
-                            
                             <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> The Win scene is the reward for the player's effort. Make it feel celebratory with encouraging text and a final score.
+                                <strong>💡 Pro Tip:</strong> Using <code>HBoxContainer</code> automatically spaces the buttons horizontally. You can use <code>VBoxContainer</code> for vertical stacking.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Creating menu scenes" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 9.2: Creating Start and Win scenes for the game loop</div>
+                            <img src="../../_placeholderimage.png" alt="Character Buttons" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.2: Adding Character 1 and Character 2 buttons</div>
                         </div>
                     </div>
                 </div>
@@ -161,54 +145,38 @@ func win_game():
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="3">
-                            <span>Connect Menu Scene Scripts</span>
+                            <span>Add Selection Label and Start Button</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Scripting Menu Transitions</h4>
-                            
-                            <h5>Start.tscn Script</h5>
-                            <pre><code>extends Control
-
-func _ready():
-    $StartButton.pressed.connect(_on_start_pressed)
-    $QuitButton.pressed.connect(_on_quit_pressed)
-
-func _on_start_pressed():
-    get_tree().change_scene_to_file("res://Environment.tscn")
-
-func _on_quit_pressed():
-    get_tree().quit()</code></pre>
-
-                            <h5>Win.tscn Script</h5>
-                            <pre><code>extends Control
-
-func _ready():
-    # Display survival time
-    if get_tree().current_scene.has_method("get_survival_time"):
-        var time = get_tree().current_scene.get_survival_time()
-        $TimeLabel.text = "You survived: " + str(int(time)) + " seconds!"
-    
-    $PlayAgainButton.pressed.connect(_on_play_again_pressed)
-    $MainMenuButton.pressed.connect(_on_main_menu_pressed)
-
-func _on_play_again_pressed():
-    get_tree().reload_current_scene()
-
-func _on_main_menu_pressed():
-    get_tree().change_scene_to_file("res://Start.tscn")</code></pre>
+                            <h4>UI Elements</h4>
+                            <ul>
+                                <li>Add a <strong>Label</strong> as a child of the root Control</li>
+                                <li>Rename it to <strong>"SelectionLabel"</strong></li>
+                                <li>Set its <strong>Text</strong> to <strong>"No character selected"</strong></li>
+                                <li>Add a <strong>Button</strong> as a child of the root Control</li>
+                                <li>Rename it to <strong>"StartButton"</strong></li>
+                                <li>Set its <strong>Text</strong> to <strong>"Start Game"</strong></li>
+                            </ul>
+                            <h5>Positioning with Layout</h5>
+                            <ul>
+                                <li>Select the <strong>SelectionLabel</strong></li>
+                                <li>Set <strong>Horizontal Alignment</strong> to <strong>"Center"</strong></li>
+                                <li>Select the <strong>StartButton</strong></li>
+                                <li>Set <strong>Horizontal Alignment</strong> to <strong>"Center"</strong></li>
+                            </ul>
                             <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> Use <code>reload_current_scene()</code> to restart the game without reloading the entire project.
+                                <strong>💡 Pro Tip:</strong> Use <code>Anchor</code> and <code>Margin</code> properties to position elements precisely on the screen.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Menu scripts" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 9.3: Scripting menu transitions</div>
+                            <img src="../../_placeholderimage.png" alt="Selection Label and Start Button" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.3: Adding the selection label and Start button</div>
                         </div>
                     </div>
                 </div>
@@ -221,73 +189,75 @@ func _on_main_menu_pressed():
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="4">
-                            <span>Add Sound Effects</span>
+                            <span>Add the Character Select Script</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Adding Audio to Your Game</h4>
-                            <p>Sound effects make games feel alive and responsive.</p>
-                            <ul>
-                                <li>Find free sound effects (e.g., from <a href="https://kenney.nl/assets/category:Audio" target="_blank">Kenney Audio</a> or <a href="https://freesound.org/" target="_blank">Freesound.org</a>)</li>
-                                <li>Create an <strong>AudioStreamPlayer</strong> node for each sound</li>
-                                <li>Place them in your Player scene</li>
-                            </ul>
-                            <h5>Add to player.gd</h5>
-                            <pre><code># Add sound nodes
-@onready var hunt_sound = $HuntSound
-@onready var hurt_sound = $HurtSound
-@onready var footstep_sound = $FootstepSound
+                            <h4>Character Select Script</h4>
+                            <p>Attach this script to the root <strong>Control</strong> node:</p>
+                            <pre><code>extends Control
 
-func hunt():
-    hunt_ray.force_raycast_update()
+@onready var character1_button = $Character1Button
+@onready var character2_button = $Character2Button
+@onready var selection_label = $SelectionLabel
+@onready var start_button = $StartButton
+
+var selected_character = ""
+
+func _ready():
+    # Connect button signals
+    character1_button.pressed.connect(_on_character1_pressed)
+    character2_button.pressed.connect(_on_character2_pressed)
+    start_button.pressed.connect(_on_start_pressed)
     
-    if hunt_ray.is_colliding():
-        var collider = hunt_ray.get_collider()
-        
-        if collider.is_in_group("prey"):
-            collider.hunted()
-            eat(20)
-            hunt_sound.play()  # Play hunting sound
-        else:
-            # Play miss sound
-            hunt_sound.pitch_scale = 0.5
-            hunt_sound.play()
+    # Disable Start button initially
+    start_button.disabled = true
+    update_ui()
+
+func _on_character1_pressed():
+    selected_character = "character1"
+    update_ui()
+
+func _on_character2_pressed():
+    selected_character = "character2"
+    update_ui()
+
+func _on_start_pressed():
+    if selected_character != "":
+        # Store the selection in a global variable
+        Global.selected_character = selected_character
+        get_tree().change_scene_to_file("res://Environment.tscn")
     else:
-        # Play miss sound
-        hunt_sound.pitch_scale = 0.5
-        hunt_sound.play()
+        selection_label.text = "Please select a character!"
 
-func take_damage(amount):
-    health -= amount
-    health = max(health, 0)
-    hurt_sound.play()  # Play hurt sound
-    update_hud()
-    
-    if health <= 0:
-        game_over()
-
-func _physics_process(delta):
-    # ... movement code ...
-    
-    # Play footstep sounds when walking
-    if velocity.length() > 0.1 and is_on_floor():
-        # Play footstep sound (check timer)
-        footstep_timer += delta
-        if footstep_timer > 0.5:
-            footstep_sound.play()
-            footstep_timer = 0.0</code></pre>
+func update_ui():
+    if selected_character != "":
+        selection_label.text = "Selected: " + selected_character.capitalize()
+        start_button.disabled = false
+        
+        # Highlight selected button
+        character1_button.modulate = Color(1, 1, 1, 1)
+        character2_button.modulate = Color(1, 1, 1, 1)
+        
+        if selected_character == "character1":
+            character1_button.modulate = Color(0, 1, 0, 1)
+        elif selected_character == "character2":
+            character2_button.modulate = Color(0, 1, 0, 1)
+    else:
+        selection_label.text = "No character selected"
+        start_button.disabled = true</code></pre>
                             <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> You can adjust <code>pitch_scale</code> to make sounds slightly different each time, creating variety.
+                                <strong>💡 New Concept:</strong> <code>button.pressed.connect()</code> connects a button click to a function. When the button is clicked, the function runs.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Adding sound effects" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 9.4: Adding sound effects to the player</div>
+                            <img src="../../_placeholderimage.png" alt="Character Select Script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.4: The character selection script</div>
                         </div>
                     </div>
                 </div>
@@ -300,83 +270,48 @@ func _physics_process(delta):
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="5">
-                            <span>Polish the User Interface</span>
+                            <span>Create a Global.gd Autoload</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Making Your UI Shine</h4>
-                            <p>Polished UI helps players understand the game state quickly.</p>
+                            <h4>Storing the Selection</h4>
+                            <p>To use the selected character in the game, create an autoload script:</p>
                             <ul>
-                                <li>Add <strong>color gradients</strong> to health and hunger bars</li>
-                                <li>Add <strong>icons</strong> for health and hunger (heart, food)</li>
-                                <li>Add a <strong>timer display</strong> showing survival time</li>
-                                <li>Add <strong>subtle animations</strong> (pulsing bars, smooth transitions)</li>
+                                <li>Create a new script called <strong>"Global.gd"</strong></li>
                             </ul>
-                            <h5>Enhanced HUD Script</h5>
-                            <pre><code>extends CanvasLayer
+                            <pre><code>extends Node
 
-@onready var health_bar = $HealthBar
-@onready var hunger_bar = $HungerBar
-@onready var time_label = $TimeLabel
-@onready var player
-
-func _ready():
-    player = get_node("../Player")
-    if player:
-        update_display()
-
-func _process(delta):
-    if player:
-        # Update survival time display
-        var time = player.survival_time
-        var minutes = int(time / 60)
-        var seconds = int(time) % 60
-        time_label.text = str(minutes).pad_zeros(2) + ":" + str(seconds).pad_zeros(2)
-        
-        # Colorize bars based on values
-        update_bar_colors()
-
-func update_display():
-    if player:
-        health_bar.value = player.health
-        hunger_bar.value = player.hunger
-        
-        # Update labels if they exist
-        if health_bar.has_node("Label"):
-            health_bar.get_node("Label").text = str(int(player.health)) + "%"
-        if hunger_bar.has_node("Label"):
-            hunger_bar.get_node("Label").text = str(int(player.hunger)) + "%"
-
-func update_bar_colors():
-    # Health bar color: Green (high) → Yellow → Red (low)
-    var health_ratio = health_bar.value / health_bar.max_value
-    if health_ratio > 0.5:
-        health_bar.modulate = Color(0, 1, 0, 1)  # Green
-    elif health_ratio > 0.25:
-        health_bar.modulate = Color(1, 1, 0, 1)  # Yellow
-    else:
-        health_bar.modulate = Color(1, 0, 0, 1)  # Red
+var selected_character = ""</code></pre>
+                            <ul>
+                                <li>Go to <strong>Project → Project Settings → Autoload</strong></li>
+                                <li>Add <strong>Global.gd</strong> with the name <strong>"Global"</strong></li>
+                            </ul>
+                            <h5>Using the Selection in Player.gd</h5>
+                            <pre><code># In player.gd - _ready() or load_model()
+func load_model():
+    var character_name = Global.selected_character
+    var model_path = ""
+    match character_name:
+        "character1":
+            model_path = "res://assets/characters/character1.glb"
+        "character2":
+            model_path = "res://assets/characters/character2.glb"
+        _:
+            model_path = "res://assets/characters/default.glb"
     
-    # Hunger bar: Full (Green) → Empty (Red)
-    var hunger_ratio = hunger_bar.value / hunger_bar.max_value
-    if hunger_ratio > 0.5:
-        hunger_bar.modulate = Color(0.2, 0.8, 0.2, 1)
-    elif hunger_ratio > 0.25:
-        hunger_bar.modulate = Color(1, 0.7, 0.1, 1)  # Orange
-    else:
-        hunger_bar.modulate = Color(1, 0.1, 0.1, 1)  # Red</code></pre>
-                            <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> Color-coding bars helps players understand their status at a glance, even without reading numbers.
+    # Load and instantiate the model...</code></pre>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> The Autoload must be set up before the game runs. The character select scene should be the first scene loaded.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Polished UI" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 9.5: Enhanced UI with color gradients and timer display</div>
+                            <img src="../../_placeholderimage.png" alt="Global Autoload" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.5: Setting up the Global autoload</div>
                         </div>
                     </div>
                 </div>
@@ -389,53 +324,38 @@ func update_bar_colors():
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="6">
-                            <span>Test the Complete Game Loop</span>
+                            <span>Set Character Select as the Main Scene</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Testing Your Full Game</h4>
+                            <h4>Making It the Starting Point</h4>
                             <ul>
-                                <li>Set <strong>Start.tscn</strong> as the main scene in Project Settings</li>
-                                <li>Press <kbd>F5</kbd> to run the game</li>
-                                <li>Click <strong>"Start Game"</strong> to begin</li>
-                                <li>Survive for 2 minutes to reach the win screen</li>
-                                <li>Let your health reach 0 to see the Game Over screen</li>
-                                <li>Test all menu transitions (Play Again, Main Menu, Quit)</li>
+                                <li>Go to <strong>Project → Project Settings</strong></li>
+                                <li>Click the <strong>"General"</strong> tab</li>
+                                <li>Find <strong>Application → Run → Main Scene</strong></li>
+                                <li>Click the folder icon and select <strong>"character_select.tscn"</strong></li>
+                                <li>Click <strong>"Close"</strong></li>
                             </ul>
-                        </div>
-                        <div class="instruction-section">
-                            <h4>Complete Game Flow</h4>
-                            <div class="flow-diagram">
-                                <p><strong>Start.tscn</strong> → (Press "Start Game") → <strong>Environment.tscn</strong></p>
-                                <p>↓ (Player survives 120 seconds)</p>
-                                <p><strong>Win.tscn</strong> → (Press "Play Again") → <strong>Environment.tscn</strong> (Reset)</p>
-                                <p>↓ (Press "Main Menu")</p>
-                                <p><strong>Start.tscn</strong></p>
-                                <p style="margin-top: 10px;">— OR —</p>
-                                <p><strong>Environment.tscn</strong> → (Health reaches 0) → <strong>GameOver.tscn</strong></p>
-                                <p>↓ (Press "Try Again")</p>
-                                <p><strong>Environment.tscn</strong> (Reset)</p>
-                            </div>
-                        </div>
-                        <div class="instruction-section">
-                            <h4>Troubleshooting</h4>
+                            <h5>Testing</h5>
                             <ul>
-                                <li><strong>Win scene doesn't load:</strong> Check that win_time is set and the path to Win.tscn is correct</li>
-                                <li><strong>Game Over doesn't trigger:</strong> Check that take_damage() calls game_over()</li>
-                                <li><strong>Scene transitions fail:</strong> Check that scene file paths are correct (case-sensitive!)</li>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
+                                <li>You should see the Character Select screen</li>
+                                <li>Click Character 1 or Character 2</li>
+                                <li>The label should update to show your selection</li>
+                                <li>Click <strong>"Start Game"</strong> to load the environment</li>
                             </ul>
                             <div class="tip-box">
-                                <strong>🎉 Congratulations!</strong> You've completed Unit 3: Forage Fever! You've built a complete 3D survival game with planning, player movement, camera, hunger and health systems, prey and predator AI, hunting mechanics, and a polished game loop. Take the unit test to demonstrate your skills!
+                                <strong>🎉 Congratulations!</strong> You now have a character select screen that passes the player's choice into the game!
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Complete game loop" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 9.6: Testing the complete game loop from start to win</div>
+                            <img src="../../_placeholderimage.png" alt="Testing Character Select" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.6: Testing the full character select flow</div>
                         </div>
                     </div>
                 </div>
@@ -455,8 +375,9 @@ func update_bar_colors():
                 <a href="page7.html" class="page-button">Page 7</a>
                 <a href="page8.html" class="page-button">Page 8</a>
                 <span class="current-page">Page 9</span>
+                <a href="page10.html" class="page-button">Page 10 →</a>
             </div>
-            <a href="test.html" class="nav-button primary">Take Unit Test →</a>
+            <a href="page10.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>
     <script src="../../course-data.js"></script>

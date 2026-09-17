@@ -40,7 +40,7 @@ const COURSE_DATA = {
         description: "Create a 3D survival game where you hunt animals for food while managing hunger and avoiding predators!",
         difficulty: "Intermediate",
         estimatedTime: "6 hours",
-        sections: 9,
+        sections: 10,
         pages: {
             1: { name: "Game Design Document", steps: 7 },
             2: { name: "3D Project Setup & Environment", steps: 5 },
@@ -50,13 +50,14 @@ const COURSE_DATA = {
             6: { name: "Prey AI (Flee)", steps: 6 },
             7: { name: "Predator AI (Chase)", steps: 6 },
             8: { name: "Hunting Mechanic", steps: 6 },
-            9: { name: "Game Loop & Polish", steps: 6 },
-            test: { name: "Unit 3 Test", steps: 15 }
+            9: { name: "Character Select Screen", steps: 6 },
+            10: { name: "Game Loop & Polish", steps: 6 },
+            test: { name: "Unit 3 Test", steps: 13 }
         }
     }
 
     // Add new units here when you create them:
-    // 3: { 
+    // 4: { 
     //     name: "Scripting Basics",
     //     description: "Start coding with GDScript",
     //     difficulty: "Intermediate",
