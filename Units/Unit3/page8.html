@@ -16,7 +16,7 @@
                 <span>Hunting Mechanic</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section 8 of 9</span>
+                <span class="section-nav-current">Section 8 of 10</span>
                 <a href="page9.html" class="next-button">Next Section →</a>
             </div>
         </div>
@@ -32,7 +32,7 @@
                 <div class="placeholder-content">
                     <div class="placeholder-icon">📺</div>
                     <h3>Section 8 Videos</h3>
-                    <p>Watch: "Hunting Mechanic with Raycasting"</p>
+                    <p>Watch: "Hunting Mechanic with ShapeCast3D"</p>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
         <!-- Section Header -->
         <div class="unit-header">
             <h1>Section 8: Hunting Mechanic</h1>
-            <p class="unit-description">Add a hunting tool that uses raycasting to hunt prey animals and restore hunger.</p>
+            <p class="unit-description">Add a hunting tool that uses a ShapeCast3D to detect and hunt prey animals, with a smoke puff effect when they're hit.</p>
         </div>
 
         <!-- Steps Container -->
@@ -59,38 +59,33 @@
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="1">
-                            <span>Add a RayCast3D to the Player</span>
+                            <span>Set Up the "hunt" Input Action</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>What is Raycasting?</h4>
-                            <p>Raycasting is like shooting an invisible laser from a point in a direction. It detects the first object it hits and tells you what it hit. This is perfect for hunting!</p>
+                            <h4>Creating the Input Action</h4>
+                            <p>We'll set up a single input action called "hunt" that responds to both the left mouse button and the spacebar.</p>
                             <ul>
-                                <li>Open your <strong>player.tscn</strong> scene</li>
-                                <li>Select the <strong>Player</strong> (CharacterBody3D) node</li>
-                                <li>Add a child node: <strong>RayCast3D</strong></li>
-                                <li>Rename it to <strong>"HuntRay"</strong></li>
-                            </ul>
-                            <h5>Configuring the RayCast3D</h5>
-                            <ul>
-                                <li>Select the <strong>HuntRay</strong> node</li>
-                                <li>In the Inspector, set <strong>Target Position</strong> to <strong>(0, 0, -10)</strong></li>
-                                <li>This makes the ray point forward 10 meters</li>
-                                <li>Set <strong>Collision Mask</strong> to the layer your prey is on (usually Layer 1)</li>
-                                <li>Enable <strong>Hit From Inside</strong> if the ray starts inside the player</li>
+                                <li>Go to <strong>Project → Project Settings</strong></li>
+                                <li>Click the <strong>"Input Map"</strong> tab</li>
+                                <li>In the "Add New Action" field, type: <strong>hunt</strong></li>
+                                <li>Click <strong>"Add"</strong></li>
+                                <li>Click the <strong>"+"</strong> icon next to your new "hunt" action</li>
+                                <li>Choose <strong>"Mouse Button"</strong> → select <strong>"Left Mouse Button"</strong> → Click <strong>"OK"</strong></li>
+                                <li>If there's another button you'd like to add also, add it here now.</li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 New Concept:</strong> RayCast3D is a node that detects objects in a straight line. It's commonly used for shooting, line of sight, and interaction systems.
+                                <strong>💡 Why a Single Action?</strong> Using one action for both inputs makes your code cleaner. Just check <code>Input.is_action_just_pressed("hunt")</code> and it works for both.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Adding RayCast3D" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.1: Adding a RayCast3D to the Player node</div>
+                            <img src="../../_placeholderimage.png" alt="Setting up hunt input" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.1: Setting up the "hunt" input action with Space and LMB</div>
                         </div>
                     </div>
                 </div>
@@ -103,65 +98,40 @@
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="2">
-                            <span>Add Hunting Input Handling</span>
+                            <span>Add a ShapeCast3D to the Player</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Setting Up the Hunt Action</h4>
-                            <p>We'll use the mouse click or a keyboard key to trigger the hunt action.</p>
+                            <h4>What is ShapeCast3D?</h4>
+                            <p>ShapeCast3D is like a RayCast3D but with <strong>thickness</strong>. Instead of a thin line, it casts a shape (like a sphere) forward, which makes it much more forgiving for detecting small or moving objects like animals.</p>
                             <ul>
-                                <li>Open your <strong>player.gd</strong> script</li>
-                                <li>Add these variables and functions:</li>
+                                <li>Open your <strong>player.tscn</strong> scene</li>
+                                <li>Select the <strong>Player</strong> (CharacterBody3D) node</li>
+                                <li>Add a child node: <strong>ShapeCast3D</strong></li>
+                                <li>Rename it to <strong>"HuntCast"</strong></li>
                             </ul>
-                            <pre><code># Add to player.gd
-@onready var hunt_ray = $HuntRay
-
-func _input(event):
-    # Hunt with Left Mouse Click
-    if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-        hunt()
-    
-    # Alternative: Hunt with Spacebar
-    if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
-        hunt()
-
-func hunt():
-    # Force the ray to update
-    hunt_ray.force_raycast_update()
-    
-    if hunt_ray.is_colliding():
-        var collider = hunt_ray.get_collider()
-        print("Hunting target: ", collider.name)
-        
-        # Check if the collider is a prey animal
-        if collider.is_in_group("prey"):
-            # Successfully hunted!
-            collider.hunted()
-            eat(20)  # Restore hunger
-            print("Hunted prey! Hunger restored.")</code></pre>
-                        </div>
-                        <div class="instruction-section">
-                            <h4>Understanding the Code</h4>
+                            <h5>Configuring the ShapeCast3D</h5>
                             <ul>
-                                <li><strong>_input(event)</strong> - Handles input events (mouse clicks, keyboard presses)</li>
-                                <li><strong>MOUSE_BUTTON_LEFT</strong> - Detects left mouse click</li>
-                                <li><strong>force_raycast_update()</strong> - Makes the ray check for collisions immediately</li>
-                                <li><strong>is_colliding()</strong> - Returns true if the ray hit something</li>
-                                <li><strong>get_collider()</strong> - Returns the object the ray hit</li>
-                                <li><strong>is_in_group("prey")</strong> - Checks if the object belongs to the "prey" group</li>
+                                <li>In the Inspector, click the <strong>"Shape"</strong> dropdown</li>
+                                <li>Select <strong>"New SphereShape3D"</strong></li>
+                                <li>Set <strong>Radius</strong> to <strong>0.5</strong></li>
+                                <li>Set <strong>Target Position</strong> to <strong>(0, 0, -5)</strong></li>
+                                <li>Set <strong>Position</strong> to <strong>(0, 1.5, 0)</strong> (eye level)</li>
+                                <li>Enable <strong>"Exclude Parent"</strong></li>
+                                <li>Set <strong>Collision Mask</strong> to match your prey's layer</li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 New Concept:</strong> <strong>Groups</strong> are a way to tag nodes. We'll add prey animals to the "prey" group so the ray can identify them specifically.
+                                <strong>💡 Why ShapeCast3D?</strong> A sphere shape means you don't have to aim with pixel-perfect precision. It's much more forgiving and works better with animated prey.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Hunting input handling" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.2: Adding hunt input handling to the player script</div>
+                            <img src="../../_placeholderimage.png" alt="Adding ShapeCast3D" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.2: Adding a ShapeCast3D to the Player</div>
                         </div>
                     </div>
                 </div>
@@ -174,41 +144,69 @@ func hunt():
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="3">
-                            <span>Add Prey Group and Hunted Function</span>
+                            <span>Create the Smoke Puff Scene</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Making Prey Huntable</h4>
-                            <p>Open your <strong>Prey</strong> scene and add it to a group with a <code>hunted()</code> function.</p>
+                            <h4>Building the Visual Effect</h4>
+                            <p>We'll create a reusable smoke puff scene that spawns when prey is hit.</p>
                             <ul>
-                                <li>Open <strong>prey.tscn</strong></li>
-                                <li>Select the root <strong>Prey</strong> node</li>
-                                <li>In the Inspector, click the <strong>"Node"</strong> tab (next to Inspector)</li>
-                                <li>Under <strong>"Groups"</strong>, type <strong>"prey"</strong> and click <strong>"Add"</strong></li>
+                                <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
+                                <li>Add a <strong>Node3D</strong> as the root</li>
+                                <li>Rename it to <strong>"SmokePuff"</strong></li>
+                                <li>Add a <strong>MeshInstance3D</strong> as a child</li>
+                                <li>In the Inspector, click the <strong>"Mesh"</strong> dropdown → select <strong>"New SphereMesh"</strong></li>
+                                <li>Set <strong>Radius</strong> to <strong>0.3</strong> and <strong>Height</strong> to <strong>0.6</strong></li>
+                                <li>Save the scene as <strong>"smoke_puff.tscn"</strong></li>
                             </ul>
-                            <p>Now add the <code>hunted()</code> function to the Prey script:</p>
-                            <pre><code># Add to prey.gd
-func hunted():
-    # Create a visual effect (optional)
-    # Flash red or play a death animation
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Making It Look Like Smoke</h4>
+                            <ul>
+                                <li>Select the <strong>MeshInstance3D</strong></li>
+                                <li>In the Inspector, find <strong>"Material Override"</strong></li>
+                                <li>Click the dropdown → select <strong>"New StandardMaterial3D"</strong></li>
+                                <li>Click the material to edit it</li>
+                                <li>Set <strong>Albedo</strong> color to a light gray (e.g., <code>0.8, 0.8, 0.8</code>)</li>
+                                <li>Set <strong>Alpha</strong> to <strong>0.7</strong></li>
+                                <li>Under <strong>"Transparency"</strong>, choose <strong>"Alpha"</strong></li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Adding the Smoke Script</h4>
+                            <p>Add this script to the <strong>SmokePuff</strong> root node:</p>
+                            <pre><code>extends Node3D
+
+@onready var mesh = $MeshInstance3D
+
+func _ready():
+    # Randomize initial scale for variety
+    var random_scale = randf_range(0.5, 1.2)
+    scale = Vector3(random_scale, random_scale, random_scale)
     
-    # Remove the prey from the game
-    queue_free()
+    # Randomize initial rotation for variety
+    rotation.y = randf_range(0, TAU)
     
-    # Optional: Spawn a food pickup
-    # spawn_food_pickup(global_position)</code></pre>
+    # Animate: grow and fade out
+    var tween = create_tween()
+    tween.set_parallel(true)
+    tween.tween_property(self, "scale", scale * 2.5, 0.5)
+    tween.tween_property(mesh, "transparency", 1.0, 0.5)
+    
+    # Remove the smoke puff after the animation
+    tween.chain().tween_callback(queue_free)</code></pre>
                             <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> Groups are a powerful way to categorize nodes. You can check if any node is in a group with <code>is_in_group()</code>.
+                                <strong>💡 New Concept:</strong> <code>create_tween()</code> creates an animation that runs over time. <code>set_parallel(true)</code> makes multiple properties animate at the same time.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Prey group and hunted function" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.3: Adding the Prey to the "prey" group with a hunted() function</div>
+                            <img src="../../_placeholderimage.png" alt="Creating smoke puff" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.3: Creating the smoke puff scene with a sphere mesh</div>
                         </div>
                     </div>
                 </div>
@@ -221,60 +219,33 @@ func hunted():
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="4">
-                            <span>Add Visual Feedback for Hunting</span>
+                            <span>Add the Prey Group and Hunted Function</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Making Hunting Feel Satisfying</h4>
-                            <p>Add visual feedback when you hunt to make the action feel responsive.</p>
-                            <p>In <strong>player.gd</strong>, update the <code>hunt()</code> function:</p>
-                            <pre><code>func hunt():
-    hunt_ray.force_raycast_update()
-    
-    if hunt_ray.is_colliding():
-        var collider = hunt_ray.get_collider()
-        var hit_point = hunt_ray.get_collision_point()
-        
-        # Add hit effect (particle, flash, or glow)
-        add_hit_effect(hit_point)
-        
-        if collider.is_in_group("prey"):
-            collider.hunted()
-            eat(20)
-            print("Hunted prey! Hunger restored.")
-        else:
-            print("Not a prey animal.")
-    else:
-        print("Missed!")</code></pre>
-                            <p>Add a simple hit effect function:</p>
-                            <pre><code>func add_hit_effect(position):
-    # Simple flash effect - you can replace with particles later
-    var flash = MeshInstance3D.new()
-    flash.mesh = SphereMesh.new()
-    flash.scale = Vector3(0.3, 0.3, 0.3)
-    flash.position = position
-    flash.material_override = StandardMaterial3D.new()
-    flash.material_override.albedo_color = Color(1, 0.5, 0, 1)  # Orange flash
-    
-    get_parent().add_child(flash)
-    
-    # Fade out and remove
-    var tween = create_tween()
-    tween.tween_property(flash, "scale", Vector3(2, 2, 2), 0.5)
-    tween.parallel().tween_property(flash, "modulate", Color(1, 1, 1, 0), 0.5)
-    tween.tween_callback(flash.queue_free)</code></pre>
+                            <h4>Making Prey Huntable</h4>
+                            <ul>
+                                <li>Open <strong>prey.tscn</strong></li>
+                                <li>Select the root <strong>Prey</strong> (CharacterBody3D) node</li>
+                                <li>In the Inspector, click the <strong>"Node"</strong> tab (next to Inspector)</li>
+                                <li>Under <strong>"Groups"</strong>, type <strong>"prey"</strong> and click <strong>"Add"</strong></li>
+                            </ul>
+                            <p>Then add this to the <strong>prey.gd</strong> script:</p>
+                            <pre><code>func hunted():
+    # The smoke puff is spawned by the player's hunt function
+    queue_free()</code></pre>
                             <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> Visual feedback is crucial for satisfying game feel. Even a simple flash or pop effect makes hunting feel more impactful.
+                                <strong>💡 Pro Tip:</strong> Groups are a powerful way to categorize nodes. You can check if any node is in a group with <code>is_in_group()</code>.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Visual feedback" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.4: Adding visual feedback for successful and missed hunts</div>
+                            <img src="../../_placeholderimage.png" alt="Prey group setup" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.4: Adding the Prey to the "prey" group with a hunted() function</div>
                         </div>
                     </div>
                 </div>
@@ -287,37 +258,73 @@ func hunted():
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="5">
-                            <span>Add a Hunting Tool Visual (Optional)</span>
+                            <span>Add the Hunt Function to the Player Script</span>
                         </label>
                     </div>
                 </div>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Equipping a Hunting Tool</h4>
-                            <p>Add a visual representation of a hunting tool (spear, bow, staff) to the player's hand.</p>
+                            <h4>Player Hunt Script</h4>
+                            <p>Open your <strong>player.gd</strong> script and add these elements:</p>
+                            <pre><code># Add these at the top of your player script
+@onready var hunt_cast = $HuntCast
+var smoke_puff_scene = preload("res://smoke_puff.tscn")
+
+# Add this to _physics_process() (or wherever you check input)
+func _physics_process(delta):
+    # ... your existing movement code ...
+    
+    if Input.is_action_just_pressed("hunt"):
+        hunt()
+    
+    move_and_slide()
+
+# The hunt function
+func hunt():
+    # Force the shapecast to update immediately
+    hunt_cast.force_shapecast_update()
+    
+    if hunt_cast.is_colliding():
+        # Get all colliders hit by the shape
+        for i in range(hunt_cast.get_collision_count()):
+            var collider = hunt_cast.get_collider(i)
+            
+            if collider.is_in_group("prey"):
+                # Spawn smoke puff at the prey's position
+                spawn_smoke_puff(collider.global_position)
+                
+                # Hunt the prey
+                collider.hunted()
+                
+                # Restore hunger
+                eat(20)
+                print("Hunted prey! Hunger restored.")
+                return  # Only hunt one prey at a time
+
+func spawn_smoke_puff(spawn_position):
+    var smoke = smoke_puff_scene.instantiate()
+    smoke.global_position = spawn_position
+    get_parent().add_child(smoke)</code></pre>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Understanding the Code</h4>
                             <ul>
-                                <li>Open <strong>player.tscn</strong></li>
-                                <li>Select the <strong>Player</strong> node</li>
-                                <li>Add a child node: <strong>MeshInstance3D</strong></li>
-                                <li>Rename it to <strong>"HuntingTool"</strong></li>
-                                <li>Set the mesh to a simple <strong>CylinderMesh</strong> (spear) or import a weapon model</li>
+                                <li><strong>force_shapecast_update()</strong> - Makes the shapecast check for collisions immediately</li>
+                                <li><strong>get_collision_count()</strong> - Returns how many objects the shapecast is hitting</li>
+                                <li><strong>get_collider(i)</strong> - Gets the specific collider at index i</li>
+                                <li><strong>is_in_group("prey")</strong> - Checks if the object belongs to the "prey" group</li>
+                                <li><strong>preload()</strong> - Loads the smoke puff scene once for reuse</li>
                             </ul>
-                            <p>Position and rotate the tool to appear in the player's hand:</p>
-                            <pre><code># In the Player script, adjust the tool position
-func _ready():
-    # Position the tool in front of the camera
-    $HuntingTool.position = Vector3(0.3, -0.2, -0.5)
-    $HuntingTool.rotation = Vector3(0.2, 0, 0.5)</code></pre>
                             <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> A visible hunting tool helps players understand the mechanic immediately. You can animate it to swing or extend when hunting!
+                                <strong>💡 New Concept:</strong> <code>for i in range()</code> loops through all collisions. This is important because the shapecast might hit multiple prey at once!
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Hunting tool visual" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.5: Adding a visual hunting tool to the player</div>
+                            <img src="../../_placeholderimage.png" alt="Hunt function" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.5: The hunt function using ShapeCast3D</div>
                         </div>
                     </div>
                 </div>
@@ -341,30 +348,30 @@ func _ready():
                             <ul>
                                 <li>Press <kbd>F5</kbd> to run the game</li>
                                 <li>Walk toward a prey animal</li>
-                                <li>Click <strong>Left Mouse Button</strong> or press <strong>Space</strong> to hunt</li>
+                                <li>Press <strong>Space</strong> or <strong>Left Mouse Button</strong></li>
+                                <li>A <strong>smoke puff</strong> should appear at the prey's location</li>
                                 <li>The prey should <strong>disappear</strong></li>
                                 <li>Your <strong>hunger bar</strong> should increase by 20</li>
-                                <li>If you miss, you should see a "Missed!" message</li>
                             </ul>
                         </div>
                         <div class="instruction-section">
                             <h4>Troubleshooting Common Issues</h4>
                             <ul>
+                                <li><strong>No prey hit:</strong> Check that the ShapeCast3D's Collision Mask matches the prey's layer</li>
+                                <li><strong>Smoke puff doesn't appear:</strong> Check that smoke_puff.tscn exists and the path is correct</li>
                                 <li><strong>Prey doesn't disappear:</strong> Check that the Prey is in the "prey" group</li>
-                                <li><strong>Hunger doesn't increase:</strong> Check that eat() is called and working</li>
-                                <li><strong>Ray doesn't hit:</strong> Check that Collision Mask matches the Prey's layer</li>
-                                <li><strong>Hunting tool doesn't appear:</strong> Check the position and rotation of the tool</li>
-                                <li><strong>No feedback on hit:</strong> Ensure the visual feedback code runs</li>
+                                <li><strong>Hunting hits trees:</strong> The shape is large - this is expected! The prey check filters them out</li>
+                                <li><strong>Smoke puff is too small/large:</strong> Adjust the radius in smoke_puff.tscn</li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Congratulations!</strong> You now have a working hunting mechanic! You can hunt prey to restore hunger, completing the survival loop. In the next section, you'll add the game loop and polish!
+                                <strong>🎉 Congratulations!</strong> You now have a working hunting mechanic with visual feedback! You can hunt prey to restore hunger, and the smoke puff makes it feel satisfying.
                             </div>
                         </div>
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Testing hunting mechanic" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.6: Testing the complete hunting mechanic</div>
+                            <img src="../../_placeholderimage.png" alt="Testing hunting" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.6: Testing the complete hunting mechanic with smoke puff</div>
                         </div>
                     </div>
                 </div>
@@ -384,6 +391,7 @@ func _ready():
                 <a href="page7.html" class="page-button">Page 7</a>
                 <span class="current-page">Page 8</span>
                 <a href="page9.html" class="page-button">Page 9 →</a>
+                <a href="page10.html" class="page-button">Page 10</a>
             </div>
             <a href="page9.html" class="nav-button primary">Next Section →</a>
         </div>
