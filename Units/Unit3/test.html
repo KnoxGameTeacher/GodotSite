@@ -300,8 +300,30 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="step-card" data-step="bonus3" data-bonus-value="5">
+                    <div class="step-header">
+                        <div class="step-number">⭐</div>
+                        <div class="step-title">
+                            <label><input type="checkbox" class="step-check" data-step="bonus3" data-bonus-value="5"> Stats Screen (5 points)</label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>🏆 Bonus Challenge 3</h4>
+                            <p>Track and display player statistics on the Win screen (and optionally the Game Over screen).</p>
+                            <ul>
+                                <li>Track at least 3 stats during gameplay, ex. time survived, prey hunted, predators defeated (2 points)</li>
+                                <li>Display the stats on the Win screen with clear labels (2 points)</li>
+                                <li>Add a "Best Stats" section that stores the highest values using a simple save file (1 point)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Implementation Hint:</strong> Store stats in a Global autoload (<code>Global.prey_hunted += 1</code>) and read them from the Win screen. For persistent high scores, use <code>FileAccess</code> to write a simple save file. For an easier version, students can display session stats only.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
         <!-- Submission Section -->
         <div class="submission-section">
@@ -311,6 +333,7 @@
                     <h3>What to Submit</h3>
                     <ul>
                         <li>Entire Godot project folder (compressed as .zip)</li>
+                        <li>Game uploaded to Itch and linked</li>
                         <li>At least 3 prey types and 3 predator types</li>
                         <li>Health warning system implemented</li>
                         <li>Screenshots of your game in action</li>
@@ -358,13 +381,16 @@
                 if (checkbox && checkbox.checked) earnedPoints += points;
             }
             
-            // Bonus challenges (bonus1-bonus2) - each worth up to 5 points
-            let bonusPoints = 0;
+            let bonusScore = 0;
+            let bonusCount = 0;
             const bonus1 = document.querySelector('.step-check[data-step="bonus1"]');
             const bonus2 = document.querySelector('.step-check[data-step="bonus2"]');
-            
-            if (bonus1 && bonus1.checked) bonusPoints += 5;
-            if (bonus2 && bonus2.checked) bonusPoints += 5;
+            const bonus3 = document.querySelector('.step-check[data-step="bonus3"]');
+
+            // Cap at 2 bonus challenges (max 10 points)
+            if (bonus1 && bonus1.checked && bonusCount < 2) { bonusScore += 5; bonusCount++; }
+            if (bonus2 && bonus2.checked && bonusCount < 2) { bonusScore += 5; bonusCount++; }
+            if (bonus3 && bonus3.checked && bonusCount < 2) { bonusScore += 5; bonusCount++; }
             
             const totalScore = earnedPoints + bonusPoints;
             

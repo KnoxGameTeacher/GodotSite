@@ -21,20 +21,22 @@
             </div>
         </div>
 
-        <!-- YouTube Section -->
+        <!-- YouTube Playlist Thumbnail Link -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
                 <h2>Video Tutorials</h2>
                 <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <div class="youtube-placeholder">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">📺</div>
-                    <h3>Section 8 Videos</h3>
-                    <p>Watch: "Hunting Mechanic with ShapeCast3D"</p>
+            <a href="https://www.youtube.com/playlist?list=PLZoJ_yrrQ3_A" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/U3L5-5.png" alt="Godot Unit 3 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Section Header -->
@@ -82,12 +84,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Setting up hunt input" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.1: Setting up the "hunt" input action with Space and LMB</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -130,7 +126,7 @@
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Adding ShapeCast3D" width="600" height="400" class="step-image">
+                            <img src="./Images/U3L8-2.png" alt="Adding ShapeCast3D" width="600" height="400" class="step-image">
                             <div class="image-caption">Figure 8.2: Adding a ShapeCast3D to the Player</div>
                         </div>
                     </div>
@@ -203,12 +199,6 @@ func _ready():
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Creating smoke puff" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.3: Creating the smoke puff scene with a sphere mesh</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -240,12 +230,6 @@ func _ready():
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> Groups are a powerful way to categorize nodes. You can check if any node is in a group with <code>is_in_group()</code>.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Prey group setup" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.4: Adding the Prey to the "prey" group with a hunted() function</div>
                         </div>
                     </div>
                 </div>
@@ -321,12 +305,6 @@ func spawn_smoke_puff(spawn_position):
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Hunt function" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.5: The hunt function using ShapeCast3D</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -366,12 +344,6 @@ func spawn_smoke_puff(spawn_position):
                             <div class="tip-box">
                                 <strong>🎉 Congratulations!</strong> You now have a working hunting mechanic with visual feedback! You can hunt prey to restore hunger, and the smoke puff makes it feel satisfying.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Testing hunting" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 8.6: Testing the complete hunting mechanic with smoke puff</div>
                         </div>
                     </div>
                 </div>

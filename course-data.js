@@ -48,10 +48,10 @@ const COURSE_DATA = {
             4: { name: "Third-Person Camera", steps: 6 },
             5: { name: "Hunger & Health Systems", steps: 5 },
             6: { name: "Prey AI (Flee)", steps: 6 },
-            7: { name: "Predator AI (Chase)", steps: 6 },
+            7: { name: "Predator AI (Chase)", steps: 5 },
             8: { name: "Hunting Mechanic", steps: 6 },
-            9: { name: "Character Select Screen", steps: 6 },
-            10: { name: "Game Loop & Polish", steps: 6 },
+            9: { name: "Character Select Screen", steps: 9 },
+            10: { name: "Game Loop & Polish", steps: 10 },
             test: { name: "Unit 3 Test", steps: 13 }
         }
     }

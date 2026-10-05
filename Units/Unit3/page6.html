@@ -21,20 +21,22 @@
             </div>
         </div>
 
-        <!-- YouTube Section -->
+        <!-- YouTube Playlist Thumbnail Link -->
         <div class="youtube-section">
             <div class="section-header">
                 <span class="section-icon">▶</span>
                 <h2>Video Tutorials</h2>
                 <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
             </div>
-            <div class="youtube-placeholder">
-                <div class="placeholder-content">
-                    <div class="placeholder-icon">📺</div>
-                    <h3>Section 6 Videos</h3>
-                    <p>Watch: "Prey AI - Flee Behavior in Godot"</p>
+            <a href="https://www.youtube.com/playlist?list=PLZoJ_yrrQ3_A" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/U3L5-5.png" alt="Godot Unit 3 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Section Header -->
@@ -86,12 +88,6 @@
                             <div class="tip-box">
                                 <strong>💡 Why a ModelContainer?</strong> This makes it easy to swap different animal models without affecting the collision or behavior logic.
                             </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Creating the prey scene" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 6.1: Creating the Prey scene with CharacterBody3D and ModelContainer</div>
                         </div>
                     </div>
                 </div>
@@ -288,7 +284,7 @@ func _physics_process(delta: float) -> void:
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Placing prey in environment" width="600" height="400" class="step-image">
+                            <img src="./Images/U3L6-4.png" alt="Placing prey in environment" width="600" height="400" class="step-image">
                             <div class="image-caption">Figure 6.4: Placing multiple prey animals with different types in the environment</div>
                         </div>
                     </div>
@@ -407,12 +403,6 @@ func _physics_process(delta: float) -> void:
                             </div>
                         </div>
                     </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Detection area with editable radius" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 6.5: Adding an Area3D with editable detection range while preserving ground collision</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -455,7 +445,7 @@ func _physics_process(delta: float) -> void:
                     </div>
                     <div class="step-media">
                         <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Testing prey AI" width="600" height="400" class="step-image">
+                            <img src="./Images/U3L6-6.png" alt="Testing prey AI" width="600" height="400" class="step-image">
                             <div class="image-caption">Figure 6.6: Testing multiple prey types with different models and behaviors</div>
                         </div>
                     </div>
