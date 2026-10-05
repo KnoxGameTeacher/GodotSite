@@ -54,6 +54,31 @@ const COURSE_DATA = {
             10: { name: "Game Loop & Polish", steps: 10 },
             test: { name: "Unit 3 Test", steps: 13 }
         }
+    },
+    4: {
+        name: "Blocky Blocks",
+        description: "Build an endless 3D tower defense game with custom towers, state machines, and persistent high scores!",
+        difficulty: "Intermediate",
+        estimatedTime: "8 hours",
+        sections: 15,
+        pages: {
+            1: { name: "Game Design Document", steps: 7 },
+            2: { name: "Project Setup & Environment", steps: 4 },
+            3: { name: "Custom Tower Assets with Asset Forge", steps: 5 },
+            4: { name: "Creating the Enemy Scene", steps: 4 },
+            5: { name: "Path Following with Path3D", steps: 5 },
+            6: { name: "Placement Zones & Preview", steps: 5 },
+            7: { name: "Click-to-Place & Validation", steps: 5 },
+            8: { name: "State Machine Fundamentals", steps: 6 },
+            9: { name: "Attacking & Cooldown States", steps: 6 },
+            10: { name: "Projectiles & Damage", steps: 5 },
+            11: { name: "Wave Manager Basics", steps: 5 },
+            12: { name: "Infinite Scaling & Difficulty", steps: 5 },
+            13: { name: "Gold Economy", steps: 5 },
+            14: { name: "Save System with JSON", steps: 6 },
+            15: { name: "High Score Tracking", steps: 5 },
+            test: { name: "Unit 4 Test", steps: 0 }
+        }
     }
 
     // Add new units here when you create them:

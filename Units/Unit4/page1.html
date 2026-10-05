@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.1: Game Design Document - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 4</a> > 
+                <span>Game Design Document</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 1 of 15</span>
+                <a href="page2.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 1 Videos</h3>
+                    <p>Watch: "Advanced Game Design Planning"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 1: Game Design Document</h1>
+            <p class="unit-description">Plan your tower defense game by making deliberate design decisions rather than filling in a template.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="1">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>From Planning to Designing</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>A Different Approach to GDD</h4>
+                            <p>In Unit 3, you learned <em>how</em> to make a Game Design Document. You learned about MVP, scope creep, and how to structure a plan.</p>
+                            <p>In Unit 4, we're going to take that a step further. Instead of filling in a template, you'll learn to <strong>think like a designer</strong> — making deliberate decisions about what your game is and what it isn't.</p>
+                            <p>These skills apply to <strong>any game you make in the future</strong>, not just Blocky Blocks.</p>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>What You'll Do This Time</h4>
+                            <ul>
+                                <li>Define <strong>design pillars</strong> that guide every decision</li>
+                                <li>Analyze <strong>reference games</strong> to learn from existing tower defense games</li>
+                                <li>Fill in a <strong>genre-specific GDD</strong> that asks harder questions</li>
+                                <li>Use a <strong>prioritization matrix</strong> to deliberately cut features</li>
+                                <li>Plan <strong>playtesting questions</strong> before you build</li>
+                                <li>Prepare for <strong>iteration</strong> with a Change Log</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Key Idea:</strong> A GDD isn't a form to fill out. It's a thinking tool that helps you make better decisions before you spend hours building the wrong thing.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Design Pillars: Your Game's Core Ideas</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>What Are Design Pillars?</h4>
+                            <p>Design pillars are <strong>2-3 short statements</strong> that define what your game is about. Every design decision you make should support at least one pillar.</p>
+                            <p>Examples from real games:</p>
+                            <ul>
+                                <li><strong>Plants vs Zombies:</strong> "Accessible to anyone, satisfying to master"</li>
+                                <li><strong>Bloons TD:</strong> "Endless waves, endless strategies"</li>
+                                <li><strong>Kingdom Rush:</strong> "Heroes matter, choices matter"</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Write Your Own Pillars</h4>
+                            <p>Take a few minutes to write 2-3 design pillars for your Blocky Blocks tower defense game. Think about:</p>
+                            <ul>
+                                <li>What should the player <strong>feel</strong> while playing?</li>
+                                <li>What makes your version of the game <strong>unique</strong>?</li>
+                                <li>What is the <strong>core loop</strong> and what makes it satisfying?</li>
+                            </ul>
+                            <p>Write them down somewhere you can refer back to (your GDD document).</p>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> If you're ever unsure whether to add a feature, check it against your pillars. If it doesn't support at least one pillar, cut it. This keeps your game focused.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Design pillars" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.2: Design pillars are the foundation of every decision</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Reference Analysis: Learning from Other Games</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Why Analyze References?</h4>
+                            <p>Before you make your own game, look at 1-2 games in the same genre. Ask <em>why</em> they made certain choices — not just what they did. This is how professional designers plan.</p>
+                            <p>Some tower defense games you can analyze:</p>
+                            <ul>
+                                <li><strong>Plants vs Zombies</strong> — Accessible, lane-based defense</li>
+                                <li><strong>Bloons TD</strong> — Endless waves, upgrade paths</li>
+                                <li><strong>Kingdom Rush</strong> — Heroes, hand-drawn art style</li>
+                                <li><strong>Sanctum</strong> — 3D first-person tower defense</li>
+                            </ul>
+                            <p>You can also browse tower defense games on <a href="https://itch.io/games/tag-tower-defense" target="_blank">Itch.io</a> or watch gameplay videos on YouTube.</p>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Fill In This Reference Table</h4>
+                            <p>Pick a tower defense game and analyze it. Write this into your GDD.</p>
+                            <ul>
+                                <li><strong>What I Like:</strong> Mechanics, pacing, or features that appeal to you</li>
+                                <li><strong>What I'd Change:</strong> Things that could be improved or weren't satisfying</li>
+                                <li><strong>What I'll Borrow:</strong> Ideas you want to adapt into your own game</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Key Idea:</strong> You don't need to reinvent the wheel. Games in the same genre share mechanics because they work. Uniqueness comes from your pillars and polish.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Reference analysis" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.3: Learning from games in your genre</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>The Tower Defense GDD Template</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Build Your Own GDD</h4>
+                            <p>You had experience with a GDD template from Unit 3, but now you'll adapt it for your tower defense game.</p>
+                            <p>You can either make your own or use the template from last unit to get started.</p>
+                            <p>If you use the template, you'll need to add the sections below into it:</p>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Key Sections to Fill Out</h4>
+                            <ul>
+                                <li><strong>Tower Design</strong> — How many towers? What makes each unique? (Fast, splash, sniper?)</li>
+                                <li><strong>Enemy Design</strong> — What types of enemies? (Standard, fast, armored, flying)</li>
+                                <li><strong>Wave Design</strong> — How do waves increase in difficulty? How does it scale infinitely?</li>
+                                <li><strong>Economy</strong> — How much gold per kill? How much do towers cost?</li>
+                                <li><strong>Path Design</strong> — What does the level look like? Single path, branching, maze?
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The more specific your GDD, the fewer surprises you'll hit while coding. Answering these questions now saves you hours later.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower Defense GDD template" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.4: A genre-specific GDD asks the right questions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Feature Prioritization Matrix</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Make Deliberate Cuts</h4>
+                            <p>Not all features are equal. A prioritization matrix helps you decide what's essential and what can wait.</p>
+                            <p>Sort every feature into one of these categories:</p>
+                            <ul>
+                                <li><strong>Must Have</strong> — Your MVP. The game doesn't work without it.</li>
+                                <li><strong>Should Have</strong> — Stretch goals. Add if time allows.</li>
+                                <li><strong>Could Have</strong> — Nice ideas for a future version.</li>
+                                <li><strong>Won't Have</strong> — Not this project. Be honest about what you're cutting.</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <p>Fill in your own matrix in your GDD document.</p>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Most students try to build too much. A game with 3 well-polished features is better than one with 8 half-finished ones.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Feature prioritization" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.5: Sorting features by priority helps you scope realistically</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Playtesting Questions</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Plan What You Need to Learn</h4>
+                            <p>Before you spend weeks building a game, think about the questions you'll need answered. Playtesting isn't just for when the game is done — testing early saves you time.</p>
+                            <p>Good playtesting questions for a tower defense game:</p>
+                            <ul>
+                                <li>Is the game too hard or too easy?</li>
+                                <li>Are any towers useless or overpowered?</li>
+                                <li>Does the player feel rushed or bored?</li>
+                                <li>Is the reward loop satisfying?</li>
+                                <li>Does the player understand how to play without being told?</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Write Your Own Playtesting Questions</h4>
+                            <p>In your GDD, write 5 questions you want to answer through playtesting. For each, note how you'll test it (small prototype, peer playtest, self-test, etc.).</p>
+                            <div class="tip-box">
+                                <strong>💡 Key Idea:</strong> Playtesting isn't a final step. It's an ongoing process. You can playtest a rough prototype with placeholder graphics and still learn a lot.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Playtesting questions" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.6: Playtesting answers questions you can't answer alone</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="step-card" data-step="7">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="7">
+                            <span>Planning for Iteration</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Your GDD Will Change</h4>
+                            <p>This is not a failure — it's expected. Every game goes through revisions as you learn what works and what doesn't.</p>
+                            <p>Add a <strong>Change Log</strong> at the bottom of your GDD document. Every time you change something significant, note:</p>
+                            <ul>
+                                <li>The <strong>date</strong> of the change</li>
+                                <li><strong>What</strong> you changed</li>
+                                <li><strong>Why</strong> you changed it</li>
+                            </ul>
+                            <p>This is exactly how professional studios track their own design decisions.</p>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Start Your Change Log</h4>
+                            <p>For now, add the first entry: the date you created this GDD and a note that it's the initial version.</p>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> A GDD isn't a contract. It's a plan that helps you know when you're off track — and lets you look back and understand <em>why</em> you changed direction.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Change log" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.7: A change log tracks how your design evolves</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="step-card" data-step="8">
+                <div class="step-header">
+                    <div class="step-number">8</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="8">
+                            <span>Share & Peer Review</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Get Feedback on Your Design Thinking</h4>
+                            <p>Share your GDD with a partner and have them answer these questions. The goal isn't spelling or formatting — it's whether your design decisions make sense.</p>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Peer Review Questions</h4>
+                            <ul>
+                                <li>Can you tell what this game is about in one sentence?</li>
+                                <li>What are the design pillars? Do they make sense together?</li>
+                                <li>What feature is the riskiest? Why?</li>
+                                <li>What would you cut if you had to?</li>
+                                <li>What's the strongest part of this design?</li>
+                            </ul>
+                            <p>Use the feedback to revise your GDD before moving on. Make sure to log any changes in your Change Log.</p>
+                            <div class="tip-box">
+                                <strong>💡 Key Idea:</strong> Designers are often too close to their own work to see its flaws. An outside perspective catches problems you'd miss.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Peer review" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 1.8: Peer review focuses on design thinking, not formatting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <span class="current-page">Section 1 of 15</span>
+            </div>
+            <a href="page2.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>
