@@ -16,7 +16,7 @@
                 <span>Third-Person Camera</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section 4 of 9</span>
+                <span class="section-nav-current">Section 4 of 10</span>
                 <a href="page5.html" class="next-button">Next Section →</a>
             </div>
         </div>
@@ -225,7 +225,7 @@ func _physics_process(delta):
                                 <li>If you can't see the Player node, make sure it's in the scene</li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Quick Check:</strong> If the script can't find the target, it will print "CameraArm: No target found!" in the console.
+                                <strong>💡 Quick Check:</strong> If the camera doesn't follow the player, double-check that the <strong>"Target"</strong> property is set to the Player node.
                             </div>
                         </div>
                     </div>
@@ -290,20 +290,33 @@ func _physics_process(delta: float) -> void:
         if direction.length() > 0:
             var target_rotation = atan2(direction.x, direction.z)
             character.rotation.y = lerp(character.rotation.y, target_rotation, 0.1)
-            if is_on_floor():
-                animation_player.play("walk")
         else:
             velocity.x = move_toward(velocity.x, 0, SPEED)
             velocity.z = move_toward(velocity.z, 0, SPEED)
-            if is_on_floor():
-                animation_player.play("idle")
         update_animations(direction)
     
-    move_and_slide()</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    move_and_slide()
+
+func update_animations(direction):
+    var target_animation = "idle"
+    
+    # Check if jumping
+    if not is_on_floor():
+        target_animation = "jump"
+    # Check if walking
+    elif direction.length() > 0:
+        target_animation = "walk"
+    else:
+        target_animation = "idle"
+    
+    # Switch animation if needed
+    if current_animation != target_animation:
+        current_animation = target_animation
+        animation_player.play(current_animation)</code></pre>
+                       </div>
+                   </div>
+               </div>
+           </div>
 
             <!-- Step 6 -->
             <div class="step-card" data-step="6">
@@ -321,7 +334,7 @@ func _physics_process(delta: float) -> void:
                         <div class="instruction-section">
                             <h4>Testing Your Setup</h4>
                             <ul>
-                                <li>Press <kbd>F6</kbd> to run the game</li>
+                                <li>Press <kbd>F5</kbd> to run the game</li>
                                 <li>Use <strong>WASD</strong> to move the player</li>
                                 <li>Move the mouse to rotate the camera</li>
                                 <li>W should always move toward where the camera is facing</li>
@@ -333,7 +346,7 @@ func _physics_process(delta: float) -> void:
                             <h4>Troubleshooting Common Issues</h4>
                             <ul>
                                 <li><strong>Camera doesn't follow player:</strong> Check that Target is set to the Player node</li>
-                                <li><strong>Mouse doesn't rotate camera:</strong> Check that mouse is captured (console should show "Mouse captured")</li>
+                                <li><strong>Mouse doesn't rotate camera:</strong> Check that mouse is captured (press F5 and move the mouse)</li>
                                 <li><strong>Movement feels wrong:</strong> Make sure you're using the camera-relative version of the script</li>
                                 <li><strong>Player moves in unexpected directions:</strong> Check that camera is active and the script is getting the camera correctly</li>
                             </ul>
@@ -359,7 +372,8 @@ func _physics_process(delta: float) -> void:
                 <a href="page7.html" class="page-button">Page 7</a>
                 <a href="page8.html" class="page-button">Page 8</a>
                 <a href="page9.html" class="page-button">Page 9</a>
-            </div>
+                <a href="page10.html" class="page-button">Page 10</a>
+           </div>
             <a href="page5.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>

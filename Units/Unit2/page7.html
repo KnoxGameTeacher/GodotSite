@@ -30,7 +30,7 @@
             </div>
             <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
                 <div class="youtube-thumbnail">
-                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 2 Video Playlist">
                     <div class="playlist-overlay">
                         <span class="play-button">▶</span>
                         <span class="playlist-text">Watch the full playlist on YouTube</span>
@@ -144,38 +144,23 @@ func _on_body_entered(body):
                     <div class="step-instructions">
                         <div class="instruction-section">
                             <h4>Game Level Management</h4>
-                            <p>Add these functions to your <strong>Game.gd</strong> script to handle level progression.</p>
-                            <pre><code># Add to Game.gd
-func load_next_level():
+                            <p>Let's finish the game flow in <strong>Game.gd</strong>. First, add a <strong>static</strong> variable near the top of your script, with the other variables. A static variable belongs to the script itself, so it survives scene changes — the Win screen needs this to display your final score:</p>
+                            <pre><code>static var final_score: int = 0</code></pre>
+                            <p>Next, add this new function, which advances to the next level:</p>
+                            <pre><code>func load_next_level():
     var next_level = current_level + 1
-    load_level(next_level)
+    load_level(next_level)</code></pre>
+                            <p>Update <code>load_level()</code> so the game is won when there are no more levels — replace the <code>print("Level not found...")</code> line in its <code>else</code> branch with:</p>
+                            <pre><code>    else:
+        win_game()</code></pre>
+                            <p>Finally, update <code>win_game()</code> and <code>game_over()</code> to save the score before switching scenes (they already use <code>change_scene_to_file()</code>):</p>
+                            <pre><code>func win_game():
+    final_score = score
+    get_tree().change_scene_to_file("res://Scenes/Win.tscn")
 
-func load_level(level_number):
-    current_level = level_number
-    if current_level_node:
-        current_level_node.queue_free()
-    
-    var level_path = "res://Scenes/Levels/Level" + str(level_number) + ".tscn"
-    if ResourceLoader.exists(level_path):
-        var level_scene = load(level_path)
-        current_level_node = level_scene.instantiate()
-        add_child(current_level_node)
-        print("Loaded: " + level_path)
-    else:
-        # No more levels - win the game!
-        win_game()
-
-func win_game():
-    if current_level_node:
-    current_level_node.queue_free()
-    
-    var level_path = "res://Scenes/Levels/Win.tscn"
-    if ResourceLoader.exists(level_path):
-        var level_scene = load(level_path)
-        current_level_node = level_scene.instantiate()
-        add_child(current_level_node)
-        print("Win Screen")
-   </code></pre>
+func game_over():
+    final_score = score
+    get_tree().change_scene_to_file("res://Scenes/GameOver.tscn")</code></pre>
                             <div class="warning-box">
                                 <strong>⚠️ Important:</strong> The game checks if the next level file exists. If not, it triggers the win screen.
                             </div>
@@ -203,29 +188,35 @@ func win_game():
                                 <li>Create a new scene with <strong>Control</strong> as the root node</li>
                                 <li>Add a <strong>Label</strong> with text <strong>"You Win!"</strong></li>
                                 <li>Add another <strong>Label</strong> for displaying final score</li>
-                                <li>Add a <strong>Button</strong> with text <strong>"Play Again"</strong></li>
-                                <li>Add a <strong>Button</strong> with text <strong>"Quit"</strong></li>
-                                <li>Save as <strong>"Win.tscn"</strong></li>
+                                <li>Rename the score Label to <strong>"ScoreLabel"</strong> (the script below looks for <code>$ScoreLabel</code>)</li>
+                                <li>Add a <strong>Button</strong> with text <strong>"Play Again"</strong> and rename it <strong>"PlayAgainButton"</strong></li>
+                                <li>Add a <strong>Button</strong> with text <strong>"Quit"</strong> and rename it <strong>"QuitButton"</strong></li>
+                                <li>Select the <strong>"PlayAgainButton"</strong> button</li>
+                                <li>In the Inspector, click the <strong>"Node"</strong> tab (next to Inspector)</li>
+                                <li>Find the <strong>"pressed()"</strong> signal and double-click it</li>
+                                <li>Connect it to the root Control node and click <strong>"Connect"</strong> (keep the suggested name <code>_on_play_again_pressed</code>)</li>
+                                <li>Select the <strong>"QuitButton"</strong> button and connect its <strong>"pressed()"</strong> signal the same way (keep <code>_on_quit_button_pressed</code>)</li>
+                                <li>Save as <strong>"Win.tscn"</strong> inside your <strong>"Scenes"</strong> folder</li>
                             </ul>
                         </div>
                         <div class="instruction-section">
                             <h4>Win Scene Script</h4>
                             <pre><code>extends Control
 
+# Preload the Game script so we can read its static final_score variable
+const GameScript = preload("res://game.gd")
+
 @onready var score_label = $ScoreLabel
 @onready var play_again_button = $PlayAgainButton
 @onready var quit_button = $QuitButton
 
 func _ready():
-    # Get final score from Game
-    var game = get_tree().current_scene
-    if game and game.has_method("get_score"):
-        score_label.text = "Final Score: " + str(game.get_score())
+    # final_score is static, so it survived the scene change
+    score_label.text = "Final Score: " + str(GameScript.final_score)
 
 func _on_play_again_pressed():
-    var game = get_tree().current_scene
-    if game and game.has_method("reset_game"):
-        game.reset_game()
+    # Reloading Game.tscn starts everything fresh (score, health, level 1)
+    get_tree().change_scene_to_file("res://Game.tscn")
 
 func _on_quit_button_pressed():
     get_tree().quit()</code></pre>
@@ -260,21 +251,45 @@ func _on_quit_button_pressed():
                             <h4>Creating the Game Over Screen</h4>
                             <ul>
                                 <li>This is as simple as duplicating the Win scene</li>
-                                <li>Change the text to <strong>"Game Over"</strong> or something similar</li>
+                                <li>Change the title Label text to <strong>"Game Over"</strong> or something similar</li>
                                 <li>Keep the final score label to show how well the player did</li>
-                                <li>Keep the "Play Again" and "Quit" buttons, you can change the text for flavor if you want</li>
+                                <li>Keep the "Play Again" and "Quit" buttons — make sure they are still named <strong>"PlayAgainButton"</strong> and <strong>"QuitButton"</strong> (the script below looks for those names)</li>
+                                <li>Connect the buttons' <strong>"pressed()"</strong> signals the same way you did for the Win scene (keep <code>_on_play_again_pressed</code> and <code>_on_quit_button_pressed</code>)</li>
+                                <li>Save as <strong>"GameOver.tscn"</strong> inside your <strong>"Scenes"</strong> folder</li>
                             </ul>
-                        </div>
-                        </div>
-                    </div>
+                       </div>
+                        <div class="instruction-section">
+                            <h4>Game Over Scene Script</h4>
+                            <p>Attach a script to the Game Over scene's root Control node with this code — it works exactly like the Win scene script:</p>
+                            <pre><code>extends Control
+
+# Preload the Game script so we can read its static final_score variable
+const GameScript = preload("res://game.gd")
+
+@onready var score_label = $ScoreLabel
+@onready var play_again_button = $PlayAgainButton
+@onready var quit_button = $QuitButton
+
+func _ready():
+    # final_score is static, so it survived the scene change
+    score_label.text = "Final Score: " + str(GameScript.final_score)
+
+func _on_play_again_pressed():
+    # Reloading Game.tscn starts everything fresh (score, health, level 1)
+    get_tree().change_scene_to_file("res://Game.tscn")
+
+func _on_quit_button_pressed():
+    get_tree().quit()</code></pre>
+                       </div>
+                       </div>
+                   </div>
                     <div class="step-media">
                         <div class="image-container">
                             <img src="./Images/U2L7-5.png" alt="Game Over scene" width="600" height="400" class="step-image">
                             <div class="image-caption">Figure 7.5: Creating the Game Over scene with restart options</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                       </div>
+                   </div>
+               </div>
 
             <!-- Step 6 -->
             <div class="step-card" data-step="6">
@@ -343,12 +358,11 @@ func _on_quit_button_pressed():
                         <div class="instruction-section">
                             <h4>Complete Game Flow</h4>
                             <ul>
-                                <li><strong>Start.tscn</strong> → Player clicks "Play"</li>
                                 <li><strong>Game.tscn</strong> → Loads Level1</li>
                                 <li><strong>Level1</strong> → Player reaches exit → Loads Level2</li>
-                                <li><strong>Level2</strong> → Player reaches exit → Loads Win.tscn</li>
+                                <li><strong>Final level</strong> → Player reaches exit → Loads Win.tscn</li>
                                 <li><strong>Win.tscn</strong> → Player clicks "Play Again" → Restarts Game.tscn</li>
-                                <li><strong>Game Over</strong> → Player clicks "Try Again" → Restarts current level</li>
+                                <li><strong>GameOver.tscn</strong> → Player clicks "Play Again" → Restarts Game.tscn</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>🎉 Congratulations!</strong> You've built a complete platformer with multiple levels, enemies, collectibles, health, score, and a full game loop!

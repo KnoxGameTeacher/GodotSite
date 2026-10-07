@@ -99,7 +99,7 @@
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>🏗️ Setting Up the Player Scene</h4>
+                            <h4>Setting Up the Player Scene</h4>
                             <p>We'll create a new scene for the player that will be reused throughout the game.</p>
                             <ul>
                                 <li>Go to <strong>Scene → New Scene</strong> or press <kbd>Ctrl + N</kbd></li>
@@ -173,7 +173,7 @@
                                 width="600" 
                                 height="400"
                                 class="step-image">
-                            <div class="image-caption">Figure 3.3: Sprite2D with circle texture and CollisionShape2D outline</div>
+                            <div class="image-caption">Figure 3.2: Sprite2D with circle texture and CollisionShape2D outline</div>
                         </div>
                     </div>
                 </div>
@@ -227,7 +227,7 @@
                             <h4>Attaching a GDScript</h4>
                             <ul>
                                 <li>Select the <strong>Player</strong> node (CharacterBody2D)</li>
-                                <li>Click the <strong>"📄"</strong> icon with a green plus sign with your Character node selected to add a script</li>
+                                <li>Click the <strong>script</strong> icon (the little document) with a green plus sign with your Character node selected to add a script</li>
                                 <li>Name the script <strong>"player.gd"</strong></li>
                                 <li>Click <strong>"Create"</strong></li>
                                 <li>The script editor will open with some default code</li>
@@ -258,10 +258,10 @@ func _physics_process(_delta: float) -> void:
                             </div>
                         </div>
                         <div class="instruction-section">
-                            <h4>🎮 Understanding the Code</h4>
+                            <h4>Understanding the Code</h4>
                             <ul>
                                 <li><strong>extends CharacterBody2D</strong> - Inherits movement abilities from the node type</li>
-                                <li><strong>@export var speed</strong> - A variable you can adjust in the Inspector</li>
+                                <li><strong>@export var SPEED</strong> - A variable you can adjust in the Inspector</li>
                                 <li><strong>_physics_process</strong> - Called every physics frame (good for movement)</li>
                                 <li><strong>Input.get_vector()</strong> - Detects keyboard/controller input for 8-directional movement</li>
                                 <li><strong>move_and_slide()</strong> - Moves the character and handles collisions automatically</li>
@@ -275,7 +275,7 @@ func _physics_process(_delta: float) -> void:
                                 width="600" 
                                 height="400"
                                 class="step-image">
-                            <div class="image-caption">Figure 3.5: The completed player.gd script with top-down movement code</div>
+                            <div class="image-caption">Figure 3.3: The completed player.gd script with top-down movement code</div>
                         </div>
                     </div>
                 </div>

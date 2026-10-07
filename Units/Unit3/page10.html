@@ -469,7 +469,8 @@ func _ready():
 func _on_portal_area_body_entered(body):
     if body.name == "Player":
         print("Player entered the portal! You win!")
-        get_tree().change_scene_to_file("res://scenes/Win.tscn")</code></pre>
+        Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+        get_tree().change_scene_to_file("res://Win.tscn")</code></pre>
                             <div class="tip-box">
                                 <strong>💡 New Concept:</strong> <code>set_loops()</code> on a Tween makes the animation loop forever. Here we use it to make the portal pulse gently.
                             </div>
@@ -610,7 +611,7 @@ func show_portal_alert():
                     <div class="step-title">
                         <label>
                             <input type="checkbox" class="step-check" data-step="8">
-                            <span>Create the Win and Game Over Scenes</span>
+                            <span>Create the Win Scene</span>
                         </label>
                     </div>
                 </div>
@@ -642,10 +643,10 @@ func show_portal_alert():
 extends Control
 
 func _on_play_again_pressed():
-    get_tree().change_scene_to_file("res://scenes/CharacterSelect.tscn")
+    get_tree().change_scene_to_file("res://character_select.tscn")
 
 func _on_quit_pressed():
-    get_tree().change_scene_to_file("res://scenes/Start.tscn")</code></pre>
+    get_tree().change_scene_to_file("res://character_select.tscn")</code></pre>
                             <div class="tip-box">
                                 <strong>💡 Reminder:</strong> You've done this in Unit 1 and Unit 2! Connect the button's <code>pressed()</code> signal to a function that calls <code>change_scene_to_file()</code>.
                             </div>
@@ -677,12 +678,16 @@ func _on_quit_pressed():
                                 <li>Rename it to <strong>"TimerLabel"</strong></li>
                                 <li>Position it in the top-right corner</li>
                             </ul>
-                            <p>Update the <strong>HUD script</strong>:</p>
+                            <p>Update the <strong>HUD script</strong> — merge this into your existing script from Section 5 (keep the player lookup so <code>update_display()</code> keeps working):</p>
                             <pre><code>@onready var timer_label = $TimerLabel
 var environment_node
 
 func _ready():
     environment_node = get_parent()
+    # From Section 5: find the player so update_display() keeps working
+    player = get_node("../Player")
+    if player:
+        update_display()
 
 func _process(delta):
     if environment_node:
@@ -696,17 +701,11 @@ func _process(delta):
             timer_label.text = "Find the portal!"</code></pre>
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> Showing the countdown builds tension and gives players a clear goal. Once the portal spawns, the text changes to guide them.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Timer display" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 10.9: The timer display showing portal countdown</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
 
             <!-- Step 10 -->
             <div class="step-card" data-step="10">
@@ -724,8 +723,6 @@ func _process(delta):
                         <div class="instruction-section">
                             <h4>The Full Flow</h4>
                             <div class="flow-diagram">
-                                <p><strong>Start.tscn</strong> → (Press "Start Game")</p>
-                                <p>↓</p>
                                 <p><strong>character_select.tscn</strong> → (Choose Character + Press "Start")</p>
                                 <p>↓</p>
                                 <p><strong>Environment.tscn</strong> → (Survive until the portal spawns)</p>
@@ -755,18 +752,12 @@ func _process(delta):
                             </ul>
                             <div class="tip-box">
                                 <strong>🎉 Congratulations!</strong> You've completed Unit 3: Forage Fever! You built a full 3D survival game with character selection, prey and predator AI, hunting mechanics, creature animations, sound effects, a portal-based win condition, and a polished game loop. Take the Unit Test to demonstrate your skills!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="step-media">
-                        <div class="image-container">
-                            <img src="../../_placeholderimage.png" alt="Complete game loop" width="600" height="400" class="step-image">
-                            <div class="image-caption">Figure 10.10: The complete game loop from start to win</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
 
         <!-- Page Navigation -->
         <div class="page-navigation">

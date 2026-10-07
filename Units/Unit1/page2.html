@@ -24,7 +24,7 @@
         <!-- Section Header -->
         <div class="unit-header">
             <h1>Section 2: Creating A-Maze-Ball Project</h1>
-            <p class="unit-description">Set up a new 3D project called "A-Maze-Ball" with the Forward+ renderer and configure project settings.</p>
+            <p class="unit-description">Set up a new 2D project called "A-Maze-Ball" with the Compatibility renderer and configure project settings.</p>
         </div>
 
         <!-- Steps Container -->
@@ -82,26 +82,25 @@
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>⚙️ Project Configuration</h4>
+                            <h4>Project Configuration</h4>
                             <p>Now we'll set up the basic project information:</p>
                             <ul>
                                 <li><strong>Project Name:</strong> Enter <code>"A-Maze-Ball"</code> (exactly as shown, with hyphens)</li>
                                 <li><strong>Project Path:</strong> Should show the folder you created (e.g., <code>/Users/YourName/GodotProjects/A-Maze-Ball</code>)</li>
-                                <li><strong>Renderer:</strong> Select <strong>"Forward+"</strong> from the dropdown menu</li>
-                                <li><strong>Create Folder:</strong> Keep this checked (it will create the default project structure)</li>
+                                <li><strong>Renderer:</strong> Select <strong>"Compatibility"</strong> from the dropdown menu</li>
+                                <li><strong>Create Folder:</strong> Click the "Create Folder" button (it will create the default project structure)</li>
                             </ul>
                             <div class="warning-box">
-                                <strong>⚠️ Important:</strong> The Forward+ renderer is recommended for modern 3D games. It provides better lighting and visual effects compared to the Compatibility renderer.
+                                <strong>⚠️ Important:</strong> The Compatibility renderer is required for web export — it's what lets you upload your game to itch.io so others can play it in a browser.
                             </div>
                         </div>
                         <div class="instruction-section">
-                            <h4>🎮 What is Forward+?</h4>
+                            <h4>What is the Compatibility renderer?</h4>
                             <ul>
-                                <li>Supports advanced lighting effects like global illumination</li>
-                                <li>Better performance for 3D games with many light sources</li>
-                                <li>Recommended for desktop and console games</li>
-                                <li>Requires a graphics card that supports Vulkan or Direct3D 12</li>
-                                <li>This is more than we need for our simple 2D game, but is the current standard.</li>
+                                <li>Supports web export (HTML5) so your games can be played in a browser</li>
+                                <li>Runs on older hardware that doesn't support Vulkan or Direct3D 12</li>
+                                <li>Required for uploading your games to itch.io</li>
+                                <li>Perfect for the 2D games we'll build in this unit</li>
                             </ul>
                         </div>
                     </div>
@@ -122,11 +121,11 @@
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>✨ Creating Your First Project</h4>
+                            <h4>Creating Your First Project</h4>
                             <p>With all settings configured, it's time to create the project:</p>
                             <ul>
                                 <li>Double-check that the Project Name is <strong>"A-Maze-Ball"</strong></li>
-                                <li>Confirm the Renderer is set to <strong>"Forward+"</strong></li>
+                                <li>Confirm the Renderer is set to <strong>"Compatibility"</strong></li>
                                 <li>Click the <strong>"Create"</strong> button</li>
                                 <li>Godot will now create your project folder and open the editor</li>
                                 <li>You'll see the Godot editor with a default empty 3D scene</li>
@@ -153,14 +152,14 @@
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>📁 Understanding Your Project Files</h4>
+                            <h4>Understanding Your Project Files</h4>
                             <p>Take a moment to explore what Godot created for you:</p>
                             <ul>
                                 <li><strong>FileSystem Dock (bottom left):</strong> Shows all files in your project</li>
                                 <li><strong>icon.svg:</strong> Default project icon (you would normally replace this)</li>
                             </ul>
                             <div class="instruction-section">
-                                <h4>🎯 What's Next?</h4>
+                                <h4>What's Next?</h4>
                                 <p>Now that your project is set up, you're ready to start building A-Maze-Ball! In the next sections you'll learn how to:</p>
                                 <ul>
                                     <li>Create a 2D maze environment</li>
@@ -169,7 +168,7 @@
                                 </ul>
                             </div>
                             <div class="tip-box">
-                                <strong>🎉 Congratulations!</strong> You've successfully created your first Godot 3D project. Save your work and move to the next section when you're ready!
+                                <strong>🎉 Congratulations!</strong> You've successfully created your first Godot 2D project. Save your work and move to the next section when you're ready!
                             </div>
                         </div>
                     </div>

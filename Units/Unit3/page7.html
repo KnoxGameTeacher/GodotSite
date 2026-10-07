@@ -16,7 +16,7 @@
                 <span>Predator AI (Chase)</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section 7 of 9</span>
+                <span class="section-nav-current">Section 7 of 10</span>
                 <a href="page8.html" class="next-button">Next Section →</a>
             </div>
         </div>
@@ -347,7 +347,7 @@ func attack_player():
                                 <li><strong>Predator doesn't chase:</strong> Check that the DetectionArea's sphere is large enough and Collision Mask matches the player</li>
                                 <li><strong>Predator doesn't attack:</strong> Check attack_range and that take_damage() exists on the player</li>
                                 <li><strong>Predator attacks too fast:</strong> Increase attack_cooldown</li>
-                                <li><strong>Predator falls through ground:</strong> Add CollisionShape3D to the Predator node</li>
+                                <li><strong>Predator falls through ground:</strong> Check the collision shape's size/position on the Predator node</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Congratulations!</strong> You now have predators that hunt the player using Area3D detection! The world is now dangerous and exciting. In the next section, you'll add the hunting mechanic to fight back!
@@ -371,7 +371,8 @@ func attack_player():
                 <span class="current-page">Page 7</span>
                 <a href="page8.html" class="page-button">Page 8 →</a>
                 <a href="page9.html" class="page-button">Page 9</a>
-            </div>
+                <a href="page10.html" class="page-button">Page 10</a>
+           </div>
             <a href="page8.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>

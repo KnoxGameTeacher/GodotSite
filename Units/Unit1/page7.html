@@ -50,7 +50,7 @@
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>🎬 Creating the Start Menu Scene</h4>
+                            <h4>Creating the Start Menu Scene</h4>
                             <ul>
                                 <li>Go to <strong>Scene → New Scene</strong> or press <kbd>Ctrl + N</kbd></li>
                                 <li>Click <strong>"Other Node"</strong> and select a <strong>"Control"</strong> node as the root</li>
@@ -165,6 +165,7 @@
                             <h4>Creating the Level Exit</h4>
                             <ul>
                                 <li>Create a new scene called <strong>"Exit"</strong> and add a <strong>Area2D</strong> node</li>
+                                <li>Press <kbd>Ctrl + S</kbd> and save it as <strong>"Exit.tscn"</strong></li>
                                 <li>Add a <strong>CollisionShape2D</strong> as a child and set its shape to a <strong>RectangleShape2D</strong></li>
                                 <li>Open your <strong>Level1.tscn</strong> scene</li>
                                 <li>Drag the <strong>Exit</strong> scene into Level1 as a child of the root node</li>
@@ -200,12 +201,10 @@
                             <h4>Scripting the Exit Trigger</h4>
                             <ul>
                                 <li>Select the <strong>"Exit"</strong> scene</li>
-                                <li>Click the <strong>"📄"</strong> icon next to "Script" in the Inspector</li>
+                                <li>Click the <strong>script</strong> icon (the little document) next to "Script" in the Inspector</li>
                                 <li>Name the script <strong>"exit.gd"</strong></li>
                                 <li>Click <strong>"Create"</strong></li>
-                                <li>Open the signal list with the Area2D node selected and find the <strong>body_entered</strong> signal</li>
-                                <li>Double-click to connect it to the Exit node</li>
-                                <li>Add the following code to the signal function:</li>
+                                <li>Add the following code to the script (it connects the <strong>body_entered</strong> signal in code):</li>
                             </ul>
                             <pre><code>extends Area2D
 
@@ -300,7 +299,7 @@ func _on_body_entered(body):
                             </ul>
                         </div>
                         <div class="instruction-section">
-                            <h4>🎮 Testing the Complete Game Loop</h4>
+                            <h4>Testing the Complete Game Loop</h4>
                             <ul>
                                 <li>Press <kbd>F5</kbd> to run the game</li>
                                 <li>You should see the <strong>Start screen</strong> with your title and buttons</li>

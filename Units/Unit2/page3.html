@@ -30,7 +30,7 @@
             </div>
             <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
                 <div class="youtube-thumbnail">
-                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 2 Video Playlist">
                     <div class="playlist-overlay">
                         <span class="play-button">▶</span>
                         <span class="playlist-text">Watch the full playlist on YouTube</span>
@@ -176,8 +176,10 @@
                                 <li>Add the running frames from your spritesheet</li>
                                 <li>Create another animation named <strong>"jump"</strong></li>
                                 <li>Add the jumping frames</li>
+                                <li>Create another animation named <strong>"hurt"</strong></li>
+                                <li>Add the damage frames from your spritesheet (or reuse a single frame)</li>
                                 <li>Set the <strong>"FPS"</strong> (Frames Per Second) for each animation to the same number across all states for consistency</li>
-                                <li>Check the <strong>"Autorun"</strong> box for idle so that it begins on game start automatically</li>
+                                <li>Set <strong>"Autoplay"</strong> to <strong>"idle"</strong> so that it begins on game start automatically</li>
                             </ul>
                         </div>
                     </div>
@@ -251,12 +253,12 @@ func update_animation(direction):
                         <div class="instruction-section">
                             <h4>Understanding the Animation Code</h4>
                             <ul>
-                                <li><strong>@onready var animated_sprite</strong> - Gets a reference to the AnimatedSprite2D node</li>
+                                <li><strong>@onready var animated_sprite_2d</strong> - Gets a reference to the AnimatedSprite2D node</li>
                                 <li><strong>update_animation(direction)</strong> - New function that decides which animation to play</li>
-                                <li><strong>animated_sprite.play("jump")</strong> - Plays the jump animation when in the air</li>
-                                <li><strong>animated_sprite.play("run")</strong> - Plays the run animation when moving on the ground</li>
-                                <li><strong>animated_sprite.play("idle")</strong> - Plays the idle animation when standing still</li>
-                                <li><strong>animated_sprite.flip_h</strong> - Flips the sprite horizontally to face left or right</li>
+                                <li><strong>animated_sprite_2d.play("jump")</strong> - Plays the jump animation when in the air</li>
+                                <li><strong>animated_sprite_2d.play("run")</strong> - Plays the run animation when moving on the ground</li>
+                                <li><strong>animated_sprite_2d.play("idle")</strong> - Plays the idle animation when standing still</li>
+                                <li><strong>animated_sprite_2d.flip_h</strong> - Flips the sprite horizontally to face left or right</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 New Concept:</strong> <code>@onready</code> is a special keyword that waits until the node is ready before assigning the variable. This ensures the AnimatedSprite2D exists before we try to use it.

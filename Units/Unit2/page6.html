@@ -32,7 +32,7 @@
             </div>
             <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
                 <div class="youtube-thumbnail">
-                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 2 Video Playlist">
                     <div class="playlist-overlay">
                         <span class="play-button">▶</span>
                         <span class="playlist-text">Watch the full playlist on YouTube</span>
@@ -78,13 +78,15 @@
                                 <li>Create a new scene</li>
                                 <li>Add a <strong>CanvasLayer</strong> node as the root node</li>
                                 <li>Rename it to <strong>"HUD"</strong></li>
+                                <li>Save the scene as <strong>"HUD.tscn"</strong></li>
+                                <li>Open <strong>Game.tscn</strong> and drag <strong>HUD.tscn</strong> from the FileSystem dock onto the <strong>"Game"</strong> node to instance it as a child</li>
                             </ul>
                         </div>
                         <div class="instruction-section">
                             <h4>Creating HUD Elements</h4>
                             <ul>
-                                <li>Add a <strong>Canvas</strong> node as a child of HUD</li>
-                                <li>Add a <strong>Label</strong> node as a child of Canvas</li>
+                                <li>Add a <strong>Control</strong> node as a child of HUD</li>
+                                <li>Add a <strong>Label</strong> node as a child of Control</li>
                                 <li>Rename it to <strong>"ScoreLabel"</strong></li>
                                 <li>Set its text to <strong>"Score: 0"</strong></li>
                                 <li>Position it in the top-left corner</li>
@@ -167,7 +169,7 @@ func get_health():
     return health
 
 func reset_health():
-    health = max_health
+    health = 3
 
 # Game state functions
 func game_over():
@@ -203,12 +205,8 @@ func get_current_level_node():
 func update_hud():
     if has_node("HUD"):
         get_node("HUD").update_display()</code></pre>
-                            <div class="tip-box">
-                                <strong>💡 New Concept:</strong> <code>score_to_win</code> is a variable that sets how
-                                many points the player needs to win the game.
-                            </div>
-                        </div>
-                    </div>
+                       </div>
+                   </div>
                     <div class="step-media">
                         <div class="image-container">
                             <img src="./Images/U2L6-1.png" alt="Game.gd with health and score" width="600"
@@ -242,8 +240,8 @@ func update_hud():
                             </ul>
                             <pre><code>extends CanvasLayer
 
-@onready var score_label = $ScoreLabel
-@onready var health_label = $HealthLabel
+@onready var score_label = $Control/ScoreLabel
+@onready var health_label = $Control/HealthLabel
 var game
 
 func _ready():
@@ -260,10 +258,9 @@ func update_display():
                             <h4>Triggering Updates from Game.gd</h4>
                             <p>In Game.gd, we already added <code>update_hud()</code> calls in the health and score
                                 functions.</p>
-                            <pre><code># In Game.gd
-func update_hud():
-    if has_node("HUD"):
-        get_node("HUD").update_display()</code></pre>
+                            <div class="tip-box">
+                                <strong>📌 For reference:</strong> <code>update_hud()</code> checks <code>has_node("HUD")</code> and calls <code>update_display()</code> on it — it's already in your Game.gd from step 2, so don't paste it in again.
+                           </div>
                             <div class="warning-box">
                                 <strong>⚠️ Important:</strong> The HUD must be a child of the Game node for this to
                                 work. <code>get_parent()</code> returns the Game node.
@@ -303,8 +300,12 @@ func _on_hit_player():
     # Find the Game node and take damage
     var game = get_tree().current_scene
     if game and game.has_method("take_damage"):
-        game.take_damage(1)</code></pre>
-                        </div>
+        game.take_damage(1)
+    # Trigger the player's hurt animation and brief invincibility
+    var player = get_parent().get_node_or_null("Player")
+    if player and player.has_method("take_damage_from_enemy"):
+        player.take_damage_from_enemy()</code></pre>
+                       </div>
                         <div class="instruction-section">
                             <h4>Adding Invincibility Frames</h4>
                             <p>To prevent the player from being damaged every frame, add a brief invincibility period:
@@ -323,6 +324,15 @@ func take_damage_from_enemy():
         await get_tree().create_timer(hurt_timer).timeout
         hurt = false
         animated_sprite_2d.modulate = Color(1, 1, 1, 1)</code></pre>
+                            <p>One more step: your <code>update_animation()</code> function runs every frame and would
+                                immediately override the hurt animation. Add this guard at the very top of
+                                <code>update_animation()</code> in <strong>Player.gd</strong> so the hurt animation
+                                can finish playing:</p>
+                            <pre><code>func update_animation(direction):
+    if hurt:
+        return  # Let the hurt animation finish playing
+    if not is_on_floor():
+        animated_sprite_2d.play("jump")</code></pre>
                             <div class="tip-box">
                                 <strong>💡 New Concept:</strong> <code>get_tree().current_scene</code> gets the current
                                 root scene. Since Game.tscn is the root, this finds the Game node.
@@ -354,7 +364,7 @@ func take_damage_from_enemy():
                                 <li>Add a <strong>Sprite2D</strong> or <strong>AnimatedSprite2D</strong> with a
                                     collectible visual from your asset pack</li>
                                 <li>Add a <strong>CollisionShape2D</strong></li>
-                                <li>Save it as <strong>"(insertcollectibletype)tscn"</strong></li>
+                                <li>Save it as <strong>"coin.tscn"</strong></li>
                             </ul>
                         </div>
                         <div class="instruction-section">

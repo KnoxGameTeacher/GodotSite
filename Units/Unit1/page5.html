@@ -56,7 +56,7 @@
                                 <li>Select the <strong>"Background"</strong> (TileMapLayer) node</li>
                                 <li>In the TileSet panel, select a <strong>basic floor tile</strong></li>
                                 <li>Switch to the <strong>Paint Tool</strong> (press <kbd>D</kbd> key or click the pencil icon)</li>
-                                <li>Draw a rectangle around the area, switch to the Bucket <kbd>B</kbd> and fill the area</li>
+                                <li>Select the Bucket tool <kbd>B</kbd> and click inside the blue boundary to fill it with floor tiles</li>
                                 <li>The entire visible game area should now be covered with floor tiles</li>
                             </ul>
                             <div class="tip-box">
@@ -81,7 +81,7 @@
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>🏗️ Adding a Separate Layer for Walls</h4>
+                            <h4>Adding a Separate Layer for Walls</h4>
                             <p>Using separate layers keeps your level organized and makes collision management easier.</p>
                             <ul>
                                 <li>Select the <strong>"Background"</strong> (TileMapLayer) node</li>
@@ -224,11 +224,11 @@
                             <ul>
                                 <li>Press <kbd>Ctrl + S</kbd> to save your <strong>TestLevel.tscn</strong></li>
                                 <li>Make sure both Background and Walls layers are saved</li>
-                                <li>The TileSet collision data saves automatically with the scene</li>
+                                <li>The TileSet collision data lives in the external <strong>.tres</strong> file from Step 3 — save that file, not just the scene</li>
                             </ul>
                         </div>
                         <div class="instruction-section">
-                            <h4>🎮 Testing Your Collision Walls</h4>
+                            <h4>Testing Your Collision Walls</h4>
                             <ul>
                                 <li>Press <kbd>F5</kbd> to run the game</li>
                                 <li>Try to move your player through the walls</li>
@@ -237,7 +237,7 @@
                             </ul>
                         </div>
                         <div class="instruction-section">
-                            <h4>🐛 Troubleshooting Common Issues</h4>
+                            <h4>Troubleshooting Common Issues</h4>
                             <ul>
                                 <li><strong>Player walks through walls:</strong> Forgot to add collision polygon to the wall tile</li>
                                 <li><strong>Player gets stuck on walls:</strong> Collision polygon extends beyond the visual wall</li>

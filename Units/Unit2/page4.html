@@ -30,7 +30,7 @@
             </div>
             <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
                 <div class="youtube-thumbnail">
-                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 2 Video Playlist">
                     <div class="playlist-overlay">
                         <span class="play-button">▶</span>
                         <span class="playlist-text">Watch the full playlist on YouTube</span>
@@ -75,6 +75,8 @@
                                 <li>Add a <strong>Node2D</strong> as the root node</li>
                                 <li>Rename it to <strong>"Game"</strong></li>
                                 <li>Save the scene as <strong>"Game.tscn"</strong></li>
+                                <li>In the FileSystem dock, right-click <strong>"res://"</strong> and choose <strong>New Folder</strong>, then name it <strong>"Scenes"</strong></li>
+                                <li>Right-click the <strong>"Scenes"</strong> folder and create another <strong>New Folder</strong> named <strong>"Levels"</strong></li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> The Game Manager pattern separates the <strong>game logic</strong> from the <strong>level content</strong>. This makes it easier to add new levels and manage game state.
@@ -100,6 +102,9 @@
                         <div class="instruction-section">
                             <h4>Scripting the Game Manager</h4>
                             <p>Add a script to the Game node that will handle loading levels and managing game state.</p>
+                            <ul>
+                                <li>Select the <strong>Game</strong> node and click the <strong>script</strong> icon (the little document) next to "Script". Name it <strong>"game.gd"</strong></li>
+                            </ul>
                             <pre><code>extends Node2D
 
 var current_level_node
@@ -160,7 +165,7 @@ func get_current_level_node():
                                 <li>Press <kbd>Ctrl + N</kbd> to create a new scene</li>
                                 <li>Add a <strong>Node2D</strong> as the root node</li>
                                 <li>Rename it to <strong>"Level"</strong></li>
-                                <li>Save the scene as <strong>"Level1.tscn"</strong></li>
+                                <li>Save the scene inside the <strong>Scenes/Levels</strong> folder as <strong>"Level1.tscn"</strong> (this is the path Game.gd loads)</li>
                             </ul>
                         </div>
                         <div class="instruction-section">
@@ -170,6 +175,8 @@ func get_current_level_node():
                                 <li>Rename it to <strong>"Ground"</strong></li>
                                 <li>Add another child <strong>TileMapLayer</strong></li>
                                 <li>Rename it to <strong>"Platforms"</strong></li>
+                                <li>Drag <strong>player.tscn</strong> from the FileSystem dock onto the <strong>"Level"</strong> node to instance it</li>
+                                <li>Position the player instance at the start of the level (your spawn point)</li>
                             </ul>
                         </div>
                     </div>
@@ -290,6 +297,7 @@ func get_current_level_node():
                             <h4>Testing Your Setup</h4>
                             <ul>
                                 <li>Open <strong>Game.tscn</strong></li>
+                                <li>Set <strong>Game.tscn</strong> as the project's main scene: go to <strong>Project → Project Settings → Application → Run → Main Scene</strong> and choose Game.tscn</li>
                                 <li>Press <kbd>F5</kbd> to run the game</li>
                                 <li>Your level should load and the player should appear</li>
                                 <li>Test movement and jumping on your newly painted platforms</li>
@@ -305,11 +313,11 @@ func get_current_level_node():
                         <div class="instruction-section">
                             <h4>What You've Accomplished</h4>
                             <ul>
-                                <li>✅ Created a Game.tscn manager scene</li>
-                                <li>✅ Built Level1.tscn with TileMapLayer</li>
-                                <li>✅ Configured TileSet with collision</li>
-                                <li>✅ Painted a playable level</li>
-                                <li>✅ Tested the full setup</li>
+                                <li>Created a Game.tscn manager scene</li>
+                                <li>Built Level1.tscn with TileMapLayer</li>
+                                <li>Configured TileSet with collision</li>
+                                <li>Painted a playable level</li>
+                                <li>Tested the full setup</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Next Steps:</strong> In the next section, you'll add animated enemies to make your level more challenging!

@@ -6,13 +6,13 @@ let courseStructure = {};
 function initCourseStructure() {
     if (typeof COURSE_DATA !== 'undefined') {
         courseStructure = COURSE_DATA;
-        console.log('✅ Course data loaded:', Object.keys(courseStructure).length, 'units found');
+        console.log('Course data loaded:', Object.keys(courseStructure).length, 'units found');
         for (const unitId in courseStructure) {
             console.log(`   Unit ${unitId}: ${courseStructure[unitId].name} - ${courseStructure[unitId].sections} sections`);
         }
         return true;
     } else {
-        console.error('❌ COURSE_DATA not found!');
+        console.error('COURSE_DATA not found!');
         courseStructure = {};
         return false;
     }
@@ -25,7 +25,7 @@ function saveProgress(unitId, sectionId, stepId, completed) {
     saved[stepId] = completed;
     localStorage.setItem(key, JSON.stringify(saved));
     
-    console.log(`💾 Saved: Unit ${unitId}, Section ${sectionId}, Step ${stepId} = ${completed}`);
+    console.log(`Saved: Unit ${unitId}, Section ${sectionId}, Step ${stepId} = ${completed}`);
     
     // Update displays
     updateSectionProgress(unitId, sectionId);
@@ -161,7 +161,7 @@ function updateMainPageUnitCards() {
     const unitCards = unitsGrid.querySelectorAll('.unit-card');
     const unitIds = Object.keys(courseStructure);
     
-    console.log(`🔄 Updating ${unitCards.length} unit cards...`);
+    console.log(`Updating ${unitCards.length} unit cards...`);
     
     for (let i = 0; i < unitCards.length && i < unitIds.length; i++) {
         const unitId = parseInt(unitIds[i]);
@@ -186,13 +186,13 @@ function updateMainPageUnitCards() {
             // Update tasks count
             const statsSpan = card.querySelector('.unit-stats span:nth-child(2)');
             if (statsSpan) {
-                statsSpan.innerHTML = `✅ ${progress.completed}/${progress.total} tasks`;
+                statsSpan.innerHTML = `✓ ${progress.completed}/${progress.total} tasks`;
                 console.log(`  Card ${i}: Set tasks to ${progress.completed}/${progress.total}`);
             }
         }
     }
     
-    console.log('✅ Unit cards updated on main page');
+    console.log('Unit cards updated on main page');
 }
 
 function initializeMainPage() {
@@ -200,7 +200,7 @@ function initializeMainPage() {
     if (!unitsGrid) return false;
     
     if (Object.keys(courseStructure).length === 0) {
-        unitsGrid.innerHTML = '<div class="loading">⚠️ No course data found. Please check course-data.js</div>';
+        unitsGrid.innerHTML = '<div class="loading">No course data found. Please check course-data.js</div>';
         return false;
     }
     
@@ -238,9 +238,9 @@ function initializeMainPage() {
                     </div>
                 </div>
                 <div class="unit-stats">
-                    <span>📚 ${totalSections} sections</span>
-                    <span>✅ ${progress.completed}/${progress.total} tasks</span>
-                    <span>⏱️ ${unit.estimatedTime}</span>
+                    <span>${totalSections} sections</span>
+                    <span>✓ ${progress.completed}/${progress.total} tasks</span>
+                    <span>${unit.estimatedTime}</span>
                 </div>
             </div>
             <div class="unit-card-footer">
@@ -261,8 +261,8 @@ function initializeMainPage() {
         </div>
         <div class="unit-card-body">
             <div class="unit-stats">
-                <span>🎨 Featured projects</span>
-                <span>👥 Community showcase</span>
+                <span>Featured projects</span>
+                <span>Community showcase</span>
             </div>
         </div>
         <div class="unit-card-footer">
@@ -303,7 +303,7 @@ function initializeCheckboxes() {
             checkbox.onchange = function(e) {
                 const isChecked = this.checked;
                 const stepNum = this.getAttribute('data-step');
-                console.log(`🎯 CHECKBOX ${stepNum} CHANGED to ${isChecked}`);
+                console.log(`CHECKBOX ${stepNum} CHANGED to ${isChecked}`);
                 
                 const key = `unit_${unitId}_section_${sectionId}`;
                 const currentSaved = JSON.parse(localStorage.getItem(key)) || {};

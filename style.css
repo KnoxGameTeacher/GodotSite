@@ -1136,13 +1136,6 @@ a:hover {
     font-size: 1.2rem;
 }
 
-.loading::before {
-    content: "📚";
-    display: inline-block;
-    margin-right: 10px;
-    animation: pulse 1s infinite;
-}
-
 /* ===== TEST PAGES ===== */
 .test-overview {
     margin-bottom: 40px;
@@ -1732,4 +1725,12 @@ a:hover {
     .special-card .start-unit-button:hover {
         background: #4ab0e0;
     }
+}
+/* A-6: disabled buttons for unwritten Unit 4 sections (prevents 404s) */
+.section-button.disabled,
+.next-button.disabled,
+.nav-button.disabled {
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: not-allowed;
 }

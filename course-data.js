@@ -13,9 +13,9 @@ const COURSE_DATA = {
             3: { name: "Creating the Player (CharacterBody2D)", steps: 5 },
             4: { name: "Creating a Test Level with TileMapLayer", steps: 6 },
             5: { name: "Adding Collision to Walls", steps: 6 },
-            6: { name: "Designing the Maze", steps: 6 },
+            6: { name: "Designing the Maze", steps: 5 },
             7: { name: "Start Scene, Win Scene & Game Loop", steps: 6 },
-            test: { name: "Unit 1 Test", steps: 16 }
+            test: { name: "Unit 1 Test", steps: 19 }
         }
     },
     2: {
@@ -32,7 +32,7 @@ const COURSE_DATA = {
             5: { name: "Enemy Scene with Animation & Patrol", steps: 6 },
             6: { name: "Health, Score & HUD", steps: 6 },
             7: { name: "Level Transitions & Game Flow", steps: 7 },
-            test: { name: "Unit 2 Test", steps: 12 }
+            test: { name: "Unit 2 Test", steps: 27 }
         }
     },
     3: {
@@ -42,9 +42,9 @@ const COURSE_DATA = {
         estimatedTime: "6 hours",
         sections: 10,
         pages: {
-            1: { name: "Game Design Document", steps: 7 },
+            1: { name: "Game Design Document", steps: 8 },
             2: { name: "3D Project Setup & Environment", steps: 5 },
-            3: { name: "Player Movement", steps: 6 },
+            3: { name: "Player Movement", steps: 8 },
             4: { name: "Third-Person Camera", steps: 6 },
             5: { name: "Hunger & Health Systems", steps: 5 },
             6: { name: "Prey AI (Flee)", steps: 6 },
@@ -52,7 +52,7 @@ const COURSE_DATA = {
             8: { name: "Hunting Mechanic", steps: 6 },
             9: { name: "Character Select Screen", steps: 9 },
             10: { name: "Game Loop & Polish", steps: 10 },
-            test: { name: "Unit 3 Test", steps: 13 }
+            test: { name: "Unit 3 Test", steps: 16 }
         }
     },
     4: {

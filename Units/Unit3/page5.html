@@ -16,7 +16,7 @@
                 <span>Hunger & Health Systems</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section 5 of 9</span>
+                <span class="section-nav-current">Section 5 of 10</span>
                 <a href="page6.html" class="next-button">Next Section →</a>
             </div>
         </div>
@@ -43,17 +43,7 @@
         <div class="unit-header">
             <h1>Section 5: Hunger & Health Systems</h1>
             <p class="unit-description">Add survival meters for hunger and health, with a Heads-Up Display (HUD) to track your status.</p>
-                    <h3>Section 5 Videos</h3>
-                    <p>Watch: "Hunger & Health Systems in Godot"</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section Header -->
-        <div class="unit-header">
-            <h1>Section 5: Hunger & Health Systems</h1>
-            <p class="unit-description">Add survival meters for hunger and health, with a Heads-Up Display (HUD) to track your status.</p>
-        </div>
+       </div>
 
         <!-- Steps Container -->
         <div class="steps" data-unit="3" data-section="5">
@@ -138,6 +128,7 @@ func update_hud():
     pass
 
 func game_over():
+    Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
     get_tree().change_scene_to_file("res://GameOver.tscn")</code></pre>
                         </div>
                         <div class="instruction-section">
@@ -280,7 +271,9 @@ func update_hud():
                                 <li>Create a new scene with <strong>Control</strong> as the root node</li>
                                 <li>Add a <strong>Label</strong> with text <strong>"Game Over"</strong></li>
                                 <li>Add a <strong>Button</strong> with text <strong>"Try Again"</strong></li>
+                                <li>Rename it to <strong>"TryAgainButton"</strong></li>
                                 <li>Add a <strong>Button</strong> with text <strong>"Main Menu"</strong></li>
+                                <li>Rename it to <strong>"MainMenuButton"</strong></li>
                                 <li>Save as <strong>"GameOver.tscn"</strong></li>
                             </ul>
                             <p>Add this script to the GameOver scene:</p>
@@ -294,7 +287,7 @@ func _on_try_again_pressed():
     get_tree().reload_current_scene()
 
 func _on_main_menu_pressed():
-    get_tree().change_scene_to_file("res://Start.tscn")</code></pre>
+    get_tree().change_scene_to_file("res://character_select.tscn")</code></pre>
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> <code>get_tree().reload_current_scene()</code> reloads the current scene, which resets the player and all game objects to their starting state.
                             </div>
@@ -372,7 +365,8 @@ func _input(event):
                 <a href="page7.html" class="page-button">Page 7</a>
                 <a href="page8.html" class="page-button">Page 8</a>
                 <a href="page9.html" class="page-button">Page 9</a>
-            </div>
+                <a href="page10.html" class="page-button">Page 10</a>
+           </div>
             <a href="page6.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>

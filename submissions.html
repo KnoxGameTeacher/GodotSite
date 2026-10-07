@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Submissions - Godot Game Design Class</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .submission-form-section { margin: 2rem 0; }
+        .submission-form-section iframe { border: 1px solid #ddd; border-radius: 8px; background: #fff; }
+        .gallery-status { font-style: italic; opacity: 0.8; }
+    </style>
 </head>
 <body>
     <div class="main-container">
         <div class="section-header-nav">
             <div class="breadcrumb">
-                <a href="index.html">Home</a> > 
+                <a href="index.html">Home</a> >
                 <span>Student Submissions</span>
             </div>
         </div>
@@ -24,10 +29,19 @@
         <div class="submission-guidelines">
             <h2>Submission Guidelines</h2>
             <ul>
-                <li>Submit your completed project via Google Classroom</li>
-                <li>Complete the submission assignment and notify me of its completion so I can add it!</li>
+                <li>Use the form below to share your game: your name, the unit, a link to play it, and a jpg or png screenshot.</li>
+                <li>Every submission is reviewed by Mrs. Lucas before it appears in the gallery.</li>
             </ul>
-            <a href="#" class="submit-button">Submit Your Project →</a>
+        </div>
+
+        <!-- Submission Form (embedded Google Form, configured below) -->
+        <div class="submission-form-section">
+            <h2>Submit Your Game</h2>
+            <div id="form-embed-wrap">
+                <iframe id="submission-form-frame" title="Game submission form" width="100%" height="900" frameborder="0" style="display:none;"></iframe>
+                <p id="form-placeholder">The submission form is being set up &mdash; check back soon!</p>
+                <p id="form-alt-link" style="display:none;">Form not loading? <a id="form-alt-anchor" href="#" target="_blank" rel="noopener">Open it in a new tab</a>.</p>
+            </div>
         </div>
 
         <!-- Filter/Sort Controls -->
@@ -36,12 +50,15 @@
             <button class="filter-btn active" data-filter="all">All</button>
             <button class="filter-btn" data-filter="unit1">Unit 1: A-Maze-Ball</button>
             <button class="filter-btn" data-filter="unit2">Unit 2: Plenty o' Platforms</button>
-        </div>
+            <button class="filter-btn" data-filter="unit3">Unit 3: Forage Fever</button>
+       </div>
 
-        <!-- Gallery Grid -->
+        <p id="gallery-status" class="gallery-status" style="display:none;"></p>
+
+        <!-- Gallery Grid: static cards below are the fallback; replaced by live sheet data when configured -->
         <div class="gallery-grid" id="gallery-grid">
             <!-- Example Submission Cards - These will be populated dynamically or manually -->
-            
+
             <!-- Submission 1 -->
             <div class="submission-card" data-unit="unit1">
                 <div class="submission-thumbnail">
@@ -50,7 +67,7 @@
                 </div>
                 <div class="submission-info">
                     <h3>A-Maze-Ball</h3>
-                    <p class="submission-author">By Mrs Lucas</p>
+                    <p class="submission-author">By Mrs. Lucas</p>
                     <p class="submission-description">A simple maze game made as a blueprint for you</p>
                     <div class="submission-links">
                         <a href="https://knoxgames.itch.io/a-maze-ball" class="submission-link">Play Now</a>
@@ -139,8 +156,9 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-        <!-- Empty State (shown when no submissions) -->
+        <!-- Empty State (shown when the live gallery loads with zero approved submissions) -->
         <div id="empty-state" style="display: none;">
             <p>No submissions yet. Be the first to submit your project!</p>
         </div>
@@ -153,29 +171,214 @@
 
     <!-- Scripts -->
     <script>
-        // Simple filter functionality for unit badges
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const submissions = document.querySelectorAll('.submission-card');
+        // =====================================================================
+        // Student submissions: Google Form -> Google Sheet -> moderated gallery
+        // SETUP: paste your IDs/URLs below (see SUBMISSIONS-SETUP.md), then the
+        // gallery below renders approved rows automatically. Until SHEET_ID is
+        // set, the static example cards above remain as the gallery.
+        // =====================================================================
+        const SUBMISSIONS_CONFIG = {
+            SHEET_ID: "PASTE_SHEET_ID_HERE",
+            SHEET_NAME: "Form Responses 1",
+            FORM_EMBED_URL: "PASTE_FORM_EMBED_URL_HERE",
+            FORM_LINK_URL: "PASTE_FORM_LINK_URL_HERE"
+        };
 
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Update active button
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
+        // Escape user-supplied text before injecting into the page.
+        function esc(s) {
+            return String(s == null ? "" : s)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
 
-                    const filter = this.getAttribute('data-filter');
+        function driveIdFromUrl(url) {
+            const m = String(url || "").match(/[-\w]{25,}/);
+            return m ? m[0] : "";
+        }
 
-                    submissions.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-unit') === filter) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+        function thumbnailFor(driveUrl) {
+            const id = driveIdFromUrl(driveUrl);
+            return id ? "https://drive.google.com/thumbnail?id=" + id + "&sz=w800" : "";
+        }
+
+        const UNIT_LABELS = { unit1: "Unit 1", unit2: "Unit 2", unit3: "Unit 3", unit4: "Unit 4" };
+
+        function normalizeUnit(raw) {
+            const s = String(raw || "").toLowerCase();
+            if (/unit\s*1|a-maze/i.test(s)) return "unit1";
+            if (/unit\s*2|platform/i.test(s)) return "unit2";
+            if (/unit\s*3|forage/i.test(s)) return "unit3";
+            if (/unit\s*4|block/i.test(s)) return "unit4";
+            return "unit1";
+        }
+
+        function safeGameLink(raw) {
+            let u = String(raw || "").trim();
+            if (!u) return "";
+            if (!/^https?:\/\//i.test(u)) u = "https://" + u;
+            try { new URL(u); return u; } catch (e) { return ""; }
+        }
+
+        // Moderation: approved when the "Approved" column holds true/yes/y/x/1.
+        function isApproved(v) {
+            if (v === true) return true;
+            const s = String(v == null ? "" : v).trim().toLowerCase();
+            return s === "true" || s === "yes" || s === "y" || s === "x" || s === "1";
+        }
+
+        // Build one gallery card with the same markup/classes as the static cards.
+        function cardHtml(row) {
+            const unit = normalizeUnit(row.unit);
+            const link = safeGameLink(row.link);
+            const img = row.image || "_placeholderimage.png";
+            return (
+                '<div class="submission-card" data-unit="' + unit + '">' +
+                    '<div class="submission-thumbnail">' +
+                        '<img src="' + esc(img) + '" alt="' + esc(row.title || "Student game screenshot") + '" loading="lazy">' +
+                        '<span class="submission-unit-badge">' + esc(UNIT_LABELS[unit]) + "</span>" +
+                    "</div>" +
+                    '<div class="submission-info">' +
+                        "<h3>" + esc(row.title || "Untitled Game") + "</h3>" +
+                        '<p class="submission-author">By ' + esc(row.name || "Anonymous") + "</p>" +
+                        (row.description ? '<p class="submission-description">' + esc(row.description) + "</p>" : "") +
+                        (link ? '<div class="submission-links"><a href="' + esc(link) + '" class="submission-link">Play Now</a></div>' : "") +
+                    "</div>" +
+                "</div>"
+            );
+        }
+
+        // Header matching is forgiving: case-insensitive, trimmed, with aliases,
+        // so an inexact question title won't break the gallery.
+        function normHeader(s) { return String(s || "").trim().toLowerCase(); }
+
+        // Parse a gviz JSON response into approved submission rows, newest first.
+        // Returns { rows, hasApproved } so the page can diagnose a missing column.
+        function rowsFromGviz(json) {
+            const cols = (json.table && json.table.cols) || [];
+            const idx = {};
+            cols.forEach(function (c, i) { if (c.label) idx[normHeader(c.label)] = i; });
+            function val(cells) {
+                for (let a = 1; a < arguments.length; a++) {
+                    const i = idx[normHeader(arguments[a])];
+                    if (i != null && cells[i]) {
+                        const v = cells[i].v;
+                        if (v != null && String(v) !== "") return v;
+                    }
+                }
+                return "";
+            }
+            const hasApproved = Object.keys(idx).some(function (k) { return k === "approved"; });
+            // Last-resort screenshot finder: any upload/image-like header whose
+            // cell actually contains a Drive file ID (tolerates renamed questions).
+            function findUploadValue(cells) {
+                const keys = Object.keys(idx);
+                for (let k = 0; k < keys.length; k++) {
+                    if (/screenshot|upload|image|picture|photo/.test(keys[k])) {
+                        const cell = cells[idx[keys[k]]];
+                        const v = String((cell && cell.v) || "");
+                        if (driveIdFromUrl(v)) return v;
+                    }
+                }
+                return "";
+            }
+            const out = [];
+            ((json.table && json.table.rows) || []).forEach(function (r) {
+                const cells = r.c || [];
+                if (!isApproved(val(cells, "approved"))) return;
+                const imageUrl = String(val(cells, "image url", "imageurl")).split(",")[0].trim();
+                const shot = String(val(cells, "screenshot", "upload", "image", "picture", "photo") || "") || findUploadValue(cells);
+                out.push({
+                    name: val(cells, "student name", "name"),
+                    unit: val(cells, "unit"),
+                    title: val(cells, "game title", "title"),
+                    link: val(cells, "game link", "link", "url"),
+                    description: val(cells, "description", "about"),
+                    image: imageUrl || thumbnailFor(shot)
                 });
             });
-        });
+            return { rows: out.reverse(), hasApproved: hasApproved };
+        }
+
+        function bindFilters() {
+            const filterButtons = document.querySelectorAll(".filter-btn");
+            filterButtons.forEach(function (button) {
+                button.onclick = function () {
+                    filterButtons.forEach(function (btn) { btn.classList.remove("active"); });
+                    button.classList.add("active");
+                    const filter = button.getAttribute("data-filter");
+                    document.querySelectorAll("#gallery-grid .submission-card").forEach(function (card) {
+                        card.style.display = (filter === "all" || card.getAttribute("data-unit") === filter) ? "block" : "none";
+                    });
+                };
+            });
+        }
+
+        function showEmpty() {
+            document.getElementById("gallery-grid").innerHTML = "";
+            document.getElementById("empty-state").style.display = "block";
+        }
+
+        async function loadGallery() {
+            const id = SUBMISSIONS_CONFIG.SHEET_ID;
+            if (!id || id.indexOf("PASTE_") === 0) return; // not configured: keep static cards
+            const status = document.getElementById("gallery-status");
+            try {
+                const url = "https://docs.google.com/spreadsheets/d/" + id +
+                    "/gviz/tq?tqx=out:json&sheet=" + encodeURIComponent(SUBMISSIONS_CONFIG.SHEET_NAME) +
+                    "&_=" + Date.now();
+                const res = await fetch(url);
+                if (!res.ok) throw new Error("HTTP " + res.status);
+                const text = await res.text();
+                const json = JSON.parse(text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1));
+                const parsed = rowsFromGviz(json);
+                if (!parsed.hasApproved) {
+                    if (status) {
+                        status.style.display = "block";
+                        status.textContent = "The sheet is missing the 'Approved' column \u2014 see Step 3 of the setup guide.";
+                    }
+                    return;
+                }
+                const rows = parsed.rows;
+                if (!rows.length) { showEmpty(); return; }
+                document.getElementById("gallery-grid").innerHTML = rows.map(cardHtml).join("");
+                bindFilters();
+            } catch (err) {
+                if (status) {
+                    status.style.display = "block";
+                    status.textContent = "Could not load the live gallery \u2014 showing saved submissions.";
+                }
+            }
+        }
+
+        function wireForm() {
+            const cfg = SUBMISSIONS_CONFIG;
+            const frame = document.getElementById("submission-form-frame");
+            const placeholder = document.getElementById("form-placeholder");
+            const altWrap = document.getElementById("form-alt-link");
+            const altAnchor = document.getElementById("form-alt-anchor");
+            const embed = cfg.FORM_EMBED_URL && cfg.FORM_EMBED_URL.indexOf("PASTE_") !== 0 ? cfg.FORM_EMBED_URL : "";
+            const link = cfg.FORM_LINK_URL && cfg.FORM_LINK_URL.indexOf("PASTE_") !== 0 ? cfg.FORM_LINK_URL : "";
+            if (embed) {
+                frame.src = embed;
+                frame.style.display = "block";
+                placeholder.style.display = "none";
+                if (link) { altAnchor.href = link; altWrap.style.display = "block"; }
+            } else if (link) {
+                placeholder.innerHTML = '<a href="' + esc(link) + '" class="nav-button primary" target="_blank" rel="noopener">Open the Submission Form \u2192</a>';
+            }
+            // otherwise: leave the "being set up" placeholder in place
+        }
+
+        if (typeof document !== "undefined") {
+            document.addEventListener("DOMContentLoaded", function () {
+                wireForm();
+                bindFilters();
+                loadGallery();
+            });
+        }
     </script>
 
     <script src="script.js"></script>

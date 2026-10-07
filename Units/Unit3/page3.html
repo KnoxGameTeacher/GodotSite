@@ -16,7 +16,7 @@
                 <span>Player Movement</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section 3 of 9</span>
+                <span class="section-nav-current">Section 3 of 10</span>
                 <a href="page4.html" class="next-button">Next Section →</a>
             </div>
         </div>
@@ -314,9 +314,7 @@ func _physics_process(delta: float) -> void:
 
             const SPEED = 5.0
             const JUMP_VELOCITY = 4.5
-            # This line is if your character model animation is handmade by you DO NOT use both lines
-            @onready var animation_player = $AnimationPlayer
-            # This line is if your character model is imported from a .glb file with animations DO NOT use both lines
+            # Your character model is imported from a .glb file with animations
             @onready var animation_player = $character/AnimationPlayer
 
             @onready var character = $character  # Your imported model node
@@ -438,7 +436,8 @@ func _physics_process(delta: float) -> void:
                 <a href="page7.html" class="page-button">Page 7</a>
                 <a href="page8.html" class="page-button">Page 8</a>
                 <a href="page9.html" class="page-button">Page 9</a>
-            </div>
+                <a href="page10.html" class="page-button">Page 10</a>
+           </div>
             <a href="page4.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>

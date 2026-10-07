@@ -30,7 +30,7 @@
             </div>
             <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
                 <div class="youtube-thumbnail">
-                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 2 Video Playlist">
                     <div class="playlist-overlay">
                         <span class="play-button">▶</span>
                         <span class="playlist-text">Watch the full playlist on YouTube</span>
@@ -220,7 +220,7 @@ func _physics_process(delta):
                                 <li>Add a child <strong>Area2D</strong> to the Enemy node</li>
                                 <li>Name it <strong>"HitBox"</strong></li>
                                 <li>Add a <strong>CollisionShape2D</strong> as a child of HitBox</li>
-                                <li>Set the shape to slightly smaller than the enemy sprite, but make sure it's larger than its collision box or else the player won't touch it</li>
+                                <li>Set the shape to be slightly larger than the enemy's <strong>CollisionShape2D</strong> but no bigger than the sprite</li>
                             </ul>
                         </div>
                         <div class="instruction-section">
@@ -237,14 +237,15 @@ func _on_body_entered(body):
     if body.name == "Player":
         hit_player.emit()</code></pre>
 
-                            <p>Then in the <strong>Enemy</strong> script, connect the signal:</p>
+                            <p>Then in the <strong>Enemy</strong> script, merge these lines into your existing <code>_ready()</code> — do <strong>not</strong> paste a second <code>func _ready()</code>:</p>
 
-                            <pre><code># Add this to Enemy script
+                            <pre><code># Add with your other @onready variables:
 @onready var hit_box = $HitBox
 
-func _ready():
+# Add this line inside your existing _ready():
     hit_box.hit_player.connect(_on_hit_player)
 
+# Add this as a new function at the end of the script:
 func _on_hit_player():
     print("Player hit the enemy!")
     # We'll handle the actual damage in the next section</code></pre>
@@ -293,7 +294,7 @@ func _on_hit_player():
                                 <li>With the enemy selected, find the <strong>Script Variables</strong> section in the Inspector</li>
                                 <li>Adjust <strong>speed</strong> to change how fast the enemy moves</li>
                                 <li>Adjust <strong>left_limit</strong> and <strong>right_limit</strong> to set patrol boundaries</li>
-                                <li>These limits are in <strong>global coordinates</strong>, so you can set them based on your level layout</li>
+                                <li>These limits are in <strong>level-local coordinates</strong> (keep your Level node at 0,0), so you can set them based on your level layout</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> Place enemies on different platforms and adjust their patrol ranges so they don't walk off the edge of the platform.

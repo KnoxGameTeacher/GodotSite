@@ -30,7 +30,7 @@
             </div>
             <a href="https://youtube.com/playlist?list=PLIDMQvDKEgC8&si=Nnk5iQT-yW1tCZfK" target="_blank" class="youtube-playlist-link">
                 <div class="youtube-thumbnail">
-                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 2 Video Playlist">
                     <div class="playlist-overlay">
                         <span class="play-button">▶</span>
                         <span class="playlist-text">Watch the full playlist on YouTube</span>
@@ -165,8 +165,8 @@
                         <div class="instruction-section">
                             <h4>Player Script with Gravity</h4>
                             <ul>
-                                <li>Select the <strong>Player</strong> node and click the <strong>"📄"</strong> icon next to Script. Name it <strong>"player.gd"</strong></li>
-                                <li>This time, we are going to check the box to use Godot's built in template for CharacterBody2D</li>
+                                <li>Select the <strong>Player</strong> node and click the <strong>script</strong> icon (the little document) next to "Script". Name it <strong>"player.gd"</strong></li>
+                                <li>This time, leave the <strong>Template</strong> field on the built-in CharacterBody2D template</li>
                             </ul>
                             
                         </div>
@@ -176,8 +176,8 @@
                             <ul>
                                 <li><strong>const SPEED and const JUMP_VELOCITY</strong> - Constants are values that never change. SPEED controls how fast the player moves left/right. JUMP_VELOCITY is the upward force when jumping. (Negative = upward).</li>
                                 <li><strong>move_and_slide()</strong> - Moves the character and handles collisions</li>
-                                <li><strong>if not is_on_floor(): velocity.y += gravity * delta</strong>This checks if the player is in the air. If they are not on the floor, we increase their downward velocity, pulling them back down. This is the core of gravity.</li>
-                                <li><strong>if Input.is_action_just_pressed("ui_accept") and is_on_floor(): velocity.y = JUMP_VELOCITY</strong>This checks two things: 1- The player just pressed the jump key (Space or Up arrow), and 2- they are on the floor. If both are true, we set the vertical velocity to the jump value, launching them upward.</li>
+                                <li><strong>if not is_on_floor(): velocity.y += gravity * delta</strong> This checks if the player is in the air. If they are not on the floor, we increase their downward velocity, pulling them back down. This is the core of gravity.</li>
+                                <li><strong>if Input.is_action_just_pressed("ui_accept") and is_on_floor(): velocity.y = JUMP_VELOCITY</strong> This checks two things: 1- The player just pressed the jump key (Space or Up arrow), and 2- they are on the floor. If both are true, we set the vertical velocity to the jump value, launching them upward.</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 New Concept:</strong> Gravity makes the player fall. Without it, the character would float in the air!
@@ -188,9 +188,10 @@
                         <div class="image-container">
                             <img src="./Images/U2L2-4.png" alt="Player gravity script" width="600" height="400" class="step-image">
                             <div class="image-caption">Figure 2.4: Player script with gravity and horizontal movement</div>
-                        </div>
-                    </div>
-                </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
 
                 <!--Step 5: Test the player movement-->
                 <div class="step-card" data-step="5">

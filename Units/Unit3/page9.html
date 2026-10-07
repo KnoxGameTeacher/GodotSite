@@ -127,7 +127,7 @@
                                 <li>A <strong>Camera3D</strong> positioned to look at the character</li>
                                 <li>Your character model (the <strong>Character scene</strong>)</li>
                                 <li>A <strong>DirectionalLight3D</strong> so the character is visible</li>
-                                <li>On the SubViewport settings, toggle on the <b>Transparent Background</b> option </li>
+                                <li>On the SubViewport settings, toggle on the <b>Transparent Background</b> option</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Pro Tip:</strong> Position the Camera3D to frame the character nicely—typically 2-3 meters back, looking at chest height. Add a slight downward angle for a more dynamic look.
@@ -292,7 +292,7 @@ func _on_character_2_button_pressed():
 func _on_start_button_pressed():
     if selected_character != "":
         Global.selected_character = selected_character
-        get_tree().change_scene_to_file("res://scenes/Main.tscn")
+        get_tree().change_scene_to_file("res://Environment.tscn")
     else:
         selection_label.text = "Please select a forager!"
 
@@ -384,6 +384,16 @@ var selected_character = ""</code></pre>
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
+                            <h4>Set the Main Scene</h4>
+                            <p>Pressing F5 runs the scene set as the <strong>Main Scene</strong>. Point it at the character select screen so the game always starts there:</p>
+                            <ul>
+                                <li>Go to <strong>Project → Project Settings</strong></li>
+                                <li>On the left, go to <strong>Application → Run</strong></li>
+                                <li>Next to <strong>Main Scene</strong>, click the folder icon</li>
+                                <li>Select <strong>character_select.tscn</strong> and click <strong>Open</strong></li>
+                            </ul>
+                       </div>
+                        <div class="instruction-section">
                             <h4>Testing the Scene</h4>
                             <ul>
                                 <li>Press <kbd>F5</kbd> to run the game</li>
@@ -428,10 +438,23 @@ var selected_character = ""</code></pre>
                                 <li><strong>Player</strong> (CharacterBody3D) — the root</li>
                                 <li><strong>CollisionShape3D</strong> — the collision shape</li>
                                 <li><strong>ModelContainer</strong> (Node3D) — an empty node for the model to be loaded into</li>
-                                <li><strong>CameraTarget</strong> (Node3D) — for the camera to follow.  You will need to reassign the camera's target property </li>
+                                <li><strong>CameraTarget</strong> (Node3D) — for the camera to follow.  You will need to reassign the camera's target property</li>
                             </ul>
                             <p>There should <strong>not</strong> be a pre-loaded character model in the scene — it will be loaded dynamically.</p>
-                        </div>
+                       </div>
+                        <div class="instruction-section">
+                            <h4>Update Your Animation References</h4>
+                            <p>The animation code from Sections 3–4 referenced the <strong>pre-loaded</strong> model, which no longer exists in the scene tree. Update every reference so your animation code keeps working:</p>
+                            <ul>
+                                <li><code>@onready var animation_player = $AnimationPlayer</code> (or <code>$character/AnimationPlayer</code>) → <strong>delete</strong> this line; the script now provides <code>model_anim_player</code> instead</li>
+                                <li><code>animation_player.play(...)</code> → <code>model_anim_player.play(...)</code></li>
+                                <li><code>@onready var character = $character</code> → <strong>delete</strong> this line; the script now provides <code>current_model</code> instead</li>
+                                <li><code>character.rotation.y</code> → <code>current_model.rotation.y</code></li>
+                            </ul>
+                            <div class="warning-box">
+                                <strong>⚠️ Important:</strong> <code>model_anim_player</code> and <code>current_model</code> are only set after <code>load_model()</code> runs in <code>_ready()</code> — don't reference them before the model has loaded.
+                           </div>
+                       </div>
                         <div class="instruction-section">
                             <h4>Update the Player Script</h4>
                             <p>Open <strong>player.gd</strong> and make sure the <code>load_model()</code> function reads from Global:</p>

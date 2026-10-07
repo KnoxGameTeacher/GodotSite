@@ -16,7 +16,7 @@
                 <span>Prey AI (Flee)</span>
             </div>
             <div class="section-nav">
-                <span class="section-nav-current">Section 6 of 9</span>
+                <span class="section-nav-current">Section 6 of 10</span>
                 <a href="page7.html" class="next-button">Next Section →</a>
             </div>
         </div>
@@ -84,6 +84,9 @@
                                 <li>Add a <strong>CollisionShape3D</strong> as a child of Prey</li>
                                 <li>Set the shape to <strong>CapsuleShape3D</strong> or a shape appropriate to your animal models</li>
                                 <li>Adjust the size of the collision shape to fit your animal model</li>
+                                <li>Add a <strong>RayCast3D</strong> as a child of Prey</li>
+                                <li>Rename it to <strong>"GroundRay"</strong></li>
+                                <li>Set its <strong>Target Position</strong> to <strong>(0, -1, 0)</strong> so it points straight down</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Why a ModelContainer?</strong> This makes it easy to swap different animal models without affecting the collision or behavior logic.
@@ -160,7 +163,6 @@ var flee_direction: Vector3
 var is_fleeing = false
 var wander_direction: Vector3
 var wander_timer = 0.0
-var gravity = -9.8
 
 func _ready():
 	load_model()
@@ -195,7 +197,7 @@ func wander(delta):
 	velocity = wander_direction * speed * 0.5
 
 func _physics_process(delta: float) -> void:
-	velocity.y += gravity * delta
+	velocity.y += get_gravity().y * delta
 		# Snap to ground using raycast
 	ground_ray.global_position = global_position
 	ground_ray.force_raycast_update()
@@ -233,7 +235,7 @@ func _physics_process(delta: float) -> void:
                         <div class="instruction-section">
                             <h4>Understanding the Model Selection Code</h4>
                             <ul>
-                                <li><strong>@export var animal_type</strong> - Dropdown in Inspector to choose which animal</li>
+                                <li><strong>@export var animal_type</strong> - Text field in Inspector to choose which animal</li>
                                 <li><strong>load_model()</strong> - Loads the selected model when the scene starts</li>
                                 <li><strong>match</strong> - A switch statement that picks the correct model path</li>
                                 <li><strong>model_container</strong> - The Node3D that holds the model</li>
@@ -272,10 +274,10 @@ func _physics_process(delta: float) -> void:
                             </ul>
                             <h5>Example Placement</h5>
                             <ul>
-                                <li>Rabbit 1: animal_type = "rabbit", speed = 4.0, detection_range = 8.0</li>
-                                <li>Rabbit 2: animal_type = "rabbit", speed = 3.5, detection_range = 10.0</li>
-                                <li>Deer 1: animal_type = "deer", speed = 5.0, detection_range = 12.0</li>
-                                <li>Squirrel 1: animal_type = "squirrel", speed = 6.0, detection_range = 6.0</li>
+                                <li>Chick 1: animal_type = "chick", speed = 4.0, detection_range = 8.0</li>
+                                <li>Chick 2: animal_type = "chick", speed = 3.5, detection_range = 10.0</li>
+                                <li>Crab 1: animal_type = "crab", speed = 5.0, detection_range = 12.0</li>
+                                <li>Crab 2: animal_type = "crab", speed = 6.0, detection_range = 6.0</li>
                             </ul>
                             <div class="warning-box">
                                 <strong>⚠️ Important:</strong> Place prey animals on top of the ground (y = 0.5 for a 1-tall capsule) or they will fall through the world!
@@ -315,10 +317,11 @@ func _physics_process(delta: float) -> void:
                     <li>Rename it to <strong>"DetectionArea"</strong></li>
                     <li>Add a <strong>CollisionShape3D</strong> as a child of DetectionArea</li>
                     <li>Set the shape to <strong>SphereShape3D</strong> with radius <strong>8.0</strong> (this will be overridden by the script)</li>
+                    <li>Right-click the <strong>SphereShape3D</strong> in the Inspector and choose <strong>"Local to Scene"</strong> — this lets each prey instance have its own detection radius</li>
                 </ul>
 
                 <h5>Step 2: Update Your Prey Script</h5>
-                <p>Append <strong>prey.gd</strong> with this script:</p>
+                <p>Replace your <strong>_ready()</strong> and <strong>_physics_process()</strong> in <strong>prey.gd</strong> with these updated versions:</p>
                 <pre><code>extends CharacterBody3D
 
 
@@ -433,7 +436,7 @@ func _physics_process(delta: float) -> void:
                             <h4>Troubleshooting Common Issues</h4>
                             <ul>
                                 <li><strong>Prey doesn't move:</strong> Check that speed is set and the script is attached</li>
-                                <li><strong>Prey falls through ground:</strong> Add a CollisionShape3D to the Prey node</li>
+                                <li><strong>Prey falls through ground:</strong> Check the collision shape's size/position on the Prey node</li>
                                 <li><strong>Prey ignores player:</strong> Check that detection_range is large enough</li>
                                 <li><strong>Model doesn't appear:</strong> Check that the model path in the script matches your file location</li>
                                 <li><strong>All animals look the same:</strong> Verify each instance has a different animal_type selected</li>
@@ -466,7 +469,8 @@ func _physics_process(delta: float) -> void:
                 <a href="page7.html" class="page-button">Page 7 →</a>
                 <a href="page8.html" class="page-button">Page 8</a>
                 <a href="page9.html" class="page-button">Page 9</a>
-            </div>
+                <a href="page10.html" class="page-button">Page 10</a>
+           </div>
             <a href="page7.html" class="nav-button primary">Next Section →</a>
         </div>
     </div>

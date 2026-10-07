@@ -31,7 +31,7 @@
         <div class="test-overview">
             <div class="test-stats">
                 <div class="test-stat-card">
-                    <div class="test-stat-number">30</div>
+                    <div class="test-stat-number">24</div>
                     <div class="test-stat-label">Required Points</div>
                 </div>
                 <div class="test-stat-card">
@@ -43,7 +43,7 @@
                 <h3>Test Instructions</h3>
                 <ul>
                     <li>The top sections are all review, walk through each step to make sure you have completed those items and check them off</li>
-                    <li>Complete ALL required sections (30 points total)</li>
+                    <li>Complete ALL required sections (24 points total)</li>
                     <li>You MUST create <strong>Level2.tscn</strong> and <strong>Level3.tscn</strong> with increasing difficulty</li>
                     <li>Bonus challenges are optional (up to 10 extra points)</li>
                     <li>Submit your entire project folder for grading</li>
@@ -80,7 +80,7 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Open your project.godot file in a text editor</li>
                                     <li>Check that <code>config/name="A-Maze-Ball"</code></li>
@@ -104,7 +104,7 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Open player.tscn</li>
                                     <li>Root node is CharacterBody2D named "Player"</li>
@@ -129,12 +129,12 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>player.gd script attached to Player node</li>
                                     <li>Uses <code>Input.get_vector()</code> for input detection</li>
                                     <li>Velocity is set correctly and uses <code>move_and_slide()</code></li>
-                                    <li>Player moves smoothly in 4 directions</li>
+                                    <li>Player moves smoothly in 8 directions</li>
                                 </ul>
                             </div>
                         </div>
@@ -161,7 +161,7 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>tilesheet.png exists in assets/tiles/ folder</li>
                                     <li>TileSet resource created with 64x64 tile size</li>
@@ -186,7 +186,7 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Level1.tscn exists with Node2D root</li>
                                     <li>Has "Background" TileMapLayer child</li>
@@ -211,7 +211,7 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Entire blue visible area covered with floor tiles</li>
                                     <li>Walls painted around perimeter and interior maze paths</li>
@@ -236,12 +236,12 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Area2D named "Exit" placed at maze exit</li>
                                     <li>CollisionShape2D covers the doorway area</li>
                                     <li>Script attached with body_entered signal connection</li>
-                                    <li>Script loads next level or Win.tscn when player touches exit</li>
+                                    <li>Script loads Win.tscn when player touches exit (each level's exit should go to Win.tscn)</li>
                                 </ul>
                             </div>
                         </div>
@@ -364,7 +364,7 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Start.tscn exists with Control root node</li>
                                     <li>Has Label with game title "A-Maze-Ball"</li>
@@ -390,7 +390,7 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Win.tscn exists (can be duplicated from Start.tscn)</li>
                                     <li>Label says "You Win!" or similar victory message</li>
@@ -415,7 +415,7 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Open Project → Project Settings → General</li>
                                     <li>Check Application → Run → Main Scene points to "res://Start.tscn"</li>
@@ -447,7 +447,7 @@
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Scripts have comments explaining key sections</li>
                                     <li>Variable names are meaningful (e.g., "speed" not "s")</li>
@@ -465,18 +465,18 @@
                         <div class="step-title">
                             <label>
                                 <input type="checkbox" class="step-check" data-step="16">
-                                <span>Project is organized with assets/, scripts/, scenes/ folders (1 point)</span>
+                                <span>Project files are saved in the root project directory (1 point)</span>
                             </label>
                         </div>
                     </div>
                     <div class="step-content">
                         <div class="step-instructions">
                             <div class="instruction-section">
-                                <h4>✅ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>assets/ folder contains tiles/ and player/ subfolders</li>
-                                    <li>Scene files are in root or a levels/ folder</li>
-                                    <li>Scripts are in the scripts/ folder</li>
+                                    <li>Scene files are saved in the root project directory</li>
+                                    <li>Scripts are saved in the project folder (root is fine)</li>
                                 </ul>
                             </div>
                         </div>
@@ -487,13 +487,13 @@
             <!-- BONUS SECTION (10 points possible) -->
             <div class="test-section bonus-section">
                 <div class="test-section-header">
-                    <div class="test-section-icon">⭐</div>
+                    <div class="test-section-icon"></div>
                     <div class="test-section-title">Bonus Challenges (Optional - up to 10 points)</div>
                 </div>
 
                 <div class="step-card" data-step="17">
                     <div class="step-header">
-                        <div class="step-number">⭐</div>
+                        <div class="step-number"></div>
                         <div class="step-title">
                             <label>
                                 <input type="checkbox" class="step-check" data-step="17">
@@ -503,14 +503,14 @@
                     </div>
                     <div class="step-content">
                         <div class="instruction-section">
-                            <h4>🏆 Bonus Challenge 1</h4>
+                            <h4>Bonus Challenge 1</h4>
                             <p>Enhance the visual appeal of your levels.</p>
                             <ul>
                                 <li>Added decorative tiles to at least one level (2 points)</li>
                                 <li>Change the color settings of the layers so that it is easy to distinguish them (1 point)</li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Pro Tip:</strong> Use a TileMap node to place decorative elements on an extra layer!
+                                <strong>💡 Pro Tip:</strong> Use a TileMapLayer node to place decorative elements on an extra layer!
                             </div>
                         </div>
                     </div>
@@ -518,7 +518,7 @@
 
                 <div class="step-card" data-step="18">
                     <div class="step-header">
-                        <div class="step-number">⭐</div>
+                        <div class="step-number"></div>
                         <div class="step-title">
                             <label>
                                 <input type="checkbox" class="step-check" data-step="18">
@@ -528,7 +528,7 @@
                     </div>
                     <div class="step-content">
                         <div class="instruction-section">
-                            <h4>🏆 Bonus Challenge 2</h4>
+                            <h4>Bonus Challenge 2</h4>
                             <p>Replace the Start button with a level select menu.</p>
                             <ul>
                                 <li>Add buttons for each level (1 point)</li>
@@ -541,7 +541,7 @@
 
                 <div class="step-card" data-step="19">
                     <div class="step-header">
-                        <div class="step-number">⭐</div>
+                        <div class="step-number"></div>
                         <div class="step-title">
                             <label>
                                 <input type="checkbox" class="step-check" data-step="19">
@@ -551,7 +551,7 @@
                     </div>
                     <div class="step-content">
                         <div class="instruction-section">
-                            <h4>🏆 Bonus Challenge 3</h4>
+                            <h4>Bonus Challenge 3</h4>
                             <p>Add collectible items to one or more levels.</p>
                             <ul>
                                 <li>Create a collectible item scene with Area2D and Sprite2D (2 points)</li>
@@ -565,7 +565,7 @@
 
         <!-- Submission Section -->
         <div class="submission-section">
-            <h2>📤 Submission Instructions</h2>
+            <h2>Submission Instructions</h2>
             <div class="submission-grid">
                 <div class="submission-card">
                     <h3>What to Submit</h3>
@@ -573,7 +573,7 @@
                         <li>Entire Godot project folder (compressed as .zip) turned in on Google Classroom</li>
                         <li>Screenshots of each level (Level1, Level2, Level3)</li>
                         <li>Brief reflection on your design process for each level, 3 sentences minimum</li>
-                        <li>View student submissions here:<a href="../..//submissions.html">Student Submissions</a></li>
+                        <li>View student submissions here:<a href="../../submissions.html">Student Submissions</a></li>
                     </ul>
                 </div>
             </div>
@@ -610,7 +610,7 @@
     <!-- Test Scoring Script -->
     <script>
         function calculateTestScore() {
-            // Required step point values (total 30 points possible)
+            // Required step point values (total 24 points possible)
             const stepPointValues = {
                 1: 1,    // Project name renderer
                 2: 1,    // Player scene exists
