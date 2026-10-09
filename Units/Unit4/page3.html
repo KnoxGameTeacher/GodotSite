@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.3: Custom Tower Assets - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        .tool-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .tool-toggle-label {
+            font-weight: bold;
+        }
+        .tool-version {
+            display: none;
+        }
+        .tool-version.active {
+            display: block;
+        }
+    </style>
+    <noscript><style>.tool-version[data-tool="blockbench"] { display: block; }</style></noscript>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Custom Tower Assets</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 3 of 15</span>
+                <a href="page4.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 3 Videos</h3>
+                    <p>Watch: "Building Custom Towers"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 3: Custom Tower Assets</h1>
+            <p class="unit-description">Design and export the custom tower models your game will be built around.</p>
+        </div>
+
+        <!-- Tool Toggle -->
+        <div class="tool-toggle">
+            <span class="tool-toggle-label">Choose your modeling tool</span>
+            <button type="button" class="nav-button tool-btn" data-tool="assetforge">Asset Forge</button>
+            <button type="button" class="nav-button tool-btn" data-tool="blockbench">Blockbench</button>
+            <button type="button" class="nav-button tool-btn" data-tool="blender">Blender</button>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="3">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1: Asset Forge version -->
+            <div class="step-card tool-version" data-tool="assetforge" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Introduction to Asset Forge</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>What Is Asset Forge?</h4>
+                            <ul>
+                                <li><strong>Asset Forge</strong> is a block-building tool by <a href="https://kenney.nl/tools/asset-forge" target="_blank">Kenney</a> for creating 3D models</li>
+                                <li>You snap together pre-made blocks, no modeling experience needed</li>
+                                <li>The downside to this program compared to the other two options presented is that it costs money</li>
+                                <li>Anything you create is yours to use, and the included blocks are public domain</li>
+                            </ul>
+                            <h5>Getting Oriented</h5>
+                            <ul>
+                                <li>Open Asset Forge and start a new project</li>
+                                <li>Browse the block library. Blocks are grouped by category.</li>
+                                <li>Drag blocks into the build area and stack them however you like</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Asset Forge interface" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.1: The Asset Forge workspace with the block library</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Blockbench version -->
+            <div class="step-card tool-version" data-tool="blockbench" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Introduction to Blockbench</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>What Is Blockbench?</h4>
+                            <ul>
+                                <li><strong>Blockbench</strong> is a free, open source 3D model editor at <a href="https://www.blockbench.net" target="_blank">blockbench.net</a></li>
+                                <li>It runs in your browser, so there is nothing to install</li>
+                                <li>It is built for boxy, low-poly models, which fits this game perfectly</li>
+                                <li>It exports glTF, which Godot reads directly</li>
+                            </ul>
+                            <h5>Starting Your First Model</h5>
+                            <ul>
+                                <li>Open Blockbench and choose <strong>New Model</strong>, then pick <strong>Generic Model</strong></li>
+                                <li>You get an empty workspace with a grid. Cuboids are your building blocks.</li>
+                                <li>You only need a handful of tools for this unit: add, move, resize, rotate, and paint</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> Blockbench gives you more control than snap-together tools, so there are a few more buttons to learn. Stick to the five tools above and you will be fine.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Blockbench interface" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.1: The Blockbench workspace with a new generic model</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Blender version -->
+            <div class="step-card tool-version" data-tool="blender" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Introduction to Blender</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>What Is Blender?</h4>
+                            <ul>
+                                <li><strong>Blender</strong> is a free, open source 3D creation suite at <a href="https://www.blender.org" target="_blank">blender.org</a></li>
+                                <li>It is the most capable tool on this page, and the steepest learning curve</li>
+                                <li>It exports glTF, which Godot reads directly</li>
+                            </ul>
+                            <h5>Starting Your First Model</h5>
+                            <ul>
+                                <li>Open Blender and start a new General project</li>
+                                <li>Delete the default cube. Select it and press <strong>X</strong>.</li>
+                                <li>Press <strong>Shift+A</strong>, then Mesh, then Cube to add your first block</li>
+                                <li>You only need a handful of operations for this unit: add (Shift+A), move (G), scale (S), and rotate (R)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> Blender can do almost anything, which means a lot of buttons you will never touch here. Stick to the operations above and treat the rest as scenery.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Blender interface" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.1: The Blender workspace with a new project</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Step 2: shared -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Plan Your Tower Roster</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Design Before You Build</h4>
+                            <ul>
+                                <li>Open your GDD and look at your tower roster</li>
+                                <li>Make the silhouettes distinct, players should tell towers apart at a glance</li>
+                                <li>Example: a tall, thin tower for long-range attacks vs. a short, wide tower for close-range defense</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> Build the roster you designed. If your GDD has three towers, build three. If it has five, build five. The number and roles come from your design decisions.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower silhouettes" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.2: Distinct silhouettes make towers readable in-game</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Asset Forge version -->
+            <div class="step-card tool-version" data-tool="assetforge" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Build Your First Tower</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Assemble in Layers</h4>
+                            <ul>
+                                <li>Start with your simplest tower</li>
+                                <li>Build from the ground up in three layers: <strong>base</strong>, <strong>body</strong>, <strong>top</strong></li>
+                                <li>Give the top layer something distinctive, that's what players see from the perspective over the field</li>
+                                <li>Keep it chunky: tiny details disappear at game distance</li>
+                            </ul>
+                            <h5>Saving Your Work</h5>
+                            <ul>
+                                <li>Save the Asset Forge project file for each tower</li>
+                                <li>You'll need it later if a tower needs changes, you can then easily edit and re-export it</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower built in layers" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.3: Building a tower in base, body, and top layers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Blockbench version -->
+            <div class="step-card tool-version" data-tool="blockbench" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Build Your First Tower</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Building with Cuboids</h4>
+                            <ul>
+                                <li>Start with your simplest tower</li>
+                                <li>Add cuboids from the toolbar, then move, resize, and rotate them into place</li>
+                                <li>Build from the ground up in three layers: <strong>base</strong>, <strong>body</strong>, <strong>top</strong></li>
+                                <li>Give the top layer something distinctive, that's what players see from the perspective over the field</li>
+                                <li>Keep it chunky: tiny details disappear at game distance</li>
+                            </ul>
+                            <h5>Saving Your Work</h5>
+                            <ul>
+                                <li>Save the Blockbench project file for each tower</li>
+                                <li>You'll need it later if a tower needs changes, you can then easily edit and re-export it</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower built in layers" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.3: Building a tower in base, body, and top layers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Blender version -->
+            <div class="step-card tool-version" data-tool="blender" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Build Your First Tower</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Building with Meshes</h4>
+                            <ul>
+                                <li>Start with your simplest tower</li>
+                                <li>Add cube meshes with <strong>Shift+A</strong>, then move (<strong>G</strong>), scale (<strong>S</strong>), and rotate (<strong>R</strong>) them into place</li>
+                                <li>Build from the ground up in three layers: <strong>base</strong>, <strong>body</strong>, <strong>top</strong></li>
+                                <li>Give the top layer something distinctive, that's what players see from the perspective over the field</li>
+                                <li>Keep it chunky: tiny details disappear at game distance</li>
+                            </ul>
+                            <h5>Saving Your Work</h5>
+                            <ul>
+                                <li>Save the Blender project file for each tower</li>
+                                <li>You'll need it later if a tower needs changes, you can then easily edit and re-export it</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower built in layers" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.3: Building a tower in base, body, and top layers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Step 4: Asset Forge version -->
+            <div class="step-card tool-version" data-tool="assetforge" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Apply Colors and Materials</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Color as Communication</h4>
+                            <ul>
+                                <li>Use color to tell players what a tower does</li>
+                                <li>Pick one color scheme for your whole game and stick to it across every tower</li>
+                                <li>Repeat the same color logic everywhere, for example, if your sniper tower is red, all sniper towers should be red</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> What mood and setting did you choose? Your colors should match your game's visual direction but still stand out enough in the environment that the player can easily manage the field.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Colored tower models" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.4: A consistent color language across the tower roster</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Blockbench version -->
+            <div class="step-card tool-version" data-tool="blockbench" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Apply Colors and Materials</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Color as Communication</h4>
+                            <ul>
+                                <li>Select a cuboid and use the paint tools to color its faces</li>
+                                <li>Use color to tell players what a tower does</li>
+                                <li>Pick one color scheme for your whole game and stick to it across every tower</li>
+                                <li>Repeat the same color logic everywhere, for example, if your sniper tower is red, all sniper towers should be red</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> What mood and setting did you choose? Your colors should match your game's visual direction but still stand out enough in the environment that the player can easily manage the field.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Colored tower models" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.4: A consistent color language across the tower roster</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Blender version -->
+            <div class="step-card tool-version" data-tool="blender" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Apply Colors and Materials</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Color as Communication</h4>
+                            <ul>
+                                <li>Select a mesh, open the <strong>Material</strong> tab, add a new material, and set its base color</li>
+                                <li>Use color to tell players what a tower does</li>
+                                <li>Pick one color scheme for your whole game and stick to it across every tower</li>
+                                <li>Repeat the same color logic everywhere, for example, if your sniper tower is red, all sniper towers should be red</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> What mood and setting did you choose? Your colors should match your game's visual direction but still stand out enough in the environment that the player can easily manage the field.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Colored tower models" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.4: A consistent color language across the tower roster</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Step 5: Asset Forge version -->
+            <div class="step-card tool-version" data-tool="assetforge" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Export as glTF</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Exporting Your Towers</h4>
+                            <ul>
+                                <li>Export each tower as its own file</li>
+                                <li>Choose the <strong>glTF</strong> format</li>
+                                <li>Name your files with a consistent scheme, like <strong>tower_cannon.glb</strong></li>
+                                <li>Repeat for every tower in your roster</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Exporting a tower" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.5: Exporting a tower as a .glb file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Blockbench version -->
+            <div class="step-card tool-version" data-tool="blockbench" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Export as glTF</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Exporting Your Towers</h4>
+                            <ul>
+                                <li>Export each tower as its own file</li>
+                                <li>Go to <strong>File</strong>, then <strong>Export</strong>, then <strong>Export glTF Model</strong></li>
+                                <li>This produces a single <strong>.glb</strong> file per tower</li>
+                                <li>Name your files with a consistent scheme, like <strong>tower_cannon.glb</strong></li>
+                                <li>Repeat for every tower in your roster</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Exporting a tower" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.5: Exporting a tower as a .glb file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Blender version -->
+            <div class="step-card tool-version" data-tool="blender" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Export as glTF</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Exporting Your Towers</h4>
+                            <ul>
+                                <li>Export each tower as its own file</li>
+                                <li>Go to <strong>File</strong>, then <strong>Export</strong>, then <strong>glTF 2.0</strong></li>
+                                <li>Choose the <strong>.glb</strong> format for a single tidy file</li>
+                                <li>Name your files with a consistent scheme, like <strong>tower_cannon.glb</strong></li>
+                                <li>Repeat for every tower in your roster</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Exporting a tower" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.5: Exporting a tower as a .glb file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Step 6: shared -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Import into Godot</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Bringing Towers into Your Project</h4>
+                            <ul>
+                                <li>Drag your <strong>.glb</strong> files into <strong>assets/towers/</strong> in the FileSystem dock</li>
+                                <li>Double-click one to preview it in the editor</li>
+                                <li>Drag one into a test scene to check that it looks right at game scale</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> If a tower looks wrong, go back to your project file in your modeling tool, make the change there, and re-export.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Towers imported into Godot" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.6: Imported towers in the assets/towers/ folder</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page2.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 3 of 15</span>
+            </div>
+            <a href="page4.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+    <script>
+    (function() {
+        var KEY = 'unit4_section3_tool';
+        var buttons = document.querySelectorAll('.tool-btn');
+        var cards = document.querySelectorAll('.tool-version');
+        if (!buttons.length) return;
+        function setTool(tool) {
+            buttons.forEach(function(btn) {
+                btn.classList.toggle('primary', btn.getAttribute('data-tool') === tool);
+            });
+            cards.forEach(function(card) {
+                card.classList.toggle('active', card.getAttribute('data-tool') === tool);
+            });
+            try { localStorage.setItem(KEY, tool); } catch (e) {}
+            if (typeof updateSectionProgress === 'function') {
+                updateSectionProgress(4, 3);
+            }
+        }
+        buttons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                setTool(btn.getAttribute('data-tool'));
+            });
+        });
+        var saved = null;
+        try { saved = localStorage.getItem(KEY); } catch (e) {}
+        var validTools = ['assetforge', 'blockbench', 'blender'];
+        setTool(validTools.indexOf(saved) !== -1 ? saved : 'blockbench');
+    })();
+    </script>
+</body>
+</html>

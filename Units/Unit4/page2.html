@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.2: Project Setup & Environment - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> > 
+                <a href="index.html">Unit 4</a> > 
+                <span>Project Setup & Environment</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 2 of 15</span>
+                <a href="page3.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📺</div>
+                    <h3>Section 2 Videos</h3>
+                    <p>Watch: "Setting Up Blocky Blocks"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 2: Project Setup & Environment</h1>
+            <p class="unit-description">Create the Blocky Blocks project and build the environment where your tower defense game will take place.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="2">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create the Blocky Blocks Project</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Setting Up the Project</h4>
+                            <ul>
+                                <li>Open Godot and click <strong>"New Project"</strong></li>
+                                <li>Name your project.  Mine is "Blocky Blocks", but yours can be anything you like</li>
+                                <li>Choose a location on your computer</li>
+                                <li>Select <strong>"Compatibility"</strong> as the renderer</li>
+                                <li>Click <strong>"Create & Edit"</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Set Up the Project Folder Structure</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Organizing Your Project</h4>
+                            <p>A clean folder structure saves you time as your project grows. Create these folders in your FileSystem dock:</p>
+                            <ul>
+                                <li><strong>scenes/</strong> — for all your .tscn scene files</li>
+                                <li><strong>scripts/</strong> — for standalone .gd scripts</li>
+                                <li><strong>assets/</strong> — for imported models, textures, and sounds</li>
+                                <li><strong>resources/</strong> — for custom resources like wave definitions</li>
+                            </ul>
+                            <h5>Inside assets/</h5>
+                            <ul>
+                                <li><strong>towers/</strong> — your custom tower models from Asset Forge</li>
+                                <li><strong>enemies/</strong> — enemy models</li>
+                                <li><strong>environment/</strong> — path, terrain, and scenery models</li>
+                                <li><strong>sounds/</strong> — music and sound effects</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Your GDD Guides This:</strong> If your GDD calls for features like tower upgrades or multiple enemy types, you may want additional subfolders. Organize for the game you're actually building, not just the structure I'm using.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Import Environment Assets</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Getting Environment Models</h4>
+                            <p>You'll need 3D models for your game environment. Here is a limited list of options:</p>
+                            <ul>
+                                <li><strong>Itch.io Free 3D Assets</strong> — <a href="https://itch.io/game-assets/free/tag-3d" target="_blank">Browse free 3D assets</a></li>
+                                <li><strong>Kay Lousberg</strong> — <a href="https://kaylousberg.com/game-assets" target="_blank">kaylousberg.com/game-assets</a></li>
+                                <li><strong>Kenney</strong> — <a href="https://kenney.nl/assets" target="_blank">kenney.nl/assets</a></li>
+                                <li><strong>Craftpix</strong> — <a href="https://craftpix.net/categorys/3d-game-assets/" target="_blank">https://craftpix.net/categorys/3d-game-assets/</a></li>
+                            </ul>
+                            <p>You'll need:</p>
+                            <ul>
+                                <li>Ground or terrain of some sort</li>
+                                <li>Scenery (rocks, trees, buildings, or decorative items)</li>
+                                <li>A "base" or "goal" object that enemies are trying to reach</li>
+                                <li>A "spawn point" marker for where enemies appear</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Your GDD Guides This:</strong> What setting did you choose for your tower defense game? Forest? Castle? Space station? Pick assets that match your GDD's visual direction.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Environment assets" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.3: Importing environment assets that match your game's theme</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Build the Base Environment Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating the Environment Scene</h4>
+                            <ul>
+                                <li>Create a new scene with a <strong>Node3D</strong> as the root</li>
+                                <li>Rename it to <strong>"Environment"</strong></li>
+                                <li>Save it as <strong>"environment.tscn"</strong> inside your <strong>scenes/</strong> folder</li>
+                            </ul>
+                            <h5>Adding the Ground</h5>
+                            <ul>
+                                <li>Add a <strong>MeshInstance3D</strong> as a child</li>
+                                <li>Rename it to <strong>"Ground"</strong></li>
+                                <li>Assign a ground mesh — you can use a <strong>PlaneMesh</strong> or an imported terrain model</li>
+                                <li>Add a <strong>StaticBody3D</strong> as a child of Ground</li>
+                                <li>Add a <strong>CollisionShape3D</strong> to the StaticBody3D</li>
+                                <li>Set its shape to match the ground (typically a <strong>BoxShape3D</strong> or <strong>WorldBoundaryShape3D</strong>)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Structural Note:</strong> The exact size and shape of your ground depend on how big your path and placement zones will be. Design the ground to comfortably fit your play area with a little extra room around the edges.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Ground setup" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.4: Setting up the ground with collision</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Add the Base and Spawn Point</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Base (the Player's Goal to Defend)</h4>
+                            <ul>
+                                <li>Add a <strong>Node3D</strong> as a child of Environment</li>
+                                <li>Rename it to <strong>"Base"</strong></li>
+                                <li>Add a <strong>MeshInstance3D</strong> as a child of Base</li>
+                                <li>Assign a model or primitive mesh that clearly represents a "goal"</li>
+                                <li>Position the Base at one end of your planned path</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Spawn Point (Where Enemies Appear)</h4>
+                            <ul>
+                                <li>Add a <strong>Node3D</strong> as a child of Environment</li>
+                                <li>Rename it to <strong>"SpawnPoint"</strong></li>
+                                <li>Position it at the opposite end of the path from the Base</li>
+                                <li>You don't need a visual model here — this is a marker that the Wave Manager will use later</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Your GDD Guides This:</strong> Look at your Path Design section. Is your path straight, curved, or branching? The Base and Spawn Point should be at the two ends of your main path.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Base and spawn point" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.5: Adding the Base and Spawn Point markers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Add Scenery and Lighting</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Decorating Your Environment</h4>
+                            <ul>
+                                <li>Place decorative models (rocks, trees, buildings) around the play area</li>
+                                <li>Keep the path itself clear so enemies can walk freely</li>
+                                <li>Scenery can also visually indicate where players <strong>can</strong> and <strong>can't</strong> place towers</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Lighting the Scene</h4>
+                            <ul>
+                                <li>Add a <strong>DirectionalLight3D</strong> as a child of Environment</li>
+                                <li>Rotate it to create the lighting direction you want</li>
+                                <li>Add a <strong>WorldEnvironment</strong> node for sky and ambient light</li>
+                                <li>In the Inspector, click <strong>"New Environment"</strong></li>
+                                <li>Set the background to a Sky and choose an atmosphere that matches your game's mood</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Your GDD Guides This:</strong> Your game's mood and setting come from your GDD. A bright daytime castle feels very different from a moody nighttime fortress. Choose lighting and scenery that support the experience you're designing.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Environment with lighting" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 2.6: Adding scenery and lighting to complete the environment</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 2 of 15</span>
+            </div>
+            <a href="page3.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

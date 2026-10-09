@@ -15,6 +15,7 @@ const COURSE_DATA = {
             5: { name: "Adding Collision to Walls", steps: 6 },
             6: { name: "Designing the Maze", steps: 5 },
             7: { name: "Start Scene, Win Scene & Game Loop", steps: 6 },
+            8: { name: "Multiple Levels & the Global Autoload", steps: 6 },
             test: { name: "Unit 1 Test", steps: 19 }
         }
     },
@@ -62,9 +63,9 @@ const COURSE_DATA = {
         estimatedTime: "8 hours",
         sections: 15,
         pages: {
-            1: { name: "Game Design Document", steps: 7 },
-            2: { name: "Project Setup & Environment", steps: 4 },
-            3: { name: "Custom Tower Assets with Asset Forge", steps: 5 },
+            1: { name: "Game Design Document", steps: 8 },
+            2: { name: "Project Setup & Environment", steps: 6 },
+            3: { name: "Custom Tower Assets", steps: 6 },
             4: { name: "Creating the Enemy Scene", steps: 4 },
             5: { name: "Path Following with Path3D", steps: 5 },
             6: { name: "Placement Zones & Preview", steps: 5 },

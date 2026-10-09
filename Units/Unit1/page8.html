@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1.8: Multiple Levels & the Global Autoload - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 1</a> >
+                <span>Section 8: Multiple Levels & the Global Autoload</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 8 of 8</span>
+                <a href="../../index.html" class="next-button">Unit Complete →</a>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 8: Multiple Levels & the Global Autoload</h1>
+            <p class="unit-description">Chain multiple levels together with a global script that tracks progress and handles level transitions.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="1" data-section="8">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1: Organize Levels and Scripts Folders -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Organize Your Project with "levels" and "scripts" Folders</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Creating the Folders</h4>
+                            <ul>
+                                <li>In the FileSystem dock, right-click on <strong>res://</strong></li>
+                                <li>Select <strong>"New Folder"</strong> and name it <strong>"levels"</strong></li>
+                                <li>Create a second folder named <strong>"scripts"</strong></li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Moving Your Level</h4>
+                            <ul>
+                                <li>Drag <strong>Level1.tscn</strong> into the <strong>levels</strong> folder</li>
+                                <li>Rename it to <strong>"level1.tscn"</strong> (lowercase, to match the pattern below)</li>
+                                <li>Right-click <strong>level1.tscn</strong> and select <strong>"Duplicate"</strong></li>
+                                <li>Rename the duplicate to <strong>"level2.tscn"</strong></li>
+                                <li>Open <strong>level2.tscn</strong> and redesign the maze to make it harder</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Duplicating a level keeps your walls, player, and exit setup intact. You only redesign the maze layout, which is much faster than starting over.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Create the Global Script -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Create "global.gd" to Track the Current Level</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Writing the Global Script</h4>
+                            <ul>
+                                <li>Right-click the <strong>scripts</strong> folder and select <strong>"New Script"</strong></li>
+                                <li>Name it <strong>"global.gd"</strong></li>
+                                <li>Add the following code:</li>
+                            </ul>
+                            <pre><code>extends Node
+
+var current_level = 1
+
+func next_level():
+    current_level += 1
+    var next_path = "res://levels/level" + str(current_level) + ".tscn"
+    if ResourceLoader.exists(next_path):
+        get_tree().change_scene_to_file(next_path)
+    else:
+        get_tree().change_scene_to_file("res://Win.tscn")
+
+func reset_game():
+    current_level = 1
+    get_tree().change_scene_to_file("res://Start.tscn")</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> The script builds the next level's file path from a pattern: "level" + number + ".tscn". Your level files must follow that naming pattern (level1.tscn, level2.tscn, level3.tscn) for the system to find them.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Register the Autoload -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Register global.gd as an Autoload</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Setting Up the Autoload</h4>
+                            <ul>
+                                <li>Go to <strong>Project → Project Settings</strong></li>
+                                <li>Click the <strong>"Globals"</strong> tab, then the <strong>"Autoload"</strong> sub-tab</li>
+                                <li>Click the folder icon and select <strong>"res://scripts/global.gd"</strong></li>
+                                <li>Set the <strong>Node Name</strong> to <strong>"Global"</strong></li>
+                                <li>Click <strong>"Add"</strong>, then <strong>"Close"</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> An autoloaded script runs for the entire game and is never unloaded when scenes change. That is why it can remember the current level. You can now call <strong>Global.next_level()</strong> from any script in your project.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Update the Exit to Use the Global Script -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Update the Exit to Advance to the Next Level</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Modifying exit.gd</h4>
+                            <ul>
+                                <li>Open <strong>exit.gd</strong> (the script you made in Section 7)</li>
+                                <li>Change the <strong>_on_body_entered</strong> function to call the global script instead of loading the win scene directly:</li>
+                            </ul>
+                            <pre><code>func _on_body_entered(body):
+    # Check if the entering body is the player
+    if body.name == "Player":
+        # Advance to the next level (or the win screen)
+        Global.next_level()</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Update the Win Screen Restart Button -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Update the Win Screen to Reset the Game</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Resetting on Replay</h4>
+                            <ul>
+                                <li>Open <strong>Win.tscn</strong> and find the script connected to the <strong>"Play Again"</strong> button</li>
+                                <li>Change the button's function to reset the level counter before returning to the start screen:</li>
+                            </ul>
+                            <pre><code>func _on_play_again_pressed():
+    Global.reset_game()</code></pre>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Without <strong>reset_game()</strong>, the level counter stays at the last level played. Replaying the game would then try to load a level that does not exist. Always reset your tracking variables when the game restarts.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Test the Multi-Level Loop -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the Complete Multi-Level Game</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Playing Through Every Level</h4>
+                            <ul>
+                                <li>Press <kbd>F5</kbd> to run the game from the start screen</li>
+                                <li>Play through <strong>level 1</strong> and reach the exit</li>
+                                <li>You should land in <strong>level 2</strong>, not the win screen</li>
+                                <li>Finish <strong>level 2</strong> to reach the win screen</li>
+                                <li>Click <strong>"Play Again"</strong> and confirm you return to the start screen</li>
+                                <li>Play again and confirm you start back at <strong>level 1</strong>, not level 2</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 When it breaks:</strong> If the game jumps straight to the win screen after level 1, check that <strong>level2.tscn</strong> exists in the <strong>levels</strong> folder and follows the naming pattern exactly.
+                            </div>
+                            <div class="tip-box">
+                            <strong>🎉 Unit 1 Complete!</strong> You've built a complete game with:
+                            <ul>
+                                <li>✅ A player character with smooth top-down movement</li>
+                                <li>✅ Tile-based maze levels with collision</li>
+                                <li>✅ A reusable TileSet for level design</li>
+                                <li>✅ A Start scene with menu buttons</li>
+                                <li>✅ An exit trigger that detects player completion</li>
+                                <li>✅ A Win scene with Play Again functionality</li>
+                                <li>✅ A complete game loop from Start → Level → Win → Play Again</li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- YouTube Playlist Thumbnail Link -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <a href="https://www.youtube.com/playlist?list=PLFOL6zScIu2s" target="_blank" class="youtube-playlist-link">
+                <div class="youtube-thumbnail">
+                    <img src="./Images/GameSS.png" alt="Godot Unit 1 Video Playlist">
+                    <div class="playlist-overlay">
+                        <span class="play-button">▶</span>
+                        <span class="playlist-text">Watch the full playlist on YouTube</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="page7.html" class="nav-button">← Previous Section</a>
+            <div class="page-buttons">
+                <a href="page1.html" class="page-button">Page 1</a>
+                <a href="page2.html" class="page-button">Page 2</a>
+                <a href="page3.html" class="page-button">Page 3</a>
+                <a href="page4.html" class="page-button">Page 4</a>
+                <a href="page5.html" class="page-button">Page 5</a>
+                <a href="page6.html" class="page-button">Page 6</a>
+                <a href="page7.html" class="page-button">Page 7</a>
+                <span class="current-page">Page 8</span>
+            </div>
+            <a href="test.html" class="nav-button primary">Unit Test →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

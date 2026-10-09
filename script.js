@@ -69,16 +69,23 @@ function getUnitTotalProgress(unitId) {
 function updateSectionProgress(unitId, sectionId) {
     const saved = loadProgress(unitId, sectionId);
     const checkboxes = document.querySelectorAll('.step-check');
-    const totalSteps = checkboxes.length;
-    
+    // Only count steps the student can currently see (tool-toggle pages hide variants)
+    const visibleCheckboxes = Array.prototype.filter.call(checkboxes, function(checkbox) {
+        return checkbox.offsetParent !== null;
+    });
+    const totalSteps = visibleCheckboxes.length;
+
     let completedSteps = 0;
     checkboxes.forEach(checkbox => {
         const step = checkbox.getAttribute('data-step');
         if (saved[step]) {
-            completedSteps++;
             checkbox.checked = true;
+            if (checkbox.offsetParent !== null) {
+                completedSteps++;
+            }
         }
     });
+
     
     const percentage = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
     
@@ -312,11 +319,14 @@ function initializeCheckboxes() {
                 
                 const allCheckboxes = container.querySelectorAll('.step-check');
                 let completed = 0;
+                let visibleTotal = 0;
                 allCheckboxes.forEach(cb => {
-                    if (cb.checked) completed++;
+                    if (cb.offsetParent !== null) {
+                        visibleTotal++;
+                        if (cb.checked) completed++;
+                    }
                 });
-                const percent = (completed / allCheckboxes.length) * 100;
-                
+                const percent = visibleTotal > 0 ? (completed / visibleTotal) * 100 : 0;
                 const progressFill = container.querySelector('.progress-fill');
                 const progressPercent = document.getElementById('progress-percent');
                 

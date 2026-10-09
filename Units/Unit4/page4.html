@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.4: Creating the Enemy Scene - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Creating the Enemy Scene</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 4 of 15</span>
+                <a href="page5.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 4 Videos</h3>
+                    <p>Watch: "Building the Enemy"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 4: Creating the Enemy Scene</h1>
+            <p class="unit-description">Build the enemy that will march toward your base.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="4">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create the Enemy Scene Structure</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Building the Enemy Scene</h4>
+                            <ul>
+                                <li>Create a new scene with a <strong>CharacterBody3D</strong> as the root</li>
+                                <li>Rename it to <strong>"Enemy"</strong></li>
+                                <li>Add a <strong>MeshInstance3D</strong> as a child and assign your enemy model</li>
+                                <li>Add a <strong>CollisionShape3D</strong> as a child and give it a shape that fits the model</li>
+                                <li>Save it as <strong>"enemy.tscn"</strong> inside your <strong>scenes/</strong> folder</li>
+                            </ul>
+                            <h5>Why CharacterBody3D</h5>
+                            <ul>
+                                <li>It is built for things that move and collide</li>
+                                <li>It stays on the ground and slides along obstacles instead of getting stuck</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> What does your enemy look like? Check your GDD. A player should tell it apart from a tower at a glance, just like your towers are distinct from each other.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Enemy scene tree" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.1: The enemy scene structure</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Add Enemy Stats as Export Variables</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Stats Belong in the Inspector</h4>
+                            <ul>
+                                <li>Attach a new script to the Enemy root and save it as <strong>scripts/enemy.gd</strong></li>
+                                <li>Add your stats as <strong>@export</strong> variables, like this:</li>
+                            </ul>
+                            <pre><code>extends CharacterBody3D
+
+@export var max_health = 100
+@export var move_speed = 3.0
+@export var damage = 1
+@export var gold_reward = 10</code></pre>
+                            <ul>
+                                <li><strong>@export</strong> puts these in the Inspector, so you can tune them without opening the script</li>
+                                <li>Keep stats as variables, never constants. Later sections will change them while the game runs.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> Pull your starting values from your GDD. For example, if your basic enemy should die to two tower hits, set max_health to twice your tower damage.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Export variables in the Inspector" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.2: Enemy stats as export variables in the Inspector</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add the Enemy to a Group</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Tagging with Groups</h4>
+                            <ul>
+                                <li>Select the Enemy root and open the <strong>Node</strong> dock</li>
+                                <li>Go to the <strong>Groups</strong> tab and add the enemy to a group called <strong>"enemies"</strong></li>
+                                <li>In Section 8, your towers will search this group to find targets</li>
+                                <li>Every enemy scene you make later gets the same group tag</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Groups tab in the Node dock" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.3: Adding the enemy to the enemies group</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Place a Test Enemy</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing the Scene</h4>
+                            <ul>
+                                <li>Open <strong>environment.tscn</strong></li>
+                                <li>Drag <strong>enemy.tscn</strong> into the scene, near your SpawnPoint</li>
+                                <li>Press <strong>F6</strong>. The enemy should rest on the ground, not fall through it.</li>
+                                <li>It will not move yet. Movement comes in Section 5.</li>
+                            </ul>
+                             <div class="tip-box">
+                                <strong>💡 When it breaks:</strong> Red errors are directions. Read them left to right.
+                                <ul>
+                                    <li>The error names the script and the line number. Open that script, go to that line, and start there.</li>
+                                    <li>Enemy falls through the ground: the CollisionShape3D is missing or has no shape. Recheck step 1.</li>
+                                    <li>Export variables missing from the Inspector: the script is not saved or not attached to the Enemy root.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Test enemy in the environment" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.4: A test enemy resting in the environment</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page3.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 4 of 15</span>
+            </div>
+            <a href="page5.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>
