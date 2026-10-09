@@ -28,10 +28,10 @@ const COURSE_DATA = {
         pages: {
             1: { name: "Project Setup", steps: 4 },
             2: { name: "Player Scene", steps: 5 },
-            3: { name: "Player Animation with AnimatedSprite2D", steps: 5 },
+            3: { name: "Player Animation with AnimatedSprite2D", steps: 6 },
             4: { name: "Game Scene Architecture & Level Design", steps: 6 },
             5: { name: "Enemy Scene with Animation & Patrol", steps: 6 },
-            6: { name: "Health, Score & HUD", steps: 6 },
+            6: { name: "Health, Score & HUD", steps: 7 },
             7: { name: "Level Transitions & Game Flow", steps: 7 },
             test: { name: "Unit 2 Test", steps: 27 }
         }

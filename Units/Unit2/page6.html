@@ -169,7 +169,7 @@ func get_health():
     return health
 
 func reset_health():
-    health = 3
+    health = max_health
 
 # Game state functions
 func game_over():
@@ -437,6 +437,46 @@ func _on_body_entered(body):
                                 class="step-image">
                             <div class="image-caption">Figure 6.6: Testing the complete HUD with health and score
                                 updates</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 7 -->
+            <div class="step-card" data-step="7">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="7">
+                            <span>Style the HUD with Custom Fonts and Panels</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Adding a Google Font</h4>
+                            <ul>
+                                <li>Go to <strong>Google Fonts</strong> (fonts.google.com) and find a font you like for your game</li>
+                                <li>Download the font files and drag them into your project FileSystem (a <strong>"UI"</strong> folder keeps things tidy)</li>
+                                <li>Select your <strong>ScoreLabel</strong>, and in the Inspector find <strong>Theme Overrides → Fonts → Font</strong></li>
+                                <li>Click the dropdown and choose <strong>"QuickLoad"</strong>, then select your font file</li>
+                                <li>Repeat for the <strong>HealthLabel</strong>, then adjust <strong>Theme Overrides → Font Sizes</strong> until the text reads well during gameplay</li>
+                            </ul>
+                        </div>
+                        <div class="instruction-section">
+                            <h4>Styling a Panel Behind the Labels</h4>
+                            <ul>
+                                <li>Add a <strong>Panel</strong> node as a child of your HUD's Control node, behind the labels</li>
+                                <li>In the Inspector, find <strong>Theme Overrides → Styles → Panel</strong> and click the dropdown</li>
+                                <li>Choose <strong>"New StyleBoxFlat"</strong></li>
+                                <li>Set the <strong>Background Color</strong> to a dark, semi-transparent color so the text stands out against the level</li>
+                                <li>Adjust the <strong>Corner Radius</strong> and <strong>Content Margins</strong> until the panel frames your labels nicely</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> A font that matches your game's theme and a simple panel behind your HUD text make the whole game feel more polished. Small styling choices add up fast.
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -178,7 +178,7 @@
                                 <li>Add the jumping frames</li>
                                 <li>Create another animation named <strong>"hurt"</strong></li>
                                 <li>Add the damage frames from your spritesheet (or reuse a single frame)</li>
-                                <li>Set the <strong>"FPS"</strong> (Frames Per Second) for each animation to the same number across all states for consistency</li>
+                                <li>Set the "FPS" (Frames Per Second) for each animation based on how it looks, not to one shared number. Animations with different frame counts need different speeds. Try a fast run cycle (around 20) and a slower jump (around 5), then adjust until each one looks right</li>
                                 <li>Set <strong>"Autoplay"</strong> to <strong>"idle"</strong> so that it begins on game start automatically</li>
                             </ul>
                         </div>
@@ -269,6 +269,46 @@ func update_animation(direction):
                         <div class="image-container">
                             <img src="./Images/U2L3-5.png" alt="Animation state script" width="600" height="400" class="step-image">
                             <div class="image-caption">Figure 3.5: The updated player script with animation state management</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="step-card" data-step="6">
+            <div class="step-header">
+                <div class="step-number">6</div>
+                <div class="step-title">
+                    <label>
+                        <input type="checkbox" class="step-check" data-step="6">
+                        <span>Create Custom Input Actions for WASD Support</span>
+                    </label>
+                </div>
+            </div>
+            <div class="step-content">
+                <div class="step-instructions">
+                    <div class="instruction-section">
+                        <h4>Adding Actions in the Input Map</h4>
+                        <p>So far your script uses Godot's built-in <strong>ui_</strong> actions (arrow keys only). Let's create your own actions so players can also use <strong>WASD</strong>.</p>
+                        <ul>
+                            <li>Go to <strong>Project → Project Settings</strong> and click the <strong>"Input Map"</strong> tab</li>
+                            <li>Click <strong>"Add"</strong> and create an action named <strong>"left"</strong></li>
+                            <li>Click the <strong>"+"</strong> next to it and add the <strong>A</strong> key, then add the <strong>Left arrow</strong> key too</li>
+                            <li>Add an action named <strong>"right"</strong> with the <strong>D</strong> key and the <strong>Right arrow</strong> key</li>
+                            <li>Add an action named <strong>"jump"</strong> with the <strong>Space</strong> key and the <strong>W</strong> key</li>
+                            <li>Click <strong>"Close"</strong> to save</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-section">
+                        <h4>Updating the Player Script</h4>
+                        <p>Open <strong>player.gd</strong> and swap the built-in actions for your new ones:</p>
+                        <ul>
+                            <li>Change <code>Input.is_action_just_pressed("ui_accept")</code> to <code>Input.is_action_just_pressed("jump")</code></li>
+                            <li>Change <code>Input.get_axis("ui_left", "ui_right")</code> to <code>Input.get_axis("left", "right")</code></li>
+                        </ul>
+                        <div class="tip-box">
+                            <strong>💡 Pro Tip:</strong> Custom input actions let you support multiple keys for the same move and rename controls to match your game. From here on, use <strong>left</strong>, <strong>right</strong>, and <strong>jump</strong> in your scripts instead of the ui_ defaults.
                         </div>
                     </div>
                 </div>
