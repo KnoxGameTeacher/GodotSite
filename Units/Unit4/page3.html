@@ -65,9 +65,11 @@
         <!-- Tool Toggle -->
         <div class="tool-toggle">
             <span class="tool-toggle-label">Choose your modeling tool</span>
-            <button type="button" class="nav-button tool-btn" data-tool="assetforge">Asset Forge</button>
+            <button type="button" class="nav-button tool-btn" data-tool="kenneyshape">Kenney Shape</button>
             <button type="button" class="nav-button tool-btn" data-tool="blockbench">Blockbench</button>
             <button type="button" class="nav-button tool-btn" data-tool="blender">Blender</button>
+            <button type="button" class="nav-button tool-btn" data-tool="assetforge">Asset Forge</button>
+
         </div>
 
         <!-- Steps Container -->
@@ -97,7 +99,7 @@
                             <ul>
                                 <li><strong>Asset Forge</strong> is a block-building tool by <a href="https://kenney.nl/tools/asset-forge" target="_blank">Kenney</a> for creating 3D models</li>
                                 <li>You snap together pre-made blocks, no modeling experience needed</li>
-                                <li>The downside to this program compared to the other two options presented is that it costs money</li>
+                                <li>The downside to this program compared to the other options presented is that it costs money</li>
                                 <li>Anything you create is yours to use, and the included blocks are public domain</li>
                             </ul>
                             <h5>Getting Oriented</h5>
@@ -176,6 +178,7 @@
                             <ul>
                                 <li><strong>Blender</strong> is a free, open source 3D creation suite at <a href="https://www.blender.org" target="_blank">blender.org</a></li>
                                 <li>It is the most capable tool on this page, and the steepest learning curve</li>
+                                <li>This section will not be enough to cover everything you need to know, but it will get you started</li>
                                 <li>It exports glTF, which Godot reads directly</li>
                             </ul>
                             <h5>Starting Your First Model</h5>
@@ -198,6 +201,47 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Step 1: Kenney Shape version -->
+            <div class="step-card tool-version" data-tool="kenneyshape" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Introduction to Kenney Shape</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>What Is Kenney Shape?</h4>
+                            <ul>
+                                <li><strong>Kenney Shape</strong> is a free tool by <a href="https://kenney.itch.io/kenney-shape" target="_blank">Kenney</a> for turning pixel art into 3D models</li>
+                                <li>If you can draw pixel art, you can make a tower. No 3D modeling experience needed.</li>
+                                <li>It exports glTF, which Godot reads directly</li>
+                            </ul>
+                            <h5>Starting Your First Model</h5>
+                            <ul>
+                                <li>Open Kenney Shape. You get a 2D canvas.</li>
+                                <li>Draw your tower as flat pixel art using the shape tools</li>
+                                <li>Set the depth of each pixel from 1 (thin) to 8 (deep) to give the tower its 3D form</li>
+                                <li>Preview the 3D model before you export it</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> Kenney Shape runs on Windows and Linux only. If you are on a Mac, pick one of the other three tools on this page.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Kenney Shape interface" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.1: The Kenney Shape workspace with a new drawing</div>
+                        </div>
+                    </div>
+                </div>
+</div>
 
 
             <!-- Step 2: shared -->
@@ -347,6 +391,46 @@
                 </div>
             </div>
 
+            <!-- Step 3: Kenney Shape version -->
+            <div class="step-card tool-version" data-tool="kenneyshape" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Build Your First Tower</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Building with Pixels</h4>
+                            <ul>
+                                <li>Start with your simplest tower</li>
+                                <li>Draw your tower as flat pixel art</li>
+                                <li>Set the depth of each pixel to shape the tower. Thicker depth for the parts that should stand out.</li>
+                                <li>Build from the ground up in three layers: <strong>base</strong>, <strong>body</strong>, <strong>top</strong></li>
+                                <li>Give the top layer something distinctive, that's what players see from the perspective over the field</li>
+                                <li>Keep it chunky: tiny details disappear at game distance</li>
+                                <li>Remember the model looks the same from both sides, so design a tower that reads well from every angle.</li>
+                            </ul>
+                            <h5>Saving Your Work</h5>
+                            <ul>
+                                <li>Save your work for each tower</li>
+                                <li>You'll need it later if a tower needs changes, you can then easily edit and re-export it</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower built in layers" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.3: Building a tower in base, body, and top layers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Step 4: Asset Forge version -->
             <div class="step-card tool-version" data-tool="assetforge" data-step="4">
@@ -434,6 +518,41 @@
                             <h4>Color as Communication</h4>
                             <ul>
                                 <li>Select a mesh, open the <strong>Material</strong> tab, add a new material, and set its base color</li>
+                                <li>Use color to tell players what a tower does</li>
+                                <li>Pick one color scheme for your whole game and stick to it across every tower</li>
+                                <li>Repeat the same color logic everywhere, for example, if your sniper tower is red, all sniper towers should be red</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> What mood and setting did you choose? Your colors should match your game's visual direction but still stand out enough in the environment that the player can easily manage the field.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Colored tower models" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.4: A consistent color language across the tower roster</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Kenney Shape version -->
+            <div class="step-card tool-version" data-tool="kenneyshape" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Apply Colors and Materials</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Color as Communication</h4>
+                            <ul>
+                                <li>Color your pixels as you draw. Each pixel keeps its own color in the 3D model.</li>
                                 <li>Use color to tell players what a tower does</li>
                                 <li>Pick one color scheme for your whole game and stick to it across every tower</li>
                                 <li>Repeat the same color logic everywhere, for example, if your sniper tower is red, all sniper towers should be red</li>
@@ -551,6 +670,38 @@
                 </div>
             </div>
 
+            <!-- Step 5: Kenney Shape version -->
+            <div class="step-card tool-version" data-tool="kenneyshape" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Export as glTF</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Exporting Your Towers</h4>
+                            <ul>
+                                <li>Export each tower as its own file</li>
+                                <li>Choose the <strong>glTF</strong> format</li>
+                                <li>Name your files with a consistent scheme, like <strong>tower_cannon</strong></li>
+                                <li>Repeat for every tower in your roster</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Exporting a tower" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 3.5: Exporting a tower as a glTF file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Step 6: shared -->
             <div class="step-card" data-step="6">
@@ -568,7 +719,7 @@
                         <div class="instruction-section">
                             <h4>Bringing Towers into Your Project</h4>
                             <ul>
-                                <li>Drag your <strong>.glb</strong> files into <strong>assets/towers/</strong> in the FileSystem dock</li>
+                                <li>Drag your <strong>.glb</strong> or <strong>.gltf</strong> files into <strong>assets/towers/</strong> in the FileSystem dock</li>
                                 <li>Double-click one to preview it in the editor</li>
                                 <li>Drag one into a test scene to check that it looks right at game scale</li>
                             </ul>
@@ -624,7 +775,7 @@
         });
         var saved = null;
         try { saved = localStorage.getItem(KEY); } catch (e) {}
-        var validTools = ['assetforge', 'blockbench', 'blender'];
+        var validTools = ['assetforge', 'blockbench', 'blender', 'kenneyshape'];
         setTool(validTools.indexOf(saved) !== -1 ? saved : 'blockbench');
     })();
     </script>

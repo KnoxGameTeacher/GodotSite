@@ -103,7 +103,7 @@
                             </ul>
                             <h5>Inside assets/</h5>
                             <ul>
-                                <li><strong>towers/</strong> — your custom tower models from Asset Forge</li>
+                                <li><strong>towers/</strong> — your custom tower models</li>
                                 <li><strong>enemies/</strong> — enemy models</li>
                                 <li><strong>environment/</strong> — path, terrain, and scenery models</li>
                                 <li><strong>sounds/</strong> — music and sound effects</li>
@@ -183,13 +183,13 @@
                             <ul>
                                 <li>Add a <strong>MeshInstance3D</strong> as a child</li>
                                 <li>Rename it to <strong>"Ground"</strong></li>
-                                <li>Assign a ground mesh — you can use a <strong>PlaneMesh</strong> or an imported terrain model</li>
+                                <li>Assign a ground mesh — you can use a <strong>PlaneMesh</strong> or a cube, whichever fits your design needs</li>
                                 <li>Add a <strong>StaticBody3D</strong> as a child of Ground</li>
                                 <li>Add a <strong>CollisionShape3D</strong> to the StaticBody3D</li>
                                 <li>Set its shape to match the ground (typically a <strong>BoxShape3D</strong> or <strong>WorldBoundaryShape3D</strong>)</li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Structural Note:</strong> The exact size and shape of your ground depend on how big your path and placement zones will be. Design the ground to comfortably fit your play area with a little extra room around the edges.
+                                <strong>💡 Structural Note:</strong> This is generic, you may also consider modeling and importing your terrain map, or you can use a GridMap as in Unit 3.  Use what makes sense.
                             </div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@
                                 <li>Add a <strong>Node3D</strong> as a child of Environment</li>
                                 <li>Rename it to <strong>"Base"</strong></li>
                                 <li>Add a <strong>MeshInstance3D</strong> as a child of Base</li>
-                                <li>Assign a model or primitive mesh that clearly represents a "goal"</li>
+                                <li>Assign a primitive mesh that clearly represents a "goal"</li>
                                 <li>Position the Base at one end of your planned path</li>
                             </ul>
                         </div>
@@ -231,7 +231,7 @@
                                 <li>Add a <strong>Node3D</strong> as a child of Environment</li>
                                 <li>Rename it to <strong>"SpawnPoint"</strong></li>
                                 <li>Position it at the opposite end of the path from the Base</li>
-                                <li>You don't need a visual model here — this is a marker that the Wave Manager will use later</li>
+                                <li>You don't necessarily need a visual model here — this is a marker that the Wave Manager will use later</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 Your GDD Guides This:</strong> Look at your Path Design section. Is your path straight, curved, or branching? The Base and Spawn Point should be at the two ends of your main path.

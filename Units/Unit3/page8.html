@@ -69,7 +69,7 @@
                     <div class="step-instructions">
                         <div class="instruction-section">
                             <h4>Creating the Input Action</h4>
-                            <p>We'll set up a single input action called "hunt" that responds to both the left mouse button and the spacebar.</p>
+                            <p>We'll set up a single input action called "hunt" that responds to the left mouse button.</p>
                             <ul>
                                 <li>Go to <strong>Project → Project Settings</strong></li>
                                 <li>Click the <strong>"Input Map"</strong> tab</li>
@@ -77,11 +77,9 @@
                                 <li>Click <strong>"Add"</strong></li>
                                 <li>Click the <strong>"+"</strong> icon next to your new "hunt" action</li>
                                 <li>Choose <strong>"Mouse Button"</strong> → select <strong>"Left Mouse Button"</strong> → Click <strong>"OK"</strong></li>
-                                <li>Click the <strong>"+"</strong> icon next to your "hunt" action again</li>
-                                <li>Choose <strong>"Key"</strong> → press <strong>Space</strong> → Click <strong>"OK"</strong></li>
                             </ul>
                             <div class="tip-box">
-                                <strong>💡 Why a Single Action?</strong> Using one action for both inputs makes your code cleaner. Just check <code>Input.is_action_just_pressed("hunt")</code> and it works for both.
+                                <strong>💡 Why an Action?</strong> Using action names for your inputs makes your code cleaner and easier to read.
                             </div>
                         </div>
                     </div>
@@ -327,7 +325,7 @@ func spawn_smoke_puff(spawn_position):
                             <ul>
                                 <li>Press <kbd>F5</kbd> to run the game</li>
                                 <li>Walk toward a prey animal</li>
-                                <li>Press <strong>Space</strong> or <strong>Left Mouse Button</strong></li>
+                                <li>Press <strong>Left Mouse Button</strong></li>
                                 <li>A <strong>smoke puff</strong> should appear at the prey's location</li>
                                 <li>The prey should <strong>disappear</strong></li>
                                 <li>Your <strong>hunger bar</strong> should increase by 20</li>

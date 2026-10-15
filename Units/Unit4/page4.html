@@ -40,7 +40,7 @@
         <!-- Section Header -->
         <div class="unit-header">
             <h1>Section 4: Creating the Enemy Scene</h1>
-            <p class="unit-description">Build the enemy that will march toward your base.</p>
+            <p class="unit-description">Build your first enemy scene. Every enemy type gets its own scene, and all of them share one script.</p>
         </div>
 
         <!-- Steps Container -->
@@ -69,10 +69,12 @@
                             <h4>Building the Enemy Scene</h4>
                             <ul>
                                 <li>Create a new scene with a <strong>CharacterBody3D</strong> as the root</li>
-                                <li>Rename it to <strong>"Enemy"</strong></li>
-                                <li>Add a <strong>MeshInstance3D</strong> as a child and assign your enemy model</li>
+                                <li>Rename it to <strong>"Enemy"</strong> + the enemy type (e.g., "Enemy_Goblin")</li>
+                                <li>Drag your enemy model file from the <strong>FileSystem</strong> dock into the <strong>Scene</strong> dock to instance it as a child</li>
+                                <li>Rename the model child to <strong>"Model"</strong></li>
                                 <li>Add a <strong>CollisionShape3D</strong> as a child and give it a shape that fits the model</li>
                                 <li>Save it as <strong>"enemy.tscn"</strong> inside your <strong>scenes/</strong> folder</li>
+                                <li>This scene is your basic enemy type, not a generic template. Later enemy types get their own scene files.</li>
                             </ul>
                             <h5>Why CharacterBody3D</h5>
                             <ul>
@@ -121,6 +123,7 @@
                             <ul>
                                 <li><strong>@export</strong> puts these in the Inspector, so you can tune them without opening the script</li>
                                 <li>Keep stats as variables, never constants. Later sections will change them while the game runs.</li>
+                                <li>This one script will be shared by every enemy scene you make.</li>
                             </ul>
                             <div class="tip-box">
                                 <strong>💡 GDD Check:</strong> Pull your starting values from your GDD. For example, if your basic enemy should die to two tower hits, set max_health to twice your tower damage.
@@ -189,12 +192,14 @@
                                 <li>Press <strong>F6</strong>. The enemy should rest on the ground, not fall through it.</li>
                                 <li>It will not move yet. Movement comes in Section 5.</li>
                             </ul>
-                             <div class="tip-box">
-                                <strong>💡 When it breaks:</strong> Red errors are directions. Read them left to right.
+                            <div class="tip-box">
+                                <strong>💡 Errors you might encounter:</strong>
                                 <ul>
-                                    <li>The error names the script and the line number. Open that script, go to that line, and start there.</li>
+                                    <li>Check the red output text. The error names the script and the line number. Open that script, go to that line, and start there.</li>
                                     <li>Enemy falls through the ground: the CollisionShape3D is missing or has no shape. Recheck step 1.</li>
                                     <li>Export variables missing from the Inspector: the script is not saved or not attached to the Enemy root.</li>
+                                    <li>Model file will not drop onto a MeshInstance3D: .glb files are scenes, not meshes. Drag the file into the Scene dock to instance it instead.</li>
+                                    <li>To check if a script runs at all, add <strong>print("test")</strong> to it and look for the message in the <strong>Output</strong> panel at the bottom of the editor.</li>
                                 </ul>
                             </div>
                         </div>
@@ -203,6 +208,46 @@
                         <div class="image-container">
                             <img src="../../_placeholderimage.png" alt="Test enemy in the environment" width="600" height="400" class="step-image">
                             <div class="image-caption">Figure 4.4: A test enemy resting in the environment</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Duplicate the Scene for a Second Enemy</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One Script, One Scene Per Type</h4>
+                            <ul>
+                                <li>Pick a second enemy type from your GDD</li>
+                                <li>In the <strong>FileSystem</strong> dock, duplicate your enemy scene and rename the copy after your new type</li>
+                                <li>Open the copy, delete the <strong>Model</strong> child, and drag in your new enemy type's model file</li>
+                                <li>Rename the new model child to <strong>"Model"</strong> and the root to <strong>"Enemy_[Type]"</strong></li>
+                                <li>Resize the <strong>CollisionShape3D</strong> to fit the new model</li>
+                                <li>Tune the <strong>@export</strong> stats in the Inspector for the new type</li>
+                                <li>Check the copy still uses <strong>scripts/enemy.gd</strong>. Duplicate the scene, never the script.</li>
+                                <li>The <strong>"enemies"</strong> group tag copies with the scene, so the new enemy is already tagged</li>
+                                <li>Drag the copy into <strong>environment.tscn</strong> and press <strong>F6</strong> to check it rests on the ground like the first one</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> Your second enemy should play a different role from your basic enemy. A fast enemy and a tank enemy need different stats, not just different models.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Second enemy scene sharing the same script" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 4.5: A second enemy scene sharing the same script</div>
                         </div>
                     </div>
                 </div>

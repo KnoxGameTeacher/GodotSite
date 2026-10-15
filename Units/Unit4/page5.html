@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.5: Path Following with Path3D - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Path Following with Path3D</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 5 of 15</span>
+                <a href="page6.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 5 Videos</h3>
+                    <p>Watch: "Path Following"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 5: Path Following with Path3D</h1>
+            <p class="unit-description">Give your enemies a path to march along.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="5">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Draw the Path with Path3D</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Drawing the Path</h4>
+                            <ul>
+                                <li>Open <strong>environment.tscn</strong></li>
+                                <li>Add a <strong>Path3D</strong> as a child of Environment</li>
+                                <li>Rename it to <strong>"Path"</strong></li>
+                                <li>In the Inspector, set Curve to New Curve3D</li>
+                                <li>Select Path, then use the Add Point tool in the toolbar and click in the viewport to place points along your planned route</li>
+                                <li>Place your first point at the SpawnPoint and your last point at the Base</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> Check your GDD path design. Your path should run from SpawnPoint to Base.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Path3D with curve points" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.1: Path3D with curve points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Add a PathFollow3D</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Carrying the Enemy</h4>
+                            <ul>
+                                <li>Add a <strong>PathFollow3D</strong> as a child of Path</li>
+                                <li>Rename it to <strong>"PathFollow"</strong></li>
+                                <li>In the Inspector, turn off Loop. With Loop on, the enemy wraps back to the start instead of stopping at the Base.</li>
+                                <li>Drag your basic test enemy onto PathFollow in the Scene dock. Leave your second enemy in the environment for now. It gets its own PathFollow in step 5.</li>
+                                <li>In the Inspector, set the enemy <strong>Position</strong> to (0, 0, 0) so it sits exactly on the path</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="PathFollow3D in the scene tree" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.2: PathFollow3D in the scene tree</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Move the Enemy Along the Path</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Following the Path in Code</h4>
+                            <ul>
+                                <li>Open <strong>scripts/enemy.gd</strong></li>
+                                <li>Add a _process function that moves the parent PathFollow3D:</li>
+                            </ul>
+                            <pre><code>func _process(delta):
+	var follow = get_parent() as PathFollow3D
+	follow.progress += move_speed * delta
+	if follow.progress_ratio >= 1.0:
+		# Enemy reached the end of the path
+		follow.queue_free()</code></pre>
+                            <ul>
+                                <li><strong>progress</strong> is the distance along the path, so adding move_speed times delta moves the enemy at move_speed units per second</li>
+                                <li><strong>progress_ratio</strong> runs from 0.0 at the start to 1.0 at the end. When it reaches 1.0, the enemy is at the Base.</li>
+                                <li><strong>queue_free</strong> on the follow removes the follow and the enemy with it</li>
+                                <li>Use _process because the path moves the enemy, not physics</li>
+                                <li>For now the enemy just despawns at the end. Base damage comes later.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Enemy movement code in enemy.gd" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.3: Enemy movement code in enemy.gd</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Test the Walk</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing the Walk</h4>
+                            <ul>
+                                <li>Press <strong>F6</strong>. The enemy should walk along the path from SpawnPoint toward Base.</li>
+                                <li>When it reaches the end, it despawns.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If your enemy won't walk:</strong>
+                                <ul>
+                                    <li>Enemy does not move, or you get an error about progress: the enemy must be a child of a PathFollow3D. Check the Scene dock.</li>
+                                    <li>Enemy wraps back to the start instead of stopping: Loop is still on. Turn off Loop on the PathFollow3D.</li>
+                                    <li>Enemy floats or sinks: the path points are not at ground height. Move the points to sit on the ground.</li>
+                                    <li>Enemy walks backward: your model's front faces the wrong way. Rotate the Model child 180 degrees around Y.</li>
+                                    <li>Only one enemy type moves, or enemies behave differently: you may have duplicated enemy.gd instead of the scene. Check that every enemy scene uses the same scripts/enemy.gd file.</li>
+                                    <li>Enemy walks past the end without despawning: the check must be >= 1.0, not == 1.0, because progress can overshoot the end between frames.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Enemy walking the path" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.4: Enemy walking the path</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Walk Two Enemies at Once</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Two Enemies, Two Speeds</h4>
+                            <ul>
+                                <li>Add a second <strong>PathFollow3D</strong> as a child of Path</li>
+                                <li>Rename it to <strong>"PathFollow2"</strong></li>
+                                <li>Drag your second enemy onto PathFollow2 in the Scene dock</li>
+                                <li>In the Inspector, set its <strong>Position</strong> to (0, 0, 0)</li>
+                                <li>Open your second enemy scene and check its move_speed is different from your basic enemy. Change it if it is the same.</li>
+                                <li>Press <strong>F6</strong>. Both enemies walk, and the faster one pulls ahead.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> Check your GDD. Do your two enemy types feel different enough to matter?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Two enemies on the path" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 5.5: Two enemies on the path</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page4.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 5 of 15</span>
+            </div>
+            <a href="page6.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>
