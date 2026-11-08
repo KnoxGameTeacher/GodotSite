@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.11: Splash Damage and Counters - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Splash Damage and Counters</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 11 of 21</span>
+                <a href="page12.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 11 Videos</h3>
+                    <p>Watch: "Splash Damage and Counters"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 11: Splash Damage and Counters</h1>
+            <p class="unit-description">Add splash damage, armor counters, and burns to combat</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="11">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Armor and Counters</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Not Every Hit Lands the Same</h4>
+                            <ul>
+                                <li>So far every hit deals full damage. A tank enemy should shrug off weak hits, and some other tower should be a counter.</li>
+                                <li>Add an armor export to <strong>scripts/enemy.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@export var armor = 0.0</code></pre>
+                            <ul>
+                                <li>Armor is the fraction of normal damage blocked, from 0 to 1. An armor of 0.5 blocks half, while an armor of 0 blocks nothing.</li>
+                                <li>Rework take_damage in <strong>scripts/enemy.gd</strong> to use it:</li>
+                            </ul>
+                            <pre><code>
+func take_damage(amount, ignores_armor = false):
+	var effective = amount
+	if not ignores_armor:
+		effective = amount * (1.0 - clampf(armor, 0.0, 1.0))
+	health -= effective
+	if health <= 0:
+		get_parent().queue_free()</code></pre>
+                            <ul>
+                                <li>clampf keeps armor between 0 and 1. Above 1, hits would heal instead of hurt.  That's an interesting mechanic, but not our goal.</li>
+                                <li>Existing enemies are unchanged, the armor defaults to 0, so old scenes take full damage until you set armor on them.</li>
+                                <li>Duplicate an enemy scene for an armored type and set its armor to 0.5. Shoot it with your normal tower and count hits to kill, then shoot the unarmored type. The armored one should take twice as many hits.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Armored enemy resisting normal damage" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 11.1: Armored enemy resisting normal damage</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Splash Damage</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One Shot, Many Targets</h4>
+                            <ul>
+                                <li>A swarm laughs at single-target damage. The answer is a shot that hurts everything near where it lands.</li>
+                                <li>Add a splash export to <strong>scripts/projectile.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@export var splash_radius = 0.0</code></pre>
+                            <ul>
+                                <li>A radius of 0 means direct damage only, so old projectile scenes behave exactly as before.</li>
+                                <li>Replace the hit handler in <strong>scripts/projectile.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _on_body_entered(body):
+	if body is Enemy:
+		if splash_radius > 0.0:
+			for node in get_tree().get_nodes_in_group("enemies"):
+				var enemy = node as Enemy
+				if global_position.distance_to(enemy.global_position) <= splash_radius:
+					enemy.take_damage(damage)
+		else:
+			body.take_damage(damage)
+		queue_free()</code></pre>
+                            <ul>
+                                <li>Splash definition is on the projectile scene, so the tower code does not change. A splash tower is a tower whose projectile scene has a radius set in the Inspector.</li>
+                                <li>The radius is measured from the impact point, and the direct target is inside it, so it takes damage with the rest.</li>
+                                <li>The cast to Enemy is the Section 9 trick again. The group hands back plain nodes, and take_damage only exists on Enemy.</li>
+                                <li>Duplicate a projectile scene for a splash type and set its radius to 1.5. Swap the splash tower's projectile scene to it in the Inspector, spawn a swarm, and watch one shot wound several enemies.</li>
+                                <li>If you want a different look for this tower's projectile, swap its model for the new look.  Since they are separate scenes, changing one projectile model leaves the others.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Splash damage hitting grouped enemies" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 11.2: Splash damage hitting grouped enemies</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Damage Over Time</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>The Burn That Ignores Armor</h4>
+                            <ul>
+                                <li>Armor beats normal damage, so something must beat armor. That something is a burn: damage over time that ignores armor entirely.</li>
+                                <li>Add burn state and a starter to <strong>scripts/enemy.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+var burn_dps = 0.0
+var burn_time = 0.0
+
+func start_burn(dps, duration):
+	burn_dps = dps
+	burn_time = duration</code></pre>
+                            <ul>
+                                <li>Add the burn tick at the top of _process in <strong>scripts/enemy.gd</strong>, before movement:</li>
+                            </ul>
+                            <pre><code>
+	if burn_time > 0.0:
+		burn_time -= delta
+		take_damage(burn_dps * delta, true)</code></pre>
+                            <ul>
+                                <li>burn_dps times delta means it will tick consistently.</li>
+                                <li>The second argument is true, so armor never reduces burn damage. That is what makes burn the armor answer.</li>
+                                <li>A fresh burn replaces the old one. Starting a burn while burning restarts the timer at the new values.</li>
+                                <li>Add burn exports to <strong>scripts/projectile.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@export var burn_dps = 0.0
+@export var burn_duration = 0.0</code></pre>
+                            <ul>
+                                <li>Extend the hit handler in <strong>scripts/projectile.gd</strong> so burn is checked first:</li>
+                            </ul>
+                            <pre><code>
+func _on_body_entered(body):
+	if body is Enemy:
+		if burn_dps > 0.0:
+			body.start_burn(burn_dps, burn_duration)
+		elif splash_radius > 0.0:
+			for node in get_tree().get_nodes_in_group("enemies"):
+				var enemy = node as Enemy
+				if global_position.distance_to(enemy.global_position) <= splash_radius:
+					enemy.take_damage(damage)
+		else:
+			body.take_damage(damage)
+		queue_free()</code></pre>
+                            <ul>
+                                <li>One job per projectile. A burn shot stings one enemy, a splash shot wounds a group, a direct shot hits one target. The handler checks burn first, so a shot with both would never splash. Pick one.</li>
+                                <li>Duplicate a projectile scene for a burn projectile type and set burn_dps to 5 and burn_duration to 3. Swap your tower's projectile scene to it, shoot your armored type, and watch the burn tick the health down.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Burn damage over time on an armored enemy" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 11.3: Burn damage over time on an armored enemy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Test the Triangle</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Counters</h4>
+                            <ul>
+                                <li>Play the triangle. Armor beats normal damage, burn beats armor, splash beats swarms. No one shot is the always right pick.</li>
+                                <li>Normal shots against your armored type take twice as many hits at armor 0.5. Burn shots against the same type melt it at full rate.</li>
+                                <li>Splash shots against a swarm wound several enemies at once. Direct shots against the same swarm kill one at a time.</li>
+                                <li>Swap your tower's projectile scene in the Inspector between tests. Multi-tower selection arrives later. For now, one tower at a time proves each counter.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the new damage will not work:</strong>
+                                <ul>
+                                    <li>Armor does nothing: take_damage never gained the second number, or the armored scene's armor export is still 0. Check the signature and the scene.</li>
+                                    <li>Armor blocks everything: armor is 1 or above. Keep it between 0 and 1.</li>
+                                    <li>Splash hits one enemy: splash_radius is 0, or the loop checks the wrong group. Check the radius and the enemies group.</li>
+                                    <li>Splash hits everything on the map: the radius is too large, or the distance check is missing. Check both.</li>
+                                    <li>Burn never ends: burn_time never decreases. Check the tick sits in _process and subtracts delta.</li>
+                                    <li>Burn and splash on one shot: the handler checks burn first, so splash never runs. Pick one job per projectile.</li>
+                                    <li>Error about take_damage arguments: a call passes two numbers to the old one-number function, or one number where two are needed. Check the signature has the default.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing splash armor and burn counters" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 11.4: Testing splash armor and burn counters</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page10.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 11 of 21</span>
+            </div>
+            <a href="page12.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

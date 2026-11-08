@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.20: Upgrades and Selling - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Upgrades and Selling</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 20 of 21</span>
+                <a href="page21.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 20 Videos</h3>
+                    <p>Watch: "Upgrades and Selling"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 20: Upgrades and Selling</h1>
+            <p class="unit-description">Upgrade towers and sell them back for gold</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="20">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Click a Tower to Select It</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Clicking Towers</h4>
+                            <ul>
+                                <li>Upgrading needs a target, and the target is the tower under the mouse. Add an <strong>Area3D</strong> named <strong>"ClickArea"</strong> to each tower scene, and give it a <strong>CollisionShape3D</strong> covering the tower.</li>
+                                <li>Add a signal and a click handler to <strong>scripts/tower.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+signal tower_clicked(tower)
+
+func _on_click_area_input_event(camera, event, position, normal, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		tower_clicked.emit(self)</code></pre>
+                            <ul>
+                                <li>Connect ClickArea's input_event signal to the handler, the same way you connected zone signals in Section 6.</li>
+                                <li>The preview ghost is a tower scene too, so it has a ClickArea as well. A ghost should not be clickable, or it steals the mouse from the zone it sits on. Add two lines to make_ghost in <strong>scripts/placement.gd</strong>, the Section 6 function that builds the preview:</li>
+                            </ul>
+                            <pre><code>
+func make_ghost(node):
+	if node is MeshInstance3D:
+		var ghost_material = StandardMaterial3D.new()
+		ghost_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		ghost_material.albedo_color.a = 0.5
+		node.material_override = ghost_material
+	if node is CollisionObject3D:
+		node.input_ray_pickable = false
+	for child in node.get_children():
+		make_ghost(child)</code></pre>
+                            <ul>
+                                <li>input_ray_pickable is the switch for mouse picking. False means the mouse ray passes through the ghost and hits the zone underneath.</li>
+                                <li>The function already walks the whole tower, so the ClickArea is the only pickable part it finds. A second tower type later needs no new code.</li>
+                                <li>We want the ring to show to indicate the tower is selected, but the ring needs its own look. A placed tower's ring uses the scene material, which is opaque, and the ghost's faint material only exists on the preview. Make one shared yellow material as a resource, then hand it to the code. In the FileSystem dock, create a new resource of type StandardMaterial3D and save it as <strong>materials/select_material.tres</strong>. In the Inspector, set Transparency to Alpha, Albedo Color to yellow with alpha 0.5, and under Emission, turn on Enabled, set the color to yellow, and set Energy Multiplier to 0.5.</li>
+                                <li>Load it in <strong>scripts/placement.gd</strong>, beside selected_tower:</li>
+                            </ul>
+                            <pre><code>
+const SELECT_MATERIAL = preload("res://materials/select_material.tres")</code></pre>
+                            <ul>
+                                <li>preload loads the resource when the script loads, so there is no Inspector step to forget. The path must match the file exactly, or the script fails to load, which is easier to spot than an empty slot.</li>
+                                <li>Yellow reads against my grass, change the Albedo and Emission colors in the resource based on your own scene.</li>
+                                <li>Emission is the glow. Without it the ring is a flat yellow disc, with it the ring looks lit from inside.</li>
+                                <li>The preview ring keeps the ghost material, the selected ring gets the yellow glow, so the two never look alike.</li>
+                                <li>Track the selection in <strong>scripts/placement.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+var selected_tower: Tower = null
+
+func _on_tower_clicked(tower):
+	if tower == preview:
+		return
+	if tower == selected_tower:
+		var ring = selected_tower.get_node("RangeRing") as MeshInstance3D
+		ring.visible = false
+		selected_tower = null
+		print("Deselected")
+		return
+	if selected_tower != null and is_instance_valid(selected_tower):
+		var old_ring = selected_tower.get_node("RangeRing") as MeshInstance3D
+		old_ring.visible = false
+	selected_tower = tower
+	var new_ring = selected_tower.get_node("RangeRing") as MeshInstance3D
+	new_ring.material_override = SELECT_MATERIAL
+	new_ring.visible = true
+	new_ring.scale = Vector3(selected_tower.attack_range, 1, selected_tower.attack_range)
+	print("Selected ", tower.name, " level ", tower.level)</code></pre>
+                            <ul>
+                                <li>The ghost is a Tower too, so ignore it. Selecting the ghost would upgrade a preview, not a real tower.</li>
+                                <li>Clicking the selected tower again deselects it. The toggle is the first check after the ghost guard, so a second click hides the ring and clears the selection.</li>
+                                <li>Clicking empty ground does not deselect. The click reaches _unhandled_input after the tower's click handler, so an empty-ground check there would clear a selection made a moment earlier.</li>
+                                <li>The scale gets reset on your placed towers. A placed tower is a fresh instance, so its ring is still at the scene default size. I scale it to attack_range here, but you might want to adjust it based on your own scene.</li>
+                                <li>The validity check is needed after a load, since loading frees every placed tower. A freed reference would crash the hide line.</li>
+                                <li>The prints back up the ring in the Output panel. Level comes from Step 2, so it reads 1 until a tower upgrades.</li>
+                                <li>Connect the signal when a tower is placed. In try_place, cast the new tower and connect, right after add_child:</li>
+                            </ul>
+                            <pre><code>
+	var tower = tower_scenes[selected_index].instantiate() as Tower
+	tower.tower_clicked.connect(_on_tower_clicked)</code></pre>
+                            <ul>
+                                <li>Connect in load_towers too, after add_child in Section 18's rebuild loop, or loaded towers cannot be selected. Set selected_tower = null in load_towers before the rebuild loop, since every placed tower is freed.</li>
+                                <li>Clicking a placed tower selects it instead of placing a new one. The tower's ClickArea takes the click, so the zone underneath never hovers.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Click area on a tower scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 20.1: Click area on a tower scene</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Upgrade to Max Level</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Stronger, Pricier Each Time</h4>
+                            <ul>
+                                <li>Upgrades need a badge, so the player can see a tower's level. Add a <strong>Label3D</strong> named <strong>"LevelLabel"</strong> to each tower scene, above the tower, Visible off.</li>
+                                <li>Center the label on the y-axis, and place it where it makes sense for your scene.</li>
+                                <li>If you don't center on the y-axis, the label will swing around with the tower as it turns.</li>
+                                <li>In the Inspector, set Billboard to Enabled, so the badge faces the camera on its own. Billboard is off by default, and without it the label sits flat like any 3D object, which is why a tilted top-down camera reads it edge-on.</li>
+                                <li>If the badge hides inside the model, raise it above the tower's top, or turn on No Depth Test in the inspector so it draws over the tower. Do not pull it back off the axis, that is what swings it around when the tower turns.</li>
+                                <li>The text is white by default, edit the color and font as you would any other 2D label.</li>
+                                <li>Track level and spending in <strong>scripts/tower.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+var level = 1
+var spent = 0
+@export var max_level = 5</code></pre>
+                            <ul>
+                                <li>Add one line to _ready in tower.gd, beside the timer setup, so spending starts at the purchase price:</li>
+                            </ul>
+                            <pre><code>
+	spent = cost</code></pre>
+                            <ul>
+                                <li>Add apply_upgrade and upgrade to <strong>scripts/tower.gd</strong>. Each upgrade multiplies damage by 1.5 and divides cooldown by 1.5, and costs 75 percent of the base cost times the current level:</li>
+                            </ul>
+                            <pre><code>
+func apply_upgrade():
+	attack_damage = roundi(attack_damage * 1.5)
+	cooldown_time /= 1.5
+	$CooldownTimer.wait_time = cooldown_time
+	level += 1
+	$LevelLabel.text = "+" + str(level)
+	$LevelLabel.visible = true
+
+func upgrade():
+	if level >= max_level:
+		return false
+	var upgrade_cost = roundi(cost * 0.75 * level)
+	if Global.gold < upgrade_cost:
+		return false
+	Global.gold -= upgrade_cost
+	spent += upgrade_cost
+	apply_upgrade()
+	return true</code></pre>
+                            <ul>
+                                <li>Damage and fire rate scale, range stays, so the ring on a selected tower never changes size when it levels up.</li>
+                                <li>The cost ramps with the level. The second level costs 75 percent of the base cost, the third costs 150 percent, and the fifth costs 300 percent.</li>
+                                <li>The badge lives in apply_upgrade, not upgrade, so a loaded tower gets its badge too, without paying gold.</li>
+                                <li>max_level is an export so you can change the value in the inspector. I am using 5 for mine, but you can choose your own.</li>
+                                <li>Returning true or false lets the caller report what happened, instead of the tower printing for itself.</li>
+                                <li>A saved tower must come back at its level. Add level and spent to get_tower_data in <strong>scripts/placement.gd</strong>, the Section 18 function that lists placed towers:</li>
+                            </ul>
+                            <pre><code>
+func get_tower_data():
+	var data = []
+	for entry in placed_towers:
+		var pos = entry["node"].global_position
+		data.append({"index": entry["index"], "position": [pos.x, pos.y, pos.z], "level": entry["node"].level, "spent": entry["node"].spent})
+	return data</code></pre>
+                            <ul>
+                                <li>Restore them in load_towers, right after add_child in the rebuild loop, so _ready has already run. Add the as Tower cast to the instantiate line, the same as try_place, or the calls below it warn:</li>
+                            </ul>
+                            <pre><code>
+		var tower = tower_scenes[entry["index"]].instantiate() as Tower
+		add_child(tower)
+		tower.spent = entry["spent"]
+		for i in range(entry["level"] - 1):
+			tower.apply_upgrade()</code></pre>
+                            <ul>
+                                <li>Re-applying the upgrades rebuilds the stats and the badge from the saved level, and spent gives more value based on upgrades. A loaded level 3 tower sells for base cost plus both upgrades, not base cost alone.</li>
+                                <li>Add the caller to <strong>scripts/placement.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func upgrade_selected():
+	if selected_tower == null or not is_instance_valid(selected_tower):
+		return
+	if selected_tower.upgrade():
+		print("Upgraded to level 2")
+	else:
+		print("Cannot upgrade")</code></pre>
+                            <ul>
+                                <li>The validity check guards the case where the selected tower was freed, since a freed reference would crash the call.</li>
+                                <li>Add an input action called <strong>"upgrade_tower"</strong> on key U, and call upgrade_selected from _unhandled_input in <strong>scripts/placement.gd</strong>, beside the selection keys:</li>
+                            </ul>
+                            <pre><code>
+	if event.is_action_pressed("upgrade_tower"):
+		upgrade_selected()</code></pre>
+                            <ul>
+                                <li>Add a <strong>Button</strong> named <strong>"UpgradeButton"</strong> to the HUD, and connect its pressed signal to a handler in <strong>scripts/hud.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _on_upgrade_button_pressed():
+	placement.upgrade_selected()</code></pre>
+                            <ul>
+                                <li>The button and the U key call the same function. If you choose, you don't need to implement both.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Upgrading a selected tower" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 20.2: Upgrading a selected tower</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Sell for a Refund</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Seventy Percent Back</h4>
+                            <ul>
+                                <li>Add sell_selected to <strong>scripts/placement.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func sell_selected():
+	if selected_tower == null or not is_instance_valid(selected_tower):
+		return
+	var refund = roundi(selected_tower.spent * 0.7)
+	Global.gold += refund
+	for entry in placed_towers:
+		if entry["node"] == selected_tower:
+			placed_towers.erase(entry)
+			break
+	for node in get_tree().get_nodes_in_group("placement_zones"):
+		var zone = node as PlacementZone
+		if zone.global_position.distance_to(selected_tower.global_position) < 0.01:
+			zone.occupied = false
+	selected_tower.queue_free()
+	selected_tower = null
+	print("Sold for ", refund, " gold")</code></pre>
+                            <ul>
+                                <li>The refund is 70 percent of everything spent on that tower, base cost plus upgrade, so an upgraded tower refunds more.</li>
+                                <li>Erasing from placed_towers is important to include. Without it, a later load would resurrect the sold tower, and the refund would be free money.</li>
+                                <li>The zone match is the Section 18 trick again, closeness instead of equality, so the zone frees for the next tower.</li>
+                                <li>Freeing the zone before queue_free matters, since the position is read while the tower still exists.</li>
+                                <li>Add an input action called <strong>"sell_tower"</strong> on key S, and call sell_selected from _unhandled_input in <strong>scripts/placement.gd</strong>, beside the upgrade key:</li>
+                            </ul>
+                            <pre><code>
+	if event.is_action_pressed("sell_tower"):
+		sell_selected()</code></pre>
+                            <ul>
+                                <li>Add a <strong>Button</strong> named <strong>"SellButton"</strong> to the HUD, and connect its pressed signal to a handler in <strong>scripts/hud.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _on_sell_button_pressed():
+	placement.sell_selected()</code></pre>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Selling a selected tower" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 20.3: Selling a selected tower</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Test Upgrades and Selling</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing the Economy's Second Half</h4>
+                            <ul>
+                                <li>Hover a zone to place. The ghost sits steady, with no flicker, and the zone takes the click.</li>
+                                <li>Place a tower, then click it. Its range ring shows in glowing yellow, and the Output panel prints its name and level.</li>
+                                <li>Click a second tower. The ring moves to the new tower, and the first tower's ring hides.</li>
+                                <li>Click the selected tower again. The ring hides, and the Output panel prints the deselect.</li>
+                                <li>Press U. Gold drops by 75 percent of the cost, the tower hits harder and fires faster, and a +2 badge appears above it.</li>
+                                <li>Press U again. Gold drops by 150 percent of the cost, and the badge reads +3.</li>
+                                <li>Press U until the tower reaches level 5. The next press does nothing, and the Output panel reports it cannot upgrade.</li>
+                                <li>Save with a level 3 tower, then load. The tower comes back level 3, with its badge, and sells for the right refund.</li>
+                                <li>Press S. Gold jumps by 70 percent of everything spent, base cost plus upgrades, the tower vanishes, and the zone takes a new tower.</li>
+                                <li>Save after selling, place a tower, load. The sold tower stays gone, and gold matches the save.</li>
+                                <li>Click the ghost preview. No selection prints, since the ghost is ignored.</li>
+                                <li>Load a save, then click a rebuilt tower. It selects, upgrades, and sells like any other.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If upgrading will not work:</strong>
+                                <ul>
+                                    <li>Ghost flickers while hovering a zone: its ClickArea is still pickable and steals the mouse from the zone. Check the input_ray_pickable line in make_ghost.</li>
+                                    <li>No ring on the selected tower: the ring lines are missing from _on_tower_clicked, or RangeRing is missing from the tower scene.</li>
+                                    <li>Ring stays on two towers: the old-ring hide lines are missing from _on_tower_clicked. Check the selected_tower block at the top.</li>
+                                    <li>Clicking the selected tower does nothing: the toggle lines are missing from _on_tower_clicked. Check the tower == selected_tower block at the top.</li>
+                                    <li>Ring shows opaque instead of glowing yellow: the material_override line is missing from _on_tower_clicked.</li>
+                                    <li>Script errors on load: the preload path is wrong. Check that the file is named select_material.tres and sits in the materials folder.</li>
+                                    <li>Click does nothing: the ClickArea shape is missing, or its input_event signal is not connected. Check the tower scene and the connections.</li>
+                                    <li>Click selects nothing: the tower_clicked connect is missing from try_place or load_towers. Check both.</li>
+                                    <li>Upgrade does nothing: no tower is selected, so click one first. Check the selection print.</li>
+                                    <li>Ghost upgrades: the preview guard is missing from _on_tower_clicked. Check the tower == preview line.</li>
+                                    <li>Damage rises but fire rate stays: the timer wait_time line is missing from apply_upgrade. Check $CooldownTimer.</li>
+                                    <li>Loaded tower loses its level: get_tower_data is missing level and spent, or load_towers never restores them.</li>
+                                    <li>Badge never appears: the LevelLabel node is missing from the tower scene, or the badge lines are missing from apply_upgrade.</li>
+                                    <li>Sold tower returns after load: placed_towers.erase is missing from sell_selected. Check the erase loop.</li>
+                                    <li>Zone stays blocked after sell: the zone match failed. Check the distance check.</li>
+                                    <li>Refund is wrong: spent never tracked the purchase. Check the spent = cost line in _ready.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing upgrades and selling" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 20.4: Testing upgrades and selling</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page19.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 20 of 21</span>
+            </div>
+            <a href="page21.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

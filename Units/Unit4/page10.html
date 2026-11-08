@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.10: Projectiles & Damage - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Projectiles & Damage</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 10 of 15</span>
+                <a href="page11.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 10 Videos</h3>
+                    <p>Watch: "Projectiles & Damage"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 10: Projectiles & Damage</h1>
+            <p class="unit-description">Fire projectiles that deal damage to enemies.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="10">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Build the Projectile Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Repeatable Projectiles</h4>
+                            <ul>
+                                <li>Create a new scene with an <strong>Area3D</strong> root</li>
+                                <li>Rename it to <strong>"Projectile"</strong></li>
+                                <li>Add a <strong>MeshInstance3D</strong> child and give it a shape for what your tower shoots. This depends on what your projectile is.</li>
+                                <li>Add a <strong>CollisionShape3D</strong> child and give it a shape that covers the mesh.</li>
+                                <li>Save the scene as <strong>scenes/projectile.tscn</strong></li>
+                                <li>Attach a script and save it as <strong>scripts/projectile.gd</strong></li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> Check your GDD. What does your tower shoot? That answer is your projectile model.  It could be a simple primitive sphere, or it could be a plant pot.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Projectile scene tree" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.1: Projectile scene tree</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Move the Projectile</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Instantiation and Deletion</h4>
+                            <ul>
+                                <li>Add this to <strong>scripts/projectile.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+extends Area3D
+
+@export var speed = 20.0
+@export var lifetime = 3.0
+
+var direction: Vector3
+var damage = 0
+
+func _process(delta):
+	global_position += direction * speed * delta
+	lifetime -= delta
+	if lifetime <= 0:
+		queue_free()</code></pre>
+                            <ul>
+                                <li>Mine is 20 for speed, but yours can be anything. Your GDD decides how fast your shots fly.</li>
+                                <li>Direction and damage are set by the tower when it fires. The projectile itself does not decide them.</li>
+                                <li>The flight is straight. A fast projectile at a slow enemy usually hits, fast enemies might escape.</li>
+                                <li>The lifetime countdown is cleanup. A projectile that misses flies on, then frees itself instead of piling up forever.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Projectile movement code" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.2: Projectile movement code</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Fire It from the Tower</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Attacking Spawns a Shot</h4>
+                            <ul>
+                                <li>Open <strong>scripts/tower.gd</strong> and add an export for the projectile scene:</li>
+                            </ul>
+                            <pre><code>@export var projectile_scene: PackedScene</code></pre>
+                            <ul>
+                                <li>Drag projectile.tscn into the projectile_scene slot in the Inspector</li>
+                                <li>Replace the direct damage line in the ATTACKING branch with a shot. The branch now reads:</li>
+                            </ul>
+                            <pre><code>		
+State.ATTACKING:
+    if not is_instance_valid(target):
+        target = null
+        state = State.IDLE
+    else:
+        fire_projectile()
+        cooldown_timer.start()
+        state = State.COOLDOWN</code></pre>
+                            <ul>
+                                <li>Add fire_projectile to <strong>scripts/tower.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func fire_projectile():
+	var projectile = projectile_scene.instantiate()
+	get_parent().add_child(projectile)
+	projectile.global_position = global_position
+	projectile.direction = (target.global_position - global_position).normalized()
+	projectile.damage = attack_damage</code></pre>
+                            <ul>
+                                <li>add_child comes before setting global_position, the same order as Section 7 taught you.</li>
+                                <li>The direction is set once, at fire time, from the tower to where the target stands right now.</li>
+                                <li>The damage comes from the tower's attack_damage.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> Your projectile starts at the tower's origin. If that looks wrong for your model, raise the spawn point above the origin.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Firing a projectile from the tower" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.3: Firing a projectile from the tower</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Hits Deal Damage</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Handle Collisions</h4>
+                            <ul>
+                                <li>Connect the projectile Area3D <strong>body_entered</strong> signal to the projectile script</li>
+                                <li>Add the handler to <strong>scripts/projectile.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _on_body_entered(body):
+	if body is Enemy:
+		body.take_damage(damage)
+		queue_free()</code></pre>
+                            <ul>
+                                <li>body_entered fires when the projectile touches a physics body. Enemies are CharacterBody3D, so they count. Zones are Area3D, so they do not.</li>
+                                <li>The <strong>is</strong> check matters. Without it, anything the projectile touches would get take_damage called on it, and most things do not have that function.</li>
+                                <li>take_damage is exactly the function from Section 9, nothing about damage changed, only the delivery.</li>
+                                <li>The projectile frees itself on a hit, so one shot damages one enemy.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> Projectiles work on any enemy, so waves in Section 12 need no projectile changes.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Projectile hit handler" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.4: Projectile hit handler</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Test Projectiles</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Shots and Hits</h4>
+                            <ul>
+                                <li>Place a tower near the path, the way Section 7 taught you.</li>
+                                <li>Press <strong>F6</strong>. An enemy walks the path from Section 5.</li>
+                                <li>When the enemy comes in range, a projectile appears at the tower and flies toward it.</li>
+                                <li>On a hit, the projectile disappears and the enemy loses health. With a temporary print in take_damage, you can watch it drop.</li>
+                                <li>After enough hits, the enemy dies mid-path instead of reaching the Base.</li>
+                                <li>Fire at an enemy that leaves range. The projectile flies on, then disappears when its lifetime runs out. Nothing piles up.</li>
+                                <li>Place a second tower. Projectiles from both towers hit.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the projectile will not fire:</strong>
+                                <ul>
+                                    <li>Projectile never appears: the projectile_scene export slot is empty, or fire_projectile is not called. Check the ATTACKING branch.</li>
+                                    <li>Projectile hangs in the air: direction was never set, or speed is 0. Check fire_projectile and the speed export.</li>
+                                    <li>Projectile passes through enemies: the body_entered signal is not connected, or the CollisionShape3D is missing or too small.</li>
+                                    <li>Projectile hits but the enemy takes no damage: damage was never set. Check the projectile.damage = attack_damage line.</li>
+                                    <li>Error about take_damage on something that is not an enemy: the is Enemy check is missing from the handler.</li>
+                                    <li>Projectiles pile up forever: the lifetime countdown is missing from _process.</li>
+                                    <li>Enemy dies on the first hit: check your GDD numbers. attack_damage may be higher than max_health.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing projectiles" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 10.5: Testing projectiles</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page9.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 10 of 15</span>
+            </div>
+            <a href="page11.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

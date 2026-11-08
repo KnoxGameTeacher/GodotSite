@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.13: Infinite Scaling & Difficulty - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Infinite Scaling & Difficulty</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 13 of 21</span>
+                <a href="page14.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 13 Videos</h3>
+                    <p>Watch: "Infinite Scaling & Difficulty"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 13: Infinite Scaling & Difficulty</h1>
+            <p class="unit-description">Make waves infinitely harder with scaling multipliers</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="13">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Loop the Wave List</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Endless Means the List Loops</h4>
+                            <ul>
+                                <li>After the last wave definition, the next wave starts back at the first one, using logic to make it harder than before.</li>
+                                <li>Open <strong>scripts/wave_manager.gd</strong> and replace start_wave with this:</li>
+                            </ul>
+                            <pre><code>
+func start_wave():
+	if waves.is_empty():
+		print("No waves")
+		return
+	var def_index = Global.current_wave % waves.size()
+	current_cycle = Global.current_wave / waves.size()
+	current_wave_def = waves[def_index]
+	spawn_queue.clear()
+	for entry in current_wave_def.entries:
+		if entry.is_boss:
+			print("Boss wave!")
+		for i in entry.enemy_count:
+			spawn_queue.append(entry.enemy_scene)
+	if spawn_queue.is_empty():
+		print("Wave is empty")
+		return
+	spawning_done = false
+	wave_active = true
+	spawn_timer.wait_time = current_wave_def.spawn_interval
+	spawn_enemy()</code></pre>
+                            <ul>
+                                <li>The old No more waves guard goes away. That guard was the dead end. Without it, waves never run out.</li>
+                                <li>% means modulo. It gives the remainder after division, so for three waves the index counts 0, 1, 2, 0, 1, 2, and the list wraps back to the first definition.</li>
+                                <li>Integer division drops the remainder, so current_wave / waves.size() counts completed loops. It is 0 for the first pass through the list, 1 for the second, and so on.</li>
+                                <li>Add current_cycle to the state at the top of the script, next to wave_active and spawn_queue:</li>
+                            </ul>
+                            <pre><code>
+var current_cycle = 0
+var current_wave_def: WaveDef
+                            </code></pre>
+                            <ul>
+                                <li>The boss print from Section 12 stays in the loop, so boss waves still announce themselves.</li>
+                                <li>The empty guard stays. Modulo by zero is an error, so an empty waves array still needs its own message.</li>
+                                <li>current_wave keeps counting forever, nothing resets it except the whole game resetting.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Looping the wave list with modulo" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 13.1: Looping the wave list with modulo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Scale Enemy Strength</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Stronger Enemies Each Cycle</h4>
+                            <ul>
+                                <li>Looping alone does not progress difficulty, each cycle must hit harder. Add two exports to <strong>scripts/wave_manager.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@export var health_growth = 0.25
+@export var damage_growth = 1</code></pre>
+                            <ul>
+                                <li>In spawn_enemy, scale the fresh instance between instantiate and add_child:</li>
+                            </ul>
+                            <pre><code>
+func spawn_enemy():
+	var follow = PathFollow3D.new()
+	follow.loop = false
+	path.add_child(follow)
+	var enemy = spawn_queue.pop_front().instantiate()
+	enemy.max_health = roundi(enemy.max_health * (1.0 + current_cycle * health_growth))
+	enemy.damage = enemy.damage + current_cycle * damage_growth
+	follow.add_child(enemy)
+	if spawn_queue.is_empty():
+		spawning_done = true
+	else:
+		spawn_timer.start()</code></pre>
+                            <ul>
+                                <li>1.0 + current_cycle * health_growth is the wave difficulty multiplier. Cycle 0 multiplies by 1, so the first pass is unchanged, cycle 1 multiplies health by 1.25, and so on.</li>
+                                <li>Mine is 0.25 for health_growth and 1 for damage_growth, but yours can be anything. Your GDD decides how fast difficulty climbs.</li>
+                                <li>roundi keeps the scaled max_health a whole number.</li>
+                                <li>The scaling lines come before add_child on purpose. Enemy _ready sets health from max_health when the enemy enters the tree, so scaling after add_child would leave health at the unscaled value.</li>
+                                <li>Each enemy is a fresh instance from the scene, so scaling always starts from the scene's base values. Nothing compounds by accident from one spawn to the next.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Scaling enemy stats per cycle" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 13.2: Scaling enemy stats per cycle</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Scale the Wave Itself</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>More Enemies, Tighter Spacing</h4>
+                            <ul>
+                                <li>Strength is only half the difficulty curve. Later cycles should also send more enemies, closer together. Add three exports to <strong>scripts/wave_manager.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@export var extra_enemies_per_cycle = 2
+@export var interval_shrink = 0.1
+@export var min_interval = 0.3</code></pre>
+                            <ul>
+                                <li>Change the queue loop in start_wave, so every entry grows with the cycle:</li>
+                            </ul>
+                            <pre><code>	for entry in current_wave_def.entries:
+		if entry.is_boss:
+			print("Boss wave!")
+		var count = entry.enemy_count + current_cycle * extra_enemies_per_cycle
+		if entry.is_boss:
+			count += current_cycle
+		for i in count:
+			spawn_queue.append(entry.enemy_scene)</code></pre>
+                            <ul>
+                                <li>Change the wait_time line in start_wave:</li>
+                            </ul>
+                            <pre><code>	spawn_timer.wait_time = maxf(current_wave_def.spawn_interval - current_cycle * interval_shrink, min_interval)</code></pre>
+                            <ul>
+                                <li>Cycle 1 adds 2 enemies to each entry, cycle 2 adds 4 to each entry. A wave with two entries grows by 4, then 8. The count grows with the cycle, not by a fixed amount.</li>
+                                <li>Boss entries gain one extra boss per cycle, on top of the normal extras, so a boss entry grows by 3 in cycle 1, not 2, and cycle 0 adds nothing.</li>
+                                <li>The queue is built once when the wave starts, so the extra enemies join before the first spawn.</li>
+                                <li>The interval shrinks by 0.1 each cycle, so later waves bunch up. maxf stops it at 0.3 no matter how many cycles pass. Without the floor, the interval would eventually hit zero and the whole wave would spawn at once.</li>
+                                <li>Mine is 2 extra enemies, a 0.1 shrink, and a 0.3 floor, but yours can be anything. Your GDD decides the pace.</li>
+                                <li>The wait_time is set once when the wave starts, and every spawn in that wave uses it.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Scaling wave size and pacing" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 13.3: Scaling wave size and pacing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>See the Scaling</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Prints Before a HUD</h4>
+                            <ul>
+                                <li>There is no HUD yet, so print the wave and the cycle when a wave starts. Add this line to start_wave, right after current_wave_def is set:</li>
+                            </ul>
+                            <pre><code>	print("Wave ", Global.current_wave + 1, " cycle ", current_cycle)</code></pre>
+                            <ul>
+                                <li>Global.current_wave counts completed waves, so the wave being started is current_wave + 1 in human counting.</li>
+                                <li>Watch the Output panel as you play past your last hand-authored wave. The cycle number rises, and the damage numbers should change.</li>
+                                <li>If the numbers feel wrong, change the exports in the Inspector. No code changes are needed to retune.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> Check your GDD. How steep is your difficulty curve? Small growth numbers make long runs. Big ones make short brutal runs. Tuning the curve is a design decision, but keep in mind that no player enjoys an impossible game.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Printing wave and cycle numbers" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 13.4: Printing wave and cycle numbers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Test Endless Waves</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing the Loop</h4>
+                            <ul>
+                                <li>Press <strong>F6</strong> and then press your start wave button.</li>
+                                <li>Play through all your hand-authored waves. The Output panel prints each wave and its cycle.</li>
+                                <li>Keep playing past the last one. The next wave restarts at your first definition, with more enemies and tougher stats. Waves never stop.</li>
+                                <li>Play until a boss wave repeats in cycle 1, and count its bosses: one extra boss spawns, on top of the normal extras.</li>
+                                <li>Watch a camped enemy at the Base. Scaling does not change the camp rule from Section 12. It still attacks the fence until your towers kill it or the fence falls.</li>
+                                <li>Let a later-cycle wave run. Counts are higher, spacing is tighter, and enemies take more hits to kill.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If endless waves will not scale:</strong>
+                                <ul>
+                                    <li>Waves stop after the last one: the No more waves guard is still in start_wave. Replace it with the modulo lines.</li>
+                                    <li>Same difficulty every cycle: current_cycle is never set, or the scaling lines are missing from spawn_enemy. Check start_wave sets it and spawn_enemy uses it.</li>
+                                    <li>Enemies have unscaled health: the scaling lines are after add_child, so _ready already set health from the unscaled max_health. Move them before add_child.</li>
+                                    <li>Whole wave spawns at once: the interval floor is missing, so wait_time hit zero. Check the maxf line in start_wave.</li>
+                                    <li>Error about division by zero: the waves array is empty. Drag a wave resource into a slot.</li>
+                                    <li>More enemies than expected: extra_enemies_per_cycle adds to each entry, so a wave with two entries gains twice the extra number per cycle. That is the design, not a bug.</li>
+                                    <li>Extra enemies are all one type: the extra count sits outside the entry loop, so only one entry grows. Check the extra count is inside the entry loop, so every entry grows.</li>
+                                    <li>No extra boss in cycle 1: the boss bonus is missing from the queue loop, or the entry's is_boss is off. Check the loop and the entry.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing endless waves" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 13.5: Testing endless waves</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page12.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 13 of 21</span>
+            </div>
+            <a href="page14.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

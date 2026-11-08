@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.19: High Score and Game Over - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>High Score and Game Over</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 19 of 21</span>
+                <a href="page20.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 19 Videos</h3>
+                    <p>Watch: "High Score and Game Over"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 19: High Score and Game Over</h1>
+            <p class="unit-description">Track persistent high scores, count kills, and end the run</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="19">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Track the High Score</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>The Best Run So Far</h4>
+                            <ul>
+                                <li>The score right now is the waves you survived. If the fence falls on wave 3, your score is 2, because current_wave counts the waves you finished.</li>
+                                <li>Add the record and the kill counts to <strong>scripts/global.gd</strong>, beside the other Global numbers:</li>
+                            </ul>
+                            <pre><code>
+var high_score = 0
+var best_kills = 0
+var kills = 0</code></pre>
+                            <ul>
+                                <li>high_score is the best run ever. best_kills is the kills from that run, the tiebreaker. kills counts this run only.</li>
+                                <li>Count kills in the kill branch of take_damage in <strong>scripts/enemy.gd</strong>, beside the gold pay:</li>
+                            </ul>
+                            <pre><code>
+	if health <= 0:
+		Global.gold += gold_reward
+		Global.gold_earned += gold_reward
+		Global.kills += 1
+		print("Gold: ", Global.gold)
+		get_parent().queue_free()</code></pre>
+                            <ul>
+                                <li>Kills count through take_damage, so direct hits, splash, and burn all count the same way.</li>
+                                <li>Add a game over handler to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func on_game_over():
+	print("Game Over")
+	var score = Global.current_wave
+	if score > Global.high_score:
+		Global.high_score = score
+		Global.best_kills = Global.kills
+		save_high_score()
+		print("New high score: ", score)
+	elif score == Global.high_score and Global.kills > Global.best_kills:
+		Global.best_kills = Global.kills
+		save_high_score()
+		print("New best kills: ", Global.kills)
+	else:
+		print("Best: ", Global.high_score)
+	hud.show_game_over(score, Global.kills, Global.high_score, Global.best_kills)
+	game_over_sound.play()
+	get_tree().paused = true</code></pre>
+                            <ul>
+                                <li>A better wave count replaces the record outright, and the kills from that run become the new tiebreaker.</li>
+                                <li>A tied wave count only replaces the record when this run had more kills.</li>
+                                <li>Only a better run writes the file. An unchanged record needs no save.</li>
+                                <li>Pausing stops the wave behind the panel, so the summary normally cannot fire after game over.</li>
+                                <li>Pause is the first defense, not the only one. The wave-clear check must also tell a cleared wave from a lost one. Add one condition to the check in <strong>scripts/wave_manager.gd</strong>, in _process:</li>
+                            </ul>
+                            <pre><code>
+	if wave_active and spawning_done and Global.fence_durability > 0 and get_tree().get_nodes_in_group("enemies").is_empty():
+		wave_active = false
+		Global.current_wave += 1
+		Global.gold += 25
+		hud.show_wave_summary()
+		print("Wave complete")</code></pre>
+                            <ul>
+                                <li>A fallen fence means the wave is lost, no matter how empty the enemies group gets. Without this condition, towers mopping up after game over would trigger the summary as if the wave were cleared.</li>
+                                <li>The check already has the gold and summary lines from Sections 14 and 15. Only the fence condition is new.</li>
+                                <li>The panel needs no Always mode, since it has no buttons, it only shows.</li>
+                                <li>Hook the handler into the enemy camp block in <strong>scripts/enemy.gd</strong>. Replace the Game Over print with a call to the main scene:</li>
+                            </ul>
+                            <pre><code>
+# In the camp block, where the fence falls:
+	get_tree().current_scene.on_game_over()</code></pre>
+                            <ul>
+                                <li>current_scene is the main scene root, no matter how deep the enemy sits. No parent chain needed.</li>
+                                <li>The fence guard already stops repeat calls. Once the fence hits zero, the guard blocks every later camp tick, so game over fires exactly once.</li>
+                                <li>Add an <strong>AudioStreamPlayer</strong> to your main scene and name it <strong>"GameOverSound"</strong>. Drag your game over sound into its Stream property, and add the reference to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@onready var game_over_sound = $GameOverSound</code></pre>
+                            <ul>
+                                <li>The sound lives on the main scene, since game over belongs to the run, not to any one enemy.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="High score tracked at game over" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 19.1: High score tracked at game over</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Save the Score to Its Own File</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>A Record, Not a Run</h4>
+                            <ul>
+                                <li>The main save holds a run in progress. A game over save would store a dead fence, so the record needs its own file. Progress is saved by the player, while records are saved by the game.</li>
+                                <li>Add the path and the two functions to <strong>scripts/main.gd</strong>. They reuse the Section 18 pattern: FileAccess, JSON, and .get with a default:</li>
+                            </ul>
+                            <pre><code>
+const HIGH_SCORE_PATH = "user://highscore.json"
+
+func save_high_score():
+	var file = FileAccess.open(HIGH_SCORE_PATH, FileAccess.WRITE)
+	file.store_string(JSON.stringify({"high_score": Global.high_score, "best_kills": Global.best_kills}))
+	file.close()
+
+func load_high_score():
+	if not FileAccess.file_exists(HIGH_SCORE_PATH):
+		return
+	var file = FileAccess.open(HIGH_SCORE_PATH, FileAccess.READ)
+	var data = JSON.parse_string(file.get_as_text())
+	file.close()
+	if data == null:
+		return
+	Global.high_score = data.get("high_score", 0)
+	Global.best_kills = data.get("best_kills", 0)</code></pre>
+                            <ul>
+                                <li>Load the record when the game starts, and reset this run's kills. Add _ready to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _ready():
+	Global.kills = 0
+	load_high_score()</code></pre>
+                            <ul>
+                                <li>Kills count this run only, so _ready resets them to zero before the first wave.</li>
+                                <li>Loading with no file does nothing, so the first ever run starts at zero with no error.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="High score saved to its own JSON file" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 19.2: High score saved to its own JSON file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Show the Score at Game Over</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>The Final Tally</h4>
+                            <ul>
+                                <li>Add a <strong>Panel</strong> named <strong>"GameOverPanel"</strong> to the HUD CanvasLayer, and turn off Visible so it starts hidden. Add three <strong>Labels</strong> to it: <strong>ScoreLabel</strong>, <strong>KillLabel</strong>, and <strong>BestLabel</strong>.</li>
+                                <li>Add the references and a show function to <strong>scripts/hud.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@onready var game_over_panel = $GameOverPanel
+@onready var score_label = $GameOverPanel/ScoreLabel
+@onready var kill_label = $GameOverPanel/KillLabel
+@onready var best_label = $GameOverPanel/BestLabel
+
+func show_game_over(score, kills, best, best_kills):
+	score_label.text = "Waves survived: " + str(score)
+	kill_label.text = "Enemies Killed: " + str(kills)
+	best_label.text = "Best: " + str(best) + " (" + str(best_kills) + " enemies)"
+	game_over_panel.visible = true</code></pre>
+                            <ul>
+                                <li>HUD owns its own nodes, so main.gd asks HUD to show the panel instead of poking at its children. Add the reference to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@onready var hud = $HUD</code></pre>
+                            <ul>
+                                <li>The show call already sits in on_game_over from Step 1, after the record check.</li>
+                                <li>BestLabel is the high score label now.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Game over panel with score and best" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 19.3: Game over panel with score and best</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Test the High Score</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing the Record</h4>
+                            <ul>
+                                <li>For a quick test, temporarily set fence_durability to 1 in global.gd, then set it back when you are done. One camped enemy ends the run.</li>
+                                <li>Play to a game over. The panel shows your survived waves, your kills, and your best, and the Best label jumps if you improved.</li>
+                                <li>Let the fence fall while enemies remain. The panel shows, and no wave summary follows.</li>
+                                <li>Close the game completely and reopen it, then play to a game over. The panel shows your saved best.</li>
+                                <li>Play again and beat the record. The panel shows the new best, and it survives a reopen.</li>
+                                <li>Play again and lose early. The panel shows the lower wave, and the best stays put.</li>
+                                <li>Play again, tie the record, and get more kills. The best kills update on the panel.</li>
+                                <li>Delete user://highscore.json, then reopen the game and play to a game over. The panel reads zero, and nothing breaks.</li>
+                                <li>After game over, close and reopen the game for a fresh run.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the high score will not track:</strong>
+                                <ul>
+                                    <li>Best never changes: on_game_over is never called. Check the enemy camp block calls it.</li>
+                                    <li>Best shows zero after reopen: the file never saved, or load never ran. Check save_high_score at game over and load_high_score in _ready.</li>
+                                    <li>Game over fires twice: the fence guard is missing. Check the fence_durability > 0 check.</li>
+                                    <li>Panel never shows: show_game_over is never called, or the panel path is wrong. Check main.gd's hud reference.</li>
+                                    <li>Old best comes back after beating it: save_high_score is not called when the score improves. Check on_game_over.</li>
+                                    <li>Panel shows the wrong wave: score is waves survived, so current_wave, not current_wave + 1. Check on_game_over.</li>
+                                    <li>Kills never count: kills += 1 is missing from the take_damage kill branch. Check enemy.gd.</li>
+                                    <li>Tiebreaker ignored: best_kills never updates on a tied score. Check the elif branch.</li>
+                                    <li>Game keeps playing behind the panel: paused = true is missing from on_game_over. Check the handler.</li>
+                                    <li>Best shows on the HUD during play: the old HighScoreLabel is still there. Remove the label and its _process line. The panel's BestLabel is the only best display.</li>
+                                    <li>Summary shows after game over: the fence condition is missing from the wave-clear check. Check wave_manager.gd _process.</li>
+                                    <li>Loaded run starts dead: the save was made after game over, when the fence was already zero. Save before the final wave, not after.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing the high score" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 19.4: Testing the high score</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page18.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 19 of 21</span>
+            </div>
+            <a href="page20.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

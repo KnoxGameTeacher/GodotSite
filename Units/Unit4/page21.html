@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.21: Polish - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Polish</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 21 of 21</span>
+                <a href="../../index.html" class="next-button">Unit Complete →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 21 Videos</h3>
+                    <p>Watch: "Polish"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 21: Polish</h1>
+            <p class="unit-description">Add instructions, tooltips, and damage feedback</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="21">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Add a How to Play Panel</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Instructions Before the First Wave</h4>
+                            <ul>
+                                <li>We know how to play our game, but a new player does not.</li>
+                                <li>Add a <strong>Panel</strong> named <strong>"InstructionsPanel"</strong> to the HUD CanvasLayer, and add a <strong>Label</strong> child to it.</li>
+                                <li>Write one line per control in the label. Mine reads:</li>
+                            </ul>
+                            <pre><code>
+Space or Start Wave: begin a wave.
+1, 2, 3 or tower buttons: pick a tower.
+Click a zone: place it.
+Click a tower, then U to upgrade or S to sell.
+Esc: pause.</code></pre>
+                            <ul>
+                                <li>Add a <strong>Button</strong> named <strong>"GotItButton"</strong> to the panel, and set its text to Got it.</li>
+                                <li>Add the reference and the handler to <strong>scripts/hud.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@onready var instructions_panel = $InstructionsPanel</code></pre>
+                            <pre><code>
+func _on_got_it_button_pressed():
+	click_sound.play()
+	instructions_panel.visible = false</code></pre>
+                            <ul>
+                                <li>The panel shows at the beginning of every run.</li>
+                                <li>The panel hides on clicking the button.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="How to play panel over the game" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 21.1: How to play panel over the game</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Add Tooltips</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Help on Hover</h4>
+                            <ul>
+                                <li>Select each HUD button. In the Inspector, find Tooltip, Text, and type what the button does.</li>
+                                <li>StartWaveButton: Begin the next wave.</li>
+                                <li>Tower buttons: name, cost, and damage. Mine says "Daisy Pot. Costs 25 gold. Deals 10 damage." Yours will differ.</li>
+                                <li>UpgradeButton: Upgrade the selected tower.</li>
+                                <li>SellButton: Sell the selected tower for 70 percent of its cost.</li>
+                                <li>Tooltips appear when the mouse rests on a control. They are Inspector text.</li>
+                                <li>Tooltips only work on Controls. Buttons, sliders, and checkboxes are Controls, so every menu control can have one.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tooltip text on a tower button" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 21.2: Tooltip text on a tower button</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add a Hit Pop</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Damage You Can See</h4>
+                            <ul>
+                                <li>Hits need feedback, or damage is invisible until the enemy falls. A quick scale pop on the model says the hit landed.</li>
+                                <li>Change take_damage in <strong>scripts/enemy.gd</strong>, so the full function now reads:</li>
+                            </ul>
+                            <pre><code>
+func take_damage(amount, ignores_armor = false):
+	var effective = amount
+	if not ignores_armor:
+		effective = amount * (1.0 - clampf(armor, 0.0, 1.0))
+	health -= effective
+	if health <= 0:
+		Global.gold += gold_reward
+		Global.gold_earned += gold_reward
+		Global.kills += 1
+		print("Gold: ", Global.gold)
+		get_parent().queue_free()
+	elif effective >= 1.0:
+		var model = get_node("Model")
+		var base = model.scale
+		var tween = create_tween()
+		tween.tween_property(model, "scale", base * 1.5, 0.05)
+		tween.tween_property(model, "scale", base, 0.1)</code></pre>
+                            <ul>
+                                <li>The gold, kills, and earnings lines stay, so the pop joins them instead of replacing them.</li>
+                                <li>The pop only fires for hits of at least 1 damage, so burn ticks skip it, since each tick is a fraction of a point.</li>
+                                <li>base captures the model's scale first, so enemies with scaled models pop back to their own size, not to 1.</li>
+                                <li>Splash hits pop too, since splash goes through take_damage.</li>
+                                <li>The tween dies with the enemy on a killing blow, so the pop only runs on survivors.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Enemy model popping on a hit" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 21.3: Enemy model popping on a hit</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Add Burning and Flashing</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Glow and Flash</h4>
+                            <ul>
+                                <li>Two more material tricks tell the player what an enemy is going through. A burning enemy glows orange, and a hit enemy flashes white.</li>
+                                <li>material_override only affects the node it is set on, never its children. A model built from parts keeps its materials on the part meshes, so the override has to reach each mesh. Collect the meshes once, then set the override on each one.</li>
+                                <li>Make the two materials as resources, the same way Section 20 made the select material. In the FileSystem dock, create two StandardMaterial3D resources in the materials folder, and name them burn_material.tres and flash_material.tres.</li>
+                                <li>Set burn_material.tres in the Inspector: Albedo Color orange (1.0, 0.4, 0.0), Emission Enabled, Emission orange (1.0, 0.3, 0.0). Leave Energy Multiplier at 1.0, the flicker sets it while burning.</li>
+                                <li>Set flash_material.tres in the Inspector: Albedo Color white, Emission Enabled, Emission white.</li>
+                                <li>Reference both materials at the top of <strong>scripts/enemy.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+const BURN_MATERIAL = preload("res://materials/burn_material.tres")
+const FLASH_MATERIAL = preload("res://materials/flash_material.tres")</code></pre>
+                            <ul>
+                                <li>Add the timer state to <strong>scripts/enemy.gd</strong>, beside the burn state:</li>
+                            </ul>
+                            <pre><code>
+var burn_dps = 0.0
+var burn_time = 0.0
+var flash_time = 0.0
+var model_meshes: Array[MeshInstance3D] = []</code></pre>
+                            <ul>
+                                <li>Collect the meshes in _ready in <strong>scripts/enemy.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _ready():
+	health = max_health
+	_collect_meshes(get_node("Model"))</code></pre>
+                            <ul>
+                                <li>Add the collector to <strong>scripts/enemy.gd</strong>. It walks the model and keeps every mesh it finds, the same recursive walk as make_ghost in Section 6:</li>
+                            </ul>
+                            <pre><code>
+func _collect_meshes(node: Node):
+	if node is MeshInstance3D:
+		model_meshes.append(node)
+	for child in node.get_children():
+		_collect_meshes(child)</code></pre>
+                            <ul>
+                                <li>Trigger the flash in take_damage, in the same branch as the pop:</li>
+                            </ul>
+                            <pre><code>
+	elif effective >= 1.0:
+		flash_time = 0.08
+		var model = get_node("Model")
+		var base = model.scale</code></pre>
+                            <ul>
+                                <li>Set the override with a helper, so the resolve block stays short:</li>
+                            </ul>
+                            <pre><code>
+func _set_model_material(material: Material):
+	for mesh in model_meshes:
+		mesh.material_override = material</code></pre>
+                            <ul>
+                                <li>Resolve the material at the end of _process in <strong>scripts/enemy.gd</strong>, after movement:</li>
+                            </ul>
+                            <pre><code>
+	else:
+		follow.progress += move_speed * delta
+	if flash_time > 0.0:
+		flash_time -= delta
+	if flash_time > 0.0:
+		_set_model_material(FLASH_MATERIAL)
+	elif burn_time > 0.0:
+		_set_model_material(BURN_MATERIAL)
+		BURN_MATERIAL.emission_energy_multiplier = 1.0 + sin(Time.get_ticks_msec() / 80.0) * 0.5
+	else:
+		_set_model_material(null)</code></pre>
+                            <ul>
+                                <li>Flash wins while it lasts, burn shows while burning, and nothing shows otherwise.</li>
+                                <li>Flash lasts 0.08 seconds, about five frames. Long enough to read, short enough to feel instant.</li>
+                                <li>Burn ticks skip the flash, since each tick is under 1 damage, the same threshold as the pop.</li>
+                                <li>Burning enemies pulse together, since the flicker reads global time.</li>
+                                <li>The two materials are shared, one file each, so every enemy uses the same pair. The flicker still works, since it reads the clock and every burning enemy sets the same energy.</li>
+                                <li>material_override replaces each mesh's own material while it lasts, and null brings the original back. Nothing about the model is changed for good.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Enemy glowing orange while burning" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 21.4: Enemy glowing orange while burning</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Add a Health Bar</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Health You Can See</h4>
+                            <ul>
+                                <li>Add a <strong>Sprite3D</strong> child to the enemy scene root and name it <strong>"HealthBar"</strong>. Move it above the model, centered on the root. Mine sits at y 1.2, yours can be anything.</li>
+                                <li>In the Inspector, set Billboard to Enabled, so the bar faces the camera on its own. Billboard is off by default, and without it the sprite sits flat like any 3D object and reads edge-on from the side.</li>
+                                <li>Add a bar reference to <strong>scripts/enemy.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@onready var bar_sprite = $HealthBar</code></pre>
+                            <ul>
+                                <li>Add the image and texture state to <strong>scripts/enemy.gd</strong>, beside the flash state:</li>
+                            </ul>
+                            <pre><code>
+var flash_time = 0.0
+var bar_image: Image
+var bar_texture: ImageTexture</code></pre>
+                            <ul>
+                                <li>Set the bar up in _ready in <strong>scripts/enemy.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+	_collect_meshes(get_node("Model"))
+	bar_image = Image.create(64, 8, false, Image.FORMAT_RGBA8)
+	bar_texture = ImageTexture.create_from_image(bar_image)
+	bar_sprite.texture = bar_texture
+	bar_sprite.pixel_size = 0.02
+	update_health_bar()</code></pre>
+                            <ul>
+                                <li>Add the update function to <strong>scripts/enemy.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func update_health_bar():
+	bar_image.fill(Color(0.15, 0.15, 0.15, 1.0))
+	var width = int(ceil(64.0 * health / max_health))
+	bar_image.fill_rect(Rect2i(0, 0, width, 8), Color(0.2, 0.8, 0.2))
+	bar_texture.update(bar_image)
+	bar_sprite.visible = health < max_health</code></pre>
+                            <ul>
+                                <li>Call it from take_damage, right after health drops:</li>
+                            </ul>
+                            <pre><code>
+	health -= effective
+	update_health_bar()
+	if health <= 0:</code></pre>
+                            <ul>
+                                <li>Pixel size 0.02 makes 64 pixels about 1.28 units wide. Mine is 0.02, yours can be anything.</li>
+                                <li>ceil rounds up, so even 1 health shows a sliver of bar.</li>
+                                <li>The bar hides at full health, so undamaged enemies carry no clutter.</li>
+                                <li>The texture updates in place, so no new texture is made per hit.</li>
+                                <li>The bar is a child of the enemy root, so it dies with the enemy.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Health bar above a damaged enemy" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 21.5: Health bar above a damaged enemy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the Polish</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Instructions and Feedback</h4>
+                            <ul>
+                                <li>Start the game. The instructions panel shows. Press Got it. It hides.</li>
+                                <li>Hover each HUD button. Its tooltip appears.</li>
+                                <li>Hit an enemy. It flashes white and its model pops, then both settle back.</li>
+                                <li>Burn an enemy. It does not jitter, since each burn tick is under 1 damage.</li>
+                                <li>Set a projectile's burn_dps and burn_duration, then hit an enemy. It glows orange and pulses while burning, and the glow stops when the burn runs out.</li>
+                                <li>Splash a swarm. Every enemy in the radius pops.</li>
+                                <li>Damage an enemy without killing it. A bar appears above it and shrinks as its health drops. At full health there is no bar.</li>
+                                <li>Kill an enemy. Its bar goes with it.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the polish will not play:</strong>
+                                <ul>
+                                    <li>Instructions never hide: the Got it button's pressed signal is not connected. Check the connections.</li>
+                                    <li>Tooltips never appear: tooltip_text is empty, or the mouse moves too fast. Hover and hold still.</li>
+                                    <li>No pop on hit: the elif never runs, or the Model path is wrong. Check take_damage and the Model node name.</li>
+                                    <li>Enemy pops constantly while burning: the threshold is missing. Check effective >= 1.0.</li>
+                                    <li>Enemy stays big after a hit: the second tween is missing. Check the tween back to base.</li>
+                                    <li>No orange glow while burning: the burn material file is missing, its preload path is wrong, or the resolve block is missing from _process. Check the FileSystem dock and the preload line.</li>
+                                    <li>Flash never shows: flash_time never set in the elif, the flash material file is missing, or the resolve block is missing. Check all three.</li>
+                                    <li>Neither effect shows: _collect_meshes never ran in _ready, so the mesh list is empty. Check the _ready call.</li>
+                                    <li>Script errors on load: a preload path is wrong. Check the file names and the materials folder.</li>
+                                    <li>Glow stays after burning ends: the resolve block never reaches its else. Check the end of _process.</li>
+                                    <li>Bar never shows: the HealthBar node is missing, or update_health_bar never runs. Check the node and the take_damage call.</li>
+                                    <li>Bar never shrinks: update_health_bar is not called after health changes. Check the take_damage call.</li>
+                                    <li>Bar looks empty on a living enemy: width math rounds down to zero. Check the ceil line.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing polish and feedback" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 21.6: Testing polish and feedback</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page20.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 21 of 21</span>
+            </div>
+            <a href="test.html" class="nav-button primary">Unit Test →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

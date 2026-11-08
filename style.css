@@ -1734,3 +1734,26 @@ a:hover {
     pointer-events: none;
     cursor: not-allowed;
 }
+
+.concept-box {
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid var(--retro-green);
+    background: rgba(74, 252, 120, 0.05);
+}
+
+.concept-box summary {
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--retro-green);
+}
+
+.concept-box p {
+    margin: 10px 0 0 0;
+}
+
+pre {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 20 Test: Upgrades and Selling - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Section 20 Test</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 20 Test</span>
+                <a href="index.html" class="next-button">Back to Unit 4 →</a>
+            </div>
+        </div>
+
+        <!-- Test Header -->
+        <div class="unit-header">
+            <h1>Section 20 Test: Upgrades and Selling</h1>
+            <p class="unit-description">Show that your towers upgrade, sell, and remember their levels, then stretch further with the GDD's bonus goals.</p>
+        </div>
+
+        <!-- Test Overview -->
+        <div class="test-overview">
+            <div class="test-stats">
+                <div class="test-stat-card">
+                    <div class="test-stat-number">8</div>
+                    <div class="test-stat-label">Required Points</div>
+                </div>
+                <div class="test-stat-card">
+                    <div class="test-stat-number">10</div>
+                    <div class="test-stat-label">Bonus Points</div>
+                </div>
+            </div>
+            <div class="test-instructions">
+                <h3>Test Instructions</h3>
+                <ul>
+                    <li>Complete ALL required items (8 points total)</li>
+                    <li>Bonus challenges are optional (up to 10 extra points)</li>
+                    <li>Bonus challenges stretch Section 20 further, from easy to hard, including the GDD's achievement system</li>
+                    <li>Use the checkboxes below to track your progress</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="test">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Test Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- SECTION 20: Upgrades and Selling (8 points) -->
+            <div class="test-section">
+                <div class="test-section-header">
+                    <div class="test-section-title">Section 20: Upgrades and Selling (8 points)</div>
+                </div>
+
+                <div class="step-card" data-step="1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="1">
+                                <span>Click a tower to select it. The Output panel prints its name and level (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>Verification Checklist</h4>
+                                <ul>
+                                    <li>Each tower scene has a ClickArea Area3D with a CollisionShape3D covering the tower</li>
+                                    <li>tower_clicked signal connects in try_place and in load_towers</li>
+                                    <li>Clicking a placed tower prints its name and level</li>
+                                    <li>Clicking the ghost preview prints nothing, the preview guard ignores it</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="2">
+                                <span>Selected tower's ring shows in glowing yellow and follows the selection (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>Verification Checklist</h4>
+                                <ul>
+                                    <li>select_material.tres exists with Transparency Alpha, yellow Albedo at 0.5, and Emission on</li>
+                                    <li>The material loads with const SELECT_MATERIAL = preload("res://materials/select_material.tres")</li>
+                                    <li>Clicking a tower shows its ring, clicking a second tower moves the ring</li>
+                                    <li>Clicking the selected tower again hides the ring</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="3">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="3">
+                                <span>Upgrade a tower with U or the Upgrade button. Cost, stats, and badge are correct (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>Verification Checklist</h4>
+                                <ul>
+                                    <li>Level 1 to 2 costs 75 percent of the tower's base cost</li>
+                                    <li>Damage rises by 1.5 times and cooldown falls by 1.5 times</li>
+                                    <li>A +2 badge appears above the tower after the first upgrade</li>
+                                    <li>A second upgrade costs 150 percent of the base cost and the badge reads +3</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="4">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="4">
+                                <span>Tower caps at level 5. Further upgrades are refused (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>Verification Checklist</h4>
+                                <ul>
+                                    <li>max_level is 5</li>
+                                    <li>Pressing U at level 5 does nothing, and the Output panel reports it cannot upgrade</li>
+                                    <li>The badge never reads above +5</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="5">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="5">
+                                <span>Sell a tower with S or the Sell button. Refund is 70 percent of everything spent, and the zone frees (2 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>Verification Checklist</h4>
+                                <ul>
+                                    <li>Refund covers the base cost plus every upgrade bought</li>
+                                    <li>The tower vanishes and the zone takes a new tower</li>
+                                    <li>A sold tower does not return after saving and loading</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="6">
+                    <div class="step-header">
+                        <div class="step-number">6</div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="6">
+                                <span>A saved tower keeps its level after loading (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-instructions">
+                            <div class="instruction-section">
+                                <h4>Verification Checklist</h4>
+                                <ul>
+                                    <li>Save with a level 3 tower, then load the save</li>
+                                    <li>The tower comes back level 3, with its +3 badge showing</li>
+                                    <li>Selling the loaded tower refunds the full invested amount</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BONUS SECTION (10 points possible) -->
+            <div class="test-section bonus-section">
+                <div class="test-section-header">
+                    <div class="test-section-icon"></div>
+                    <div class="test-section-title">Bonus Challenges (Optional - up to 10 points)</div>
+                </div>
+
+                <div class="step-card" data-step="7">
+                    <div class="step-header">
+                        <div class="step-number"></div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="7">
+                                <span>Max-level badge (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>Bonus Challenge 1</h4>
+                            <p>Make level 5 look special, so a maxed tower stands out from the rest.</p>
+                            <ul>
+                                <li>At level 5 the badge turns gold or reads "MAX" instead of "+5"</li>
+                                <li>A message shows when a tower reaches level 5, print or label</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Hint:</strong> Check the level against max_level in apply_upgrade, where the badge text is already set.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="8">
+                    <div class="step-header">
+                        <div class="step-number"></div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="8">
+                                <span>Tower card on the HUD (1 point)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>Bonus Challenge 2</h4>
+                            <p>Show what the selected tower is, right on the HUD.</p>
+                            <ul>
+                                <li>Selecting a tower shows its name, level, damage, and cooldown on the HUD</li>
+                                <li>The card updates when the selection changes, and clears on deselect</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Hint:</strong> The HUD already holds a reference to Placement, so it can read placement.selected_tower and its stats.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="9">
+                    <div class="step-header">
+                        <div class="step-number"></div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="9">
+                                <span>Buy-phase-only upgrades (3 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>Bonus Challenge 3</h4>
+                            <p>Upgrades and selling only happen between waves, never mid-wave.</p>
+                            <ul>
+                                <li>Upgrades only work between waves (1 point)</li>
+                                <li>Selling only works between waves (1 point)</li>
+                                <li>A message tells the player when an upgrade or sale is refused mid-wave (1 point)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Hint:</strong> Placement can read the WaveManager the same way the HUD does, with $"../WaveManager", and wave_active is true while a wave runs. Guard upgrade_selected and sell_selected with it, the same guard pattern as try_place.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card" data-step="10">
+                    <div class="step-header">
+                        <div class="step-number"></div>
+                        <div class="step-title">
+                            <label>
+                                <input type="checkbox" class="step-check" data-step="10">
+                                <span>Achievement system (GDD Could Have, 5 points)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <div class="instruction-section">
+                            <h4>Bonus Challenge 4</h4>
+                            <p>The GDD lists achievements as a Could Have. Build a tracker that remembers them.</p>
+                            <ul>
+                                <li>Track at least three achievements in Global, ex. first upgrade, a tower reaching level 5, first sale (2 points)</li>
+                                <li>Show earned achievements on the game-over screen (2 points)</li>
+                                <li>Achievements persist across saves, so a reloaded game keeps them (1 point)</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Hint:</strong> Store earned achievements in Global, the same autoload that holds gold and the wave count, and save them with the game so a reloaded game keeps them.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Navigation -->
+        <div class="test-navigation">
+            <a href="page20.html" class="nav-button">← Back to Section 20</a>
+            <div class="test-score" id="test-score">
+                Score: 0 / 8 points possible
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Scoring Script -->
+    <script>
+        function calculateTestScore() {
+            // Required step point values (total 8 points possible)
+            const stepPointValues = {
+                1: 1,    // Click to select
+                2: 1,    // Selection ring
+                3: 2,    // Upgrade cost, stats, badge
+                4: 1,    // Level 5 cap
+                5: 2,    // Sell refund and free zone
+                6: 1     // Saved level survives load
+            };
+
+            let earnedPoints = 0;
+            let maxPoints = 0;
+
+            for (const [step, points] of Object.entries(stepPointValues)) {
+                maxPoints += points;
+                const checkbox = document.querySelector(`.step-check[data-step="${step}"]`);
+                if (checkbox && checkbox.checked) {
+                    earnedPoints += points;
+                }
+            }
+
+            // Bonus checkboxes (7-10) - add to earned points but not to max
+            const bonus7 = document.querySelector('.step-check[data-step="7"]');
+            const bonus8 = document.querySelector('.step-check[data-step="8"]');
+            const bonus9 = document.querySelector('.step-check[data-step="9"]');
+            const bonus10 = document.querySelector('.step-check[data-step="10"]');
+
+            if (bonus7 && bonus7.checked) earnedPoints += 1;
+            if (bonus8 && bonus8.checked) earnedPoints += 1;
+            if (bonus9 && bonus9.checked) earnedPoints += 3;
+            if (bonus10 && bonus10.checked) earnedPoints += 5;
+
+            // Update display
+            const scoreDisplay = document.getElementById('test-score');
+            if (scoreDisplay) {
+                scoreDisplay.innerHTML = `Score: ${earnedPoints} / ${maxPoints} points possible`;
+            }
+
+            return earnedPoints;
+        }
+
+        // Add event listeners to checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.step-check');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    calculateTestScore();
+
+                    // Update progress bar based on required steps only
+                    const requiredSteps = [1,2,3,4,5,6];
+                    let totalRequired = requiredSteps.length;
+                    let completedRequired = 0;
+
+                    requiredSteps.forEach(step => {
+                        const cb = document.querySelector(`.step-check[data-step="${step}"]`);
+                        if (cb && cb.checked) completedRequired++;
+                    });
+
+                    const percent = (completedRequired / totalRequired) * 100;
+
+                    const progressFill = document.querySelector('.progress-fill');
+                    const progressPercent = document.getElementById('progress-percent');
+
+                    if (progressFill) progressFill.style.width = `${percent}%`;
+                    if (progressPercent) progressPercent.textContent = `${Math.round(percent)}%`;
+                });
+            });
+
+            calculateTestScore();
+        });
+    </script>
+
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

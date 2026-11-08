@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.17: Volume and Settings - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Volume and Settings</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 17 of 21</span>
+                <a href="page18.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 17 Videos</h3>
+                    <p>Watch: "Volume and Settings"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 17: Volume and Settings</h1>
+            <p class="unit-description">Add a volume slider, a mute checkbox, and a settings dictionary</p>
+        </div>
+
+        <!-- Concept Primer -->
+        <details class="concept-box" open>
+            <summary>What is a dictionary?</summary>
+            <p>A dictionary is a collection where every value has a name, called a key. You ask for a value by its key instead of its position: settings["master_volume"] gives back 1.0, and settings["muted"] gives back false. Keys are usually strings, and values can be numbers, booleans, strings, or even another dictionary.</p>
+            <p>So far you have stored one value per variable, like gold or current_wave, and lists of things in Arrays, like tower_scenes, where you count positions to find an item. A dictionary bundles several named values into one variable, so settings carries the whole preferences block together. One variable, many values, each found by name, and the whole block can be passed around or saved as a unit.</p>
+        </details>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="17">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Add Volume Controls</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Controls on the Panel</h4>
+                            <ul>
+                                <li>Add an <strong>HSlider</strong> node named <strong>"VolumeSlider"</strong> and a <strong>CheckBox</strong> named <strong>"MuteCheckbox"</strong> to the pause panel.</li>
+                                <li>Add a settings dictionary to <strong>scripts/main.gd</strong>, this will go where variables usually sit:</li>
+                            </ul>
+                            <pre><code>
+var settings = {
+	"master_volume": 1.0,
+	"muted": false
+}</code></pre>
+                            <ul>
+                                <li>Add slider and checkbox references to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@onready var volume_slider = $PauseMenu/Panel/VolumeSlider
+@onready var mute_checkbox = $PauseMenu/Panel/MuteCheckbox</code></pre>
+                            <ul>
+                                <li>The paths follow the node tree. PauseMenu holds the panel, and the panel holds the controls.</li>
+                                <li>We use the dictionary to keep every preference in one place. Controls change it, and later steps read it.</li>
+                                <li>master_volume starts at 1.0, which is full volume. muted starts at false, which means sound is on.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Volume slider and mute checkbox" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 17.1: Volume slider and mute checkbox</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Wire the Controls</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One Bus to Rule Them</h4>
+                            <ul>
+                                <li>Connect the slider's value_changed signal and the checkbox's toggled signal, and add the handlers to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _on_volume_slider_value_changed(value):
+	settings["master_volume"] = value
+	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(value, 0.0001)))
+
+func _on_mute_checkbox_toggled(toggled_on):
+	settings["muted"] = toggled_on
+	AudioServer.set_bus_mute(0, toggled_on)</code></pre>
+                            <ul>
+                                <li>Bus 0 is always the Master bus, so you do not need any audio setup for this to work.</li>
+                                <li>maxf keeps the value above zero, because the log of zero is undefined and the bus would break, leading to a crash.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Volume signals connected to handlers" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 17.2: Volume signals connected to handlers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Test the Volume</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Volume</h4>
+                            <ul>
+                                <li>Drag VolumeSlider, every sound should get quieter. Mute silences everything.</li>
+                                <li>Check MuteCheckbox, then uncheck it. Every sound stops, then returns.</li>
+                                <li>Volume resets when you reopen the game. Settings only last while the game runs for now, Section 18 we'll cover saving them.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the volume will not work:</strong>
+                                <ul>
+                                    <li>Slider moves but nothing changes: the value_changed signal is not connected. Check the VolumeSlider connections.</li>
+                                    <li>Mute does nothing: the toggled signal is not connected. Check the MuteCheckbox connections.</li>
+                                    <li>Sounds ignore the slider: the player is on a different bus. Check the Bus property. Master is the default.</li>
+                                    <li>Volume resets on reopen: that is expected until Section 18. Settings live only while the game runs.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing the volume controls" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 17.3: Testing the volume controls</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page16.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 17 of 21</span>
+            </div>
+            <a href="page18.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

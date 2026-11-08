@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.14: Gold Economy - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Gold Economy</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 14 of 21</span>
+                <a href="page15.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 14 Videos</h3>
+                    <p>Watch: "Gold Economy"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 14: Gold Economy</h1>
+            <p class="unit-description">Earn gold from enemies and spend it on towers</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="14">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Add Gold to Global</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One Number for Money</h4>
+                            <ul>
+                                <li>An economy needs one number every script can reach: how much gold the player has. That number belongs in Global, next to the wave and the fence.</li>
+                                <li>Open <strong>scripts/global.gd</strong>. It now reads:</li>
+                            </ul>
+                            <pre><code>
+extends Node
+
+var current_wave = 0
+var fence_durability = 20
+var gold = 100</code></pre>
+                            <ul>
+                                <li>Gold is in Global for the same reason current_wave and fence_durability do. Every script that needs it already knows Global.</li>
+                                <li>Mine is 100 starting gold, but yours can be anything. Your GDD decides what the player opens with.</li>
+                                <li>Players need a starting amount of gold. Towers cost gold and kills pay gold, but the first tower has to come from somewhere.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Gold variable in the Global autoload" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 14.1: Gold variable in the Global autoload</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Earn Gold</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Kills Pay</h4>
+                            <ul>
+                                <li>Kills are the income. Add an export to <strong>scripts/enemy.gd</strong>, next to damage:</li>
+                            </ul>
+                            <pre><code>@export var gold_reward = 10</code></pre>
+                            <ul>
+                                <li>Change take_damage so the killing blow pays:</li>
+                            </ul>
+                            <pre><code>
+func take_damage(amount, ignores_armor = false):
+	var effective = amount
+	if not ignores_armor:
+		effective = amount * (1.0 - clampf(armor, 0.0, 1.0))
+	health -= effective
+	if health <= 0:
+		Global.gold += gold_reward
+		print("Gold: ", Global.gold)
+		get_parent().queue_free()</code></pre>
+                            <ul>
+                                <li>Mine is 10 gold per kill, but this depends on your game's design.</li>
+                                <li>Different enemy types pay different rewards. Set gold_reward per scene in the Inspector, the same way you set health and damage.</li>
+                                <li>The reward sits inside the health check, so only the killing blow pays. Hits that do not kill pay nothing.</li>
+                                <li>The armor lines from Section 11 stay, so the gold lines join them instead of replacing them.</li>
+                                <li>Burn kills pay too, since burn damage goes through take_damage.</li>
+                                <li>There is no HUD yet, so the print is where we'll check if it's working. Every kill reports the new total.</li>
+                                <li>Waves pay too. Open <strong>scripts/wave_manager.gd</strong> and add the bonus to the completion check from Section 12:</li>
+                            </ul>
+                            <pre><code>
+func _process(delta):
+	if wave_active and spawning_done and get_tree().get_nodes_in_group("enemies").is_empty():
+		wave_active = false
+		Global.current_wave += 1
+		Global.gold += 25
+		print("Wave complete")</code></pre>
+                            <ul>
+                                <li>Two incomes, then: kills pay per enemy, and every completed wave pays a flat 25.</li>
+                                <li>The bonus is a flat 25 every wave, not scaled by cycle, so it matters most early, when the first towers are still unaffordable.  This is something you could consider adjusting in your personal project.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Gold reward on enemy death" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 14.2: Gold reward on enemy death</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Price Your Towers</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Every Tower Has a Price</h4>
+                            <ul>
+                                <li>Spending needs prices, and prices belong with the thing being bought. Add an export to <strong>scripts/tower.gd</strong>:</li>
+                            </ul>
+                            <pre><code>@export var cost = 50</code></pre>
+                            <ul>
+                                <li>Mine is 50 gold per tower base, but yours can be anything. These are set in the inspector so this value is the default.</li>
+                                <li>Each tower scene carries its own cost, so types are priced independently. A cheap fast tower and an expensive strong tower are just two scenes with different exports.</li>
+                                <li>Tower already carries its class name from Section 8, the same trick as PlacementZone in Section 7 and Enemy in Section 9, so no class_name line is needed here. That is what lets placement.gd treat the ghost as a Tower and read its cost.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower cost export in the Inspector" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 14.3: Tower cost export in the Inspector</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Choose Your Tower</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Keys Pick the Tower</h4>
+                            <ul>
+                                <li>Selection needs at least two tower scenes. If you only have one, duplicate it in the FileSystem dock, change its exports and model, and save it under a new name. Each type is its own scene with its own cost.</li>
+                                <li>Open <strong>scripts/placement.gd</strong> and replace the tower_scene export with an array:</li>
+                            </ul>
+                            <pre><code>@export var tower_scenes: Array[PackedScene]</code></pre>
+                            <ul>
+                                <li>This replaces the old tower_scene export. The old slot is gone, so drag each tower scene into the new array in the Inspector, in key order. Slot 0 is key 1, slot 1 is key 2, slot 2 is key 3.</li>
+                                <li>Track the selection:</li>
+                            </ul>
+                            <pre><code>
+var selected_index = 0</code></pre>
+                            <ul>
+                                <li>preview is already a Tower from Section 8, so no retype is needed here. Only the selection tracking is new.</li>
+                                <li>Add three actions in Project Settings, Input Map: select_tower_1 on key 1, select_tower_2 on key 2, select_tower_3 on key 3.</li>
+                                <li>Add select_tower to <strong>scripts/placement.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func select_tower(index):
+	if index >= tower_scenes.size():
+		return
+	selected_index = index
+	if is_instance_valid(preview):
+		preview.queue_free()
+	preview = tower_scenes[selected_index].instantiate() as Tower
+	make_ghost(preview)
+	add_child(preview)
+	preview.set_process(false)
+	var ring = preview.get_node("RangeRing") as MeshInstance3D
+	ring.visible = true
+	ring.scale = Vector3(preview.attack_range, 1, preview.attack_range)
+	if hovered_zone != null:
+		preview.global_position = hovered_zone.global_position
+		preview.visible = true
+	else:
+		preview.visible = false
+	print("Selected ", preview.name, " cost ", preview.cost)</code></pre>
+                            <ul>
+                                <li>"as Tower" casts the new node to Tower. Without it, Godot only knows the new node is a Node, and cost is not available.</li>
+                                <li>add_child comes before set_process, the same order Section 8 taught you.</li>
+                                <li>The rebuilt preview is a fresh ghost, so its ring starts hidden again. Show and scale it here, the same lines as Section 8.</li>
+                                <li>Because the ring scales from the new preview's attack_range, the circle changes size when you switch towers, so each type shows its own reach.</li>
+                                <li>If you are already hovering a zone, the new ghost snaps to it at once instead of waiting for the next hover.</li>
+                                <li>The print is the selection feedback. The name comes from your tower scene's root name, so name your scenes well.</li>
+                                <li>Extend _unhandled_input with the keys. The mouse part is unchanged from Section 7:</li>
+                            </ul>
+                            <pre><code>
+func _unhandled_input(event):
+	if event.is_action_pressed("select_tower_1"):
+		select_tower(0)
+	elif event.is_action_pressed("select_tower_2"):
+		select_tower(1)
+	elif event.is_action_pressed("select_tower_3"):
+		select_tower(2)
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		try_place()</code></pre>
+                            <ul>
+                                <li>Replace _ready with this. The old preview building lines go away, since select_tower builds the first ghost:</li>
+                            </ul>
+                            <pre><code>
+func _ready():
+	select_tower(0)
+	call_deferred("_connect_zones")</code></pre>
+                            <ul>
+                                <li>Finally, replace try_place with the guarded version:</li>
+                            </ul>
+                            <pre><code>
+func try_place():
+	if hovered_zone == null:
+		return
+	if hovered_zone.occupied:
+		return
+	if Global.gold < preview.cost:
+		print("Not enough gold")
+		return
+	Global.gold -= preview.cost
+	var tower = tower_scenes[selected_index].instantiate()
+	add_child(tower)
+	tower.global_position = hovered_zone.global_position
+	hovered_zone.occupied = true
+	preview.visible = false
+	hovered_zone = null</code></pre>
+                            <ul>
+                                <li>The guard comes before the deduction. A failed placement should not charge you.</li>
+                                <li>The deduction comes before the placement, so gold is spent when the tower lands.</li>
+                                <li>The placed tower is a fresh instance, not the ghost. The ghost stays a ghost for the next hover.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Selecting a tower type with keys" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 14.4: Selecting a tower type with keys</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Test the Economy</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Gold</h4>
+                            <ul>
+                                <li>Press <strong>F6</strong>. Press 1, 2, 3 to switch towers. The Output panel prints each selection and its cost.</li>
+                                <li>Hover a zone with each tower. The range circle changes size with the tower, since each type shows its own reach.</li>
+                                <li>Place a tower. Your gold drops by that tower's cost.</li>
+                                <li>Try to place with less gold than the cost. The tower does not place, and the Output panel prints Not enough gold.</li>
+                                <li>Kill enemies. Each kill adds that enemy's gold_reward, and the Output panel prints your new total.</li>
+                                <li>Complete a wave. Gold jumps by 25 on top of the kill rewards.</li>
+                                <li>Save for the expensive tower. Place cheap towers early, earn gold from kills, and buy the stronger type when you can afford it.</li>
+                                <li>Play a full wave with the economy on. Towers cost gold, kills pay gold, and the wave still completes when the group empties.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the economy will not work:</strong>
+                                <ul>
+                                    <li>Gold never increases: the gold_reward line is missing from take_damage. Check the kill path in enemy.gd.</li>
+                                    <li>No wave-clear bonus: the gold line is missing from the completion check in wave_manager.gd. Check _process.</li>
+                                    <li>Towers place with 0 gold: the cost guard is missing from try_place, or the deduction runs before the guard. Check the guard comes first.</li>
+                                    <li>Wrong tower places: the tower_scenes order does not match your keys. Check slot 0 is key 1, slot 1 is key 2, slot 2 is key 3.</li>
+                                    <li>Error about cost on a Node: the as Tower cast is missing from select_tower, or the Section 8 preview retype never happened. Check both.</li>
+                                    <li>Ghost never changes: select_tower is never called, or the actions are missing from the Input Map. Check _unhandled_input and the action names.</li>
+                                    <li>Error when hovering a zone: the tower_scenes array is empty, so no ghost exists. Drag a tower scene into a slot.</li>
+                                    <li>Selected tower has the wrong cost: the cost export is on the wrong tower scene, or the scene was never saved after setting it. Check the Inspector on each tower scene.</li>
+                                    <li>Ring never shows on the new ghost: the ring lines are missing from select_tower. Check the show and scale lines.</li>
+                                    <li>Game starts with nothing to spend: Global.gold starts at 0. Give it a starting amount in global.gd.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing the gold economy" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 14.5: Testing the gold economy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page13.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 14 of 21</span>
+            </div>
+            <a href="page15.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

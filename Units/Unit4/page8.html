@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.8: State Machine Fundamentals - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>State Machine Fundamentals</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 8 of 21</span>
+                <a href="page9.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 8 Videos</h3>
+                    <p>Watch: "State Machine Fundamentals"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 8: State Machine Fundamentals</h1>
+            <p class="unit-description">Learn state machines and build Idle and Targeting states.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="8">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Concept Primer -->
+            <details class="concept-box" open>
+                <summary>What is a state machine?</summary>
+                <p>A state machine is a way to organize behavior. Your tower has one job at a time: sit still, track a target, attack, or wait out a cooldown. The machine is one variable that says which job is current, and a match that runs the right code for that job. Only one state is active at a time, so behaviors never fight each other.</p>
+                <p>You have done this before with if statements and true/false flags. A flag for tracking plus a flag for attacking plus a flag for cooling down works until two flags turn on at once and the tower tries to do two jobs. A state machine replaces the pile of flags with one variable. Instead of asking "is it tracking and is it attacking," the code asks "what state is it in," and the answer is always exactly one thing.  This concept becomes more important the more behaviors you have.</p>
+            </details>
+
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create the Tower Script</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One State Machine</h4>
+                            <ul>
+                                <li>A state machine is one variable that says what the tower is doing right now, plus one match that runs the right behavior for that state.</li>
+                                <li>Open your tower scene from Section 3 and attach a script to the root. Save it as <strong>scripts/tower.gd</strong>.</li>
+                                <li>Start the script with the machine itself:</li>
+                            </ul>
+                            <pre><code>extends Node3D
+
+enum State { IDLE, TARGETING }
+
+@export var attack_range = 10.0
+@export var faces_target = true
+
+var state = State.IDLE
+var target: Node3D = null
+
+func _process(delta):
+	match state:
+		State.IDLE:
+			pass
+		State.TARGETING:
+			pass</code></pre>
+                            <ul>
+                                <li>The enum lists the states. The state variable holds the current one, while the match tells the behavior.</li>
+                                <li>Mine is 10 for attack_range, but yours can be anything. Your GDD decides how far your towers reach. Set it in the Inspector.</li>
+                                <li>faces_target is on by default. A tower that should stay still turns it off in the Inspector.  This may not be important for your game, mine needed this</li>
+                                <li>Section 9 adds Attacking and Cooldown to this same match. You will not rewrite the machine, you will add two states to it.  This is why we're using this system.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower state machine skeleton" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.1: Tower state machine skeleton</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Idle -> Targeting</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Nearest Enemy in Range</h4>
+                            <ul>
+                                <li>Towers find enemies through the enemies group from Section 4. Every enemy scene carries that tag.</li>
+                                <li>Replace the pass under State.IDLE with a search:</li>
+                            </ul>
+                            <pre><code>		State.IDLE:
+			target = find_target()
+			if target != null:
+				state = State.TARGETING</code></pre>
+                            <ul>
+                                <li>Idle has one job, to look for a target. The moment one exists, the machine switches states.</li>
+                                <li>Add find_target() to <strong>scripts/tower.gd</strong>:</li>
+                            </ul>
+                            <pre><code>func find_target():
+	var nearest: Node3D = null
+	var nearest_distance = attack_range
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		var distance = global_position.distance_to(enemy.global_position)
+		if distance < nearest_distance:
+			nearest = enemy
+			nearest_distance = distance
+	return nearest</code></pre>
+                            <ul>
+                                <li>The loop checks every enemy in the group and keeps the nearest one inside attack_range.</li>
+                                <li>Starting nearest_distance at attack_range means an enemy outside the range can never steal aggro. No separate range check is needed.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Finding the nearest target" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.2: Finding the nearest target</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Targeting Tracks and Releases</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Track Until Out of Range</h4>
+                            <ul>
+                                <li>Replace the pass under State.TARGETING:</li>
+                            </ul>
+                            <pre><code>		State.TARGETING:
+			if not is_instance_valid(target) or global_position.distance_to(target.global_position) > attack_range:
+				target = null
+				state = State.IDLE
+			else:
+				if faces_target:
+					face_target()</code></pre>
+                            <ul>
+                                <li>Targeting has two exit conditions, either the target despawned, or it walked out of range. Either way the tower drops it and goes back to Idle.</li>
+                                <li>A tower with faces_target off still acquires and keeps its target, it just does not turn. Attacking in Section 9 works the same either way.</li>
+                                <li>is_instance_valid is very important. A freed enemy is not null, so a null check alone would keep a dead target, but this check catches it.</li>
+                                <li>Add face_target to <strong>scripts/tower.gd</strong>:</li>
+                            </ul>
+                            <pre><code>func face_target():
+	var direction = target.global_position - global_position
+	direction.y = 0
+	if direction.length() > 0.01:
+		look_at(global_position + direction, Vector3.UP)</code></pre>
+                            <ul>
+                                <li>Flattening direction to the ground with <strong>direction.y = 0</strong> keeps the tower from tilting up or down toward the enemy.</li>
+                                <li>The length check stops look_at from breaking if the enemy stands exactly on the tower.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower facing its target" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.3: Tower facing its target</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Stop the Preview Ghost from Thinking</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Ghosts Shouldn't Target</h4>
+                            <ul>
+                                <li>Your preview ghost from Section 6 is a full tower scene, so it would run this script too. A ghost that tracks enemies is a bug.</li>
+                                <li>Open <strong>scripts/placement.gd</strong> and add one line to _ready, right after add_child(preview):</li>
+                            </ul>
+                            <pre><code>	preview.set_process(false)</code></pre>
+                            <ul>
+                                <li>Turning off processing stops the ghost's _process without touching the real towers. The ghost still shows, moves, and hides exactly as before.</li>
+                                <li>The line must come after add_child(preview). Before add_child, the preview is not in the tree yet, so set_process(false) has nothing to switch off.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Disabling processing on the preview" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.4: Disabling processing on the preview</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Show the Range While Placing</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>A Circle Around the Ghost</h4>
+                            <ul>
+                                <li>The tower knows its range, but the player cannot see it. While placing, we want to show a circle on the ground around the ghost as wide as attack_range.</li>
+                                <li>Add a <strong>MeshInstance3D</strong> child to the tower scene root and name it <strong>"RangeRing"</strong>. Give it a <strong>CylinderMesh</strong> with Top Radius 1, Bottom Radius 1, and Height 0.1. Turn Visible off in the Inspector, and set its position y to 0.1 so it floats above the ground instead of z-fighting it.</li>
+                                <li>As written, the ring stays hidden on placed towers. Placement shows it on the preview only, so active towers won't have circles.</li>
+                                <li>The ghosting from Section 6 makes the ring faint automatically, so no material work is needed. make_ghost covers every mesh in the preview, ring included.</li>
+                                <li>Placement needs the tower's type to read attack_range. Add the class name as the first line of <strong>scripts/tower.gd</strong>, above extends:</li>
+                            </ul>
+                            <pre><code>
+class_name Tower</code></pre>
+                            <ul>
+                                <li>This is the same class name trick as PlacementZone in Section 7.</li>
+                                <li>Change the preview declaration at the top of <strong>scripts/placement.gd</strong> to Tower, and the build line to cast the instance:</li>
+                            </ul>
+                            <pre><code>
+var preview: Tower</code></pre>
+                            <pre><code>
+	preview = tower_scene.instantiate() as Tower</code></pre>
+                            <ul>
+                                <li>instantiate returns a plain Node, so the cast tells Godot it is a Tower. Without it, assigning to a Tower variable errors.</li>
+                                <li>Add the ring lines to _ready in <strong>scripts/placement.gd</strong>, right after the set_process line from Step 4:</li>
+                            </ul>
+                            <pre><code>
+	var ring = preview.get_node("RangeRing") as MeshInstance3D
+	ring.visible = true
+	ring.scale = Vector3(preview.attack_range, 1, preview.attack_range)</code></pre>
+                            <ul>
+                                <li>The cylinder's radius is 1, so scaling x and z by attack_range makes a circle exactly as wide as the tower can shoot. y stays 1, so the height does not change.</li>
+                                <li>The ring is a child of the preview, so it hides when the preview hides and uses the ghost's position on its own. No hover code changes are needed.</li>
+                                <li>Hover a zone. A faint circle appears around the ghost. Set attack_range to 5 in the Inspector and hover again. The circle shrinks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Range circle around the placement ghost" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.5: Range circle around the placement ghost</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the State Machine</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Idle and Targeting</h4>
+                            <ul>
+                                <li>Place a tower near the path, the way Section 7 taught you.</li>
+                                <li>Press <strong>F6</strong>. An enemy walks the path from Section 5.</li>
+                                <li>While the enemy is far away, the tower sits still. That is Idle.</li>
+                                <li>When the enemy comes in range, the tower turns to face it. That is Targeting.</li>
+                                <li>Turn faces_target off on a tower and test again. It holds still instead of turning. The state is the same. Only the turning is skipped.</li>
+                                <li>When the enemy walks out of range or despawns at the Base, the tower stops turning. That is Idle again.</li>
+                                <li>Hover a zone. A faint circle appears around the ghost, reaching as far as the tower can shoot.</li>
+                                <li>Not sure the state is changing? Add a temporary print(state) at the top of _process and watch the Output panel. It prints 0 for Idle and 1 for Targeting.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Debugging:</strong>
+                                <ul>
+                                    <li>Tower never targets: the enemy is not in the enemies group. Check the Groups tab on the enemy scene.</li>
+                                    <li>Tower never targets: attack_range is too small or was never set in the Inspector. Check the tower scene.</li>
+                                    <li>Tower never targets: the script is attached to the wrong node. It belongs on the tower scene root.</li>
+                                    <li>Tower faces away from the enemy: rotate the Model child 180 degrees around Y, the same fix as Section 5.</li>
+                                    <li>Tower stays still instead of turning: faces_target is off in the Inspector.</li>
+                                    <li>Tower keeps facing a despawned enemy or errors about a freed instance: the is_instance_valid check is missing from Targeting.</li>
+                                    <li>Ghost preview turns toward enemies: preview.set_process(false) is missing from placement.gd.</li>
+                                    <li>Projectiles fire from nowhere, or the ghost fires while invisible: set_process(false) is before add_child(preview) in placement.gd, so it never took effect. Move it to after add_child(preview).</li>
+                                    <li>Ring never shows: the ring lines are missing from _ready, or the node is not named RangeRing. Check both.</li>
+                                    <li>Ring shows on placed towers: RangeRing Visible is on in the tower scene. Turn it off; placement shows it on the preview only.</li>
+                                    <li>Ring wrong size: the scale uses the wrong value. Check preview.attack_range.</li>
+                                    <li>Ring under the ground: position y is 0. Lift it to 0.1.</li>
+                                    <li>Error about assigning Node to Tower: the as Tower cast is missing from the instantiate line. Check _ready.</li>
+                                    <li>Tower targets enemies across the whole map: that is range working as taught. There is no line of sight check in this section.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing Idle and Targeting" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 8.6: Testing Idle and Targeting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page7.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 8 of 21</span>
+            </div>
+            <a href="page9.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

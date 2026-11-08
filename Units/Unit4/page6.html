@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.6: Placement Zones & Preview - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Placement Zones & Preview</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 6 of 15</span>
+                <a href="page7.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 6 Videos</h3>
+                    <p>Watch: "Placement Zones & Preview"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 6: Placement Zones & Preview</h1>
+            <p class="unit-description">Create valid tower placement spots with a hover preview.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="6">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Build the Placement Zone Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>The Zone Scene</h4>
+                            <ul>
+                                <li>Create a new scene with an <strong>Area3D</strong> root</li>
+                                <li>Rename it to <strong>"PlacementZone"</strong></li>
+                                <li>Add a <strong>CollisionShape3D</strong> child and give it a shape that covers the spot a tower will sit on</li>
+                                <li>Add a <strong>MeshInstance3D</strong> child and name it <strong>"Marker"</strong>. Give it a flat shape so players can see where zones are. The marker is a placeholder look. You can dress it up later.</li>
+                                <li>Save the scene as <strong>scenes/placement_zone.tscn</strong></li>
+                                <li>Attach a script and save it as <strong>scripts/placement_zone.gd</strong></li>
+                            </ul>
+                            <pre><code>extends Area3D
+
+signal zone_hovered(zone)
+signal zone_unhovered(zone)
+
+func _ready():
+	add_to_group("placement_zones")
+
+func _on_mouse_entered():
+	zone_hovered.emit(self)
+
+func _on_mouse_exited():
+	zone_unhovered.emit(self)</code></pre>
+                            <ul>
+                                <li>Connect the Area3D <strong>mouse_entered</strong> signal to _on_mouse_entered and the <strong>mouse_exited</strong> signal to _on_mouse_exited</li>
+                                <li>The zone announces itself with signals instead of making other code hunt for zones</li>
+                                <li>Every zone adds itself to the placement_zones group, so a zone you add later works with no extra setup</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> Check your GDD. How many placement zones does your map need, and where do they sit relative to the path?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Placement zone scene tree" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.1: Placement zone scene tree</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Place Zones in Your Main Scene</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Zones on the Map</h4>
+                            <ul>
+                                <li>Open <strong>environment.tscn</strong></li>
+                                <li>Instance placement_zone.tscn beside the path. The number and layout come from your GDD.</li>
+                                <li>Each zone is a separate instance. There is no extra setup per zone, because the script registers the group itself.</li>
+                                <li>Press <strong>F6</strong> and check the markers show up where you expect them.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> Zones beside the path keep towers in range of the action. This might change if you have a very long range tower.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Placement zones beside the path" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.2: Placement zones beside the path</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add a Placement Node</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One Place for Placement Code</h4>
+                            <ul>
+                                <li>Add a <strong>Node</strong> child to your main scene and name it <strong>"Placement"</strong></li>
+                                <li>Attach a script and save it as <strong>scripts/placement.gd</strong></li>
+                                <li>Start the script with an export for the tower scene:</li>
+                            </ul>
+                            <pre><code>extends Node
+
+@export var tower_scene: PackedScene</code></pre>
+                            <ul>
+                                <li>Drag your tower scene from Section 3 into the tower_scene slot in the Inspector</li>
+                                <li>An export means swapping the tower later is one drag, not a code edit</li>
+                                <li>All placement code lives in this one node. Section 7 adds clicking to this same script.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Placement node with tower export" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.3: Placement node with tower export</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Build the Ghost Preview</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>A See-Through Tower</h4>
+                            <ul>
+                                <li>Add this to <strong>scripts/placement.gd</strong>. It creates the preview when the game starts:</li>
+                            </ul>
+                            <pre><code>var preview: Node3D
+var hovered_zone: Area3D
+
+func _ready():
+	preview = tower_scene.instantiate()
+	make_ghost(preview)
+	add_child(preview)
+	preview.visible = false
+	call_deferred("_connect_zones")
+
+func _connect_zones():
+	for zone in get_tree().get_nodes_in_group("placement_zones"):
+		zone.zone_hovered.connect(_on_zone_hovered)
+		zone.zone_unhovered.connect(_on_zone_unhovered)</code></pre>
+                            <ul>
+                                <li>call_deferred waits until every zone has registered itself, so the connections work no matter what order the nodes sit in</li>
+                                <li>Next, the function that turns a tower see-through:</li>
+                            </ul>
+                            <pre><code>func make_ghost(node):
+	if node is MeshInstance3D:
+		var ghost_material = StandardMaterial3D.new()
+		ghost_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		ghost_material.albedo_color.a = 0.5
+		node.material_override = ghost_material
+	for child in node.get_children():
+		make_ghost(child)</code></pre>
+                            <ul>
+                                <li>material_override changes only how the preview looks. Your tower model keeps its own materials.</li>
+                                <li>The function walks the whole tower, so it works for any tower scene. A second tower type later needs no new code.</li>
+                                <li>Finally, the handlers that show and hide the preview:</li>
+                            </ul>
+                            <pre><code>func _on_zone_hovered(zone):
+	hovered_zone = zone
+	preview.global_position = zone.global_position
+	preview.visible = true
+
+func _on_zone_unhovered(_zone):
+	preview.visible = false
+	hovered_zone = null</code></pre>
+                            <ul>
+                                <li>The preview sits at the hovered zone position. It does not follow the mouse, because only zones are valid spots. That is the whole point of zones.</li>
+                                <li>hovered_zone is stored now because Section 7 will use it when the player clicks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Ghost preview on a hovered zone" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.4: Ghost preview on a hovered zone</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Test the Preview</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing the Preview</h4>
+                            <ul>
+                                <li>Press <strong>F6</strong></li>
+                                <li>Hover a zone. The ghost tower appears on that zone.</li>
+                                <li>Move to another zone. The ghost jumps to it.</li>
+                                <li>Move off all zones. The ghost disappears.</li>
+                                <li>Clicking does nothing yet. That is Section 7.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the ghost will not show:</strong>
+                                <ul>
+                                    <li>Nothing happens on hover: your scene needs a Camera3D. Mouse signals come from the camera, so no camera means no hover.</li>
+                                    <li>Ghost never appears and there is no error: check that the zone CollisionShape3D covers the marker. A shape that is too small or sitting elsewhere never gets hovered.</li>
+                                    <li>Error about instantiate: the tower_scene export slot is empty. Drag your tower scene into it.</li>
+                                    <li>Ghost appears but floats or sinks: your tower model origin is not at its base. Fix the origin in your tower scene.</li>
+                                    <li>Ghost stays visible after leaving a zone: the mouse_exited signal is not connected. Check the signal connections on the zone.</li>
+                                    <li>Clicking does nothing: correct for now. Placing is Section 7.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing the hover preview" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 6.5: Testing the hover preview</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page5.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 6 of 15</span>
+            </div>
+            <a href="page7.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

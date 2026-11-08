@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.7: Click-to-Place & Validation - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Click-to-Place & Validation</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 7 of 15</span>
+                <a href="page8.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 7 Videos</h3>
+                    <p>Watch: "Click-to-Place & Validation"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 7: Click-to-Place & Validation</h1>
+            <p class="unit-description">Place towers with mouse clicks and prevent invalid placements.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="7">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Concept Primer -->
+            <details class="concept-box" open>
+                <summary>What is a class name?</summary>
+                <p>A class name turns your script into a type Godot knows by name. Without one, placement_zone.gd is just a file attached to a node, and other scripts can only describe it as an Area3D. With class_name PlacementZone at the top, PlacementZone becomes a type like Area3D or Node3D, and any script can use it in a variable declaration.</p>
+                <p>So far you have typed variables as built-in classes: Node3D for towers, Area3D for zones. Those types know about positions, but they do not know about your variables, like occupied. Giving your script a class name puts your type into the same system. Now placement.gd can say hovered_zone is a PlacementZone, and Godot checks every .occupied access properly instead of warning that the access might not be safe.</p>
+            </details>
+
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Mark Zones as Used</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One New Variable</h4>
+                            <ul>
+                                <li>Open <strong>scripts/placement_zone.gd</strong> from Section 6</li>
+                                <li>Add one variable at the top of the script, and give the script a class name:</li>
+                            </ul>
+                            <pre><code>extends Area3D
+class_name PlacementZone
+
+var occupied = false</code></pre>
+                            <ul>
+                                <li>Every zone starts unoccupied, a zone becomes occupied when a tower is placed on it.</li>
+                                <li>The zone owns its own state. Nothing else has to remember which zones are taken.</li>
+                                <li>Finally, tell placement.gd the zone's real type. In <strong>scripts/placement.gd</strong>, change the hovered_zone declaration:</li>
+                            </ul>
+                            <pre><code>var hovered_zone: PlacementZone</code></pre>
+                            <ul>
+                                <li>Area3D knows about positions, but it does not know about occupied. Typing the variable as PlacementZone means every .occupied access is checked properly instead of raising an unsafe access warning.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Occupied variable in placement_zone.gd" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.1: Occupied variable in placement_zone.gd</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Listen for Clicks</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Catching the Mouse Click</h4>
+                            <ul>
+                                <li>Open <strong>scripts/placement.gd</strong> from Section 6</li>
+                                <li>Add an _unhandled_input function:</li>
+                            </ul>
+                            <pre><code>func _unhandled_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		try_place()</code></pre>
+                            <ul>
+                                <li>_unhandled_input runs for input nothing else has claimed. There is no UI yet, so clicks arrive here.</li>
+                                <li>The checks mean left mouse button, pressed down. Without the pressed check, the function would also run when the button is released.</li>
+                                <li>try_place does not exist yet, but you could clear the error by making it and passing it until we build it.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Click listener in placement.gd" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.2: Click listener in placement.gd</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Place the Tower</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>From Preview to Real Tower</h4>
+                            <ul>
+                                <li>Add try_place to <strong>scripts/placement.gd</strong>:</li>
+                            </ul>
+                            <pre><code>func try_place():
+	if hovered_zone == null:
+		return
+	var tower = tower_scene.instantiate()
+	add_child(tower)
+	tower.global_position = hovered_zone.global_position
+	hovered_zone.occupied = true
+	preview.visible = false
+	hovered_zone = null</code></pre>
+                            <ul>
+                                <li>The null check is a guard. If the player clicks empty ground, there is no hovered zone, so the function stops.</li>
+                                <li>add_child comes before setting global_position, so the tower lands in the right spot.</li>
+                                <li>The zone is marked occupied, the preview hides, and hovered_zone clears. Moving back onto the zone starts fresh.</li>
+                                <li>To test, press <strong>F6</strong>, hover a zone, and click. A real tower should appear where the ghost was.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Tower placed on a zone" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.3: Tower placed on a zone</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Add Validation</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One Gate for Every Rule</h4>
+                            <ul>
+                                <li>Placing already works, but an occupied zone still accepts another tower. We need a second guard to try_place:</li>
+                            </ul>
+                            <pre><code>func try_place():
+	if hovered_zone == null:
+		return
+	if hovered_zone.occupied:
+		return
+	var tower = tower_scene.instantiate()
+	add_child(tower)
+	tower.global_position = hovered_zone.global_position
+	hovered_zone.occupied = true
+	preview.visible = false
+	hovered_zone = null</code></pre>
+                            <ul>
+                                <li>Every placement rule is a guard at the top of this one function. A placement that fails any guard stops before anything is created.</li>
+                                <li>Keeping all the rules in one place matters later. When a new rule arrives, it joins these guards instead of hiding somewhere else in the code.</li>
+                                <li>We also need to stop the preview from showing on a zone that is already taken. Add the same check to the top of _on_zone_hovered:</li>
+                            </ul>
+                            <pre><code>func _on_zone_hovered(zone):
+	if zone.occupied:
+		return
+	hovered_zone = zone
+	preview.global_position = zone.global_position
+	preview.visible = true</code></pre>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Validation guards in try_place" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.4: Validation guards in try_place</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Test Placing and Validation</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Test Placement</h4>
+                            <ul>
+                                <li>Press <strong>F6</strong></li>
+                                <li>Hover a zone and click. A tower appears.</li>
+                                <li>Hover the same zone again. No ghost appears, and clicking does nothing.</li>
+                                <li>Click empty ground. Nothing happens.</li>
+                                <li>Place a tower on every zone. Each zone accepts exactly one.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If clicking does nothing:</strong>
+                                <ul>
+                                    <li>Nothing happens on any click: check that _unhandled_input is in placement.gd and that the Placement node is in the main scene.</li>
+                                    <li>Not sure the click is reaching the script: add a temporary print("Clicked") at the top of try_place and watch the Output panel.</li>
+                                    <li>Tower appears in the wrong place: make sure you set global_position after add_child.</li>
+                                    <li>One zone accepts many towers: occupied is never set to true, or the occupied guard is missing from try_place.</li>
+                                    <li>Ghost still shows on a taken zone: the occupied check at the top of _on_zone_hovered is missing.</li>
+                                    <li>Click places a tower with no zone hovered: the hovered_zone null check is missing from try_place.</li>
+                                    <li>Error about invalid assignment of occupied: the variable is missing from placement_zone.gd, or it landed inside a function instead of at the top of the script.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing tower placement" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 7.5: Testing tower placement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page6.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 7 of 15</span>
+            </div>
+            <a href="page8.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

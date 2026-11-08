@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.16: Sound Effects and Music - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Sound Effects and Music</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 16 of 21</span>
+                <a href="page17.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 16 Videos</h3>
+                    <p>Watch: "Sound Effects and Music"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 16: Sound Effects and Music</h1>
+            <p class="unit-description">Add sound effects for every event and looping background music</p>
+        </div>
+
+        <details class="concept-box" open>
+            <summary>Where can I get free sounds?</summary>
+            <p>There are loads of free assets available, below is just a sampling of options. The first few are not just the sound files, they are tools to create your own.  You'll need one sound per event for Steps 1 and 2, and one music loop for Step 3.</p>
+            <ul>
+                <li><a href="https://sfbgames.itch.io/chiptone">ChipTone</a>: generate retro sound effects in your browser, then download them. Sounds you make are free to use under CC0.</li>
+                <li><a href="https://raylibtech.itch.io/rfxgen">rFXGen</a>: generate effects from presets like Coin, Shoot, and Explosion, then export as .wav.</li>
+                <li><a href="https://kenney.nl/assets/category:Audio">Kenney audio</a>: ready-made sound effect packs, free to download.</li>
+                <li><a href="https://yurisizov.itch.io/boscaceoil-blue">Bosca Ceoil Blue</a>: compose your own background music loop with a beginner-friendly step sequencer, then export as .wav.</li>
+                <li><a href="https://yurisizov.itch.io/slamy">SLAMY</a>: organize, trim, and layer sounds you already have into new ones.</li>
+                <li><a href="https://itch.io/game-assets/free/tag-music">Free Tagged Music Assets on Itch</a>: this is just a link to the search, changes over time.</li>
+                <li><a href="https://itch.io/game-assets/free/tag-sound-effects">Free Tagged Sound Effects Assets on Itch</a>: this is just a link to the search, changes over time.</li>
+            </ul>
+        </details>
+
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="16">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Add Sound Players</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One Player per Sound</h4>
+                            <ul>
+                                <li>First source your sound files. Free packs like Kenney's game sounds are a good source, but you can look anywhere, just pay attention to the use licenses. Pick one sound per event.  I will code the most general use cases here.</li>
+                                <li>Add an <strong>AudioStreamPlayer</strong> child to each scene that makes a sound, and drag your sound file into its Stream property:</li>
+                            </ul>
+                            <pre><code>
+Placement -> PlaceSound
+Tower scene -> FireSound
+Enemy scene -> FenceHitSound
+WaveManager -> WaveStartSound, WaveCompleteSound
+HUD -> ClickSound</code></pre>
+                            <ul>
+                                <li>AudioStreamPlayer plays globally, the same volume everywhere. AudioStreamPlayer3D plays from a position in the world. Since our camera is static, you can use AudioStreamPlayer for most sounds.</li>
+                                <li>The enemy death sound gets no player. The enemy is freed when it dies, and a child player would die with it. Get a sound for death, but don't add a player for it.</li>
+                                <li>Add a death sound export to <strong>scripts/enemy.gd</strong>, and drag your death sound into it in the Inspector:</li>
+                            </ul>
+                            <pre><code>
+@export var death_stream: AudioStream</code></pre>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="AudioStreamPlayer nodes in the scene tree" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 16.1: AudioStreamPlayer nodes in the scene tree</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Play Sounds at Events</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Triggering Sounds</h4>
+                            <ul>
+                                <li>Add the reference to <strong>scripts/placement.gd</strong>, and play it at the end of try_place, after the zone is marked occupied:</li>
+                            </ul>
+                            <pre><code>
+@onready var place_sound = $PlaceSound</code></pre>
+                            <pre><code>
+	place_sound.play()</code></pre>
+                            <ul>
+                                <li>Add the reference to <strong>scripts/tower.gd</strong>, and play it in fire_projectile(), after the projectile is placed:</li>
+                            </ul>
+                            <pre><code>
+@onready var fire_sound = $FireSound</code></pre>
+                            <pre><code>
+	fire_sound.play()</code></pre>
+                            <ul>
+                                <li>Add the reference to <strong>scripts/enemy.gd</strong>. The fence hit sound plays from a child player. The death sound spawns a temporary player, because the enemy is freed on death:</li>
+                            </ul>
+                            <pre><code>
+@onready var fence_hit_sound = $FenceHitSound</code></pre>
+                            <pre><code>
+# In take_damage, inside the kill check, before get_parent().queue_free():
+	var player = AudioStreamPlayer.new()
+	player.stream = death_stream
+	get_tree().root.add_child(player)
+	player.play()
+	player.finished.connect(player.queue_free)</code></pre>
+                            <pre><code>
+# In the camp block, after Global.fence_durability -= damage:
+	fence_hit_sound.play()</code></pre>
+                            <ul>
+                                <li>The temporary player frees itself when the sound finishes. Nothing lingers in the tree.</li>
+                                <li>Add the references to <strong>scripts/wave_manager.gd</strong>. Play the start sound at the top of start_wave, and the complete sound beside the Wave complete print:</li>
+                            </ul>
+                            <pre><code>
+@onready var wave_start_sound = $WaveStartSound
+@onready var wave_complete_sound = $WaveCompleteSound</code></pre>
+                            <pre><code>
+	wave_start_sound.play()</code></pre>
+                            <pre><code>
+	wave_complete_sound.play()</code></pre>
+                            <ul>
+                                <li>Play the complete sound beside the print, so it starts before the summary pauses the tree.</li>
+                                <li>Add the reference to <strong>scripts/hud.gd</strong>, and play it as the first line of the Start Wave handler. Add the same line to each tower handler too:</li>
+                            </ul>
+                            <pre><code>
+@onready var click_sound = $ClickSound</code></pre>
+                            <pre><code>
+func _on_start_wave_button_pressed():
+	click_sound.play()
+	wave_manager.start_wave()</code></pre>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Sound calls added to game scripts" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 16.2: Sound calls added to game scripts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add Background Music</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One Track Under Everything</h4>
+                            <ul>
+                                <li>Music is one long track, not one sound per event. Pick a track that loops cleanly.</li>
+                                <li>Add an <strong>AudioStreamPlayer</strong> to your main scene and name it <strong>"Music"</strong> and drag your track into its Stream property.</li>
+                                <li>Turn on <strong>Autoplay</strong> on Music in the Inspector, so it starts when the main scene loads.</li>
+                                <li>If you want your music to play when the game is paused, change the Process Mode to <strong>Always</strong> in the inspector.</li>
+                                <li>Loop is an import setting, not a player setting. Select the music file in the FileSystem dock, open Import, turn on Loop, and reimport. If the track stops after one play, Loop is off in Import.</li>
+                                <li>Music is on the main scene, not on a wave or a tower, so it plays across waves without restarting.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Music player on the main scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 16.3: Music player on the main scene</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Test the Sounds</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Sound and Music</h4>
+                            <ul>
+                                <li>Start the game. The music plays under everything, and loops instead of stopping.  All sounds should play as expected.</li>
+                                <li>Kill an enemy. The death sound plays fully, even though the enemy is gone.</li>
+                                <li>Complete a wave. The complete sound rings out over the summary panel.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the sounds will not play:</strong>
+                                <ul>
+                                    <li>No sound at all: the stream is empty. Check the Inspector stream on that player.</li>
+                                    <li>Death sound cuts off instantly: the player is a child of the enemy, and the enemy is freed on death. Use the one-shot pattern from Step 2.</li>
+                                    <li>Sound plays but the wrong one: the stream on that player is the wrong file. Check each player's stream.</li>
+                                    <li>Music never starts: Autoplay is off. Check Music in the Inspector.</li>
+                                    <li>Music stops after one play: Loop is off in Import. Reimport the track with Loop on.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing sounds and music" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 16.4: Testing sounds and music</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page15.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 16 of 21</span>
+            </div>
+            <a href="page17.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

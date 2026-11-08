@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.9: Attacking & Cooldown States - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Attacking & Cooldown States</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 9 of 15</span>
+                <a href="page10.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 9 Videos</h3>
+                    <p>Watch: "Attacking & Cooldown States"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 9: Attacking & Cooldown States</h1>
+            <p class="unit-description">Complete the state machine with Attacking and Cooldown.</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="9">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Add the New States</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Two States Join the Machine</h4>
+                            <ul>
+                                <li>Open <strong>scripts/tower.gd</strong> from Section 8</li>
+                                <li>Add two states to the enum:</li>
+                            </ul>
+                            <pre><code>enum State { IDLE, TARGETING, ATTACKING, COOLDOWN }</code></pre>
+                            <ul>
+                                <li>Add two exports for the attack numbers:</li>
+                            </ul>
+                            <pre><code>
+@export var attack_damage = 10
+@export var cooldown_time = 1.0</code></pre>
+                            <ul>
+                                <li>Mine is 10 damage and 1 second of cooldown, but yours can be anything. Your GDD decides how hard your towers hit and how long they wait between attacks.</li>
+                                <li>Nothing else in the machine changes, this is the power of state machines.  No rework is needed.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="New states in the tower enum" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.1: New states in the tower enum</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Add the Cooldown Timer</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Adding a Timer Node</h4>
+                            <ul>
+                                <li>Add a <strong>Timer</strong> child to your tower scene root and name it <strong>"CooldownTimer"</strong></li>
+                                <li>In the Inspector, turn on <strong>One Shot</strong>. Without it, the timer repeats instead of stopping.</li>
+                                <li>Connect the Timer <strong>timeout</strong> signal to the tower script. Godot creates _on_cooldown_timer_timeout for you. Step 5 fills it in.</li>
+                                <li>Add a reference to the timer and set its wait time from the export. Add this to <strong>scripts/tower.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@onready var cooldown_timer = $CooldownTimer
+
+func _ready():
+	cooldown_timer.wait_time = cooldown_time</code></pre>
+                            <ul>
+                                <li>Setting wait_time from cooldown_time means the number lives in one place. Change the export value and the timer changes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Cooldown timer in the tower scene" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.2: Cooldown timer in the tower scene</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Give Enemies Health</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Health and Taking Damage</h4>
+                            <ul>
+                                <li>Open <strong>scripts/enemy.gd</strong></li>
+                                <li>Give the script a class name, the same trick as PlacementZone in Section 7. Add it under the extends line:</li>
+                            </ul>
+                            <pre><code>
+extends CharacterBody3D
+class_name Enemy</code></pre>
+                            <ul>
+                                <li>Add a health variable and set it from max_health in _ready. max_health comes from Section 4. If yours is missing it, add the export too.</li>
+                            </ul>
+                            <pre><code>
+var health = 0
+
+func _ready():
+	health = max_health</code></pre>
+                            <ul>
+                                <li>Add take_damage. When health runs out, the enemy dies:</li>
+                            </ul>
+                            <pre><code>
+func take_damage(amount):
+	health -= amount
+	if health <= 0:
+		get_parent().queue_free()</code></pre>
+                            <ul>
+                                <li>Freeing the parent PathFollow takes the enemy with it, the same idea as the path-end despawn in Section 5.</li>
+                                <li>The check is &lt;=, not ==, because a hit could overshoot the last point of health.</li>
+                                <li>Finally, in <strong>scripts/tower.gd</strong>, type the target as Enemy instead of Node3D, and do the same for nearest in find_target. Node3D does not know about take_damage, but Enemy does.</li>
+                            </ul>
+                            <pre><code>var target: Enemy = null</code></pre>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Enemy health and take_damage" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.3: Enemy health and take_damage</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Attacking Deals Damage</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>From Targeting to Attacking</h4>
+                            <ul>
+                                <li>TARGETING already faces the target. Change its ending so it hands off to the new state:</li>
+                            </ul>
+                            <pre><code>		
+State.TARGETING:
+    if not is_instance_valid(target) or global_position.distance_to(target.global_position) > attack_range:
+        target = null
+        state = State.IDLE
+    else:
+        if faces_target:
+            face_target()
+        state = State.ATTACKING</code></pre>
+                            <ul>
+                                <li>Add the ATTACKING branch to the match:</li>
+                            </ul>
+                            <pre><code>		
+State.ATTACKING:
+    if not is_instance_valid(target):
+        target = null
+        state = State.IDLE
+    else:
+        target.take_damage(attack_damage)
+        cooldown_timer.start()
+        state = State.COOLDOWN</code></pre>
+                            <ul>
+                                <li>The validity check is important. Two towers can target the same enemy, and the first one to land a killing hit frees it. Without this check, the second tower attacks a freed instance and errors.</li>
+                                <li>Attacking deals damage directly for now. Section 10 gives this attack a projectile to travel in, and take_damage stays exactly as it is.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> Attacking does its job in one frame. Deal the damage, start the timer, move on. The waiting is in Cooldown, not here.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Attacking branch in the state machine" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.4: Attacking branch in the state machine</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Cooldown Returns the Tower</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>A State That Waits</h4>
+                            <ul>
+                                <li>Add the COOLDOWN branch to the match. It does nothing per frame except wait for the timer to finish:</li>
+                            </ul>
+                            <pre><code>		
+State.COOLDOWN:
+	pass</code></pre>
+                            <ul>
+                                <li>Fill in the timeout handler from step 2:</li>
+                            </ul>
+                            <pre><code>
+func _on_cooldown_timer_timeout():
+	if is_instance_valid(target) and global_position.distance_to(target.global_position) <= attack_range:
+		state = State.TARGETING
+	else:
+		target = null
+		state = State.IDLE</code></pre>
+                            <ul>
+                                <li>When the timer finishes, the tower checks whether the fight is still on. Target alive and in range means back to Targeting. Anything else means back to Idle.</li>
+                                <li>A state does not need per-frame behavior. Some states just wait for a signal, and that is a normal way to build a state machine.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Cooldown timeout handler" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.5: Cooldown timeout handler</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="6">
+                            <span>Test the Attack Loop</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing Attacks and Cooldowns</h4>
+                            <ul>
+                                <li>Place a tower near the path, the way Section 7 taught you.</li>
+                                <li>Press <strong>F6</strong>. An enemy walks the path from Section 5.</li>
+                                <li>When the enemy comes in range, the tower attacks. With a temporary print in take_damage, you can watch the health drop hit by hit.</li>
+                                <li>After enough hits, the enemy disappears mid-path instead of reaching the Base. That is a kill.</li>
+                                <li>Attacks have gaps between them. Count the seconds. The gap should match your cooldown_time.</li>
+                                <li>Place a second tower near the same stretch of path. Both towers attack the same enemy with no freed instance error.</li>
+                                <li>When the enemy dies or walks out of range, the tower goes back to Idle.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the tower will not attack:</strong>
+                                <ul>
+                                    <li>Tower never attacks: the timeout signal is not connected, or TARGETING never hands off. Check the state = State.ATTACKING line.</li>
+                                    <li>Tower attacks once then stops: the timer never started. Check cooldown_timer.start() in ATTACKING, and check the timeout signal connection.</li>
+                                    <li>Tower attacks with no gap: cooldown_time is 0, or ATTACKING skips Cooldown. Check that ATTACKING sets state = State.COOLDOWN.</li>
+                                    <li>Timer keeps firing with nothing happening: One Shot is off, so the timer repeats instead of stopping.</li>
+                                    <li>Enemy never dies: attack_damage is too low for max_health, or take_damage is not reducing health. Check the health -= amount line and your GDD numbers.</li>
+                                    <li>Freed instance error with two towers: the validity check is missing from ATTACKING.</li>
+                                    <li>Error or warning about take_damage: the target is still typed as Node3D, or enemy.gd is missing class_name Enemy.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing the attack loop" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 9.6: Testing the attack loop</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page8.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 9 of 15</span>
+            </div>
+            <a href="page10.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

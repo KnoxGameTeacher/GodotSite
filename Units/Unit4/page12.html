@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.12: Wave Manager Basics - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Wave Manager Basics</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 12 of 21</span>
+                <a href="page13.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 12 Videos</h3>
+                    <p>Watch: "Wave Manager Basics"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 12: Wave Manager Basics</h1>
+            <p class="unit-description">Create a wave system with data-driven wave definitions.</p>
+        </div>
+
+        <!-- Concept Primer -->
+        <details class="concept-box" open>
+            <summary>What is an autoload?</summary>
+            <p>An autoload is a script Godot loads once when the game starts and keeps alive for the whole run. Every other script can reach it by name, no matter what scene is currently open. That makes it the right home for information the whole game needs: which wave you are on, how much fence durability is left, and later, how much gold you have.</p>
+            <p>You have used this pattern before. Unit 1 kept level information in a Global autoload, and Unit 3 kept hunger and health in one. This section uses the same pattern for a new job. Instead of each scene holding its own copy of a number, the number lives in one place every script already knows: Global.</p>
+        </details>
+
+        <!-- Concept Primer -->
+        <details class="concept-box" open>
+            <summary>What is a resource?</summary>
+            <p>A resource is data saved as a file. Instead of writing wave numbers inside a script, you describe a wave in a file: which enemies, how many of each, how far apart. The script reads the file and runs whatever it describes. Change the file, and the wave changes, with no code touched. A resource can hold other resources. A wave holds a list of entries, and each entry is a small resource of its own: one enemy scene, its count, and whether it is a boss.</p>
+            <p>So far, numbers have lived in @export variables on scenes. That works for one tower or one enemy, because each scene holds its own values. A wave is not one thing, it is a list of things, and lists belong in data, not in code. Resources let you build a whole set of waves as files in a folder, then hand the script the set and let it work through them.</p>
+        </details>
+
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="12">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Create the Global Autoload</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>One Script To Bind Them</h4>
+                            <ul>
+                                <li>Waves need numbers that exist outside any one scene: which wave is next, and how much fence is left. That is what an autoload is for.</li>
+                                <li>Create a script and save it as <strong>scripts/global.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+extends Node
+
+var current_wave = 0
+var fence_durability = 20</code></pre>
+                            <ul>
+                                <li>Open Project Settings, go to the Autoload tab, and add global.gd with the name <strong>"Global"</strong>.</li>
+                                <li>An autoload is a single instance that exists from game start. Any script can read and change it as Global, with no reference to pass around.</li>
+                                <li>Mine is 20 for fence_durability for now, but yours can be anything. Your GDD decides how much fence your base has.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Global autoload in Project Settings" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 12.1: Global autoload in Project Settings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Define a Wave as Data</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>A Wave You Can Edit in the Inspector</h4>
+                            <ul>
+                                <li>A wave definition is data in the inspector, so we don't need to change the spawner code each time.</li>
+                                <li>A wave holds more than one enemy type. Each type gets an entry: one scene and how many of it. The wave is the list of entries.</li>
+                                <li>Create a script and save it as <strong>scripts/wave_entry.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+extends Resource
+class_name WaveEntry
+
+@export var enemy_scene: PackedScene
+@export var enemy_count = 5
+@export var is_boss = false</code></pre>
+                            <ul>
+                                <li>Each entry will be a resource that we create.</li>
+                                <li>is_boss is off by default, so ordinary entries are unchanged.</li>
+                                <li>A boss wave is a special wave, and your GDD decides how often boss waves appear.</li>
+                                <li>Create a script and save it as <strong>scripts/wave_def.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+extends Resource
+class_name WaveDef
+
+@export var entries: Array[WaveEntry]
+@export var spawn_interval = 1.0</code></pre>
+                            <ul>
+                                <li>Now make your first wave. In the FileSystem dock, right click on the resource folder, create a new Resource, pick WaveDef, and save it as <strong>waves/wave_1.tres</strong>. In the Inspector, set the entries array size, pick New WaveEntry for each element, and set each enemy scene and count.</li>
+                                <li>Entries are inside the wave file. They are sub-resources, so a wave needs no separate files for its entries.</li>
+                                <li>You already have two enemy types from Section 4, so your first wave can mix them. Mine is 5 of my first enemy and 3 of my second, 1 second apart, but yours can be anything. Your GDD decides what your first wave looks like.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 GDD Check:</strong> Check your GDD. What is your first wave made of? Which enemy types, and how many of each? Use those values in wave_1.tres.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Wave resource in the Inspector" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 12.2: Wave resource in the Inspector</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Build the Wave Manager</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Spawning One Wave</h4>
+                            <ul>
+                                <li>Add a <strong>Node</strong> child to your main scene and name it <strong>"WaveManager"</strong></li>
+                                <li>Add a <strong>Timer</strong> child to WaveManager and name it <strong>"SpawnTimer"</strong>. Turn on <strong>One Shot</strong>.</li>
+                                <li>Attach a script and save it as <strong>scripts/wave_manager.gd</strong></li>
+                                <li>Start the script with exports and state:</li>
+                            </ul>
+                            <pre><code>
+extends Node
+
+@export var path: Path3D
+@export var waves: Array[WaveDef]
+
+@onready var spawn_timer = $SpawnTimer
+
+var wave_active = false
+var current_wave_def: WaveDef
+var spawn_queue: Array[PackedScene] = []
+var spawning_done = false</code></pre>
+                            <ul>
+                                <li>Drag your Path node into the path slot in the Inspector</li>
+                                <li>In the Inspector, set the waves array size and drag wave_1.tres into a slot</li>
+                                <li>Add the input action for starting a wave. Open Project Settings, go to Input Map, add an action called <strong>"start_wave"</strong>, and give it a key. Mine is Space.</li>
+                                <li>Add starting and spawning to <strong>scripts/wave_manager.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _unhandled_input(event):
+	if event.is_action_pressed("start_wave") and not wave_active:
+		start_wave()
+
+func start_wave():
+	if Global.current_wave >= waves.size():
+		print("No more waves")
+		return
+	current_wave_def = waves[Global.current_wave]
+	spawn_queue.clear()
+	for entry in current_wave_def.entries:
+		if entry.is_boss:
+			print("Boss wave!")
+		for i in entry.enemy_count:
+			spawn_queue.append(entry.enemy_scene)
+	if spawn_queue.is_empty():
+		print("Wave is empty")
+		return
+	spawning_done = false
+	wave_active = true
+	spawn_timer.wait_time = current_wave_def.spawn_interval
+	spawn_enemy()
+
+func spawn_enemy():
+	var follow = PathFollow3D.new()
+	follow.loop = false
+	path.add_child(follow)
+	var enemy = spawn_queue.pop_front().instantiate()
+	follow.add_child(enemy)
+	if spawn_queue.is_empty():
+		spawning_done = true
+	else:
+		spawn_timer.start()</code></pre>
+                            <ul>
+                                <li>Connect the SpawnTimer <strong>timeout</strong> signal to _on_spawn_timer_timeout, and add the handler:</li>
+                            </ul>
+                            <pre><code>func _on_spawn_timer_timeout():
+	spawn_enemy()</code></pre>
+                            <ul>
+                                <li>start_wave flattens the entries into a queue: each entry's scene, repeated its count, in array order. spawn_enemy pops the front of the queue each time it runs.</li>
+                                <li>Entries spawn in array order. The whole first entry spawns before the second begins, so the array order is the wave's script.</li>
+                                <li>for i in entry.enemy_count counts that many times. i is never used, it only counts.</li>
+                                <li>An empty queue means an empty wave, so start_wave stops before the wave goes active.</li>
+                                <li>The queue is rebuilt every wave, so a wave always spawns exactly what its entries describe.</li>
+                                <li>The first enemy spawns at once, so the key press feels responsive. The rest follow on the timer.</li>
+                                <li>The boss print fires while the queue builds, so it appears before the first enemy spawns, and one print per boss entry means a wave with two bosses prints twice.</li>
+                                <li>The flag also lets later sections find boss entries, and Section 13 uses it to add extra bosses each cycle.</li>
+                                <li>follow.loop = false is because a follow created in code defaults to looping, so without this line your enemies would wrap back to the start instead of reaching the Base.</li>
+                                <li>Waves start on a key press, not on a timer. The player decides when the next wave begins.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Wave manager spawning enemies" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 12.3: Wave manager spawning enemies</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Finish Waves and Damage the Fence</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Knowing When a Wave Is Over</h4>
+                            <ul>
+                                <li>A wave is over when every spawned enemy is gone and none are left walking. Add the check to <strong>scripts/wave_manager.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _process(delta):
+	if wave_active and spawning_done and get_tree().get_nodes_in_group("enemies").is_empty():
+		wave_active = false
+		Global.current_wave += 1
+		print("Wave complete")</code></pre>
+                            <ul>
+                                <li>The enemies group from Section 4 does this job. When it is empty, nothing is left alive.</li>
+                                <li>wave_active guards the check, so it cannot fire before the first wave starts.</li>
+                                <li>Reaching the Base no longer despawns the enemy. It stops there and attacks the fence until a tower kills it or the fence falls. Add an attack interval and a timer to <strong>scripts/enemy.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@export var attack_interval = 1.0
+
+var attack_timer = 0.0</code></pre>
+                            <ul>
+                                <li>Replace the movement and path-end part of _process with this. The old follow.queue_free() at the path end goes away:</li>
+                            </ul>
+                            <pre><code>
+func _process(delta):
+	if follow.progress_ratio >= 1.0:
+		attack_timer += delta
+		if attack_timer >= attack_interval:
+			attack_timer = 0.0
+			if Global.fence_durability > 0:
+				Global.fence_durability -= damage
+				if Global.fence_durability <= 0:
+					print("Game Over")
+	else:
+		follow.progress += move_speed * delta</code></pre>
+                            <ul>
+                                <li>The enemy stops moving once it reaches the Base, because progress only increases in the else.</li>
+                                <li>The fence guard stops the number going negative and stops repeat game-over prints once the fence has fallen.</li>
+                                <li>Mine is 1 second between hits, but yours can be anything. Your GDD decides how fast your enemies chew the fence.</li>
+                                <li>damage comes from Section 4. If your enemy.gd is missing it, add the export.</li>
+                                <li>There is no game over screen yet, so a print marks the moment. The fence number is tracked and ready for one.</li>
+                                <li>Remove your Section 5 test enemies from the main scene. The WaveManager spawns enemies now, and a leftover test enemy would keep the group from ever emptying.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 Note:</strong> These waves are hand-authored, one resource each.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Wave complete check and fence damage" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 12.4: Wave complete check and fence damage</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Test Waves</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing the Wave System</h4>
+                            <ul>
+                                <li>Press <strong>F6</strong>. Nothing spawns yet, waves wait for you to press your button.</li>
+                                <li>Press your start_wave key. Enemies walk the path one at a time, in entry order, spaced by your spawn interval.</li>
+                                <li>Build wave_1 with two enemy types. The first entry's enemies all spawn before the second entry's begin.</li>
+                                <li>Let your towers kill them all. The Output panel prints "Wave complete".</li>
+                                <li>Make a second wave resource with different entries, add it to the waves array, and play both waves. The second wave starts only after the first completes.</li>
+                                <li>Build a boss wave, a wave resource with one boss entry marked is_boss, and play it. The Output panel prints "Boss wave!" before the first enemy spawns.</li>
+                                <li>Let an enemy reach the Base. It stops there and hits the fence every attack interval, so the fence number drops by damage on each hit.</li>
+                                <li>The wave does not complete while an enemy camps the Base. Kill it with your towers and the wave completes.</li>
+                                <li>Let the fence fall. The Output panel prints "Game Over".</li>
+                                <li>There is no HUD yet, so prints tell you what happened.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If waves will not start:</strong>
+                                <ul>
+                                    <li>Nothing happens on the key press: the start_wave action is missing from the Input Map, or WaveManager is not in the main scene.</li>
+                                    <li>Nothing happens on the key press: a previous wave never completed, so wave_active is still true. Check that the enemies group is empty.</li>
+                                    <li>"No more waves" on the first press: the waves array is empty. Drag wave_1.tres into a slot.</li>
+                                    <li>"Wave is empty" on the first press: the entries array is empty, or an entry has a count of 0. Check wave_1.tres.</li>
+                                    <li>Wrong enemy spawns: an entry's enemy_scene slot is empty or points at the wrong scene. Check wave_1.tres.</li>
+                                    <li>Enemies spawn at the wrong place: the path export is empty. Drag your Path node into the slot.</li>
+                                    <li>Enemies wrap back to the start instead of reaching the Base: follow.loop = false is missing from spawn_enemy.</li>
+                                    <li>Enemies keep spawning past the queue: One Shot is off on the SpawnTimer, so it keeps firing after spawning is done.</li>
+                                    <li>Wave never completes: a Section 5 test enemy is still in the scene, keeping the enemies group from emptying.</li>
+                                    <li>Fence number never drops: the path-end change is missing from enemy.gd, or damage is 0.</li>
+                                    <li>"Boss wave!" never prints: is_boss is off on the entry, or the print is missing from the queue loop in start_wave. Check the entry and the loop.</li>
+                                    <li>Error about Global not declared: the autoload is not added. Check the Autoload tab in Project Settings, with the name Global.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing waves" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 12.5: Testing waves</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page11.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 12 of 21</span>
+            </div>
+            <a href="page13.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

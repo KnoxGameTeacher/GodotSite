@@ -109,7 +109,7 @@
                 <div class="step-content">
                     <div class="step-instructions">
                         <div class="instruction-section">
-                            <h4>Stats Belong in the Inspector</h4>
+                            <h4>Stats in the Inspector</h4>
                             <ul>
                                 <li>Attach a new script to the Enemy root and save it as <strong>scripts/enemy.gd</strong></li>
                                 <li>Add your stats as <strong>@export</strong> variables, like this:</li>
@@ -122,7 +122,7 @@
 @export var gold_reward = 10</code></pre>
                             <ul>
                                 <li><strong>@export</strong> puts these in the Inspector, so you can tune them without opening the script</li>
-                                <li>Keep stats as variables, never constants. Later sections will change them while the game runs.</li>
+                                <li>Keep stats as variables, not constants. Later sections will change them while the game runs, and constants cannot be modified at runtime.</li>
                                 <li>This one script will be shared by every enemy scene you make.</li>
                             </ul>
                             <div class="tip-box">

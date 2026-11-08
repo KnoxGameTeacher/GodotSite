@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.18: Save System with JSON - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Save System with JSON</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 18 of 21</span>
+                <a href="page19.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 18 Videos</h3>
+                    <p>Watch: "Save System with JSON"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 18: Save System with JSON</h1>
+            <p class="unit-description">Save and load progress and settings using JSON and user:// paths</p>
+        </div>
+
+        <!-- Concept Primer -->
+        <details class="concept-box" open>
+            <summary>What is saving?</summary>
+            <p>Saving means writing the game's important numbers to a file on the player's computer, so they are still there next time the game opens. Godot hands you a dictionary of values, and JSON turns that dictionary into text a file can hold. Loading reads the text back and turns it into a dictionary again.</p>
+            <p>So far, every number has existed only while the game runs. Close the game and the wave, the gold, and the settings are gone, because variables reset when the program stops. A save file is the first time your game's memory outlives a single run. JSON is just the format for that memory: text shaped like the dictionaries you already know, so it is easy to read and hard to break.</p>
+        </details>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="18">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Save the Game</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Numbers to Text</h4>
+                            <ul>
+                                <li>Saving means turning the game's numbers into text and writing that text to a file. JSON is the format, user:// is the folder.</li>
+                                <li>Open <strong>scripts/main.gd</strong>. Saving will be in the same script as the menu, because one script owns the game around the game.</li>
+                                <li>Add the save path and save_game to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+const SAVE_PATH = "user://save.json"
+
+func save_game():
+	var data = {
+		"current_wave": Global.current_wave,
+		"fence_durability": Global.fence_durability,
+		"gold": Global.gold
+	}
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	file.store_string(JSON.stringify(data))
+	file.close()
+	print("Game saved")</code></pre>
+                            <ul>
+                                <li>The path is in one constant, so save and load can never disagree about the filename.</li>
+                                <li>user:// is Godot's folder for player files. It is outside your project, so a save survives closing the game and reopening it.</li>
+                                <li>Add a <strong>Button</strong> named <strong>"SaveButton"</strong> to the pause panel, beside ResumeButton, and set its text to Save.</li>
+                                <li>Connect the Save button's pressed signal, and add the handler to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _on_save_button_pressed():
+	save_game()</code></pre>
+                            <ul>
+                                <li>Buttons will work while paused. The pause menu is Always, so its buttons hear clicks even when the game is frozen.</li>
+                                <li>Press Esc and the menu appears. Press Save, the Output panel prints Game saved. Press Resume, the game continues.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Saving game data to a JSON file" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 18.1: Saving game data to a JSON file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Load the Game</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Text Back to Numbers</h4>
+                            <ul>
+                                <li>Loading reverses saving. Read the text, parse it back into a dictionary, and put the numbers back in Global.</li>
+                                <li>Add load_game to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func load_game():
+	if not FileAccess.file_exists(SAVE_PATH):
+		print("No save file")
+		return
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var text = file.get_as_text()
+	file.close()
+	var data = JSON.parse_string(text)
+	if data == null:
+		print("Save file is broken")
+		return
+	Global.current_wave = data.get("current_wave", 0)
+	Global.fence_durability = data.get("fence_durability", 20)
+	Global.gold = data.get("gold", 100)
+	print("Game loaded")</code></pre>
+                            <ul>
+                                <li>The file_exists check comes first because loading with no save would crash the game.</li>
+                                <li>The null check comes second so that parse_string returns null when the text is not valid JSON. This way a damaged file prints a message instead of crashing.</li>
+                                <li>.get with a default means an old save missing a key still loads. Each number falls back to its starting value.</li>
+                                <li>After reopening the game, a load lands in the buy phase, since the wave state itself is not saved.</li>
+                                <li>Add a <strong>Button</strong> named <strong>"LoadButton"</strong> to the pause panel, beside SaveButton, and set its text to Load.</li>
+                                <li>Connect the Load button's pressed signal, and add the handler to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _on_load_button_pressed():
+	load_game()</code></pre>
+                            <ul>
+                                <li>Save from the pause menu, spend some gold, load from the pause menu, and watch the gold label jump back to the saved amount.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Loading game data from a JSON file" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 18.2: Loading game data from a JSON file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Save Settings in the Same File</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Adding Settings</h4>
+                            <ul>
+                                <li>Section 17 built the settings dictionary and the controls. We won't declare them again, this step saves what is already there.</li>
+                                <li>Settings are just more numbers, so they ride in the same file. Add the settings line to the data dictionary in save_game:</li>
+                            </ul>
+                            <pre><code>
+	var data = {
+		"current_wave": Global.current_wave,
+		"fence_durability": Global.fence_durability,
+		"gold": Global.gold,
+		"settings": settings
+	}</code></pre>
+                            <ul>
+                                <li>In load_game, read settings back and apply them, right after the gold line:</li>
+                            </ul>
+                            <pre><code>
+	settings = data.get("settings", settings)
+	apply_settings()</code></pre>
+                            <ul>
+                                <li>The .get default keeps your current settings when an old save has no settings key.</li>
+                                <li>Apply settings as part of loading, so the volume and mute state are correct from the first moment.</li>
+                                <li>Add apply_settings to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func apply_settings():
+	var volume = settings.get("master_volume", 1.0)
+	volume_slider.value = volume
+	mute_checkbox.button_pressed = settings.get("muted", false)
+	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(volume, 0.0001)))
+	AudioServer.set_bus_mute(0, settings.get("muted", false))</code></pre>
+                            <ul>
+                                <li>.get with defaults means a damaged or partial settings block still loads. Volume falls back to full, mute falls back to off.</li>
+                                <li>The slider and checkbox are set from the loaded values, so the menu should show the correct state instead of its defaults.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Settings saved in the same JSON file" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 18.3: Settings saved in the same JSON file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Save the Towers Too</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>The Field Is Part of the Save</h4>
+                            <ul>
+                                <li>Numbers alone make a broken load. Save with 100 gold, spend it on towers, load, and the gold comes back while the towers stay. That is free money, forever. Loading must rebuild the field exactly as saved, so gold and towers always agree.</li>
+                                <li>Track placed towers in <strong>scripts/placement.gd</strong>. Each entry holds the tower node and its index into tower_scenes:</li>
+                            </ul>
+                            <pre><code>
+var placed_towers = []</code></pre>
+                            <ul>
+                                <li>Record each placement at the end of try_place, after the zone is marked occupied:</li>
+                            </ul>
+                            <pre><code>
+	placed_towers.append({"node": tower, "index": selected_index})</code></pre>
+                            <ul>
+                                <li>Turn the list into saveable data. JSON holds only simple types, so a position becomes three numbers in an array:</li>
+                            </ul>
+                            <pre><code>
+func get_tower_data():
+	var data = []
+	for entry in placed_towers:
+		var pos = entry["node"].global_position
+		data.append({"index": entry["index"], "position": [pos.x, pos.y, pos.z]})
+	return data</code></pre>
+                            <ul>
+                                <li>Rebuild the field on load. Clear the old towers, free every zone, then place the saved ones again. Add load_towers to <strong>scripts/placement.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func load_towers(tower_data):
+	for entry in placed_towers:
+		entry["node"].queue_free()
+	placed_towers.clear()
+	for node in get_tree().get_nodes_in_group("placement_zones"):
+		var zone = node as PlacementZone
+		zone.occupied = false
+	for entry in tower_data:
+		var tower = tower_scenes[entry["index"]].instantiate()
+		add_child(tower)
+		var pos = Vector3(entry["position"][0], entry["position"][1], entry["position"][2])
+		tower.global_position = pos
+		for node in get_tree().get_nodes_in_group("placement_zones"):
+			var zone = node as PlacementZone
+			if zone.global_position.distance_to(pos) < 0.01:
+				zone.occupied = true
+		placed_towers.append({"node": tower, "index": entry["index"]})</code></pre>
+                            <ul>
+                                <li>The zone match checks closeness, not equality. Positions rarely survive a file round trip bit for bit, so a tiny distance might exist.</li>
+                                <li>The cast to PlacementZone is the Section 7 trick again. The group hands back plain nodes, and occupied only exists on PlacementZone.</li>
+                                <li>Wire the field into the save. Add the placement reference to <strong>scripts/main.gd</strong>, the towers line to save_game, and the load line to load_game, after the gold line and before the settings lines:</li>
+                            </ul>
+                            <pre><code>
+@onready var placement = $Placement</code></pre>
+                            <pre><code>
+		"settings": settings,
+		"towers": placement.get_tower_data()</code></pre>
+                            <pre><code>
+	Global.gold = data.get("gold", 100)
+	placement.load_towers(data.get("towers", []))</code></pre>
+                            <ul>
+                                <li>The empty default is important. Saves from before this step have no towers key, so they load with an empty field instead of crashing.  This is something to remember when creating any save file.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Placed towers saved and rebuilt on load" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 18.4: Placed towers saved and rebuilt on load</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Test Saving and Settings</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing the Save File</h4>
+                            <ul>
+                                <li>Place towers, save from the pause menu, place more towers, load. Only the saved towers stand, and gold matches the save.</li>
+                                <li>Close the game completely and reopen it. Load from the pause menu. Your saved towers return, and the HUD labels show your wave, fence, and gold.</li>
+                                <li>Save from the pause menu, then load from it. Change gold first. Spend on a tower, save, spend more, load, and watch the gold label jump back to the saved amount.</li>
+                                <li>Change the volume, save from the pause menu, close the game, reopen it, and load. The slider sits where you left it, and the bus matches.</li>
+                                <li>Open the pause menu after loading. The slider and checkbox show the loaded values, not their defaults.</li>
+                                <li>Delete user://save.json, then load from the pause menu. The Output panel prints No save file, and nothing breaks.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If saving will not work:</strong>
+                                <ul>
+                                    <li>Nothing saves: the save path is wrong, or save_game is never called. Check the SaveButton connection.</li>
+                                    <li>Save button does nothing: the pressed signal is not connected. Check the SaveButton connections.</li>
+                                    <li>Load button does nothing: the pressed signal is not connected. Check the LoadButton connections.</li>
+                                    <li>Load prints No save file: no save exists yet. Save first, then load.</li>
+                                    <li>Load prints Save file is broken: the JSON is damaged. Delete save.json and save again.</li>
+                                    <li>Loaded numbers are wrong: the save dictionary is missing a key, or load reads a different key than save wrote. Check the key names match on both sides.</li>
+                                    <li>Settings reset on load: the settings key is missing from the save dictionary, or apply_settings is never called in load_game. Check Step 3.</li>
+                                    <li>Menu shows defaults after load: apply_settings never ran, or it sets the bus but not the controls. Check that it sets volume_slider.value and mute_checkbox.button_pressed.</li>
+                                    <li>Towers missing after load: load_towers is never called, or the towers key is missing. Check load_game.</li>
+                                    <li>Towers doubled after load: placed_towers never cleared. Check load_towers clears first.</li>
+                                    <li>Zone stays blocked after load: the zone match failed. Check the distance check.</li>
+                                    <li>Old save loads an empty field: saves from before Step 4 have no towers key. The empty default handles it, but the field starts empty.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing saving and settings" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 18.5: Testing saving and settings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page17.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 18 of 21</span>
+            </div>
+            <a href="page19.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>

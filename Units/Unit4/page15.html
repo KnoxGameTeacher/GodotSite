@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4.15: Pause Menu, HUD, and Wave Summary - Godot Game Design</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Section Header Navigation -->
+        <div class="section-header-nav">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> >
+                <a href="index.html">Unit 4</a> >
+                <span>Pause Menu, HUD, and Wave Summary</span>
+            </div>
+            <div class="section-nav">
+                <span class="section-nav-current">Section 15 of 21</span>
+                <a href="page16.html" class="next-button">Next Section →</a>
+            </div>
+        </div>
+
+        <!-- YouTube Section -->
+        <div class="youtube-section">
+            <div class="section-header">
+                <span class="section-icon">▶</span>
+                <h2>Video Tutorials</h2>
+                <span class="section-divider">━━━━━━━━━━━━━━━━━━━━</span>
+            </div>
+            <div class="youtube-placeholder">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon"></div>
+                    <h3>Section 15 Videos</h3>
+                    <p>Watch: "Pause Menu, HUD, and Wave Summary"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="unit-header">
+            <h1>Section 15: Pause Menu, HUD, and Wave Summary</h1>
+            <p class="unit-description">Build a pause menu, a HUD, and a wave summary panel</p>
+        </div>
+
+        <!-- Steps Container -->
+        <div class="steps" data-unit="4" data-section="15">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">Section Progress: <span id="progress-percent">0%</span></div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="1">
+                            <span>Build the Pause Menu</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Setting Up</h4>
+                            <ul>
+                                <li>Menus are not 3D elements, they are on a CanvasLayer, a 2D layer drawn above the game that never moves with the camera.</li>
+                                <li>Attach a script to your main scene root and save it as <strong>scripts/main.gd</strong>. This is where we'll put menu code.</li>
+                                <li>Add a <strong>CanvasLayer</strong> to your main scene and name it <strong>"PauseMenu"</strong>.</li>
+                                <li>Add a <strong>Panel</strong> child to PauseMenu.</li>
+                                <li>Add a <strong>Button</strong> child to the panel, name it <strong>"ResumeButton"</strong>, and set its text to Resume.</li>
+                                <li>Turn off Visible on PauseMenu in the Inspector, so the menu starts hidden.</li>
+                                <li>Set PauseMenu's <strong>Process Mode</strong> to <strong>Always</strong> in the Inspector. This is the step everyone forgets, and the menu will not work without it.</li>
+                                <li>Add a pause_menu reference to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>@onready var pause_menu = $PauseMenu</code></pre>
+                            <ul>
+                                <li>A CanvasLayer draws its children as flat UI, no matter where the 3D camera goes.</li>
+                                <li>Visible off means the menu is there, but invisible to the player until we change that property.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Pause menu CanvasLayer in the scene tree" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 15.1: Pause menu CanvasLayer in the scene tree</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="2">
+                            <span>Pause and Resume</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Coding the Pause Functionality</h4>
+                            <ul>
+                                <li>Add a new input action for pausing. Open Project Settings, go to Input Map, add an action called <strong>"pause"</strong>, and give it a key. Mine is Esc.</li>
+                                <li>Add toggle_pause to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func toggle_pause():
+	get_tree().paused = not get_tree().paused
+	pause_menu.visible = get_tree().paused</code></pre>
+                            <ul>
+                                <li>Connect the Resume button's pressed signal to a handler that calls toggle_pause:</li>
+                            </ul>
+                            <pre><code>
+func _on_resume_button_pressed():
+	toggle_pause()</code></pre>
+                            <ul>
+                                <li>Add input handling to <strong>scripts/main.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _unhandled_input(event):
+	if event.is_action_pressed("pause"):
+		toggle_pause()</code></pre>
+                            <ul>
+                                <li>Pausing flips the boolean value that controls the menu's visibility.</li>
+                                <li>The main script pauses with the game, so it cannot hear any action presses not on the menu.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the pause menu will not respond:</strong> Check the PauseMenu's Process Mode first. When the game is paused, every node with the default Process Mode pauses too, including your menu's buttons. Setting it to Always keeps the menu alive while the game is frozen.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Pause menu with Resume button" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 15.2: Pause menu with Resume button</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="3">
+                            <span>Add a HUD</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Player Interface</h4>
+                            <ul>
+                                <li>Add a second CanvasLayer to your main scene and name it <strong>"HUD"</strong>.</li>
+                                <li>Set its Layer to 0, so the pause menu (Layer 1 by default) always draws above it.</li>
+                                <li>Add three <strong>Labels</strong>: <strong>GoldLabel</strong>, <strong>WaveLabel</strong>, and <strong>FenceLabel</strong>. Place them where players can read them at a glance.</li>
+                                <li>Add a <strong>Button</strong> named <strong>"StartWaveButton"</strong> and set its text to Start Wave.</li>
+                                <li>Add one tower <strong>Button</strong> per tower scene. Mine has four, so I have four buttons. Set each button's text to that tower's name and cost, so players know what they are buying.</li>
+                                <li>Attach a script to HUD and save it as <strong>scripts/hud.gd</strong>.</li>
+                                <li>Add label, button, and system references to <strong>scripts/hud.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@onready var gold_label = $GoldLabel
+@onready var wave_label = $WaveLabel
+@onready var fence_label = $FenceLabel
+@onready var start_wave_button = $StartWaveButton
+@onready var wave_manager = $"../WaveManager"
+@onready var placement = $"../Placement"</code></pre>
+                            <ul>
+                                <li>HUD sits beside WaveManager and Placement in the main scene, so $"../" tells the HUD it is in a higher level in the scene tree.</li>
+                                <li>Update the labels and the button state every frame in <strong>scripts/hud.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _process(delta):
+	gold_label.text = "Gold: " + str(Global.gold)
+	wave_label.text = "Wave: " + str(Global.current_wave + 1)
+	fence_label.text = "Fence: " + str(Global.fence_durability)
+	start_wave_button.disabled = wave_manager.wave_active</code></pre>
+                            <ul>
+                                <li>current_wave counts finished waves, so the next wave is current_wave + 1.</li>
+                                <li>While a wave runs, the Start Wave button disables itself, so players cannot start two waves at once.</li>
+                                <li>Connect the button pressed signals, and add the handlers to <strong>scripts/hud.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+func _on_start_wave_button_pressed():
+	wave_manager.start_wave()
+
+func _on_tower_1_button_pressed():
+	placement.select_tower(0)
+
+func _on_tower_2_button_pressed():
+	placement.select_tower(1)
+
+func _on_tower_3_button_pressed():
+	placement.select_tower(2)</code></pre>
+                            <ul>
+                                <li>The button and the Space key call the same function.</li>
+                                <li>Tower buttons call select_tower, the same function the number keys call.</li>
+                                <li>HUD and PauseMenu are separate CanvasLayers because one is always visible and the other hides.</li>
+                                <li>As written, you will need to manually update the button texts when tower costs change.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="HUD with gold, wave, and fence labels" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 15.3: HUD with gold, wave, and fence labels</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                       <!-- Step 4 -->
+            <div class="step-card" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="4">
+                            <span>Add a Wave Summary</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Info Pause Between Waves</h4>
+                            <ul>
+                                <li>Between waves is the buy phase, and traditionally these games would have a summary screen between waves. Add a <strong>Panel</strong> child to HUD and name it <strong>"SummaryPanel"</strong>.</li>
+                                <li>Add a <strong>Label</strong> child to SummaryPanel and name it <strong>"SummaryLabel"</strong>.</li>
+                                <li>Add a <strong>Button</strong> child to SummaryPanel, name it <strong>"BuyPhaseButton"</strong>, and set its text to Start Buy Phase.</li>
+                                <li>Turn off Visible on SummaryPanel in the Inspector, so it starts hidden.</li>
+                                <li>Set SummaryPanel's <strong>Process Mode</strong> to <strong>Always</strong> in the Inspector, the same step as PauseMenu. The panel pauses the game when it shows, so its button must stay alive while everything else freezes.</li>
+                                <li>Add class_name HUD as the first line of <strong>scripts/hud.gd</strong>, above extends, the same trick as Tower in Section 8. WaveManager needs the type to call the summary:</li>
+                            </ul>
+                            <pre><code>
+class_name HUD  
+extends CanvasLayer</code></pre>
+                            <ul>
+                                <li>To give the player some information on their wave results, we need to track the wave's economics. Add an earnings total to <strong>scripts/global.gd</strong>, beside gold:</li>
+                            </ul>
+                            <pre><code>
+var fence_durability = 20
+var gold = 100
+var gold_earned = 0 </code></pre>
+                            <ul>
+                                <li>Earnings will have to be in Global, since the kill pay in enemy.gd and the bonus in wave_manager.gd both need to reach them.</li>
+                                <li>Add a starting-gold snapshot to <strong>scripts/wave_manager.gd</strong>, next to the other state:</li>
+                            </ul>
+                            <pre><code>
+var current_cycle = 0
+var current_wave_def: WaveDef
+var gold_at_wave_start = 0 </code></pre>
+                            <ul>
+                                <li>Add two lines to start_wave in <strong>scripts/wave_manager.gd</strong>, right after the empty guard and before the queue builds:</li>
+                            </ul>
+                            <pre><code>
+func start_wave():
+	if waves.is_empty():
+		print("No waves")
+		return
+	gold_at_wave_start = Global.gold  
+	Global.gold_earned = 0  
+	var def_index = Global.current_wave % waves.size()</code></pre>
+                            <ul>
+                                <li>Starting gold is a snapshot, so mid-wave spending never corrupts it, and earnings count gross, so spending never shrinks them.</li>
+                                <li>Earnings reset every wave, so no save entry is needed.</li>
+                                <li>Count earnings in the kill branch of take_damage in <strong>scripts/enemy.gd</strong>, beside the gold pay:</li>
+                            </ul>
+                            <pre><code>
+	health -= effective
+	if health <= 0:
+		Global.gold += gold_reward
+		Global.gold_earned += gold_reward 
+		get_parent().queue_free()</code></pre>
+                            <ul>
+                                <li>Earnings count through take_damage, so direct hits, splash, and burn all count the same way.</li>
+                                <li>Add panel references and the summary function to <strong>scripts/hud.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+@onready var wave_manager = $"../WaveManager"
+@onready var placement = $"../Placement"
+@onready var summary_panel = $SummaryPanel  
+@onready var summary_label = $SummaryPanel/SummaryLabel 
+
+func show_wave_summary():
+	var text = "Wave " + str(Global.current_wave) + " complete!"
+	text += "\nStarting gold: " + str(wave_manager.gold_at_wave_start)
+	text += "\nGold earned: " + str(Global.gold_earned)
+	summary_label.text = text
+	summary_panel.visible = true
+	get_tree().paused = true</code></pre>
+                            <ul>
+                                <li>The popup reads the snapshot and the earnings total, so it shows what the wave started with and what it paid, not just the current total.</li>
+                                <li>Current gold stays on the HUD label, and fence stays on its label, so the popup does not repeat them.</li>
+                                <li>wave_manager already has a reference in hud.gd from Step 3, so the snapshot is one member away.</li>
+                                <li>The \n inside the text breaks the label into three lines.</li>
+                                <li>Connect the Buy Phase button's pressed signal, and add the handler to <strong>scripts/hud.gd</strong>:</li>
+                            </ul>
+                            <pre><code>
+	summary_panel.visible = true
+	get_tree().paused = true
+
+func _on_buy_phase_button_pressed():  
+	summary_panel.visible = false
+	get_tree().paused = false</code></pre>
+                            <ul>
+                                <li>Pressing the button unpauses into the buy phase, where wave_active is false and towers can be placed.</li>
+                                <li>Call the summary from the completion check in <strong>scripts/wave_manager.gd</strong>. Add a hud reference beside the spawn_timer reference:</li>
+                            </ul>
+                            <pre><code>
+@onready var spawn_timer = $SpawnTimer
+@onready var hud = get_parent().get_node("HUD") as HUD  
+
+var wave_active = false</code></pre>
+                            <ul>
+                                <li>Add the call to the completion check, so the full check now reads:</li>
+                            </ul>
+                            <pre><code>
+func _process(delta):
+	if wave_active and spawning_done and get_tree().get_nodes_in_group("enemies").is_empty():
+		wave_active = false
+		Global.current_wave += 1
+		Global.gold += 25
+		Global.gold_earned += 25  
+		print("Wave complete")
+		hud.show_wave_summary() </code></pre>
+                            <ul>
+                                <li>The bonus pays into both totals, so the popup's earned line includes the 25.</li>
+                                <li>The gold line from Section 14 stays, so the summary joins it instead of replacing it.</li>
+                                <li>current_wave already counted up by the time the summary shows, so the wave just finished is current_wave, not current_wave + 1.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Wave summary panel on the HUD" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 15.4: Wave summary panel on the HUD</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Step 5 -->
+            <div class="step-card" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">
+                        <label>
+                            <input type="checkbox" class="step-check" data-step="5">
+                            <span>Test the UI</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-instructions">
+                        <div class="instruction-section">
+                            <h4>Testing UI</h4>
+                            <ul>
+                                <li>Press <strong>Esc</strong>. The game freezes and the menu appears. Press <strong>Resume</strong>. The game continues.</li>
+                                <li>Try placing a tower while paused. Nothing happens. Paused nodes cannot hear input, which is why the menu needs its process set to Always.</li>
+                                <li>Kill an enemy. The gold label jumps. Spend on a tower. It drops. The labels track Global with no prints needed.</li>
+                                <li>Press Start Wave. A wave starts. Press a tower button. The ghost switches to that tower.</li>
+                                <li>Start a wave, then look at Start Wave. It is greyed out until the wave ends.</li>
+                                <li>Press Esc. The pause menu draws above the HUD.</li>
+                                <li>Complete a wave. The popup appears with the wave number, starting gold, and gold earned, and the game freezes behind it. Press Start Buy Phase. The panel hides and the buy phase begins, with towers placeable and Start Wave ready for the next wave.</li>
+                                <li>Place a tower mid-wave, then finish the wave. Starting gold still shows the pre-wave total, and earned still counts the full kills plus the bonus.</li>
+                            </ul>
+                            <div class="tip-box">
+                                <strong>💡 If the menu will not work:</strong>
+                                <ul>
+                                    <li>Menu never appears: the pause action is missing, or toggle_pause is never called. Check Input Map and _unhandled_input.</li>
+                                    <li>Menu appears but buttons do nothing: Process Mode is not Always. Check PauseMenu in the Inspector.</li>
+                                    <li>Menu shows at game start: Visible is still on for PauseMenu. Turn it off in the Inspector.</li>
+                                    <li>Resume does nothing: the pressed signal is not connected. Check the ResumeButton connections.</li>
+                                    <li>Esc pauses but never resumes: that is the design. The main script pauses with the game, so Resume is the way back.</li>
+                                    <li>Gold label never changes: hud.gd is not updating it, or the label path is wrong. Check _process and the label names.</li>
+                                    <li>Start Wave button does nothing: the pressed signal is not connected, or the WaveManager path is wrong. Check the connections and $"../WaveManager".</li>
+                                    <li>Tower buttons do nothing: the pressed signal is not connected. Check the connections, and that select_tower is called.</li>
+                                    <li>HUD draws over the pause menu: the HUD's Layer is not below the pause menu's. Set HUD Layer to 0.</li>
+                                    <li>Wave label shows the wrong number: current_wave counts finished waves, so the next wave is current_wave + 1. Check the + 1.</li>
+                                    <li>Summary never shows: show_wave_summary is never called from the completion check. Check wave_manager _process.</li>
+                                    <li>Start Buy Phase does nothing: SummaryPanel Process Mode is not Always. Check the panel in the Inspector.</li>
+                                    <li>Game stays paused after Start Buy Phase: paused = false is missing from the handler. Check _on_buy_phase_button_pressed.</li>
+                                    <li>Earned total looks wrong: gold_earned never resets in start_wave, or the take_damage line is missing. Check both.</li>
+                                    <li>Starting gold looks wrong: gold_at_wave_start is never set in start_wave. Check the snapshot line.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-media">
+                        <div class="image-container">
+                            <img src="../../_placeholderimage.png" alt="Testing the pause menu" width="600" height="400" class="step-image">
+                            <div class="image-caption">Figure 15.5: Testing the pause menu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <a href="index.html" class="nav-button">← Unit Home</a>
+            <div class="page-buttons">
+                <a href="page14.html" class="page-button">← Previous</a>
+                <span class="current-page">Section 15 of 21</span>
+            </div>
+            <a href="page16.html" class="nav-button primary">Next →</a>
+        </div>
+    </div>
+    <script src="../../course-data.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>
